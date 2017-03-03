@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Creators on CGrok</title>
+    <link>https://legends2k.github.io/tags/creators/index.xml</link>
+    <description>Recent content in Creators on CGrok</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <atom:link href="https://legends2k.github.io/tags/creators/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>My Inspirers</title>
+      <link>https://legends2k.github.io/post/inspirers/</link>
+      <pubDate>Thu, 02 Mar 2017 22:41:05 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/post/inspirers/</guid>
+      <description>
+
+&lt;p&gt;I have been inspired by many unknown authors all over the internet and otherwise, but a few lingered on my mind long enough to be listed here.  Not all of them are authors, but they inspired me with some creative work of theirs.&lt;/p&gt;
+
+&lt;h2 id=&#34;kalki-r-krishnamurthy&#34;&gt;Kalki R. Krishnamurthy&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Kalki_Krishnamurthy&#34;&gt;A &lt;em&gt;great&lt;/em&gt; writer&lt;/a&gt;, and freedom fighter, who effortlessly balanced content against gripping narration.  He pioneered in writing under a unique genre &amp;mdash; Historical fiction &amp;mdash; by mixing imagination with facts in the right amount and proved that it can be done with &lt;a href=&#34;https://en.wikipedia.org/wiki/Ponniyin_Selvan&#34;&gt;great success&lt;/a&gt;.  He&amp;rsquo;s the only author I have seen to give evidences in a fictinal work.  Though &lt;em&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Tamil_language&#34;&gt;Tamil&lt;/a&gt;&lt;/em&gt; is my mother tounge, I am sure I am unbiased here.&lt;/p&gt;
+
+&lt;h2 id=&#34;joel-spolsky&#34;&gt;Joel Spolsky&lt;/h2&gt;
+
+&lt;p&gt;Witty, provoking and insightful writer of technical topics.  I like many of his articles, but these are worth mentioning.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.joelonsoftware.com/2006/08/01/can-your-programming-language-do-this/&#34;&gt;Can your programming language do this?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.joelonsoftware.com/2005/12/29/the-perils-of-javaschools-2/&#34;&gt;Perils of Java Schools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/&#34;&gt;The Law of Leaky Abstractions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.joelonsoftware.com/2001/10/14/in-defense-of-not-invented-here-syndrome/&#34;&gt;In Defense of Not-Invented-Here Syndrome&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;eris-s-raymond&#34;&gt;Eris S. Raymond&lt;/h2&gt;
+
+&lt;p&gt;Hacker, writer who defined the defining characteristics of a hacker.  If you are a programmer, or are aspiring to becoming a good one, I strongly recommend you know&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.catb.org/~esr/faqs/smart-questions.html&#34;&gt;How To Ask Questions The Smart Way&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.catb.org/esr/faqs/hacker-howto.html&#34;&gt;How To Become A Hacker&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;dennis-m-ritchie&#34;&gt;Dennis M. Ritchie&lt;/h2&gt;
+
+&lt;p&gt;He&amp;rsquo;s creator of the &lt;em&gt;C&lt;/em&gt; programming language, co-author of &lt;em&gt;The C Programming Language&lt;/em&gt; and the poster child for the &lt;em&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Unix_philosophy&#34;&gt;Unix Philosophy&lt;/a&gt;&lt;/em&gt;.  His writings are, to me, the canonical example of clear, concise technical content.  If you haven&amp;rsquo;t read &lt;a href=&#34;https://www.bell-labs.com/usr/dmr/www/hist.html&#34;&gt;The Evolution of the Unix Time-sharing system&lt;/a&gt;, do so to see how pipes came into computers and why coroutines are cool.&lt;/p&gt;
+
+&lt;h2 id=&#34;kalil-azad&#34;&gt;Kalil Azad&lt;/h2&gt;
+
+&lt;p&gt;The founder of &lt;a href=&#34;http://betterexplained.com/&#34;&gt;BetterExplained.com&lt;/a&gt;.  If you haven&amp;rsquo;t been to this excellent site, head there &lt;em&gt;now&lt;/em&gt;!  You&amp;rsquo;ll be wondering why your teachers weren&amp;rsquo;t this good.  Recommended reading:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://betterexplained.com/articles/learning-how-to-count-avoiding-the-fencepost-problem/&#34;&gt;Avoiding The Fencepost Problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://betterexplained.com/articles/a-gentle-introduction-to-learning-calculus/&#34;&gt;A Gentle Introduction To Learning Calculus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://betterexplained.com/articles/why-do-we-learn-math/&#34;&gt;Why Do We Learn Math?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scott-h-young&#34;&gt;Scott H. Young&lt;/h2&gt;
+
+&lt;p&gt;This man successfully completed MIT’s 4-year undergraduate computer science curriculum in 12 months, &lt;em&gt;without taking any classes&lt;/em&gt;.  He also devised the &lt;a href=&#34;https://www.scotthyoung.com/learnonsteroids/grab/TranscriptFeynman.pdf&#34;&gt;Feynman technique&lt;/a&gt; you may use to learn any topic in any domain.  He has wrtten many great articles of which &lt;a href=&#34;https://legends2k.github.io/post/hello_world#writing-a-powerful-tool&#34;&gt;one stands out&lt;/a&gt; as an inspiration.&lt;/p&gt;
+
+&lt;h2 id=&#34;richard-feynman&#34;&gt;Richard Feynman&lt;/h2&gt;
+
+&lt;p&gt;He needs no introduction.  &lt;a href=&#34;http://www.feynmanlectures.info/&#34;&gt;His essays on Physics&lt;/a&gt; are the go-to literature if you are an amatuer physist.&lt;/p&gt;
+
+&lt;h2 id=&#34;carl-sagan&#34;&gt;Carl Sagan&lt;/h2&gt;
+
+&lt;p&gt;An astronomer who was behind the SETI project.  I like him more for &lt;em&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Cosmos:_A_Personal_Voyage&#34;&gt;Cosmos&lt;/a&gt;&lt;/em&gt;.  I always fall for his &lt;em&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Pale_Blue_Dot&#34;&gt;Pale Blue Dot&lt;/a&gt;&lt;/em&gt;; makes me realise how insignificant humans are in the grand scheme of things and reminds me to make good use of the limited time I have.&lt;/p&gt;
+
+&lt;h2 id=&#34;jerry-seinfeld&#34;&gt;Jerry Seinfeld&lt;/h2&gt;
+
+&lt;p&gt;Big fan of his comedies, but as a creator, he freely shares his secret recipe: &lt;em&gt;&lt;a href=&#34;http://lifehacker.com/281626/jerry-seinfelds-productivity-secret&#34;&gt;The Seinfeld Technique&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;daniel-kahneman&#34;&gt;Daniel Kahneman&lt;/h2&gt;
+
+&lt;p&gt;I was dumb struck when I watched &lt;a href=&#34;https://www.ted.com/talks/daniel_kahneman_the_riddle_of_experience_vs_memory&#34;&gt;his Ted talk&lt;/a&gt; that explains the experiencing self and the remembering self.  I came to know its implications later when I started mediating.&lt;/p&gt;
+
+&lt;h2 id=&#34;and-more&#34;&gt;And more&lt;/h2&gt;
+
+&lt;p&gt;People like &lt;em&gt;Salman Khan&lt;/em&gt;, the educator, and neumerous other open source developers like &lt;em&gt;Richard M Stallman&lt;/em&gt;,  &lt;em&gt;Linus Torvalds&lt;/em&gt;, who open up their work for the betterment of humanity and respect freedom are my inspirations too.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

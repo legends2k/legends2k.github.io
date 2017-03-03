@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://legends2k.github.io/post/inspirers/</loc>
+    <lastmod>2017-03-02T22:41:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/post/hello_world/</loc>
+    <lastmod>2017-02-24T12:36:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/projects/</loc>
+    <lastmod>2017-02-24T12:34:07+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/post/</loc>
+    <lastmod>2017-02-24T12:14:41+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/</loc>
+    <lastmod>2017-02-24T12:14:41+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/</loc>
+    <lastmod>2017-02-24T12:14:41+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/about/</loc>
+    <lastmod>2017-02-24T12:14:41+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/useful_gcc_opts/</loc>
+    <lastmod>2017-02-08T16:45:02+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/install-irony-win32/</loc>
+    <lastmod>2017-01-24T17:33:27+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/lua_rocks/</loc>
+    <lastmod>2016-09-23T17:00:46+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/site_customizations/</loc>
+    <lastmod>2016-08-12T17:00:46+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/hello_hugo/</loc>
+    <lastmod>2016-07-11T17:00:46+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/bookmark/</loc>
+    <lastmod>2017-03-02T22:41:05+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2017-01-24T17:33:27+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/creators/</loc>
+    <lastmod>2017-03-02T22:41:05+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/css3/</loc>
+    <lastmod>2016-08-12T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/emacs/</loc>
+    <lastmod>2017-01-24T17:33:27+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/gcc/</loc>
+    <lastmod>2017-02-08T16:45:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/hugo/</loc>
+    <lastmod>2016-08-12T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/inspiration/</loc>
+    <lastmod>2017-03-02T22:41:05+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/intellisense/</loc>
+    <lastmod>2017-01-24T17:33:27+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/lua/</loc>
+    <lastmod>2016-09-23T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/luarocks/</loc>
+    <lastmod>2016-09-23T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/meta/</loc>
+    <lastmod>2017-02-24T12:36:30+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/ninja/</loc>
+    <lastmod>2017-02-08T16:45:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/static-site-generator/</loc>
+    <lastmod>2016-07-11T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/tech/</loc>
+    <lastmod>2017-01-24T17:33:27+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/typesetting/</loc>
+    <lastmod>2016-08-12T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/zerobrane/</loc>
+    <lastmod>2016-09-23T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

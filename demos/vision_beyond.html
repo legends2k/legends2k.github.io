@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Vision Beyond Corner!</title>
+
+        <style>
+         body {
+             background-color: #aaa;
+             border: none;
+         }
+
+         body.iframe {
+             width: 100%;
+             height: 100%;
+             margin: 0px;
+             padding: 0px;
+             overflow: hidden;
+         }
+
+         .iframe canvas {
+             border: none;
+         }
+
+         canvas {
+             width: 100%;
+             height: 100%;
+             border: none;
+         }
+		</style>
+
+        <script type="text/javascript" src="./gl-matrix-min.js"></script>
+    </head>
+
+    <body onload="start()" class="iframe">
+        <canvas id="canvas" width="640" height="480" style="width: 640px; height: 480px;"></canvas>
+    </body>
+</html>
+
+<script>
+ "use strict";
+
+ var canvas = document.getElementById("canvas");
+ var ctx;
+
+ var viewer = { pos: vec2.fromValues(320, 300) };
+ var corner = [vec2.fromValues(160, 100),
+               vec2.fromValues(320, 200),
+               vec2.fromValues(480, 100)];
+ var personRadius = 5, endRadius = 5;
+ var viewerColour = "255,0,0";
+ var wallColour = "0,0,255", vertexColour = "0,255,0";
+ var rayColour = "128,128,128", rayBeyondColour = "255,128,128";
+ var rayThickness = 0.5, rayBeyondScale = 3;
+
+ var hitThreshold_2 = endRadius;
+ var selectedPtIdx = undefined;
+ var rayBeyond = false;
+
+ // direction is optional; defaults to counter-clockwise
+ function perp2d(v, clockwise) {
+     clockwise = clockwise || false;
+     if (clockwise)
+         return vec2.fromValues(v[1], -v[0]);
+     return vec2.fromValues(-v[1], v[0]);
+ }
+
+ function hitTest(pt) {
+     for (var i = 0, len = corner.length; i < len; ++i) {
+         if ((Math.abs(corner[i][0] - pt[0]) <= hitThreshold_2) &&
+             (Math.abs(corner[i][1] - pt[1]) <= hitThreshold_2))
+             return i;
+     }
+ }
+
+ function init2DCanvas(canvas) {
+     try {
+         ctx = canvas.getContext("2d");
+         ctx.width = canvas.width;
+         ctx.height = canvas.height;
+     }
+     catch (e) {
+         alert("Unable to initialize Canvas. Your browser may not support it.");
+     }
+ }
+
+ function update() {
+     // SAT
+     var projAxis = vec2.create();
+     vec2.sub(projAxis, corner[1], viewer.pos);
+     projAxis = perp2d(projAxis)
+     var e1 = vec2.create(), e2 = vec2.create();
+     vec2.sub(e1, corner[0], corner[1]);
+     vec2.sub(e2, corner[2], corner[1]);
+     var p1 = vec2.dot(e1, projAxis);
+     var p2 = vec2.dot(e2, projAxis);
+     // vision should extend when e1 or e2 is parallel to viewer.dir, so use
+     // >= and <= instead of > and <.
+     rayBeyond = ((p1 <= 0) && (p2 <= 0)) || ((p1 >= 0) && (p2 >= 0));
+ }
+
+ function render() {
+     // clear canvas
+     ctx.fillStyle = "AntiqueWhite";
+     ctx.fillRect(0, 0, ctx.width, ctx.height);
+
+     // draw viewer
+     var vx = viewer.pos[0], vy = viewer.pos[1];
+     drawCircle(vx, vy, personRadius, viewerColour, 1);
+
+     // draw corner
+     var c0x = corner[0][0], c0y = corner[0][1];
+     var c1x = corner[1][0], c1y = corner[1][1];
+     var c2x = corner[2][0], c2y = corner[2][1];
+     drawLine(c0x, c0y, c1x, c1y, 1, wallColour);
+     drawLine(c1x, c1y, c2x, c2y, 1, wallColour);
+     drawCircle(c0x, c0y, endRadius, vertexColour, 1);
+     drawCircle(c1x, c1y, endRadius, vertexColour, 1);
+     drawCircle(c2x, c2y, endRadius, vertexColour, 1);
+
+     // draw rays
+     drawLine(vx, vy, c0x, c0y, rayThickness, rayColour);
+     drawLine(vx, vy, c2x, c2y, rayThickness, rayColour);
+     if (rayBeyond) {
+         var target = vec2.create();
+         vec2.sub(target, corner[1], viewer.pos);
+         vec2.scaleAndAdd(target, viewer.pos, target, rayBeyondScale);
+         drawLine(vx, vy, target[0], target[1], rayThickness, rayBeyondColour);
+     }
+     else
+         drawLine(vx, vy, c1x, c1y, rayThickness, rayColour);
+ }
+
+ function loop() {
+     update();
+     render();
+ }
+
+ function start() {
+     init2DCanvas(canvas);
+     canvas.addEventListener('mousemove', handleMouseMove, false);
+     canvas.addEventListener('mousedown', handleMouseDown, false);
+     canvas.addEventListener('mouseup', handleMouseUp, false);
+     window.requestAnimationFrame(loop);
+ }
+
+ // http://stackoverflow.com/a/5932203/183120
+ function relMouseCoords(event, element) {
+     var totalOffsetX = 0;
+     var totalOffsetY = 0;
+
+     do {
+         totalOffsetX += element.offsetLeft - element.scrollLeft;
+         totalOffsetY += element.offsetTop - element.scrollTop;
+     }
+     while(element = element.offsetParent);
+
+     return vec2.fromValues(event.pageX - totalOffsetX,
+                            event.pageY - totalOffsetY);
+ }
+
+ function handleMouseMove (e) {
+     if (selectedPtIdx !== undefined) {
+         var pt = relMouseCoords(e, canvas);
+         vec2.copy(corner[selectedPtIdx], pt);
+         window.requestAnimationFrame(loop);
+     }
+ }
+
+ function handleMouseDown(e) {
+     selectedPtIdx = hitTest(relMouseCoords(e, canvas));
+ }
+
+ function handleMouseUp(e) {
+     selectedPtIdx = undefined;
+ }
+
+ function drawCircle(x, y, radius, colour, strokeWidth) {
+     ctx.beginPath();
+     ctx.arc(x, y, radius, 0, 2 * Math.PI);
+     // without closePath the circle isn't completed properly
+     ctx.closePath();
+     ctx.fillStyle = "rgba(" + colour + ", 0.5)";
+     ctx.fill();
+     ctx.lineWidth = strokeWidth;
+     ctx.strokeStyle = "rgb(" + colour + ")";
+     ctx.stroke();
+ }
+
+ function drawLine(x1, y1, x2, y2, thickness, colour) {
+     ctx.beginPath();
+     ctx.moveTo(x1, y1);
+     ctx.lineTo(x2, y2);
+     ctx.lineWidth = thickness;
+     ctx.strokeStyle = "rgb(" + colour + ")";
+     ctx.stroke();
+ }
+
+</script>

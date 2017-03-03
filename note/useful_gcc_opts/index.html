@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Useful GCC options &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="Know thy compiler!">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.19" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="Useful GCC options">
+<meta property="og:description" content="Know thy compiler!">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/useful_gcc_opts/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square button-social hint--top" data-hint="Home" title="Home" href="https://legends2k.github.io/">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/legends2k">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Articles" href="/post/">Articles</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Useful GCC options</h1>
+    
+        <p class="post-description" itemprop="description">Know thy compiler!</p>
+    
+        <p class="post-date">
+        <time datetime="2017-02-08" itemprop="datePublished">
+    <time datetime="2017-02-08" itemprop="datePublished">Published Wed, Feb 8, 2017</time>
+
+</time>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://legends2k.github.io/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    <p>Here are some of the useful, but not widely known, options of GCC that I want to document.</p>
+
+<pre><code>gcc -dumpspecs
+</code></pre>
+
+<p>Gives the specifications with which GCC was built.</p>
+
+<pre><code>gcc -fstack-usage
+</code></pre>
+
+<p>Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage.  <a href="https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html#index-fstack-usage">See the manual</a> for details on deciphering its output.</p>
+
+<pre><code># get macros defined when the language is C++
+cpp -xc++ -dM /dev/null
+
+# get macros defined when the language is C
+cpp -dM /dev/null
+</code></pre>
+
+<p>Prints the macros defined when the preprocessor was called.  The last command <a href="http://stackoverflow.com/a/2224357/183120">is popular</a> as <code>gcc -dM -E - &lt;&lt; /dev/null</code> but is not as good for two reasons:</p>
+
+<ol>
+<li>If you want to talk to the preprocessor, talk directly to it, why go through the compiler?</li>
+<li>Looking at this, one might get a false hope that <code>g++ -dM -E - &lt;&lt; /dev/null</code> will spit C++ macros; it doesn&rsquo;t.  Instead one has to do <code>g++ -xc++ -dM -E - &lt;&lt; /dev/null</code> for <a href="http://stackoverflow.com/a/27980787/183120">some reasons</a>.</li>
+</ol>
+
+<p>For setting up auto completion in Emacs using Irony, I needed to know the include directories GCC searches.  How do we find them?</p>
+
+<pre><code>cpp -xc++ -Wp,-v /dev/null
+</code></pre>
+
+<p>This prints the list of standard include directories.  <code>g++ -v some.cpp</code> would give it too, but this is fast &amp; easy; no input file or fake compiler calls.</p>
+
+<pre><code>g++ -std=c++14 -O3 -c -masm=intel -fverbose-asm -Wa,-adhln=prgm.s prgm.cpp
+</code></pre>
+
+<p>will show the disassembly of a compilation unit in Intel syntax <em>with inter-weaved source listing</em>.  This one is very popular among optimisation enthusiasts 😃  Here&rsquo;s one more for them:</p>
+
+<pre><code>g++ -fdump-class-hierarchy my_classes.cpp
+</code></pre>
+
+<p>This would show object memory layout of classes in the source; includes classes with complex inheritance hierarchies.</p>
+
+<p>What interesting GCC options do you know?</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/gcc/">gcc</a>, 
+            
+                <a href="/tags/ninja/">ninja</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Useful%20GCC%20options&url=https%3a%2f%2flegends2k.github.io%2fnote%2fuseful_gcc_opts%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fuseful_gcc_opts%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fuseful_gcc_opts%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Useful%20GCC%20options&url=https%3a%2f%2flegends2k.github.io%2fnote%2fuseful_gcc_opts%2f&summary=Know%20thy%20compiler%21"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'legends2k';
+    var disqus_identifier = 'https:\/\/legends2k.github.io\/note\/useful_gcc_opts\/';
+    var disqus_title = 'Useful GCC options';
+    var disqus_url = 'https:\/\/legends2k.github.io\/note\/useful_gcc_opts\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="CGrok" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Assembled by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
+                
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

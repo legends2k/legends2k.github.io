@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code Lab on CGrok</title>
+    <link>https://legends2k.github.io/projects/index.xml</link>
+    <description>Recent content in Code Lab on CGrok</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <lastBuildDate>Fri, 24 Feb 2017 12:34:07 +0530</lastBuildDate>
+    <atom:link href="https://legends2k.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+  </channel>
+</rss>

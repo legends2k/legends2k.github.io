@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gcc on CGrok</title>
+    <link>https://legends2k.github.io/tags/gcc/index.xml</link>
+    <description>Recent content in Gcc on CGrok</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <atom:link href="https://legends2k.github.io/tags/gcc/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Useful GCC options</title>
+      <link>https://legends2k.github.io/note/useful_gcc_opts/</link>
+      <pubDate>Wed, 08 Feb 2017 16:45:02 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/useful_gcc_opts/</guid>
+      <description>&lt;p&gt;Here are some of the useful, but not widely known, options of GCC that I want to document.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gcc -dumpspecs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Gives the specifications with which GCC was built.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gcc -fstack-usage
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage.  &lt;a href=&#34;https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html#index-fstack-usage&#34;&gt;See the manual&lt;/a&gt; for details on deciphering its output.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# get macros defined when the language is C++
+cpp -xc++ -dM /dev/null
+
+# get macros defined when the language is C
+cpp -dM /dev/null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Prints the macros defined when the preprocessor was called.  The last command &lt;a href=&#34;http://stackoverflow.com/a/2224357/183120&#34;&gt;is popular&lt;/a&gt; as &lt;code&gt;gcc -dM -E - &amp;lt;&amp;lt; /dev/null&lt;/code&gt; but is not as good for two reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;If you want to talk to the preprocessor, talk directly to it, why go through the compiler?&lt;/li&gt;
+&lt;li&gt;Looking at this, one might get a false hope that &lt;code&gt;g++ -dM -E - &amp;lt;&amp;lt; /dev/null&lt;/code&gt; will spit C++ macros; it doesn&amp;rsquo;t.  Instead one has to do &lt;code&gt;g++ -xc++ -dM -E - &amp;lt;&amp;lt; /dev/null&lt;/code&gt; for &lt;a href=&#34;http://stackoverflow.com/a/27980787/183120&#34;&gt;some reasons&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For setting up auto completion in Emacs using Irony, I needed to know the include directories GCC searches.  How do we find them?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cpp -xc++ -Wp,-v /dev/null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This prints the list of standard include directories.  &lt;code&gt;g++ -v some.cpp&lt;/code&gt; would give it too, but this is fast &amp;amp; easy; no input file or fake compiler calls.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;g++ -std=c++14 -O3 -c -masm=intel -fverbose-asm -Wa,-adhln=prgm.s prgm.cpp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;will show the disassembly of a compilation unit in Intel syntax &lt;em&gt;with inter-weaved source listing&lt;/em&gt;.  This one is very popular among optimisation enthusiasts 😃  Here&amp;rsquo;s one more for them:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;g++ -fdump-class-hierarchy my_classes.cpp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would show object memory layout of classes in the source; includes classes with complex inheritance hierarchies.&lt;/p&gt;
+
+&lt;p&gt;What interesting GCC options do you know?&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

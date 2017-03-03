@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Static Site Generator on CGrok</title>
+    <link>https://legends2k.github.io/tags/static-site-generator/index.xml</link>
+    <description>Recent content in Static Site Generator on CGrok</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <atom:link href="https://legends2k.github.io/tags/static-site-generator/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hello, Hugo!</title>
+      <link>https://legends2k.github.io/note/hello_hugo/</link>
+      <pubDate>Mon, 11 Jul 2016 17:00:46 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/hello_hugo/</guid>
+      <description>
+
+&lt;p&gt;There are many &lt;a href=&#34;http://www.staticgen.com/&#34;&gt;static site generators&lt;/a&gt; these days; more than 175 as of now.  Apart from the prime selling point of content creation from the comfort of your favourite text editor in &lt;a href=&#34;https://daringfireball.net/projects/markdown/basics&#34;&gt;Markdown&lt;/a&gt;, most have a wide gamut of themes to choose from.  You are free to &lt;a href=&#34;https://legends2k.github.io/note/site_customizations&#34;&gt;remix the theme to your taste&lt;/a&gt; however you see fit.  Want to change the line spacing and paragraph alignment?  Sure thing!  Don&amp;rsquo;t like anything?  Ditch them all and whip something new.  Share it with others, perhaps?  You do not have to be a web programmer or designer to customize themes.  I am a C++ programmer but I did not have trouble picking up CSS3; just a few days of tussling did the trick.&lt;/p&gt;
+
+&lt;p&gt;You get these advantages in most SSG&amp;rsquo;s but Hugo has one more: it has &lt;em&gt;no&lt;/em&gt; dependencies from an end-user viewpoint; download and extract it on any machine, and get down to stuff that matters &amp;mdash; content.  I think it gets this by virtue of being authored in &lt;a href=&#34;https://golang.org&#34;&gt;Go&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is a test page I tried to check out Hugo; to verify its fitness as a technical blog generator that supports the following sorely-needed scenarios for this web log.&lt;/p&gt;
+
+&lt;h1 id=&#34;text-formatting&#34;&gt;Text Formatting&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Formatting
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bold&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;italics&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;code snippets&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;strikeout&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;blockquotes&lt;/li&gt;
+&lt;li&gt;custom font&lt;/li&gt;
+&lt;li&gt;line spacing&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Footnotes&lt;/li&gt;
+&lt;li&gt;Unicode, UTF8 and emoticons support&lt;/li&gt;
+&lt;li&gt;Math equations&lt;/li&gt;
+&lt;li&gt;Tables&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;SVG&lt;/em&gt; render with captions&lt;/li&gt;
+&lt;li&gt;Interactive Demos with HTML5 Canvas&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;blockquote-and-footnote&#34;&gt;Blockquote and Footnote&lt;/h1&gt;
+
+&lt;p&gt;This is an obscure alternative to the famous &amp;ldquo;&lt;em&gt;The quick brown fox…&lt;/em&gt;&amp;rdquo; pangram&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Exploring the zoo, we saw every kangaroo jump and quite a few carried babies.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;unicode-utf8-and-special-characters&#34;&gt;Unicode, UTF8 and Special Characters&lt;/h2&gt;
+
+&lt;p&gt;பிறந்த குழந்தைகட்கு இந்த பாடலைப் பாடிக்காட்டுவது வழ்க்கம்:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;அ&lt;/strong&gt;ம்மா இங்கே வா! வா!&lt;br /&gt;
+&lt;strong&gt;ஆ&lt;/strong&gt;சை முத்தம் தா! தா!&lt;br /&gt;
+&lt;strong&gt;இ&lt;/strong&gt;லையில் சோறு போட்டு&lt;br /&gt;
+&lt;strong&gt;ஈ&lt;/strong&gt;யை தூர ஓட்டு!&lt;br /&gt;
+&lt;strong&gt;உ&lt;/strong&gt;ன்னைப் போன்று நல்லார்&lt;br /&gt;
+&lt;strong&gt;ஊ&lt;/strong&gt;ரில் யாவர் உள்ளார்?&lt;br /&gt;
+&lt;strong&gt;எ&lt;/strong&gt;ன்னால் உனக்குத் தொல்லை&lt;br /&gt;
+&lt;strong&gt;ஏ&lt;/strong&gt;தும் இங்கே இல்லை!&lt;br /&gt;
+&lt;strong&gt;ஐ&lt;/strong&gt;யம் இன்றி சொல்வேன்&lt;br /&gt;
+&lt;strong&gt;ஒ&lt;/strong&gt;ற்றுமை என்றும் பலமாம்!&lt;br /&gt;
+&lt;strong&gt;ஓ&lt;/strong&gt;தும் செயலே நலமாம்!&lt;br /&gt;
+&lt;strong&gt;ஔ&lt;/strong&gt;வை சொன்ன மொழியாம்!&lt;br /&gt;
+அ&lt;strong&gt;ஃ&lt;/strong&gt;தே எமக்கு வழியாம்!&lt;/p&gt;
+
+&lt;p&gt;ஏனெனில், இப்பாடலில் அனைத்து உயிரெழுத்துக்களும் ஒவ்வொரு அடியின் தொடக்கத்திலும் இடம் பெரும்.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--&lt;/code&gt; gives an &lt;code&gt;EN DASH&lt;/code&gt; (&amp;ndash;), while &lt;code&gt;---&lt;/code&gt; is an &lt;code&gt;EM DASH&lt;/code&gt; (&amp;mdash;). Fractions, like &lt;sup&gt;9&lt;/sup&gt;&amp;frasl;&lt;sub&gt;22&lt;/sub&gt;, are beautifully rendered too 😃&lt;/p&gt;
+
+&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
+
+&lt;p&gt;This C++ code is syntax highlighted.  It also has a particular line highlighted; this line prints &lt;code&gt;hello, world!&lt;/code&gt; on the terminal:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
+&lt;span style=&#34;background-color: #49483e&#34;&gt;    &lt;span style=&#34;color: #f8f8f2&#34;&gt;std&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cout&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;hello, world!&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2 id=&#34;math-equation&#34;&gt;Math Equation&lt;/h2&gt;
+
+&lt;p&gt;Perhaps this&lt;/p&gt;
+
+&lt;p&gt;$$
+e^{i\pi}+1=0
+$$&lt;/p&gt;
+
+&lt;p&gt;equation is more beautiful than the highly over-rated $E = mc^2$.  They are rendered here with MathJax which is supported by Hugo elegantly.&lt;/p&gt;
+
+&lt;h1 id=&#34;table&#34;&gt;Table&lt;/h1&gt;
+
+&lt;p&gt;A table with different alignments:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Command&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;Description&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Help&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Know the current status of the repo&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;code&gt;man git-status&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;git diff&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Diff tracked but not-yet-staged files&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;code&gt;man git-diff&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;vector-graphics&#34;&gt;Vector Graphics&lt;/h1&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see how an &lt;code&gt;SVG&lt;/code&gt; shows up with an accompanying caption!&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://legends2k.github.io/images/cub_bez_arc.svg&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Cubic Bézier Circles&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;h2 id=&#34;interactive-demo&#34;&gt;Interactive Demo&lt;/h2&gt;
+
+&lt;p&gt;Red is the viewer here; green dots are end points of walls. Click and drag one of them to see where the vision ray from the viewer can go past the walls.&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe style=&#34;width: 640px; height: 480px; border: 1px solid black; margin-left: auto; margin-right: auto; display: block; box-sizing: border-box;&#34; src=&#34;https://legends2k.github.io/demos/vision_beyond.html&#34;&gt;
+&lt;!-- &lt;iframe style=&#34;overflow:hidden;width:640px;height:485px&#34; src=&#34;https://legends2k.github.io/demos/vision_beyond.html&#34; frameborder=&#34;0&#34;&gt; --&gt;
+&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;An external HTML document, containing JavaScript, is embedded in an &lt;code&gt;iframe&lt;/code&gt; here.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;A holoalphabetic sentence using &lt;em&gt;every&lt;/em&gt; letter of a alphabet at least once.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
