@@ -31,7 +31,7 @@
 &lt;li&gt;Install the &lt;em&gt;&lt;a href=&#34;http://themes.gohugo.io/theme/ghostwriter/&#34;&gt;Ghostwriter&lt;/a&gt;&lt;/em&gt; theme inside the &lt;code&gt;themes&lt;/code&gt; directory.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differtiate customizations.  I followed it.&lt;/p&gt;
+&lt;p&gt;Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations.  I followed it.&lt;/p&gt;
 
 &lt;h2 id=&#34;1-syntax-highlighting&#34;&gt;1. Syntax Highlighting&lt;/h2&gt;
 
@@ -41,7 +41,7 @@
 
 &lt;h2 id=&#34;2-nice-font&#34;&gt;2. Nice Font&lt;/h2&gt;
 
-&lt;p&gt;I really like the font used in &lt;em&gt;&lt;a href=&#34;https://thebookofshaders.com/&#34;&gt;The Book of Shaders&lt;/a&gt;&lt;/em&gt; and saw that the font name is &lt;strong&gt;Baskerville&lt;/strong&gt;.  Remebered that for custom web fonts, &lt;em&gt;reveal.js&lt;/em&gt; used to do this using &lt;a href=&#34;http://fonts.google.com&#34;&gt;Google Fonts&lt;/a&gt;; luckily it had &lt;em&gt;Libre Baskerville&lt;/em&gt;, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁&lt;/p&gt;
+&lt;p&gt;I really like the font used in &lt;em&gt;&lt;a href=&#34;https://thebookofshaders.com/&#34;&gt;The Book of Shaders&lt;/a&gt;&lt;/em&gt; and saw that the font name is &lt;strong&gt;Baskerville&lt;/strong&gt;.  Remembered that for custom web fonts, &lt;em&gt;reveal.js&lt;/em&gt; used to do this using &lt;a href=&#34;http://fonts.google.com&#34;&gt;Google Fonts&lt;/a&gt;; luckily it had &lt;em&gt;Libre Baskerville&lt;/em&gt;, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁&lt;/p&gt;
 
 &lt;h2 id=&#34;3-external-content&#34;&gt;3. External Content&lt;/h2&gt;
 
@@ -55,7 +55,7 @@
 \sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}
 $$&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;MathJax&lt;/em&gt; is the go-to solution in browsers.  The &lt;em&gt;display math&lt;/em&gt; (MathJax lingo) works with no quirks; inline math doesn&amp;rsquo;t work properly by default; I&amp;rsquo;d to &lt;a href=&#34;http://github.com/spf13/hugo/issues/1666#issuecomment-225316394&#34;&gt;stuff&lt;/a&gt; to get it working.  I added a custom parameter in the markdown&amp;rsquo;s frontmatter, which is later used in a partial HTML document to include the &lt;a href=&#34;http://gohugo.io/tutorials/mathjax/&#34;&gt;necessary script&lt;/a&gt; tag for markdown.  MathJax may work-up &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt; tags, and the workaround for this is shown in the documentation.  The &lt;code&gt;TeX-AMS-MML_HTMLorMML&lt;/code&gt; configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the &lt;a href=&#34;http://legends2k.github.io/2d-transforms-101/&#34;&gt;&lt;em&gt;2D Transforms 101&lt;/em&gt;&lt;/a&gt; presentation; I&amp;rsquo;d to resort to &lt;code&gt;TeX-AMS-MML_SVG&lt;/code&gt; in its case.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;MathJax&lt;/em&gt; is the go-to solution in browsers.  The &lt;em&gt;display math&lt;/em&gt; (MathJax lingo) works with no quirks; inline math doesn&amp;rsquo;t work properly by default; I&amp;rsquo;d to &lt;a href=&#34;http://github.com/spf13/hugo/issues/1666#issuecomment-225316394&#34;&gt;stuff&lt;/a&gt; to get it working.  I added a custom parameter in the markdown&amp;rsquo;s front matter, which is later used in a partial HTML document to include the &lt;a href=&#34;http://gohugo.io/tutorials/mathjax/&#34;&gt;necessary script&lt;/a&gt; tag for markdown.  MathJax may work-up &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt; tags, and the workaround for this is shown in the documentation.  The &lt;code&gt;TeX-AMS-MML_HTMLorMML&lt;/code&gt; configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the &lt;a href=&#34;http://legends2k.github.io/2d-transforms-101/&#34;&gt;&lt;em&gt;2D Transforms 101&lt;/em&gt;&lt;/a&gt; presentation; I&amp;rsquo;d to resort to &lt;code&gt;TeX-AMS-MML_SVG&lt;/code&gt; in its case.&lt;/p&gt;
 
 &lt;h2 id=&#34;5-fractions-and-footnote-return-text&#34;&gt;5. Fractions and Footnote return text&lt;/h2&gt;
 

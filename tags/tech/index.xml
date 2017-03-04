@@ -92,7 +92,7 @@
 &lt;li&gt;Install LLVM from a &lt;a href=&#34;http://releases.llvm.org/download.html&#34;&gt;pre-built binary package&lt;/a&gt;
 
 &lt;ul&gt;
-&lt;li&gt;It should match the bitness of the MinGW toolchain installed&lt;/li&gt;
+&lt;li&gt;It should match the &lt;em&gt;bit-ness&lt;/em&gt; of the MinGW toolchain installed&lt;/li&gt;
 &lt;li&gt;Verify that the installed directory has &lt;code&gt;/bin/libclang.dll&lt;/code&gt; or &lt;code&gt;/bin/clang.dll&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;The LLVM binaries (specifically &lt;code&gt;clang.dll&lt;/code&gt;) should have been built with MinGW
 
@@ -142,7 +142,7 @@
 &lt;li&gt;A buffer with &lt;code&gt;c++-mode&lt;/code&gt;, &lt;code&gt;irony-mode&lt;/code&gt; and &lt;code&gt;company-mode&lt;/code&gt; should display suggestions
 
 &lt;ul&gt;
-&lt;li&gt;Save it to a persistant file if it&amp;rsquo;s not backed by one&lt;/li&gt;
+&lt;li&gt;Save it to a persistent file if it&amp;rsquo;s not backed by one&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -187,7 +187,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Flycheck shows the errors in a separate buffer which keeps getting update as you type.  But you can see the error in a particular statement without having to open this buffer with &lt;code&gt;flycheck-pos-tip-mode&lt;/code&gt;.  It will show error tooltips as the cusror is moved to an errorenous token.&lt;/p&gt;
+&lt;p&gt;Flycheck shows the errors in a separate buffer which keeps getting update as you type.  But you can see the error in a particular statement without having to open this buffer with &lt;code&gt;flycheck-pos-tip-mode&lt;/code&gt;.  It will show error tooltips as the cursor is moved to an erroneous token.&lt;/p&gt;
 
 &lt;h1 id=&#34;advantages&#34;&gt;Advantages&lt;/h1&gt;
 
