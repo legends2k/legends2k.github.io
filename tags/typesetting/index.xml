@@ -21,15 +21,11 @@
 
 &lt;h1 id=&#34;steps-i-still-remember&#34;&gt;Steps I Still Remember&lt;/h1&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Install Hugo.
-
-&lt;ul&gt;
-&lt;li&gt;This is fairly simple and painless.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Create a dummy site using Hugo&amp;rsquo;s documentation; quite simple.&lt;/li&gt;
-&lt;li&gt;Install the &lt;em&gt;&lt;a href=&#34;http://themes.gohugo.io/theme/ghostwriter/&#34;&gt;Ghostwriter&lt;/a&gt;&lt;/em&gt; theme inside the &lt;code&gt;themes&lt;/code&gt; directory.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;; just extract and put in &lt;code&gt;PATH&lt;/code&gt; &amp;mdash; can&amp;rsquo;t be simpler.&lt;/li&gt;
+&lt;li&gt;Create a dummy site using &lt;a href=&#34;http://gohugo.io/overview/quickstart/&#34;&gt;the Quickstart guide&lt;/a&gt;; straight forward.&lt;/li&gt;
+&lt;li&gt;Install &lt;em&gt;&lt;a href=&#34;http://themes.gohugo.io/theme/ghostwriter/&#34;&gt;Ghostwriter&lt;/a&gt;&lt;/em&gt; inside the &lt;code&gt;themes&lt;/code&gt; directory.&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations.  I followed it.&lt;/p&gt;
 
@@ -41,7 +37,7 @@
 
 &lt;h2 id=&#34;2-nice-font&#34;&gt;2. Nice Font&lt;/h2&gt;
 
-&lt;p&gt;I really like the font used in &lt;em&gt;&lt;a href=&#34;https://thebookofshaders.com/&#34;&gt;The Book of Shaders&lt;/a&gt;&lt;/em&gt; and saw that the font name is &lt;strong&gt;Baskerville&lt;/strong&gt;.  Remembered that for custom web fonts, &lt;em&gt;reveal.js&lt;/em&gt; used to do this using &lt;a href=&#34;http://fonts.google.com&#34;&gt;Google Fonts&lt;/a&gt;; luckily it had &lt;em&gt;Libre Baskerville&lt;/em&gt;, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁&lt;/p&gt;
+&lt;p&gt;I really like the font used in &lt;em&gt;&lt;a href=&#34;https://thebookofshaders.com/&#34;&gt;The Book of Shaders&lt;/a&gt;&lt;/em&gt; and saw that the font name is &lt;strong&gt;Baskerville&lt;/strong&gt;.  I recalled that for custom web fonts, &lt;em&gt;reveal.js&lt;/em&gt; used to do this using &lt;a href=&#34;http://fonts.google.com&#34;&gt;Google Fonts&lt;/a&gt;; luckily it had &lt;em&gt;Libre Baskerville&lt;/em&gt;, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁&lt;/p&gt;
 
 &lt;h2 id=&#34;3-external-content&#34;&gt;3. External Content&lt;/h2&gt;
 
@@ -63,7 +59,7 @@ $$&lt;/p&gt;
 
 &lt;h2 id=&#34;6-test-and-deploy&#34;&gt;6. Test and Deploy&lt;/h2&gt;
 
-&lt;p&gt;Running Hugo with &lt;code&gt;hugo server&lt;/code&gt; serves the content on-the-fly at &lt;code&gt;localhost:1313&lt;/code&gt; which can be configured.  When the testing is done and all is well, the final run would be just &lt;code&gt;hugo&lt;/code&gt; without any parameters, which would generate the content for the entire content inside the &lt;code&gt;public&lt;/code&gt; directory which needs to be uploaded.&lt;/p&gt;
+&lt;p&gt;Running Hugo with &lt;code&gt;hugo server&lt;/code&gt; serves the content on-the-fly at &lt;code&gt;localhost:1313&lt;/code&gt;; port can be changed.  When the testing is done and all is well, the final run would be just &lt;code&gt;hugo&lt;/code&gt; without any parameters; this generates the entire site tree inside the &lt;code&gt;public&lt;/code&gt; directory which needs to be hosted.&lt;/p&gt;
 </description>
     </item>
     

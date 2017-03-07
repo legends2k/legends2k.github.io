@@ -51,17 +51,17 @@
 
 &lt;p&gt;However, I find it selfish to leave the bread crumbs in comments.  How many people read code to understand something?  How can the aforementioned interactive learning tools be put in comments?  This is a place where I try to explain things that occurred to me in hopes that its readers share my joy of understanding something intuitively.  I hope to give life to words with figures and interactive demos along the way.  Instead of complaining about someone&amp;rsquo;s writing, griping I couldn&amp;rsquo;t build intuition, I want to add my ounce of effort to the mix.  It might not solve the original problem, but &lt;em&gt;doing&lt;/em&gt; might get one a lot closer to the solution than &lt;em&gt;talking&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;rise-of-good-tools&#34;&gt;Rise of good tools&lt;/h1&gt;
+&lt;h1 id=&#34;open-standards-and-good-tools&#34;&gt;Open standards and good tools&lt;/h1&gt;
 
 &lt;p&gt;A learner should be able to visualise and play with ideas in a tangible way to connect the dots; interesting enough to arouse interest in a subject.  A very good example of this is &lt;a href=&#34;http://explorableexplanations.com/&#34;&gt;Explorable Explanations&lt;/a&gt;.  Content can leverage modern tools to paint a clearer picture and attract beginners too.  These days we see programming books with embedded interpreters for readers to try out the exercise within the comfort of their browsers; physics explanations with playable demos where readers can change parameters to observe corresponding change in a phenomenon.&lt;/p&gt;
 
-&lt;p&gt;Such tools are made possible by open technologies like HTML5, JavaScript and SVG.  Atop these, writing a blog is made trivial with many &lt;em&gt;static site generators&lt;/em&gt;, like &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;, which lets one create rich material without leaving your &lt;a href=&#34;https://www.gnu.org/software/emacs/&#34;&gt;favourite text editor&lt;/a&gt;, for free.  They also do not restrict you to just words like popular blogging platforms; you are free to embed content as rich as games, math equations and vector graphics to express yourself in your own style.  When the idea of starting this site occurred to me, I wrote &lt;a href=&#34;https://legends2k.github.io/note/hello_hugo&#34;&gt;a demo page&lt;/a&gt; verifying this possibility.&lt;/p&gt;
+&lt;p&gt;Such tools are made possible by open technologies like HTML5, JavaScript and SVG, supported by all major browsers.  Atop these, writing a blog is made trivial with many &lt;em&gt;static site generators&lt;/em&gt;, like &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;, which lets one create rich material without leaving your &lt;a href=&#34;https://www.gnu.org/software/emacs/&#34;&gt;favourite text editor&lt;/a&gt;, for free.  They also do not restrict you to just words like popular blogging platforms; you are free to embed content as rich as games, math equations and vector graphics to express yourself in your own style.  When the idea of starting this site occurred to me, I wrote &lt;a href=&#34;https://legends2k.github.io/note/hello_hugo&#34;&gt;a demo page&lt;/a&gt; exploring this possibility.&lt;/p&gt;
 
 &lt;h1 id=&#34;no-such-thing-as-a-stupid-question&#34;&gt;No such thing as a stupid question&lt;/h1&gt;
 
 &lt;p&gt;There is a very high probability of errors creeping into the content.  &lt;em&gt;If a reader is unable to understand something, I&amp;rsquo;m convinced that it&amp;rsquo;s my ineptitude as a mentor and not the learner&amp;rsquo;s&lt;/em&gt;.  I would really appreciate you pointing out such errors.&lt;/p&gt;
 
-&lt;p&gt;In addition to these, &lt;a href=&#34;https://legends2k.github.io/post/inspirers&#34;&gt;many&lt;/a&gt; have inspired me.&lt;/p&gt;
+&lt;p&gt;I am also motivated by &lt;a href=&#34;https://legends2k.github.io/post/inspirers&#34;&gt;many&lt;/a&gt;, but that is for a different post.&lt;/p&gt;
 </description>
     </item>
     
