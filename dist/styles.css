@@ -62,14 +62,21 @@ h6 {
 }
 
 p ~ ul, ol {
-    margin-bottom: 30px;
+    margin-bottom: 30px
 }
 
 p {
     /* like it really spaced out and tidy */
     line-height: 2.0;
-    text-align: justify;
     margin: 0 0 30px;
+}
+
+@media only screen
+and (min-device-width: 736px)
+and (min-device-height: 736px) {
+    p {
+        text-align: justify;
+    }
 }
 
 a {
