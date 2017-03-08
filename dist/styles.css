@@ -69,13 +69,17 @@ p {
     /* like it really spaced out and tidy */
     line-height: 2.0;
     margin: 0 0 30px;
+    text-align: justify;
 }
 
 @media only screen
-and (min-device-width: 736px)
-and (min-device-height: 736px) {
+and (max-device-width: 736px) {
+    body {
+        font-size: 16px;
+    }
     p {
-        text-align: justify;
+        line-height: 1.8;
+        text-align: initial;
     }
 }
 
