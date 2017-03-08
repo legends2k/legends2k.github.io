@@ -15,8 +15,7 @@ body {
     font-size: 18px;
 }
 
-/* have a top margin too, for the previous section might
- * end with a list with no bottom margin */
+/* have a top margin too, for the previous section might end with a list with no bottom margin */
 h1, h2, h3, h4, h5, h6 {
     margin: 40px 0 20px 0;
     text-transform: none;
@@ -72,17 +71,6 @@ p {
     text-align: justify;
 }
 
-@media only screen
-and (max-device-width: 736px) {
-    body {
-        font-size: 16px;
-    }
-    p {
-        line-height: 1.8;
-        text-align: initial;
-    }
-}
-
 a {
     color: #F03838;
     text-decoration: none;
@@ -93,10 +81,7 @@ ul, ol {
     /* margin: 0 0 20px; */
 }
 
-/* remove margin altogether for
- * lists inside lists:
- * ul ul, ul ol, ol ul, ol ol
- * as they're too spacey */
+/* remove margin altogether for lists inside lists: ul ul, ul ol, ol ul, ol ol as they're too spacey */
 
 ul li, ol li {
     margin: 0 0 2px;
@@ -107,8 +92,7 @@ ul li:last-of-type, ol li:last-of-type {
 
 /* original blockquote is too dull; make it prominent */
 blockquote {
-    /* #F03838 is given in the form of rgba */
-    border-left: 6px solid rgba(240,56,56,0.75);
+    border-left: 6px solid rgba(240,56,56,0.75); /* #F03838 */
     margin: 40px 0;
     padding: 5px 30px;
     background-color: #fffacd;
@@ -673,11 +657,17 @@ table tr {
     }
 }
 @media only screen and (max-width: 600px) {
+    /* reduce font size for small screens */
+    body {
+        font-size: 16px;
+    }
     h1, h2 {
         margin-bottom: 20px;
     }
 
     p {
+        line-height: 1.8;
+        text-align: initial;
         margin-bottom: 20px;
     }
 
@@ -864,5 +854,11 @@ table tr {
 
     .footer-copyright {
         padding: 0 10px;
+    }
+}
+/* avoid header icons spilling to the next line in case of very small screens (< 360px) */
+@media only screen and (max-device-width: 359px) {
+    .button-square {
+        margin: 0 0 0 2px;
     }
 }

@@ -116,7 +116,7 @@
 &lt;p&gt;An incredibly powerful technique for solving problems is by simply writing it down. It seems rather simple, but it can often allow you to solve problems you previously thought were impossible.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;It left a strong impression on me.  I&amp;rsquo;ve done this unconscionably many times but when he put it out there like that, it solidified in my mind.  I realised how powerful a tool writing is.  Another reason why writing things down is a good thing: it helps others and oneself become conscious of habits and traits ingrained in us.&lt;/p&gt;
+&lt;p&gt;It left a strong impression on me.  I&amp;rsquo;ve done this unconscionably many times but when he put it out there like that, it solidified in my mind.  I realised how powerful a tool writing is.  Another reason why writing things down is a good thing: it helps others and oneself become conscious of habits and traits ingrained within.&lt;/p&gt;
 
 &lt;h1 id=&#34;learner-writer&#34;&gt;Learner ➰ Writer&lt;/h1&gt;
 
@@ -130,13 +130,13 @@
 
 &lt;p&gt;A learner should be able to visualise and play with ideas in a tangible way to connect the dots; interesting enough to arouse interest in a subject.  A very good example of this is &lt;a href=&#34;http://explorableexplanations.com/&#34;&gt;Explorable Explanations&lt;/a&gt;.  Content can leverage modern tools to paint a clearer picture and attract beginners too.  These days we see programming books with embedded interpreters for readers to try out the exercise within the comfort of their browsers; physics explanations with playable demos where readers can change parameters to observe corresponding change in a phenomenon.&lt;/p&gt;
 
-&lt;p&gt;Such tools are made possible by open technologies like HTML5, JavaScript and SVG, supported by all major browsers.  Atop these, writing a blog is made trivial with many &lt;em&gt;static site generators&lt;/em&gt;, like &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;, which lets one create rich material without leaving your &lt;a href=&#34;https://www.gnu.org/software/emacs/&#34;&gt;favourite text editor&lt;/a&gt;, for free.  They also do not restrict you to just words like popular blogging platforms; you are free to embed content as rich as games, math equations and vector graphics to express yourself in your own style.  When the idea of starting this site occurred to me, I wrote &lt;a href=&#34;https://legends2k.github.io/note/hello_hugo&#34;&gt;a demo page&lt;/a&gt; exploring this possibility.&lt;/p&gt;
+&lt;p&gt;Such tools are made possible by open technologies like HTML5, JavaScript and SVG, supported by all major browsers.  Atop these, writing a blog is made trivial with many &lt;em&gt;static site generators&lt;/em&gt;, like &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;, which lets you create rich material without leaving your &lt;a href=&#34;https://www.gnu.org/software/emacs/&#34;&gt;favourite text editor&lt;/a&gt;, for free.  They also do not restrict you to just words like popular blogging platforms; you are free to embed content as rich as games, math equations and vector graphics to express yourself in your own style.  When the idea of starting this site occurred to me, I wrote &lt;a href=&#34;https://legends2k.github.io/note/hello_hugo&#34;&gt;a demo page&lt;/a&gt; exploring this possibility.&lt;/p&gt;
 
 &lt;h1 id=&#34;no-such-thing-as-a-stupid-question&#34;&gt;No such thing as a stupid question&lt;/h1&gt;
 
-&lt;p&gt;There is a very high probability of errors creeping into the content.  &lt;em&gt;If a reader is unable to understand something, I&amp;rsquo;m convinced that it&amp;rsquo;s my ineptitude as a mentor and not the learner&amp;rsquo;s&lt;/em&gt;.  I would really appreciate you pointing out such errors.&lt;/p&gt;
+&lt;p&gt;There is a very high probability of errors creeping into the content; worse it might be downright wrong.  &lt;em&gt;If a reader is unable to understand something, I&amp;rsquo;m convinced that it&amp;rsquo;s my ineptitude as a explainer and not the reader&amp;rsquo;s&lt;/em&gt;.  It simply establishes the fact that I&amp;rsquo;m primarily a learner and I&amp;rsquo;m experimenting with my authoring skills.  In case you notice mistakes, I would really appreciate you pointing it out.&lt;/p&gt;
 
-&lt;p&gt;I am also motivated by &lt;a href=&#34;https://legends2k.github.io/post/inspirers&#34;&gt;many&lt;/a&gt;, but that is for a different post.&lt;/p&gt;
+&lt;p&gt;I am also motivated by &lt;a href=&#34;https://legends2k.github.io/post/inspirers&#34;&gt;many&lt;/a&gt; but that is for a different post.&lt;/p&gt;
 </description>
     </item>
     
@@ -478,7 +478,7 @@ cpp -dM /dev/null
 
 &lt;p&gt;This theme uses &lt;em&gt;&lt;a href=&#34;https://highlightjs.org/&#34;&gt;highlight.js&lt;/a&gt;&lt;/em&gt; for syntax highlighting while I like &lt;em&gt;&lt;a href=&#34;http://pygments.org/&#34;&gt;Pygments&lt;/a&gt;&lt;/em&gt; since the latter means no processing at the client&amp;rsquo;s end; everything needed is preprocessed and only the final rendering is done at the reader&amp;rsquo;s end.  Even after switching to Pygments, it didn&amp;rsquo;t work as expected with this theme&amp;rsquo;s stylesheet.  Debugged the site with Firefox and made a copula hacks to get it working; see &lt;code&gt;/static/dist/style.css&lt;/code&gt; for the hacks with comments.  For Pygments, make sure &lt;code&gt;Python&lt;/code&gt; and Pygments (a &lt;code&gt;pip&lt;/code&gt; install) are installed and is reachable from the command-line.&lt;/p&gt;
 
-&lt;p&gt;Also, prefer using the Hugo &lt;em&gt;&lt;a href=&#34;https://gohugo.io/extras/shortcodes/&#34;&gt;shortcode&lt;/a&gt;&lt;/em&gt; &lt;code&gt;{{ &amp;lt;highlight&amp;gt; }}&lt;/code&gt; instead of &lt;code&gt;```&lt;/code&gt; since it can additionally highlight specific line(s).  Also the highlighting theme is &lt;em&gt;Monokai&lt;/em&gt; as opposed to the default one that comes with Ghostwriter.&lt;/p&gt;
+&lt;p&gt;Also, prefer using the Hugo &lt;em&gt;&lt;a href=&#34;https://gohugo.io/extras/shortcodes/&#34;&gt;shortcode&lt;/a&gt;&lt;/em&gt; &lt;code&gt;{{ &amp;lt;highlight&amp;gt; }}&lt;/code&gt; instead of &lt;code&gt;```&lt;/code&gt; since it can additionally highlight specific line(s).  The default of Pygments is &lt;em&gt;Monokai&lt;/em&gt; as opposed to the dull, light background theme that comes with Ghostwriter.&lt;/p&gt;
 
 &lt;h2 id=&#34;2-nice-font&#34;&gt;2. Nice Font&lt;/h2&gt;
 
