@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Emacs on CGrok</title>
-    <link>https://legends2k.github.io/tags/emacs/index.xml</link>
-    <description>Recent content in Emacs on CGrok</description>
+    <title>Emacs on Bits of Insight</title>
+    <link>https://legends2k.github.io/tags/emacs/</link>
+    <description>Recent content in Emacs on Bits of Insight</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <atom:link href="https://legends2k.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Jan 2017 17:33:27 +0530</lastBuildDate>
+    
+	<atom:link href="https://legends2k.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Emacs C&#43;&#43; auto-complete setup on Windows</title>
@@ -15,188 +18,8 @@
       <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/install-irony-win32/</guid>
-      <description>
-
-&lt;p&gt;This article aims to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual building.  We need &lt;a href=&#34;http://clang.llvm.org/&#34;&gt;Clang&lt;/a&gt;, &lt;a href=&#34;https://github.com/Sarcasm/irony-mode&#34;&gt;Irony&lt;/a&gt; and some &lt;a href=&#34;https://company-mode.github.io/&#34;&gt;Company&lt;/a&gt;; we additionally require &lt;a href=&#34;http://www.cmake.org/&#34;&gt;CMake&lt;/a&gt; and &lt;a href=&#34;http://mingw-w64.org/&#34;&gt;MinGW&lt;/a&gt; for building something small.  Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.  The general installation instructions provided in Irony&amp;rsquo;s &lt;code&gt;README&lt;/code&gt; works but it asks you to build the complete Clang compiler from source for a single DLL (&lt;code&gt;libclang.dll&lt;/code&gt;).  I don&amp;rsquo;t know about you but this isn&amp;rsquo;t exactly my idea of fun.  This article skips that and uses Clang&amp;rsquo;s binary directly; this method has some quirks captured below to help others and myself.&lt;/p&gt;
-
-&lt;h1 id=&#34;packages&#34;&gt;Packages&lt;/h1&gt;
-
-&lt;p&gt;This article assumes that you are on Emacs 24.5 or later and have the following packages installed:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;irony&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;company&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;company-irony&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I think mine are from &lt;a href=&#34;http://melpa.org/&#34;&gt;Melpa&lt;/a&gt;.  Irony&amp;rsquo;s homepage is a straight-forward installation guide.&lt;/p&gt;
-
-&lt;h1 id=&#34;company&#34;&gt;Company&lt;/h1&gt;
-
-&lt;p&gt;&lt;em&gt;Company&lt;/em&gt; (&lt;strong&gt;Comp&lt;/strong&gt;lete &lt;strong&gt;any&lt;/strong&gt;thing) is a text completion &amp;ldquo;UI&amp;rdquo; for Emacs.  It has support for a variety of backends; Company only shows the choices, while the choices itself come from a backend.  &lt;code&gt;company-irony&lt;/code&gt; is one of the supported backends that in turn depends on &lt;code&gt;irony&lt;/code&gt;.  Make &lt;code&gt;company-irony&lt;/code&gt; the first in the list of backends for it to be picked up.  Enable &lt;code&gt;irony&lt;/code&gt; and &lt;code&gt;company&lt;/code&gt; modes in the &lt;code&gt;c-mode-common-hook&lt;/code&gt; function (that is called for both &lt;code&gt;c-mode&lt;/code&gt; and &lt;code&gt;c++-mode&lt;/code&gt;).  Effectively, my &lt;code&gt;.emacs&lt;/code&gt; looks thus:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(eval-after-load&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;company&lt;/span&gt;
-  &lt;span style=&#34;color: #f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-to-list&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;company-backends&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;company-irony&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
-
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(defun&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;my-c-common-setup&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;    &lt;span style=&#34;color: #75715e&#34;&gt;;; function called by c-mode-common-hook&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(irony-mode&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(company-mode))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Also fix key bindings to use Irony:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;;; replace the `completion-at-point&amp;#39; and `complete-symbol&amp;#39; bindings in&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;;; irony-mode&amp;#39;s buffers by irony-mode&amp;#39;s function&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(defun&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;my-irony-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(define-key&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;irony-mode-map&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;[remap&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;completion-at-point]&lt;/span&gt;
-    &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-completion-at-point-async&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(define-key&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;irony-mode-map&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;[remap&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;complete-symbol]&lt;/span&gt;
-    &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-completion-at-point-async&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
-
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;my-irony-mode-hook&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-cdb-autosetup-compile-options&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;This snippet was lifted from the project&amp;rsquo;s homepage.  Make sure you do the Windows performance tweaks; there are &lt;a href=&#34;https://github.com/Sarcasm/irony-mode/wiki/Setting-up-irony-mode-on-Windows&#34;&gt;good reasons&lt;/a&gt; to do this.&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(when&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(boundp&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;w32-pipe-read-delay&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;setq&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;w32-pipe-read-delay&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;;; Set the buffer size to 64K on Windows (from the original 4K)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(when&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(boundp&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;w32-pipe-buffer-size&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;setq&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;irony-server-w32-pipe-buffer-size&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(*&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;64&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1024&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h1 id=&#34;clang&#34;&gt;Clang&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Make sure CMake and MinGW are installed
-
-&lt;ul&gt;
-&lt;li&gt;I go for 32-bit MinGW
-
-&lt;ul&gt;
-&lt;li&gt;64-bit binaries for libraries aren&amp;rsquo;t common yet&lt;/li&gt;
-&lt;li&gt;64-bit MinGW is &lt;a href=&#34;http://stackoverflow.com/questions/16304804/dual-target-mingw-w64-isnt-really-dual-target&#34;&gt;not truly dual target&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;I choose POSIX threading mechanism
-
-&lt;ul&gt;
-&lt;li&gt;The Win32 variant &lt;a href=&#34;http://stackoverflow.com/q/13741711/183120&#34;&gt;doesn&amp;rsquo;t support C++11 concurrency&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;I prefer Dwarf for exception handling&lt;/li&gt;
-&lt;li&gt;I used CMake 3.6.2 and MinGW 6.3.0&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Install LLVM from a &lt;a href=&#34;http://releases.llvm.org/download.html&#34;&gt;pre-built binary package&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;It should match the &lt;em&gt;bit-ness&lt;/em&gt; of the MinGW toolchain installed&lt;/li&gt;
-&lt;li&gt;Verify that the installed directory has &lt;code&gt;/bin/libclang.dll&lt;/code&gt; or &lt;code&gt;/bin/clang.dll&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;The LLVM binaries (specifically &lt;code&gt;clang.dll&lt;/code&gt;) should have been built with MinGW
-
-&lt;ul&gt;
-&lt;li&gt;The ones built with MSVC didn&amp;rsquo;t seem to work for me&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;I chose &lt;a href=&#34;http://releases.llvm.org/3.9.1/LLVM-3.9.1-win32.exe&#34;&gt;&lt;code&gt;LLVM-3.9.1-win32.exe&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;irony-server&#34;&gt;Irony Server&lt;/h1&gt;
-
-&lt;p&gt;While you type out code in a buffer with &lt;code&gt;c++-mode&lt;/code&gt; enabled, &lt;code&gt;irony-mode&lt;/code&gt; will get enabled and that would run a &lt;code&gt;irony-server.exe&lt;/code&gt; in the background.  This program will talk to Clang as you type code into the buffer to get completion suggestions in real-time.  But this program doesn&amp;rsquo;t come pre-built; it has to be built manually.  This is the only manual building in our entire procedure:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;On a &lt;em&gt;Command Prompt&lt;/em&gt;, &lt;code&gt;cd&lt;/code&gt; to Irony&amp;rsquo;s package site
-
-&lt;ul&gt;
-&lt;li&gt;e.g. &lt;code&gt;~/.emacs.d/elpa/irony-20161227.348/server&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mkdir build &amp;amp;&amp;amp; cd build&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cmake -DLIBCLANG_LIBRARY=C:\PROGRA~2\LLVM\bin\libclang.dll -G &amp;quot;MinGW Makefiles&amp;quot; ..&lt;/code&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;LIBCLANG_LIBRARY&lt;/code&gt; is set manually to make sure the right DLL is picked up&lt;/li&gt;
-&lt;li&gt;Same may be needed for the &lt;code&gt;INCLUDE&lt;/code&gt; directory as well&lt;/li&gt;
-&lt;li&gt;Notice that I have made sure there&amp;rsquo;re no spaces in the path, even when &lt;code&gt;Program Files (x86)&lt;/code&gt; is part of it.  I have used its short name
-
-&lt;ul&gt;
-&lt;li&gt;Do &lt;code&gt;dir /x&lt;/code&gt; to get a directory&amp;rsquo;s short name&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mingw32-make&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Open a &lt;code&gt;.cpp&lt;/code&gt; file and run &lt;code&gt;M-x irony-install-server&lt;/code&gt;; don&amp;rsquo;t press &lt;code&gt;Return&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Copy the command shown and cancel it (&lt;code&gt;C-g&lt;/code&gt;).  Run it on &lt;code&gt;cmd&lt;/code&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Before running on &lt;code&gt;cmd&lt;/code&gt; un-escape what Emacs escaped&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;\=&lt;/code&gt; becomes &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;\:&lt;/code&gt; becomes &lt;code&gt;:&lt;/code&gt; and path separator would be &lt;code&gt;\&lt;/code&gt; not &lt;code&gt;/&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;CMake should place &lt;code&gt;irony-server.exe&lt;/code&gt; in &lt;code&gt;~/.emacs.d/irony/bin&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cpp -xc++ -Wp,-v &amp;lt; NUL&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Save just the (search) list of directories in a file named &lt;code&gt;.clang_complete&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Change it into compiler flags that &lt;code&gt;clang++&lt;/code&gt; understands (see sample below)&lt;/li&gt;
-&lt;li&gt;Put this file in the project root or your home directory&lt;/li&gt;
-&lt;li&gt;Restart Emacs&lt;/li&gt;
-&lt;li&gt;A buffer with &lt;code&gt;c++-mode&lt;/code&gt;, &lt;code&gt;irony-mode&lt;/code&gt; and &lt;code&gt;company-mode&lt;/code&gt; should display suggestions
-
-&lt;ul&gt;
-&lt;li&gt;Save it to a persistent file if it&amp;rsquo;s not backed by one&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Sample &lt;code&gt;.clang_complete&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;std&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;14&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;target&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;windows&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gnu&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Wall&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pedantic&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;DDEBUG&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;backward&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fixed&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Libs&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;boost_1_57_0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: each argument gets its own line&lt;/p&gt;
-
-&lt;p&gt;Giving &lt;code&gt;-std=c++14&lt;/code&gt; ate hours of my time investigating why C++14 syntax and tokens aren&amp;rsquo;t suggested by Clang.  I then realized that I had installed Clang 3.4 and &lt;a href=&#34;http://clang.llvm.org/cxx_status.html#cxx14&#34;&gt;the documentation&lt;/a&gt; clearly states that &lt;code&gt;-std=c++1y&lt;/code&gt; is to be used for versions 3.4 or earlier.&lt;/p&gt;
-
-&lt;p&gt;As a verification of things working fine, check if a process of &lt;code&gt;irony-server.exe&lt;/code&gt; is running smoothly.&lt;/p&gt;
-
-&lt;h1 id=&#34;irony-flycheck&#34;&gt;Irony Flycheck&lt;/h1&gt;
-
-&lt;p&gt;As a bonus of using Irony, we can do on-the-fly syntax checking using Clang and know of errors as the code is typed out without actually compiling the file separately.  This quickens the development cycle by avoiding slow compilations; when you have an error-free buffer, you&amp;rsquo;ll only be left with linker errors, if at all, when you do a proper compilation.  Install &lt;code&gt;flycheck&lt;/code&gt;, &lt;code&gt;flycheck-irony&lt;/code&gt; and &lt;code&gt;flycheck-pos-tip&lt;/code&gt;.  Enable it with&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(eval-after-load&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;flycheck&lt;/span&gt;
-  &lt;span style=&#34;color: #f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;flycheck-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;#&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;flycheck-irony-setup))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;where &lt;code&gt;flycheck-irony-setup&lt;/code&gt; is a function you get with the &lt;code&gt;flycheck-irony&lt;/code&gt; package.  Make sure you enable Flycheck when needed&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(defun&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;my-c-common-setup&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(flycheck-mode)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(flycheck-pos-tip-mode))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Flycheck shows the errors in a separate buffer which keeps getting update as you type.  But you can see the error in a particular statement without having to open this buffer with &lt;code&gt;flycheck-pos-tip-mode&lt;/code&gt;.  It will show error tooltips as the cursor is moved to an erroneous token.&lt;/p&gt;
-
-&lt;h1 id=&#34;advantages&#34;&gt;Advantages&lt;/h1&gt;
-
-&lt;p&gt;Without having a bloated IDE, you get to have both auto-complete (a.k.a. intellisense) and on-the-fly syntax checking.  They are valuable tools when writing code in a project with large code bases, taking lot of time to build.  Also, most IDEs require you to create a project for some single-file, toy, sample code you want to scribble; in out setup you just need to create a new buffer backed by a file on disk i.e. the usual drill for any new file.  Make sure you have the right &lt;code&gt;.clang_complete&lt;/code&gt; saved in your &lt;em&gt;Home&lt;/em&gt; directory (where you have your code lab of dirty files) with the required &lt;code&gt;include&lt;/code&gt; paths and compiler flags.&lt;/p&gt;
-
-&lt;p&gt;The advantage of Irony is that it uses a proper compiler (Clang) to do this job and hence the results are very reliable.&lt;/p&gt;
-
-&lt;p&gt;Finally, you can have a look at my &lt;a href=&#34;https://bitbucket.org/rmsundaram/tryouts/src/master/Misc/config/.emacs&#34;&gt;&lt;code&gt;.emacs&lt;/code&gt;&lt;/a&gt; file if you&amp;rsquo;ve doubts.&lt;/p&gt;
-</description>
+      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
+The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
     </item>
     
   </channel>

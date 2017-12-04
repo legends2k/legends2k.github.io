@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Typesetting on CGrok</title>
-    <link>https://legends2k.github.io/tags/typesetting/index.xml</link>
-    <description>Recent content in Typesetting on CGrok</description>
+    <title>Typesetting on Bits of Insight</title>
+    <link>https://legends2k.github.io/tags/typesetting/</link>
+    <description>Recent content in Typesetting on Bits of Insight</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <atom:link href="https://legends2k.github.io/tags/typesetting/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Aug 2016 17:00:46 +0530</lastBuildDate>
+    
+	<atom:link href="https://legends2k.github.io/tags/typesetting/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Blog – fit and finish</title>
@@ -15,52 +18,8 @@
       <pubDate>Fri, 12 Aug 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/site_customizations/</guid>
-      <description>
-
-&lt;p&gt;I did quite a few things to get this blog up and running the way you see it now.&lt;/p&gt;
-
-&lt;h1 id=&#34;steps-i-still-remember&#34;&gt;Steps I Still Remember&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Install &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;; just extract and put in &lt;code&gt;PATH&lt;/code&gt; &amp;mdash; can&amp;rsquo;t be simpler.&lt;/li&gt;
-&lt;li&gt;Create a dummy site using &lt;a href=&#34;http://gohugo.io/overview/quickstart/&#34;&gt;the Quickstart guide&lt;/a&gt;; straight forward.&lt;/li&gt;
-&lt;li&gt;Install &lt;em&gt;&lt;a href=&#34;http://themes.gohugo.io/theme/ghostwriter/&#34;&gt;Ghostwriter&lt;/a&gt;&lt;/em&gt; inside the &lt;code&gt;themes&lt;/code&gt; directory.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations.  I followed it.&lt;/p&gt;
-
-&lt;h2 id=&#34;1-syntax-highlighting&#34;&gt;1. Syntax Highlighting&lt;/h2&gt;
-
-&lt;p&gt;This theme uses &lt;em&gt;&lt;a href=&#34;https://highlightjs.org/&#34;&gt;highlight.js&lt;/a&gt;&lt;/em&gt; for syntax highlighting while I like &lt;em&gt;&lt;a href=&#34;http://pygments.org/&#34;&gt;Pygments&lt;/a&gt;&lt;/em&gt; since the latter means no processing at the client&amp;rsquo;s end; everything needed is preprocessed and only the final rendering is done at the reader&amp;rsquo;s end.  Even after switching to Pygments, it didn&amp;rsquo;t work as expected with this theme&amp;rsquo;s stylesheet.  Debugged the site with Firefox and made a copula hacks to get it working; see &lt;code&gt;/static/dist/style.css&lt;/code&gt; for the hacks with comments.  For Pygments, make sure &lt;code&gt;Python&lt;/code&gt; and Pygments (a &lt;code&gt;pip&lt;/code&gt; install) are installed and is reachable from the command-line.&lt;/p&gt;
-
-&lt;p&gt;Also, prefer using the Hugo &lt;em&gt;&lt;a href=&#34;https://gohugo.io/extras/shortcodes/&#34;&gt;shortcode&lt;/a&gt;&lt;/em&gt; &lt;code&gt;{{ &amp;lt;highlight&amp;gt; }}&lt;/code&gt; instead of &lt;code&gt;```&lt;/code&gt; since it can additionally highlight specific line(s).  The default of Pygments is &lt;em&gt;Monokai&lt;/em&gt; as opposed to the dull, light background theme that comes with Ghostwriter.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-nice-font&#34;&gt;2. Nice Font&lt;/h2&gt;
-
-&lt;p&gt;I really like the font used in &lt;em&gt;&lt;a href=&#34;https://thebookofshaders.com/&#34;&gt;The Book of Shaders&lt;/a&gt;&lt;/em&gt; and saw that the font name is &lt;strong&gt;Baskerville&lt;/strong&gt;.  I recalled that for custom web fonts, &lt;em&gt;reveal.js&lt;/em&gt; used to do this using &lt;a href=&#34;http://fonts.google.com&#34;&gt;Google Fonts&lt;/a&gt;; luckily it had &lt;em&gt;Libre Baskerville&lt;/em&gt;, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁&lt;/p&gt;
-
-&lt;h2 id=&#34;3-external-content&#34;&gt;3. External Content&lt;/h2&gt;
-
-&lt;p&gt;Showing any image is no big deal; the usual markdown syntax for showing images would do. It took some time to figure out where to actually place the image file.  The &lt;code&gt;content&lt;/code&gt; directory is for posts, while the &lt;code&gt;static&lt;/code&gt; directory is for putting any kind of file or external content that may be referred to by the posts.  Plunking the &lt;code&gt;.svg&lt;/code&gt;s here and referring them in the post did the trick.  Likewise to show a HTML5 canvas demo, just adding a &lt;code&gt;.html&lt;/code&gt; and &lt;code&gt;.js&lt;/code&gt; and embedding the HTML in an &lt;code&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt; worked.  To remove the extraneous scroll bars I&amp;rsquo;d to refer &lt;a href=&#34;http://webglfundamentals.org/&#34;&gt;WebGL Fundamentals&lt;/a&gt; to check out how &lt;em&gt;Gregg Tavares&lt;/em&gt; did it.&lt;/p&gt;
-
-&lt;h2 id=&#34;4-beautiful-math-equations&#34;&gt;4. Beautiful Math Equations&lt;/h2&gt;
-
-&lt;p&gt;Be it for showing inline math, such as &lt;code&gt;$\pi$&lt;/code&gt;, or full-blown equations like&lt;/p&gt;
-
-&lt;p&gt;$$
-\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}
-$$&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;MathJax&lt;/em&gt; is the go-to solution in browsers.  The &lt;em&gt;display math&lt;/em&gt; (MathJax lingo) works with no quirks; inline math doesn&amp;rsquo;t work properly by default; I&amp;rsquo;d to &lt;a href=&#34;http://github.com/spf13/hugo/issues/1666#issuecomment-225316394&#34;&gt;stuff&lt;/a&gt; to get it working.  I added a custom parameter in the markdown&amp;rsquo;s front matter, which is later used in a partial HTML document to include the &lt;a href=&#34;http://gohugo.io/tutorials/mathjax/&#34;&gt;necessary script&lt;/a&gt; tag for markdown.  MathJax may work-up &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt; tags, and the workaround for this is shown in the documentation.  The &lt;code&gt;TeX-AMS-MML_HTMLorMML&lt;/code&gt; configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the &lt;a href=&#34;http://legends2k.github.io/2d-transforms-101/&#34;&gt;&lt;em&gt;2D Transforms 101&lt;/em&gt;&lt;/a&gt; presentation; I&amp;rsquo;d to resort to &lt;code&gt;TeX-AMS-MML_SVG&lt;/code&gt; in its case.&lt;/p&gt;
-
-&lt;h2 id=&#34;5-fractions-and-footnote-return-text&#34;&gt;5. Fractions and Footnote return text&lt;/h2&gt;
-
-&lt;p&gt;Things like footnote return link text can be configured directly in the site&amp;rsquo;s &lt;code&gt;config.toml&lt;/code&gt;.  More such options are explained in the configuration page of Hugo&amp;rsquo;s excellent documentation.  When a fraction like is typed out ordinarily as &lt;code&gt;355/113&lt;/code&gt;, it still shows up like &lt;sup&gt;355&lt;/sup&gt;&amp;frasl;&lt;sub&gt;113&lt;/sub&gt;, which is nice; it does it just with &lt;code&gt;&amp;lt;sup&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;sub&amp;gt;&lt;/code&gt; tags, no CSS or MathJax.  This is due to &lt;em&gt;Blackfriday&lt;/em&gt;, the underlying markdown rendering engine.&lt;/p&gt;
-
-&lt;h2 id=&#34;6-test-and-deploy&#34;&gt;6. Test and Deploy&lt;/h2&gt;
-
-&lt;p&gt;Running Hugo with &lt;code&gt;hugo server&lt;/code&gt; serves the content on-the-fly at &lt;code&gt;localhost:1313&lt;/code&gt;; port can be changed.  When the testing is done and all is well, the final run would be just &lt;code&gt;hugo&lt;/code&gt; without any parameters; this generates the entire site tree inside the &lt;code&gt;public&lt;/code&gt; directory which needs to be hosted.&lt;/p&gt;
-</description>
+      <description>I did quite a few things to get this blog up and running the way you see it now.
+Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.</description>
     </item>
     
   </channel>

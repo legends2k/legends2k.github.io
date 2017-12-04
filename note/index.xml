@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Notes to Self on CGrok</title>
-    <link>https://legends2k.github.io/note/index.xml</link>
-    <description>Recent content in Notes to Self on CGrok</description>
+    <title>Notes to Self on Bits of Insight</title>
+    <link>https://legends2k.github.io/note/</link>
+    <description>Recent content in Notes to Self on Bits of Insight</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
     <lastBuildDate>Fri, 24 Feb 2017 12:14:41 +0530</lastBuildDate>
-    <atom:link href="https://legends2k.github.io/note/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://legends2k.github.io/note/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Useful GCC options</title>
@@ -16,51 +18,10 @@
       <pubDate>Wed, 08 Feb 2017 16:45:02 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/useful_gcc_opts/</guid>
-      <description>&lt;p&gt;Here are some of the useful, but not widely known, options of GCC that I want to document.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gcc -dumpspecs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Gives the specifications with which GCC was built.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gcc -fstack-usage
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage.  &lt;a href=&#34;https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html#index-fstack-usage&#34;&gt;See the manual&lt;/a&gt; for details on deciphering its output.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# get macros defined when the language is C++
-cpp -xc++ -dM /dev/null
-
-# get macros defined when the language is C
-cpp -dM /dev/null
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Prints the macros defined when the preprocessor was called.  The last command &lt;a href=&#34;http://stackoverflow.com/a/2224357/183120&#34;&gt;is popular&lt;/a&gt; as &lt;code&gt;gcc -dM -E - &amp;lt;&amp;lt; /dev/null&lt;/code&gt; but is not as good for two reasons:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;If you want to talk to the preprocessor, talk directly to it, why go through the compiler?&lt;/li&gt;
-&lt;li&gt;Looking at this, one might get a false hope that &lt;code&gt;g++ -dM -E - &amp;lt;&amp;lt; /dev/null&lt;/code&gt; will spit C++ macros; it doesn&amp;rsquo;t.  Instead one has to do &lt;code&gt;g++ -xc++ -dM -E - &amp;lt;&amp;lt; /dev/null&lt;/code&gt; for &lt;a href=&#34;http://stackoverflow.com/a/27980787/183120&#34;&gt;some reasons&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;For setting up auto completion in Emacs using Irony, I needed to know the include directories GCC searches.  How do we find them?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cpp -xc++ -Wp,-v /dev/null
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This prints the list of standard include directories.  &lt;code&gt;g++ -v some.cpp&lt;/code&gt; would give it too, but this is fast &amp;amp; easy; no input file or fake compiler calls.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;g++ -std=c++14 -O3 -c -masm=intel -fverbose-asm -Wa,-adhln=prgm.s prgm.cpp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;will show the disassembly of a compilation unit in Intel syntax &lt;em&gt;with inter-weaved source listing&lt;/em&gt;.  This one is very popular among optimisation enthusiasts 😃  Here&amp;rsquo;s one more for them:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;g++ -fdump-class-hierarchy my_classes.cpp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This would show object memory layout of classes in the source; includes classes with complex inheritance hierarchies.&lt;/p&gt;
-
-&lt;p&gt;What interesting GCC options do you know?&lt;/p&gt;
-</description>
+      <description>Here are some of the useful, but not widely known, options of GCC that I want to document.
+gcc -dumpspecs  Gives the specifications with which GCC was built.
+gcc -fstack-usage  Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage. See the manual for details on deciphering its output.
+# get macros defined when the language is C++ cpp -xc++ -dM /dev/null # get macros defined when the language is C cpp -dM /dev/null  Prints the macros defined when the preprocessor was called.</description>
     </item>
     
     <item>
@@ -69,188 +30,8 @@ cpp -dM /dev/null
       <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/install-irony-win32/</guid>
-      <description>
-
-&lt;p&gt;This article aims to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual building.  We need &lt;a href=&#34;http://clang.llvm.org/&#34;&gt;Clang&lt;/a&gt;, &lt;a href=&#34;https://github.com/Sarcasm/irony-mode&#34;&gt;Irony&lt;/a&gt; and some &lt;a href=&#34;https://company-mode.github.io/&#34;&gt;Company&lt;/a&gt;; we additionally require &lt;a href=&#34;http://www.cmake.org/&#34;&gt;CMake&lt;/a&gt; and &lt;a href=&#34;http://mingw-w64.org/&#34;&gt;MinGW&lt;/a&gt; for building something small.  Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.  The general installation instructions provided in Irony&amp;rsquo;s &lt;code&gt;README&lt;/code&gt; works but it asks you to build the complete Clang compiler from source for a single DLL (&lt;code&gt;libclang.dll&lt;/code&gt;).  I don&amp;rsquo;t know about you but this isn&amp;rsquo;t exactly my idea of fun.  This article skips that and uses Clang&amp;rsquo;s binary directly; this method has some quirks captured below to help others and myself.&lt;/p&gt;
-
-&lt;h1 id=&#34;packages&#34;&gt;Packages&lt;/h1&gt;
-
-&lt;p&gt;This article assumes that you are on Emacs 24.5 or later and have the following packages installed:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;irony&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;company&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;company-irony&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I think mine are from &lt;a href=&#34;http://melpa.org/&#34;&gt;Melpa&lt;/a&gt;.  Irony&amp;rsquo;s homepage is a straight-forward installation guide.&lt;/p&gt;
-
-&lt;h1 id=&#34;company&#34;&gt;Company&lt;/h1&gt;
-
-&lt;p&gt;&lt;em&gt;Company&lt;/em&gt; (&lt;strong&gt;Comp&lt;/strong&gt;lete &lt;strong&gt;any&lt;/strong&gt;thing) is a text completion &amp;ldquo;UI&amp;rdquo; for Emacs.  It has support for a variety of backends; Company only shows the choices, while the choices itself come from a backend.  &lt;code&gt;company-irony&lt;/code&gt; is one of the supported backends that in turn depends on &lt;code&gt;irony&lt;/code&gt;.  Make &lt;code&gt;company-irony&lt;/code&gt; the first in the list of backends for it to be picked up.  Enable &lt;code&gt;irony&lt;/code&gt; and &lt;code&gt;company&lt;/code&gt; modes in the &lt;code&gt;c-mode-common-hook&lt;/code&gt; function (that is called for both &lt;code&gt;c-mode&lt;/code&gt; and &lt;code&gt;c++-mode&lt;/code&gt;).  Effectively, my &lt;code&gt;.emacs&lt;/code&gt; looks thus:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(eval-after-load&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;company&lt;/span&gt;
-  &lt;span style=&#34;color: #f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-to-list&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;company-backends&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;company-irony&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
-
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(defun&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;my-c-common-setup&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;    &lt;span style=&#34;color: #75715e&#34;&gt;;; function called by c-mode-common-hook&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(irony-mode&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(company-mode))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Also fix key bindings to use Irony:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;;; replace the `completion-at-point&amp;#39; and `complete-symbol&amp;#39; bindings in&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;;; irony-mode&amp;#39;s buffers by irony-mode&amp;#39;s function&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(defun&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;my-irony-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(define-key&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;irony-mode-map&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;[remap&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;completion-at-point]&lt;/span&gt;
-    &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-completion-at-point-async&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(define-key&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;irony-mode-map&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;[remap&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;complete-symbol]&lt;/span&gt;
-    &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-completion-at-point-async&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
-
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;my-irony-mode-hook&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;irony-cdb-autosetup-compile-options&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;This snippet was lifted from the project&amp;rsquo;s homepage.  Make sure you do the Windows performance tweaks; there are &lt;a href=&#34;https://github.com/Sarcasm/irony-mode/wiki/Setting-up-irony-mode-on-Windows&#34;&gt;good reasons&lt;/a&gt; to do this.&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(when&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(boundp&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;w32-pipe-read-delay&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;setq&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;w32-pipe-read-delay&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
-&lt;span style=&#34;color: #75715e&#34;&gt;;; Set the buffer size to 64K on Windows (from the original 4K)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;(when&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(boundp&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;w32-pipe-buffer-size&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;setq&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;irony-server-w32-pipe-buffer-size&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;(*&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;64&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1024&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h1 id=&#34;clang&#34;&gt;Clang&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Make sure CMake and MinGW are installed
-
-&lt;ul&gt;
-&lt;li&gt;I go for 32-bit MinGW
-
-&lt;ul&gt;
-&lt;li&gt;64-bit binaries for libraries aren&amp;rsquo;t common yet&lt;/li&gt;
-&lt;li&gt;64-bit MinGW is &lt;a href=&#34;http://stackoverflow.com/questions/16304804/dual-target-mingw-w64-isnt-really-dual-target&#34;&gt;not truly dual target&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;I choose POSIX threading mechanism
-
-&lt;ul&gt;
-&lt;li&gt;The Win32 variant &lt;a href=&#34;http://stackoverflow.com/q/13741711/183120&#34;&gt;doesn&amp;rsquo;t support C++11 concurrency&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;I prefer Dwarf for exception handling&lt;/li&gt;
-&lt;li&gt;I used CMake 3.6.2 and MinGW 6.3.0&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Install LLVM from a &lt;a href=&#34;http://releases.llvm.org/download.html&#34;&gt;pre-built binary package&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;It should match the &lt;em&gt;bit-ness&lt;/em&gt; of the MinGW toolchain installed&lt;/li&gt;
-&lt;li&gt;Verify that the installed directory has &lt;code&gt;/bin/libclang.dll&lt;/code&gt; or &lt;code&gt;/bin/clang.dll&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;The LLVM binaries (specifically &lt;code&gt;clang.dll&lt;/code&gt;) should have been built with MinGW
-
-&lt;ul&gt;
-&lt;li&gt;The ones built with MSVC didn&amp;rsquo;t seem to work for me&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;I chose &lt;a href=&#34;http://releases.llvm.org/3.9.1/LLVM-3.9.1-win32.exe&#34;&gt;&lt;code&gt;LLVM-3.9.1-win32.exe&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;irony-server&#34;&gt;Irony Server&lt;/h1&gt;
-
-&lt;p&gt;While you type out code in a buffer with &lt;code&gt;c++-mode&lt;/code&gt; enabled, &lt;code&gt;irony-mode&lt;/code&gt; will get enabled and that would run a &lt;code&gt;irony-server.exe&lt;/code&gt; in the background.  This program will talk to Clang as you type code into the buffer to get completion suggestions in real-time.  But this program doesn&amp;rsquo;t come pre-built; it has to be built manually.  This is the only manual building in our entire procedure:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;On a &lt;em&gt;Command Prompt&lt;/em&gt;, &lt;code&gt;cd&lt;/code&gt; to Irony&amp;rsquo;s package site
-
-&lt;ul&gt;
-&lt;li&gt;e.g. &lt;code&gt;~/.emacs.d/elpa/irony-20161227.348/server&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mkdir build &amp;amp;&amp;amp; cd build&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cmake -DLIBCLANG_LIBRARY=C:\PROGRA~2\LLVM\bin\libclang.dll -G &amp;quot;MinGW Makefiles&amp;quot; ..&lt;/code&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;LIBCLANG_LIBRARY&lt;/code&gt; is set manually to make sure the right DLL is picked up&lt;/li&gt;
-&lt;li&gt;Same may be needed for the &lt;code&gt;INCLUDE&lt;/code&gt; directory as well&lt;/li&gt;
-&lt;li&gt;Notice that I have made sure there&amp;rsquo;re no spaces in the path, even when &lt;code&gt;Program Files (x86)&lt;/code&gt; is part of it.  I have used its short name
-
-&lt;ul&gt;
-&lt;li&gt;Do &lt;code&gt;dir /x&lt;/code&gt; to get a directory&amp;rsquo;s short name&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mingw32-make&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Open a &lt;code&gt;.cpp&lt;/code&gt; file and run &lt;code&gt;M-x irony-install-server&lt;/code&gt;; don&amp;rsquo;t press &lt;code&gt;Return&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Copy the command shown and cancel it (&lt;code&gt;C-g&lt;/code&gt;).  Run it on &lt;code&gt;cmd&lt;/code&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Before running on &lt;code&gt;cmd&lt;/code&gt; un-escape what Emacs escaped&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;\=&lt;/code&gt; becomes &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;\:&lt;/code&gt; becomes &lt;code&gt;:&lt;/code&gt; and path separator would be &lt;code&gt;\&lt;/code&gt; not &lt;code&gt;/&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;CMake should place &lt;code&gt;irony-server.exe&lt;/code&gt; in &lt;code&gt;~/.emacs.d/irony/bin&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cpp -xc++ -Wp,-v &amp;lt; NUL&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Save just the (search) list of directories in a file named &lt;code&gt;.clang_complete&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Change it into compiler flags that &lt;code&gt;clang++&lt;/code&gt; understands (see sample below)&lt;/li&gt;
-&lt;li&gt;Put this file in the project root or your home directory&lt;/li&gt;
-&lt;li&gt;Restart Emacs&lt;/li&gt;
-&lt;li&gt;A buffer with &lt;code&gt;c++-mode&lt;/code&gt;, &lt;code&gt;irony-mode&lt;/code&gt; and &lt;code&gt;company-mode&lt;/code&gt; should display suggestions
-
-&lt;ul&gt;
-&lt;li&gt;Save it to a persistent file if it&amp;rsquo;s not backed by one&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Sample &lt;code&gt;.clang_complete&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;std&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;14&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;target&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;windows&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gnu&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Wall&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;pedantic&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;DDEBUG&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;c&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;++/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;backward&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;lib&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;gcc&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6.3.0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fixed&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Apps&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;i686&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;w64&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;mingw32&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;include&lt;/span&gt;
-&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;IF:&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Libs&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;boost_1_57_0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: each argument gets its own line&lt;/p&gt;
-
-&lt;p&gt;Giving &lt;code&gt;-std=c++14&lt;/code&gt; ate hours of my time investigating why C++14 syntax and tokens aren&amp;rsquo;t suggested by Clang.  I then realized that I had installed Clang 3.4 and &lt;a href=&#34;http://clang.llvm.org/cxx_status.html#cxx14&#34;&gt;the documentation&lt;/a&gt; clearly states that &lt;code&gt;-std=c++1y&lt;/code&gt; is to be used for versions 3.4 or earlier.&lt;/p&gt;
-
-&lt;p&gt;As a verification of things working fine, check if a process of &lt;code&gt;irony-server.exe&lt;/code&gt; is running smoothly.&lt;/p&gt;
-
-&lt;h1 id=&#34;irony-flycheck&#34;&gt;Irony Flycheck&lt;/h1&gt;
-
-&lt;p&gt;As a bonus of using Irony, we can do on-the-fly syntax checking using Clang and know of errors as the code is typed out without actually compiling the file separately.  This quickens the development cycle by avoiding slow compilations; when you have an error-free buffer, you&amp;rsquo;ll only be left with linker errors, if at all, when you do a proper compilation.  Install &lt;code&gt;flycheck&lt;/code&gt;, &lt;code&gt;flycheck-irony&lt;/code&gt; and &lt;code&gt;flycheck-pos-tip&lt;/code&gt;.  Enable it with&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(eval-after-load&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;flycheck&lt;/span&gt;
-  &lt;span style=&#34;color: #f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(add-hook&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;flycheck-mode-hook&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;#&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;flycheck-irony-setup))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;where &lt;code&gt;flycheck-irony-setup&lt;/code&gt; is a function you get with the &lt;code&gt;flycheck-irony&lt;/code&gt; package.  Make sure you enable Flycheck when needed&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(defun&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;my-c-common-setup&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(flycheck-mode)&lt;/span&gt;
-  &lt;span style=&#34;color: #f8f8f2&#34;&gt;(flycheck-pos-tip-mode))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Flycheck shows the errors in a separate buffer which keeps getting update as you type.  But you can see the error in a particular statement without having to open this buffer with &lt;code&gt;flycheck-pos-tip-mode&lt;/code&gt;.  It will show error tooltips as the cursor is moved to an erroneous token.&lt;/p&gt;
-
-&lt;h1 id=&#34;advantages&#34;&gt;Advantages&lt;/h1&gt;
-
-&lt;p&gt;Without having a bloated IDE, you get to have both auto-complete (a.k.a. intellisense) and on-the-fly syntax checking.  They are valuable tools when writing code in a project with large code bases, taking lot of time to build.  Also, most IDEs require you to create a project for some single-file, toy, sample code you want to scribble; in out setup you just need to create a new buffer backed by a file on disk i.e. the usual drill for any new file.  Make sure you have the right &lt;code&gt;.clang_complete&lt;/code&gt; saved in your &lt;em&gt;Home&lt;/em&gt; directory (where you have your code lab of dirty files) with the required &lt;code&gt;include&lt;/code&gt; paths and compiler flags.&lt;/p&gt;
-
-&lt;p&gt;The advantage of Irony is that it uses a proper compiler (Clang) to do this job and hence the results are very reliable.&lt;/p&gt;
-
-&lt;p&gt;Finally, you can have a look at my &lt;a href=&#34;https://bitbucket.org/rmsundaram/tryouts/src/master/Misc/config/.emacs&#34;&gt;&lt;code&gt;.emacs&lt;/code&gt;&lt;/a&gt; file if you&amp;rsquo;ve doubts.&lt;/p&gt;
-</description>
+      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
+The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
     </item>
     
     <item>
@@ -259,69 +40,7 @@ cpp -dM /dev/null
       <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/lua_rocks/</guid>
-      <description>
-
-&lt;h1 id=&#34;ingredients&#34;&gt;Ingredients&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;CMake&lt;/li&gt;
-&lt;li&gt;MinGW compiler (one of MinGW, TDM, MinGW-W64, …)&lt;/li&gt;
-&lt;li&gt;Lua binaries&lt;/li&gt;
-&lt;li&gt;LuaRocks setup binaries&lt;/li&gt;
-&lt;li&gt;ZeroBrane Studio&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;steps-involved&#34;&gt;Steps Involved&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Make sure the commands &lt;code&gt;cmake&lt;/code&gt; and &lt;code&gt;mingw32-gcc&lt;/code&gt; are accessible from a general &lt;em&gt;Command Prompt&lt;/em&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install CMake; straight-forward&lt;/li&gt;
-&lt;li&gt;Install MinGW64; choose &lt;code&gt;i686-6.2.0-posix-dwarf-rt_v5-rev0&lt;/code&gt;.  Both archive and installer works.&lt;/li&gt;
-&lt;li&gt;mingw-w64 project&amp;rsquo;s MinGW only has &lt;code&gt;gcc.exe&lt;/code&gt; while luarocks expects &lt;code&gt;mingw32-gcc.exe&lt;/code&gt;; create a symbolic link (&lt;code&gt;mklink&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Download &lt;code&gt;lua-5.3.3_Win32_bin.zip&lt;/code&gt; from &lt;a href=&#34;http://luabinaries.luaforge.net/&#34;&gt;LuaForge Lua Binaries project&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Make sure Lua and MinGW are of the same arch&lt;/li&gt;
-&lt;li&gt;This contains the binaries (&lt;code&gt;.exe&lt;/code&gt;s and &lt;code&gt;.dll&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Put them in the &lt;code&gt;/bin&lt;/code&gt; directory e.g. &lt;code&gt;F:\Apps\Lua\bin&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;This package does not have the &lt;code&gt;lua&lt;/code&gt; and &lt;code&gt;luac&lt;/code&gt; executables; make links if necessary to the versioned ones&lt;/li&gt;
-&lt;li&gt;LuaBinaries is preferred over &lt;a href=&#34;http://joedf.users.sourceforge.net/luabuilds/&#34;&gt;Joe DF&amp;rsquo;s Builds&lt;/a&gt; as it depends on &lt;code&gt;libgcc_s_dw2-1.dll&lt;/code&gt;; distributed as a separate download&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Download &lt;code&gt;lua-5.3.3_Win32_dllw4_lib.zip&lt;/code&gt; from &lt;a href=&#34;http://luabinaries.luaforge.net/&#34;&gt;LuaForge Lua Binaries project&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This has the includes and libraries (except the &lt;code&gt;.dll&lt;/code&gt; everything else is needed)&lt;/li&gt;
-&lt;li&gt;Put them in the right places: &lt;code&gt;F:\Apps\Lua\lib&lt;/code&gt; and &lt;code&gt;F:\Apps\Lua\include&lt;/code&gt; &amp;ndash; although &lt;code&gt;inc&lt;/code&gt; would be a better name, &lt;em&gt;LuaRocks&lt;/em&gt;, by default, looks for &lt;code&gt;include&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Put the &lt;code&gt;bin&lt;/code&gt; directory in &lt;code&gt;$PATH&lt;/code&gt;; Lua 5.3 should work now from Command Prompt.&lt;/li&gt;
-&lt;li&gt;Extract &lt;code&gt;luarocks-2.3.0-win32.zip&lt;/code&gt; somewhere (this can be removed post installation); &lt;code&gt;cd&lt;/code&gt; to it from an elevated prompt.&lt;/li&gt;
-&lt;li&gt;Run &lt;code&gt;install.bat /LV 5.3 /LUA F:\Apps\Lua /P F:\Apps\LuaRocks /MW&lt;/code&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This should successfully install LuaRocks. Save the logs for the information on &lt;code&gt;ENV&lt;/code&gt; variables.&lt;/li&gt;
-&lt;li&gt;The LuaRocks installer directory that you extracted may be removed now.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Go to the installed directory, search and install a rock.
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;luarocks install luafilesystem&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;l = require lfs&lt;/code&gt; should now evaluate to something non-nil.&lt;/li&gt;
-&lt;li&gt;Configure &lt;em&gt;ZeroBrane Studio&lt;/em&gt; to use this installation of Lua 5.3 interpreter by adding this line to the user configuration file &lt;code&gt;user.lua&lt;/code&gt;:
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;path.lua53&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;F:/Apps/Lua/bin/lua.exe&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;After successful installation, adding the environment variables mandated by &lt;code&gt;install.bat&lt;/code&gt; wasn&amp;rsquo;t needed when making ZBS use this Lua.
-
-&lt;ul&gt;
-&lt;li&gt;Earlier setting &lt;code&gt;PATH&lt;/code&gt;, &lt;code&gt;LUA_PATH&lt;/code&gt; and &lt;code&gt;LUA_CPATH&lt;/code&gt; for LuaRocks and System rocktree were needed&lt;/li&gt;
-&lt;li&gt;If adding, &lt;em&gt;do not&lt;/em&gt; change &lt;code&gt;/&lt;/code&gt; into &lt;code&gt;\&lt;/code&gt; and keep the &lt;code&gt;?&lt;/code&gt;s&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved  Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)  Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
     </item>
     
     <item>
@@ -330,52 +49,8 @@ cpp -dM /dev/null
       <pubDate>Fri, 12 Aug 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/site_customizations/</guid>
-      <description>
-
-&lt;p&gt;I did quite a few things to get this blog up and running the way you see it now.&lt;/p&gt;
-
-&lt;h1 id=&#34;steps-i-still-remember&#34;&gt;Steps I Still Remember&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Install &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt;; just extract and put in &lt;code&gt;PATH&lt;/code&gt; &amp;mdash; can&amp;rsquo;t be simpler.&lt;/li&gt;
-&lt;li&gt;Create a dummy site using &lt;a href=&#34;http://gohugo.io/overview/quickstart/&#34;&gt;the Quickstart guide&lt;/a&gt;; straight forward.&lt;/li&gt;
-&lt;li&gt;Install &lt;em&gt;&lt;a href=&#34;http://themes.gohugo.io/theme/ghostwriter/&#34;&gt;Ghostwriter&lt;/a&gt;&lt;/em&gt; inside the &lt;code&gt;themes&lt;/code&gt; directory.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations.  I followed it.&lt;/p&gt;
-
-&lt;h2 id=&#34;1-syntax-highlighting&#34;&gt;1. Syntax Highlighting&lt;/h2&gt;
-
-&lt;p&gt;This theme uses &lt;em&gt;&lt;a href=&#34;https://highlightjs.org/&#34;&gt;highlight.js&lt;/a&gt;&lt;/em&gt; for syntax highlighting while I like &lt;em&gt;&lt;a href=&#34;http://pygments.org/&#34;&gt;Pygments&lt;/a&gt;&lt;/em&gt; since the latter means no processing at the client&amp;rsquo;s end; everything needed is preprocessed and only the final rendering is done at the reader&amp;rsquo;s end.  Even after switching to Pygments, it didn&amp;rsquo;t work as expected with this theme&amp;rsquo;s stylesheet.  Debugged the site with Firefox and made a copula hacks to get it working; see &lt;code&gt;/static/dist/style.css&lt;/code&gt; for the hacks with comments.  For Pygments, make sure &lt;code&gt;Python&lt;/code&gt; and Pygments (a &lt;code&gt;pip&lt;/code&gt; install) are installed and is reachable from the command-line.&lt;/p&gt;
-
-&lt;p&gt;Also, prefer using the Hugo &lt;em&gt;&lt;a href=&#34;https://gohugo.io/extras/shortcodes/&#34;&gt;shortcode&lt;/a&gt;&lt;/em&gt; &lt;code&gt;{{ &amp;lt;highlight&amp;gt; }}&lt;/code&gt; instead of &lt;code&gt;```&lt;/code&gt; since it can additionally highlight specific line(s).  The default of Pygments is &lt;em&gt;Monokai&lt;/em&gt; as opposed to the dull, light background theme that comes with Ghostwriter.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-nice-font&#34;&gt;2. Nice Font&lt;/h2&gt;
-
-&lt;p&gt;I really like the font used in &lt;em&gt;&lt;a href=&#34;https://thebookofshaders.com/&#34;&gt;The Book of Shaders&lt;/a&gt;&lt;/em&gt; and saw that the font name is &lt;strong&gt;Baskerville&lt;/strong&gt;.  I recalled that for custom web fonts, &lt;em&gt;reveal.js&lt;/em&gt; used to do this using &lt;a href=&#34;http://fonts.google.com&#34;&gt;Google Fonts&lt;/a&gt;; luckily it had &lt;em&gt;Libre Baskerville&lt;/em&gt;, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁&lt;/p&gt;
-
-&lt;h2 id=&#34;3-external-content&#34;&gt;3. External Content&lt;/h2&gt;
-
-&lt;p&gt;Showing any image is no big deal; the usual markdown syntax for showing images would do. It took some time to figure out where to actually place the image file.  The &lt;code&gt;content&lt;/code&gt; directory is for posts, while the &lt;code&gt;static&lt;/code&gt; directory is for putting any kind of file or external content that may be referred to by the posts.  Plunking the &lt;code&gt;.svg&lt;/code&gt;s here and referring them in the post did the trick.  Likewise to show a HTML5 canvas demo, just adding a &lt;code&gt;.html&lt;/code&gt; and &lt;code&gt;.js&lt;/code&gt; and embedding the HTML in an &lt;code&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt; worked.  To remove the extraneous scroll bars I&amp;rsquo;d to refer &lt;a href=&#34;http://webglfundamentals.org/&#34;&gt;WebGL Fundamentals&lt;/a&gt; to check out how &lt;em&gt;Gregg Tavares&lt;/em&gt; did it.&lt;/p&gt;
-
-&lt;h2 id=&#34;4-beautiful-math-equations&#34;&gt;4. Beautiful Math Equations&lt;/h2&gt;
-
-&lt;p&gt;Be it for showing inline math, such as &lt;code&gt;$\pi$&lt;/code&gt;, or full-blown equations like&lt;/p&gt;
-
-&lt;p&gt;$$
-\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}
-$$&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;MathJax&lt;/em&gt; is the go-to solution in browsers.  The &lt;em&gt;display math&lt;/em&gt; (MathJax lingo) works with no quirks; inline math doesn&amp;rsquo;t work properly by default; I&amp;rsquo;d to &lt;a href=&#34;http://github.com/spf13/hugo/issues/1666#issuecomment-225316394&#34;&gt;stuff&lt;/a&gt; to get it working.  I added a custom parameter in the markdown&amp;rsquo;s front matter, which is later used in a partial HTML document to include the &lt;a href=&#34;http://gohugo.io/tutorials/mathjax/&#34;&gt;necessary script&lt;/a&gt; tag for markdown.  MathJax may work-up &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt; tags, and the workaround for this is shown in the documentation.  The &lt;code&gt;TeX-AMS-MML_HTMLorMML&lt;/code&gt; configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the &lt;a href=&#34;http://legends2k.github.io/2d-transforms-101/&#34;&gt;&lt;em&gt;2D Transforms 101&lt;/em&gt;&lt;/a&gt; presentation; I&amp;rsquo;d to resort to &lt;code&gt;TeX-AMS-MML_SVG&lt;/code&gt; in its case.&lt;/p&gt;
-
-&lt;h2 id=&#34;5-fractions-and-footnote-return-text&#34;&gt;5. Fractions and Footnote return text&lt;/h2&gt;
-
-&lt;p&gt;Things like footnote return link text can be configured directly in the site&amp;rsquo;s &lt;code&gt;config.toml&lt;/code&gt;.  More such options are explained in the configuration page of Hugo&amp;rsquo;s excellent documentation.  When a fraction like is typed out ordinarily as &lt;code&gt;355/113&lt;/code&gt;, it still shows up like &lt;sup&gt;355&lt;/sup&gt;&amp;frasl;&lt;sub&gt;113&lt;/sub&gt;, which is nice; it does it just with &lt;code&gt;&amp;lt;sup&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;sub&amp;gt;&lt;/code&gt; tags, no CSS or MathJax.  This is due to &lt;em&gt;Blackfriday&lt;/em&gt;, the underlying markdown rendering engine.&lt;/p&gt;
-
-&lt;h2 id=&#34;6-test-and-deploy&#34;&gt;6. Test and Deploy&lt;/h2&gt;
-
-&lt;p&gt;Running Hugo with &lt;code&gt;hugo server&lt;/code&gt; serves the content on-the-fly at &lt;code&gt;localhost:1313&lt;/code&gt;; port can be changed.  When the testing is done and all is well, the final run would be just &lt;code&gt;hugo&lt;/code&gt; without any parameters; this generates the entire site tree inside the &lt;code&gt;public&lt;/code&gt; directory which needs to be hosted.&lt;/p&gt;
-</description>
+      <description>I did quite a few things to get this blog up and running the way you see it now.
+Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.</description>
     </item>
     
     <item>
@@ -384,154 +59,7 @@ $$&lt;/p&gt;
       <pubDate>Mon, 11 Jul 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/hello_hugo/</guid>
-      <description>
-
-&lt;p&gt;Many &lt;a href=&#34;http://www.staticgen.com/&#34;&gt;static site generators&lt;/a&gt; are coming up these days; 175 and still counting.  Apart from the prime selling point of content creation from the comfort of your favourite text editor in &lt;a href=&#34;https://daringfireball.net/projects/markdown/basics&#34;&gt;Markdown&lt;/a&gt;, most have a wide gamut of themes to choose from.  You are free to &lt;a href=&#34;https://legends2k.github.io/note/site_customizations&#34;&gt;remix the theme to your taste&lt;/a&gt; however you see fit.  Want to change the line spacing and paragraph alignment?  Sure thing!  Don&amp;rsquo;t like anything?  Ditch them all and whip up something new.  Share it with others, perhaps?  You do not have to be a web programmer or designer to customize themes; I am a C++ programmer but I had no trouble picking up CSS3; just a few days of tussling did the trick.&lt;/p&gt;
-
-&lt;p&gt;You get these advantages in most SSG&amp;rsquo;s but &lt;a href=&#34;https://gohugo.io&#34;&gt;Hugo&lt;/a&gt; has one more: it has &lt;em&gt;no&lt;/em&gt; dependencies from an end-user viewpoint; download and extract it on any machine, and get down to stuff that matters &amp;mdash; content.  I think it gets this by virtue of being authored in &lt;a href=&#34;https://golang.org&#34;&gt;Go&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is a test page I tried to check out Hugo; to verify its fitness as a technical blog generator that supports the following sorely-needed scenarios for this web log.&lt;/p&gt;
-
-&lt;h1 id=&#34;text-formatting&#34;&gt;Text Formatting&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Formatting
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;bold&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;italics&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;code snippets&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;del&gt;strikeout&lt;/del&gt;&lt;/li&gt;
-&lt;li&gt;blockquotes&lt;/li&gt;
-&lt;li&gt;custom font&lt;/li&gt;
-&lt;li&gt;line spacing&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Footnotes&lt;/li&gt;
-&lt;li&gt;Unicode, UTF8 and emoticons support&lt;/li&gt;
-&lt;li&gt;Math equations&lt;/li&gt;
-&lt;li&gt;Tables&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;SVG&lt;/em&gt; render with captions&lt;/li&gt;
-&lt;li&gt;Interactive Demos with HTML5 Canvas&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;blockquote-and-footnote&#34;&gt;Blockquote and Footnote&lt;/h1&gt;
-
-&lt;p&gt;This is an obscure alternative to the famous &amp;ldquo;&lt;em&gt;The quick brown fox…&lt;/em&gt;&amp;rdquo; pangram&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Exploring the zoo, we saw every kangaroo jump and quite a few carried babies.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;unicode-utf8-and-special-characters&#34;&gt;Unicode, UTF8 and Special Characters&lt;/h2&gt;
-
-&lt;p&gt;பிறந்த குழந்தைகட்கு இந்த பாடலைப் பாடிக்காட்டுவது வழ்க்கம்:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;அ&lt;/strong&gt;ம்மா இங்கே வா! வா!&lt;br /&gt;
-&lt;strong&gt;ஆ&lt;/strong&gt;சை முத்தம் தா! தா!&lt;br /&gt;
-&lt;strong&gt;இ&lt;/strong&gt;லையில் சோறு போட்டு&lt;br /&gt;
-&lt;strong&gt;ஈ&lt;/strong&gt;யை தூர ஓட்டு!&lt;br /&gt;
-&lt;strong&gt;உ&lt;/strong&gt;ன்னைப் போன்று நல்லார்&lt;br /&gt;
-&lt;strong&gt;ஊ&lt;/strong&gt;ரில் யாவர் உள்ளார்?&lt;br /&gt;
-&lt;strong&gt;எ&lt;/strong&gt;ன்னால் உனக்குத் தொல்லை&lt;br /&gt;
-&lt;strong&gt;ஏ&lt;/strong&gt;தும் இங்கே இல்லை!&lt;br /&gt;
-&lt;strong&gt;ஐ&lt;/strong&gt;யம் இன்றி சொல்வேன்&lt;br /&gt;
-&lt;strong&gt;ஒ&lt;/strong&gt;ற்றுமை என்றும் பலமாம்!&lt;br /&gt;
-&lt;strong&gt;ஓ&lt;/strong&gt;தும் செயலே நலமாம்!&lt;br /&gt;
-&lt;strong&gt;ஔ&lt;/strong&gt;வை சொன்ன மொழியாம்!&lt;br /&gt;
-அ&lt;strong&gt;ஃ&lt;/strong&gt;தே எமக்கு வழியாம்!&lt;/p&gt;
-
-&lt;p&gt;ஏனெனில், இப்பாடலில் அனைத்து உயிரெழுத்துக்களும் ஒவ்வொரு அடியின் தொடக்கத்திலும் இடம் பெரும்.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;--&lt;/code&gt; gives an &lt;code&gt;EN DASH&lt;/code&gt; (&amp;ndash;), while &lt;code&gt;---&lt;/code&gt; is an &lt;code&gt;EM DASH&lt;/code&gt; (&amp;mdash;). Fractions, like &lt;sup&gt;9&lt;/sup&gt;&amp;frasl;&lt;sub&gt;22&lt;/sub&gt;, are beautifully rendered too 😃&lt;/p&gt;
-
-&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
-
-&lt;p&gt;This C++ code is syntax highlighted.  It also has a particular line highlighted; this line prints &lt;code&gt;hello, world!&lt;/code&gt; on the terminal:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color: #66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;
-&lt;span style=&#34;background-color: #49483e&#34;&gt;    &lt;span style=&#34;color: #f8f8f2&#34;&gt;std&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cout&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;hello, world!&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h2 id=&#34;math-equation&#34;&gt;Math Equation&lt;/h2&gt;
-
-&lt;p&gt;Perhaps this&lt;/p&gt;
-
-&lt;p&gt;$$
-e^{i\pi}+1=0
-$$&lt;/p&gt;
-
-&lt;p&gt;equation is more beautiful than the highly over-rated $E = mc^2$.  They are rendered here with MathJax which is supported by Hugo elegantly.&lt;/p&gt;
-
-&lt;h1 id=&#34;table&#34;&gt;Table&lt;/h1&gt;
-
-&lt;p&gt;A table with different alignments:&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;left&#34;&gt;Command&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Description&lt;/th&gt;
-&lt;th align=&#34;right&#34;&gt;Help&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;Know the current status of the repo&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;&lt;code&gt;man git-status&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;git diff&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;Diff tracked but not-yet-staged files&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;&lt;code&gt;man git-diff&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h1 id=&#34;vector-graphics&#34;&gt;Vector Graphics&lt;/h1&gt;
-
-&lt;p&gt;Let&amp;rsquo;s see how an &lt;code&gt;SVG&lt;/code&gt; shows up with an accompanying caption!&lt;/p&gt;
-
-
-&lt;figure &gt;
-    
-        &lt;img src=&#34;https://legends2k.github.io/images/cub_bez_arc.svg&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Cubic Bézier Circles&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-
-
-&lt;h2 id=&#34;interactive-demo&#34;&gt;Interactive Demo&lt;/h2&gt;
-
-&lt;p&gt;Red is the viewer here; green dots are end points of walls. Click and drag one of them to see where the vision ray from the viewer can go past the walls.&lt;/p&gt;
-
-&lt;p&gt;&lt;iframe style=&#34;width: 640px; height: 480px; border: 1px solid black; margin-left: auto; margin-right: auto; display: block; box-sizing: border-box;&#34; src=&#34;https://legends2k.github.io/demos/vision_beyond.html&#34;&gt;
-&lt;!-- &lt;iframe style=&#34;overflow:hidden;width:640px;height:485px&#34; src=&#34;https://legends2k.github.io/demos/vision_beyond.html&#34; frameborder=&#34;0&#34;&gt; --&gt;
-&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;An external HTML document, containing JavaScript, is embedded in an &lt;code&gt;iframe&lt;/code&gt; here.&lt;/p&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;A holoalphabetic sentence using &lt;em&gt;every&lt;/em&gt; letter of a alphabet at least once.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
+      <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&amp;rsquo;t like anything?</description>
     </item>
     
   </channel>

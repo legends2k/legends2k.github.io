@@ -9,7 +9,7 @@
         <meta name="description" content="a static site generator&#39;s capabilities">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.19" />
+        <meta name="generator" content="Hugo 0.30.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -19,11 +19,12 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://legends2k.github.io/note/hello_hugo/">
         <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         
         
             
-            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js??config=TeX-AMS-MML_HTMLorMML">
              MathJax.Hub.Config({
                  tex2jax: {
                      inlineMath: [['$','$'], ['\\(','\\)']],
@@ -47,42 +48,43 @@
                 <div class="container">
                     <div class="site-title-wrapper">
                         
-                            <a class="button-square button-social hint--top" data-hint="Home" title="Home" href="https://legends2k.github.io/">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
                                 <i class="fa fa-home"></i>
                             </a>
                         
-                        <a class="button-square" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
                         
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
                                 <i class="fa fa-github-alt"></i>
                             </a>
                         
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
                                 <i class="fa fa-bitbucket"></i>
                             </a>
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
                                 <i class="fa fa-stack-overflow"></i>
                             </a>
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
                                 <i class="fa fa-linkedin"></i>
                             </a>
                         
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
                                 <i class="fa fa-flickr"></i>
                             </a>
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
                                 <i class="fa fa-envelope"></i>
                             </a>
                         
@@ -122,7 +124,7 @@
     
         <p class="post-date">
         <time datetime="2016-07-11" itemprop="datePublished">
-    <time datetime="2016-07-11" itemprop="datePublished">Published Mon, Jul 11, 2016</time>
+    Published Mon, Jul 11, 2016</time>
 
 </time>
         <span>by</span>
@@ -202,14 +204,12 @@
 
 <p>This C++ code is syntax highlighted.  It also has a particular line highlighted; this line prints <code>hello, world!</code> on the terminal:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;iostream&gt;</span>
-
-<span style="color: #66d9ef">int</span> <span style="color: #a6e22e">main</span><span style="color: #f8f8f2">()</span>
-<span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">    <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">cout</span> <span style="color: #f92672">&lt;&lt;</span> <span style="color: #e6db74">&quot;hello, world!</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">;</span>
-</span><span style="color: #f8f8f2">}</span>
-</pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+<span style="background-color:#3c3d38;display:block;width:100%">    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;hello, world!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span>}</code></pre></div>
 
 <h2 id="math-equation">Math Equation</h2>
 
@@ -338,20 +338,25 @@ $$</p>
         
     <div class="comments">
         <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'legends2k';
-    var disqus_identifier = 'https:\/\/legends2k.github.io\/note\/hello_hugo\/';
-    var disqus_title = 'Hello, Hugo!';
-    var disqus_url = 'https:\/\/legends2k.github.io\/note\/hello_hugo\/';
-
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
 
     </article>
@@ -364,7 +369,7 @@ $$</p>
             <div class="container">
                 <div class="site-title-wrapper">
                     <h1 class="site-title">
-                        <a title="CGrok" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
                     </h1>
                     <a class="button-square button-jump-top js-jump-top" href="#">
                         <i class="fa fa-angle-double-up"></i>
@@ -375,12 +380,10 @@ $$</p>
                 <p class="footer-copyright"><span>Assembled by <a href="https://gohugo.io/">Hugo</a></span></p>
                 <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
                 <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
-                
             </div>
         </footer>
 
         <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
-        
         <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
         <script src="https://legends2k.github.io/js/scripts.js"></script>
     </body>

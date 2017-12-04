@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zerobrane on CGrok</title>
-    <link>https://legends2k.github.io/tags/zerobrane/index.xml</link>
-    <description>Recent content in Zerobrane on CGrok</description>
+    <title>Zerobrane on Bits of Insight</title>
+    <link>https://legends2k.github.io/tags/zerobrane/</link>
+    <description>Recent content in Zerobrane on Bits of Insight</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <atom:link href="https://legends2k.github.io/tags/zerobrane/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Sep 2016 17:00:46 +0530</lastBuildDate>
+    
+	<atom:link href="https://legends2k.github.io/tags/zerobrane/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Lua Setup on Windows</title>
@@ -15,69 +18,7 @@
       <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/lua_rocks/</guid>
-      <description>
-
-&lt;h1 id=&#34;ingredients&#34;&gt;Ingredients&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;CMake&lt;/li&gt;
-&lt;li&gt;MinGW compiler (one of MinGW, TDM, MinGW-W64, …)&lt;/li&gt;
-&lt;li&gt;Lua binaries&lt;/li&gt;
-&lt;li&gt;LuaRocks setup binaries&lt;/li&gt;
-&lt;li&gt;ZeroBrane Studio&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;steps-involved&#34;&gt;Steps Involved&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Make sure the commands &lt;code&gt;cmake&lt;/code&gt; and &lt;code&gt;mingw32-gcc&lt;/code&gt; are accessible from a general &lt;em&gt;Command Prompt&lt;/em&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install CMake; straight-forward&lt;/li&gt;
-&lt;li&gt;Install MinGW64; choose &lt;code&gt;i686-6.2.0-posix-dwarf-rt_v5-rev0&lt;/code&gt;.  Both archive and installer works.&lt;/li&gt;
-&lt;li&gt;mingw-w64 project&amp;rsquo;s MinGW only has &lt;code&gt;gcc.exe&lt;/code&gt; while luarocks expects &lt;code&gt;mingw32-gcc.exe&lt;/code&gt;; create a symbolic link (&lt;code&gt;mklink&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Download &lt;code&gt;lua-5.3.3_Win32_bin.zip&lt;/code&gt; from &lt;a href=&#34;http://luabinaries.luaforge.net/&#34;&gt;LuaForge Lua Binaries project&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Make sure Lua and MinGW are of the same arch&lt;/li&gt;
-&lt;li&gt;This contains the binaries (&lt;code&gt;.exe&lt;/code&gt;s and &lt;code&gt;.dll&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Put them in the &lt;code&gt;/bin&lt;/code&gt; directory e.g. &lt;code&gt;F:\Apps\Lua\bin&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;This package does not have the &lt;code&gt;lua&lt;/code&gt; and &lt;code&gt;luac&lt;/code&gt; executables; make links if necessary to the versioned ones&lt;/li&gt;
-&lt;li&gt;LuaBinaries is preferred over &lt;a href=&#34;http://joedf.users.sourceforge.net/luabuilds/&#34;&gt;Joe DF&amp;rsquo;s Builds&lt;/a&gt; as it depends on &lt;code&gt;libgcc_s_dw2-1.dll&lt;/code&gt;; distributed as a separate download&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Download &lt;code&gt;lua-5.3.3_Win32_dllw4_lib.zip&lt;/code&gt; from &lt;a href=&#34;http://luabinaries.luaforge.net/&#34;&gt;LuaForge Lua Binaries project&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This has the includes and libraries (except the &lt;code&gt;.dll&lt;/code&gt; everything else is needed)&lt;/li&gt;
-&lt;li&gt;Put them in the right places: &lt;code&gt;F:\Apps\Lua\lib&lt;/code&gt; and &lt;code&gt;F:\Apps\Lua\include&lt;/code&gt; &amp;ndash; although &lt;code&gt;inc&lt;/code&gt; would be a better name, &lt;em&gt;LuaRocks&lt;/em&gt;, by default, looks for &lt;code&gt;include&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Put the &lt;code&gt;bin&lt;/code&gt; directory in &lt;code&gt;$PATH&lt;/code&gt;; Lua 5.3 should work now from Command Prompt.&lt;/li&gt;
-&lt;li&gt;Extract &lt;code&gt;luarocks-2.3.0-win32.zip&lt;/code&gt; somewhere (this can be removed post installation); &lt;code&gt;cd&lt;/code&gt; to it from an elevated prompt.&lt;/li&gt;
-&lt;li&gt;Run &lt;code&gt;install.bat /LV 5.3 /LUA F:\Apps\Lua /P F:\Apps\LuaRocks /MW&lt;/code&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This should successfully install LuaRocks. Save the logs for the information on &lt;code&gt;ENV&lt;/code&gt; variables.&lt;/li&gt;
-&lt;li&gt;The LuaRocks installer directory that you extracted may be removed now.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Go to the installed directory, search and install a rock.
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;luarocks install luafilesystem&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;l = require lfs&lt;/code&gt; should now evaluate to something non-nil.&lt;/li&gt;
-&lt;li&gt;Configure &lt;em&gt;ZeroBrane Studio&lt;/em&gt; to use this installation of Lua 5.3 interpreter by adding this line to the user configuration file &lt;code&gt;user.lua&lt;/code&gt;:
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;path.lua53&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;F:/Apps/Lua/bin/lua.exe&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;After successful installation, adding the environment variables mandated by &lt;code&gt;install.bat&lt;/code&gt; wasn&amp;rsquo;t needed when making ZBS use this Lua.
-
-&lt;ul&gt;
-&lt;li&gt;Earlier setting &lt;code&gt;PATH&lt;/code&gt;, &lt;code&gt;LUA_PATH&lt;/code&gt; and &lt;code&gt;LUA_CPATH&lt;/code&gt; for LuaRocks and System rocktree were needed&lt;/li&gt;
-&lt;li&gt;If adding, &lt;em&gt;do not&lt;/em&gt; change &lt;code&gt;/&lt;/code&gt; into &lt;code&gt;\&lt;/code&gt; and keep the &lt;code&gt;?&lt;/code&gt;s&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved  Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)  Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
     </item>
     
   </channel>

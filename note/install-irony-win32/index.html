@@ -9,7 +9,7 @@
         <meta name="description" content="Using Irony, Clang &amp; Co">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.19" />
+        <meta name="generator" content="Hugo 0.30.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -19,6 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://legends2k.github.io/note/install-irony-win32/">
         <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         
         
@@ -32,42 +33,43 @@
                 <div class="container">
                     <div class="site-title-wrapper">
                         
-                            <a class="button-square button-social hint--top" data-hint="Home" title="Home" href="https://legends2k.github.io/">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
                                 <i class="fa fa-home"></i>
                             </a>
                         
-                        <a class="button-square" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
                         
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
                                 <i class="fa fa-github-alt"></i>
                             </a>
                         
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
                                 <i class="fa fa-bitbucket"></i>
                             </a>
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
                                 <i class="fa fa-stack-overflow"></i>
                             </a>
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
                                 <i class="fa fa-linkedin"></i>
                             </a>
                         
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
                                 <i class="fa fa-flickr"></i>
                             </a>
                         
                         
-                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
                                 <i class="fa fa-envelope"></i>
                             </a>
                         
@@ -107,7 +109,7 @@
     
         <p class="post-date">
         <time datetime="2017-01-24" itemprop="datePublished">
-    <time datetime="2017-01-24" itemprop="datePublished">Published Tue, Jan 24, 2017</time>
+    Published Tue, Jan 24, 2017</time>
 
 </time>
         <span>by</span>
@@ -125,7 +127,9 @@
 
     
 
-<p>This article aims to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual building.  We need <a href="http://clang.llvm.org/">Clang</a>, <a href="https://github.com/Sarcasm/irony-mode">Irony</a> and some <a href="https://company-mode.github.io/">Company</a>; we additionally require <a href="http://www.cmake.org/">CMake</a> and <a href="http://mingw-w64.org/">MinGW</a> for building something small.  Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&rsquo;m documenting it here.  The general installation instructions provided in Irony&rsquo;s <code>README</code> works but it asks you to build the complete Clang compiler from source for a single DLL (<code>libclang.dll</code>).  I don&rsquo;t know about you but this isn&rsquo;t exactly my idea of fun.  This article skips that and uses Clang&rsquo;s binary directly; this method has some quirks captured below to help others and myself.</p>
+<p>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work.  We need <a href="http://clang.llvm.org/">Clang</a>, <a href="https://github.com/Sarcasm/irony-mode">Irony</a> and some <a href="https://company-mode.github.io/">Company</a>; we additionally require <a href="http://www.cmake.org/">CMake</a> and <a href="http://mingw-w64.org/">MinGW</a> for building something small.  Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&rsquo;m documenting it here.</p>
+
+<p>The general installation instructions provided in Irony&rsquo;s <code>README</code> works but it asks you to build the complete Clang compiler from source for a single DLL (<code>libclang.dll</code>).  I don&rsquo;t know about you but this isn&rsquo;t exactly my idea of fun.  This article skips that and uses Clang&rsquo;s binary directly; this method has some quirks captured below to help others and myself.</p>
 
 <h1 id="packages">Packages</h1>
 
@@ -143,39 +147,33 @@
 
 <p><em>Company</em> (<strong>Comp</strong>lete <strong>any</strong>thing) is a text completion &ldquo;UI&rdquo; for Emacs.  It has support for a variety of backends; Company only shows the choices, while the choices itself come from a backend.  <code>company-irony</code> is one of the supported backends that in turn depends on <code>irony</code>.  Make <code>company-irony</code> the first in the list of backends for it to be picked up.  Enable <code>irony</code> and <code>company</code> modes in the <code>c-mode-common-hook</code> function (that is called for both <code>c-mode</code> and <code>c++-mode</code>).  Effectively, my <code>.emacs</code> looks thus:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">(eval-after-load</span> <span style="color: #e6db74">&#39;company</span>
-  <span style="color: #f92672">&#39;</span><span style="color: #f8f8f2">(add-to-list</span> <span style="color: #e6db74">&#39;company-backends</span> <span style="color: #e6db74">&#39;company-irony</span><span style="color: #f8f8f2">))</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(eval-after-load <span style="color:#e6db74">&#39;company</span>
+  <span style="color:#f92672">&#39;</span>(add-to-list <span style="color:#e6db74">&#39;company-backends</span> <span style="color:#e6db74">&#39;company-irony</span>))
 
-<span style="color: #f8f8f2">(defun</span> <span style="color: #f8f8f2">my-c-common-setup</span> <span style="color: #f8f8f2">()</span>    <span style="color: #75715e">;; function called by c-mode-common-hook</span>
-  <span style="color: #f8f8f2">(irony-mode</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
-  <span style="color: #f8f8f2">(company-mode))</span>
-</pre></div>
-
+(defun my-c-common-setup ()    <span style="color:#75715e">;; function called by c-mode-common-hook</span>
+  (irony-mode <span style="color:#ae81ff">1</span>)
+  (company-mode))</code></pre></div>
 
 <p>Also fix key bindings to use Irony:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">;; replace the `completion-at-point&#39; and `complete-symbol&#39; bindings in</span>
-<span style="color: #75715e">;; irony-mode&#39;s buffers by irony-mode&#39;s function</span>
-<span style="color: #f8f8f2">(defun</span> <span style="color: #f8f8f2">my-irony-mode-hook</span> <span style="color: #f8f8f2">()</span>
-  <span style="color: #f8f8f2">(define-key</span> <span style="color: #f8f8f2">irony-mode-map</span> <span style="color: #f8f8f2">[remap</span> <span style="color: #f8f8f2">completion-at-point]</span>
-    <span style="color: #e6db74">&#39;irony-completion-at-point-async</span><span style="color: #f8f8f2">)</span>
-  <span style="color: #f8f8f2">(define-key</span> <span style="color: #f8f8f2">irony-mode-map</span> <span style="color: #f8f8f2">[remap</span> <span style="color: #f8f8f2">complete-symbol]</span>
-    <span style="color: #e6db74">&#39;irony-completion-at-point-async</span><span style="color: #f8f8f2">))</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp"><span style="color:#75715e">;; replace the `completion-at-point&#39; and `complete-symbol&#39; bindings in</span>
+<span style="color:#75715e">;; irony-mode&#39;s buffers by irony-mode&#39;s function</span>
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    <span style="color:#e6db74">&#39;irony-completion-at-point-async</span>)
+  (define-key irony-mode-map [remap complete-symbol]
+    <span style="color:#e6db74">&#39;irony-completion-at-point-async</span>))
 
-<span style="color: #f8f8f2">(add-hook</span> <span style="color: #e6db74">&#39;irony-mode-hook</span> <span style="color: #e6db74">&#39;my-irony-mode-hook</span><span style="color: #f8f8f2">)</span>
-<span style="color: #f8f8f2">(add-hook</span> <span style="color: #e6db74">&#39;irony-mode-hook</span> <span style="color: #e6db74">&#39;irony-cdb-autosetup-compile-options</span><span style="color: #f8f8f2">)</span>
-</pre></div>
-
+(add-hook <span style="color:#e6db74">&#39;irony-mode-hook</span> <span style="color:#e6db74">&#39;my-irony-mode-hook</span>)
+(add-hook <span style="color:#e6db74">&#39;irony-mode-hook</span> <span style="color:#e6db74">&#39;irony-cdb-autosetup-compile-options</span>)</code></pre></div>
 
 <p>This snippet was lifted from the project&rsquo;s homepage.  Make sure you do the Windows performance tweaks; there are <a href="https://github.com/Sarcasm/irony-mode/wiki/Setting-up-irony-mode-on-Windows">good reasons</a> to do this.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">(when</span> <span style="color: #f8f8f2">(boundp</span> <span style="color: #e6db74">&#39;w32-pipe-read-delay</span><span style="color: #f8f8f2">)</span>
-  <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">setq</span> <span style="color: #f8f8f2">w32-pipe-read-delay</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">))</span>
-<span style="color: #75715e">;; Set the buffer size to 64K on Windows (from the original 4K)</span>
-<span style="color: #f8f8f2">(when</span> <span style="color: #f8f8f2">(boundp</span> <span style="color: #e6db74">&#39;w32-pipe-buffer-size</span><span style="color: #f8f8f2">)</span>
-  <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">setq</span> <span style="color: #f8f8f2">irony-server-w32-pipe-buffer-size</span> <span style="color: #f8f8f2">(*</span> <span style="color: #ae81ff">64</span> <span style="color: #ae81ff">1024</span><span style="color: #f8f8f2">)))</span>
-</pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(when (boundp <span style="color:#e6db74">&#39;w32-pipe-read-delay</span>)
+  (setq w32-pipe-read-delay <span style="color:#ae81ff">0</span>))
+<span style="color:#75715e">;; Set the buffer size to 64K on Windows (from the original 4K)</span>
+(when (boundp <span style="color:#e6db74">&#39;w32-pipe-buffer-size</span>)
+  (setq irony-server-w32-pipe-buffer-size (* <span style="color:#ae81ff">64</span> <span style="color:#ae81ff">1024</span>)))</code></pre></div>
 
 <h1 id="clang">Clang</h1>
 
@@ -256,21 +254,19 @@
 
 <p><strong>Sample <code>.clang_complete</code></strong></p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">-</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">=</span><span style="color: #f8f8f2">c</span><span style="color: #f92672">++</span><span style="color: #ae81ff">14</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">target</span>
-<span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">windows</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">gnu</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">Wall</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">pedantic</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">DDEBUG</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Apps</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">lib</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">gcc</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #ae81ff">6.3.0</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">include</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">c</span><span style="color: #f92672">++</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Apps</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">lib</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">gcc</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #ae81ff">6.3.0</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">include</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">c</span><span style="color: #f92672">++/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Apps</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">lib</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">gcc</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #ae81ff">6.3.0</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">include</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">c</span><span style="color: #f92672">++/</span><span style="color: #f8f8f2">backward</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Apps</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">lib</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">gcc</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #ae81ff">6.3.0</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">include</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Apps</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">lib</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">gcc</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #ae81ff">6.3.0</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">include</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">fixed</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Apps</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">i686</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">w64</span><span style="color: #f92672">-</span><span style="color: #f8f8f2">mingw32</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">include</span>
-<span style="color: #f92672">-</span><span style="color: #f8f8f2">IF:</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">Libs</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">boost_1_57_0</span>
-</pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Lua" data-lang="Lua"><span style="color:#f92672">-</span>std<span style="color:#f92672">=</span>c<span style="color:#f92672">++</span><span style="color:#ae81ff">14</span>
+<span style="color:#f92672">-</span>target
+i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>windows<span style="color:#f92672">-</span>gnu
+<span style="color:#f92672">-</span>Wall
+<span style="color:#f92672">-</span>pedantic
+<span style="color:#f92672">-</span>DDEBUG
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">/</span>c<span style="color:#f92672">++</span>
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">/</span>c<span style="color:#f92672">++/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">/</span>c<span style="color:#f92672">++/</span>backward
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">-</span>fixed
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span>include
+<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Libs<span style="color:#f92672">/</span>boost_1_57_0</code></pre></div>
 
 <p><strong>Note</strong>: each argument gets its own line</p>
 
@@ -282,24 +278,20 @@
 
 <p>As a bonus of using Irony, we can do on-the-fly syntax checking using Clang and know of errors as the code is typed out without actually compiling the file separately.  This quickens the development cycle by avoiding slow compilations; when you have an error-free buffer, you&rsquo;ll only be left with linker errors, if at all, when you do a proper compilation.  Install <code>flycheck</code>, <code>flycheck-irony</code> and <code>flycheck-pos-tip</code>.  Enable it with</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">(eval-after-load</span> <span style="color: #e6db74">&#39;flycheck</span>
-  <span style="color: #f92672">&#39;</span><span style="color: #f8f8f2">(add-hook</span> <span style="color: #e6db74">&#39;flycheck-mode-hook</span> <span style="color: #a6e22e">#&#39;</span><span style="color: #f8f8f2">flycheck-irony-setup))</span>
-</pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Lisp" data-lang="Lisp">(eval-after-load &#39;flycheck
+  &#39;(add-hook &#39;flycheck-mode-hook #&#39;flycheck-irony-setup))</code></pre></div>
 
 <p>where <code>flycheck-irony-setup</code> is a function you get with the <code>flycheck-irony</code> package.  Make sure you enable Flycheck when needed</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">(defun</span> <span style="color: #f8f8f2">my-c-common-setup</span> <span style="color: #f8f8f2">()</span>
-  <span style="color: #f8f8f2">(flycheck-mode)</span>
-  <span style="color: #f8f8f2">(flycheck-pos-tip-mode))</span>
-</pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Lisp" data-lang="Lisp">(defun my-c-common-setup ()
+  (flycheck-mode)
+  (flycheck-pos-tip-mode))</code></pre></div>
 
 <p>Flycheck shows the errors in a separate buffer which keeps getting update as you type.  But you can see the error in a particular statement without having to open this buffer with <code>flycheck-pos-tip-mode</code>.  It will show error tooltips as the cursor is moved to an erroneous token.</p>
 
 <h1 id="advantages">Advantages</h1>
 
-<p>Without having a bloated IDE, you get to have both auto-complete (a.k.a. intellisense) and on-the-fly syntax checking.  They are valuable tools when writing code in a project with large code bases, taking lot of time to build.  Also, most IDEs require you to create a project for some single-file, toy, sample code you want to scribble; in out setup you just need to create a new buffer backed by a file on disk i.e. the usual drill for any new file.  Make sure you have the right <code>.clang_complete</code> saved in your <em>Home</em> directory (where you have your code lab of dirty files) with the required <code>include</code> paths and compiler flags.</p>
+<p>Without having a bloated IDE, you get to have both auto-complete (a.k.a. intellisense) and on-the-fly syntax checking.  They are valuable tools when writing code in a project with large code bases, taking lot of time to build.  Also, most IDEs require you to create a project for some single-file, toy, sample code you want to scribble; in our setup you just need to create a new buffer backed by a file on disk i.e. the usual drill for any new file.  Make sure you have the right <code>.clang_complete</code> saved in your <em>Home</em> directory (where you have your code lab of dirty files) with the required <code>include</code> paths and compiler flags.</p>
 
 <p>The advantage of Irony is that it uses a proper compiler (Clang) to do this job and hence the results are very reliable.</p>
 
@@ -361,20 +353,25 @@
         
     <div class="comments">
         <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'legends2k';
-    var disqus_identifier = 'https:\/\/legends2k.github.io\/note\/install-irony-win32\/';
-    var disqus_title = 'Emacs C\x2b\x2b auto-complete setup on Windows';
-    var disqus_url = 'https:\/\/legends2k.github.io\/note\/install-irony-win32\/';
-
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
 
     </article>
@@ -387,7 +384,7 @@
             <div class="container">
                 <div class="site-title-wrapper">
                     <h1 class="site-title">
-                        <a title="CGrok" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
                     </h1>
                     <a class="button-square button-jump-top js-jump-top" href="#">
                         <i class="fa fa-angle-double-up"></i>
@@ -398,12 +395,10 @@
                 <p class="footer-copyright"><span>Assembled by <a href="https://gohugo.io/">Hugo</a></span></p>
                 <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
                 <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
-                
             </div>
         </footer>
 
         <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
-        
         <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
         <script src="https://legends2k.github.io/js/scripts.js"></script>
     </body>

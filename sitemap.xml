@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://legends2k.github.io/post/inspirers/</loc>
@@ -59,6 +60,10 @@
   <url>
     <loc>https://legends2k.github.io/note/hello_hugo/</loc>
     <lastmod>2016-07-11T17:00:46+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/post/easty_westy/</loc>
   </url>
   
   <url>
@@ -147,6 +152,7 @@
   
   <url>
     <loc>https://legends2k.github.io/tags/</loc>
+    <lastmod>2017-03-02T22:41:05+05:30</lastmod>
     <priority>0</priority>
   </url>
   
