@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://legends2k.github.io/post/valley_review/</loc>
+    <lastmod>2017-12-09T10:35:43+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/post/inspirers/</loc>
     <lastmod>2017-03-02T22:41:05+05:30</lastmod>
   </url>
@@ -63,10 +68,6 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/post/easty_westy/</loc>
-  </url>
-  
-  <url>
     <loc>https://legends2k.github.io/tags/bookmark/</loc>
     <lastmod>2017-03-02T22:41:05+05:30</lastmod>
     <priority>0</priority>
@@ -87,6 +88,12 @@
   <url>
     <loc>https://legends2k.github.io/tags/css3/</loc>
     <lastmod>2016-08-12T17:00:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/culture/</loc>
+    <lastmod>2017-12-09T10:35:43+05:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -121,6 +128,12 @@
   </url>
   
   <url>
+    <loc>https://legends2k.github.io/tags/life/</loc>
+    <lastmod>2017-12-09T10:35:43+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/tags/lua/</loc>
     <lastmod>2016-09-23T17:00:46+05:30</lastmod>
     <priority>0</priority>
@@ -141,6 +154,12 @@
   <url>
     <loc>https://legends2k.github.io/tags/ninja/</loc>
     <lastmod>2017-02-08T16:45:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/philosophy/</loc>
+    <lastmod>2017-12-09T10:35:43+05:30</lastmod>
     <priority>0</priority>
   </url>
   
