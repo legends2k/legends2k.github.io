@@ -165,7 +165,7 @@
 <p>I don’t want some processor, I didn’t pay for, to drain my laptop power, or steal data for some merchant who wants to sell stuff that I don’t want.</p>
 </blockquote>
 
-<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the <a href="https://github.com/corna/me_cleaner/wiki">Clean ME guides</a>, check version and compatibilities and proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
+<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the [ME Cleaner guides][], check versions and compatibilities then proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
 
 <p>Let’s get on with it!</p>
 
@@ -307,10 +307,12 @@
 
 <p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn&rsquo;t all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You&rsquo;ve successfully neutralized the backdoor! 🖖</p>
 
-<p>To verify it properly, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
+<p>On <a href="https://en.wikipedia.org/wiki/Unix-like">*nix</a>, <code>/dev/mei0</code> would no longer exist.  Also the MEI entry should no longer show up for <code>lspci</code>.  A more through way is <a href="https://github.com/corna/me_cleaner/wiki/Get-the-status-of-Intel-ME"><code>intelmetool -s</code></a>.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ MEInfoWin64.exe -FWSTS</span>
-</span>
+<p>For Windows, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">$ MEInfoWin64.exe -FWSTS</span>
+
 <span style="color:#a6e22e">Intel(R) MEInfo Version: 11.8.50.3460</span>
 <span style="color:#a6e22e">Copyright(C) 2005 - 2017, Intel Corporation. All rights reserved.</span>
 
@@ -328,8 +330,8 @@
   <span style="color:#a6e22e">InitComplete:                               Initializing</span>
   <span style="color:#a6e22e">BUPLoadState:                               Success</span>
   <span style="color:#a6e22e">ErrorCode:                                  Disabled</span>
-  <span style="color:#a6e22e">ModeOfOperation:                            Alt Disable Mode</span>
-  <span style="color:#a6e22e">SPI Flash Log:                              Not Present</span>
+<span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">ModeOfOperation:                            Alt Disable Mode</span>
+</span>  <span style="color:#a6e22e">SPI Flash Log:                              Not Present</span>
   <span style="color:#a6e22e">FPF HW Source value:                        FPF HW Not Set</span>
   <span style="color:#a6e22e">ME FPF Fusing Patch Status:                 ME FPF Fusing patch NOT supported in this FW Version</span>
   <span style="color:#a6e22e">Phase:                                      BringUp</span>
@@ -338,7 +340,7 @@
   <span style="color:#a6e22e">PhaseStatus:                                UNKNOWN</span>
   <span style="color:#a6e22e">FPF and ME Config Status:                   Match</span></code></pre></div>
 
-<p>Make sure you uninstall any ME-related software<sup class="footnote-ref" id="fnref:12"><a href="#fn:12">10</a></sup>. If you&rsquo;re on Windows, you can also verify that in the <em>Device Manager</em>, under <em>System devices</em>, the <em>Intel&reg; Management Engine Interface</em> no longer shows up.  On <a href="https://en.wikipedia.org/wiki/Unix-like">*nix</a> the MEI entry should no longer show up for <code>lspci</code>.</p>
+<p>You can also verify that in the <em>Device Manager</em>, under <em>System devices</em>, the <em>Intel&reg; Management Engine Interface</em> no longer shows up.  Make sure you uninstall any ME-related software<sup class="footnote-ref" id="fnref:12"><a href="#fn:12">10</a></sup>.</p>
 
 <p>Finally, be a good team player and <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-391503079">report your success</a>!</p>
 
@@ -352,6 +354,7 @@
 <li><a href="https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide/Disabling_the_Intel_Management_Engine">Sakaki’s EFI Install Guide/Disabling the Intel Management Engine</a></li>
 <li><a href="https://github.com/ptresearch/me-disablement/blob/master/How%20to%20become%20the%20sole%20owner%20of%20your%20PC.pdf">How to become the sole owner of your PC</a></li>
 <li><a href="https://media.ccc.de/v/34c3-8782-intel_me_myths_and_reality">Intel ME Myths and Reality</a></li>
+<li>Me Cleaner’s <a href="https://github.com/corna/me_cleaner/wiki/External-flashing">external flashing guide</a></li>
 </ol>
 
 <h1 id="p-s">P.S.</h1>
