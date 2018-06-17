@@ -13,6 +13,36 @@
     
     
     <item>
+      <title>Go Setup</title>
+      <link>https://legends2k.github.io/note/go_setup/</link>
+      <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/note/go_setup/</guid>
+      <description>An IDE at least should do
+ Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Context-sensitive document lookup  Show variable and function type Show function description  Autorun gofmt on save Bonus: Auto-add/remove used/unused packages on file save  We’ll try to get these going on Emacs.
+External Tools Though not part of the canonical tool set, these are written by seasoned Go devs
+ gocode godef goflymake goimports godoc  Emacs Packages We’d be needing these too to interface with above tools</description>
+    </item>
+    
+    <item>
+      <title>Shutting the ubiquitous backdoor</title>
+      <link>https://legends2k.github.io/note/clean_me/</link>
+      <pubDate>Sat, 12 May 2018 15:00:46 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/note/clean_me/</guid>
+      <description>I believe resistance is futile if someone is bent on spying on you; there’re both serious and creative ways to go about it. Talking to your processor, behind your back, isn’t the primary or only means. Ours is golden age where corporates and government agencies stoop low enough to pry into bedrooms. Did you know that almost all machines1 you own have a processor aside from the one you paid for?</description>
+    </item>
+    
+    <item>
+      <title>Git: Pushing to a Fork</title>
+      <link>https://legends2k.github.io/note/push_fork/</link>
+      <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/note/push_fork/</guid>
+      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;rdquo;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
+    </item>
+    
+    <item>
       <title>Life in the Valley</title>
       <link>https://legends2k.github.io/post/valley_review/</link>
       <pubDate>Sat, 09 Dec 2017 10:35:43 +0530</pubDate>

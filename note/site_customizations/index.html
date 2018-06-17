@@ -6,16 +6,16 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Blog – fit and finish &middot; Sundaram Ramaswamy</title>
-        <meta name="description" content="quirks and hacks that got me here">
+        <meta name="description" content="quirks and hacks in making this">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.30.2" />
+        <meta name="generator" content="Hugo 0.42.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
         <meta property="og:title" content="Blog – fit and finish">
-<meta property="og:description" content="quirks and hacks that got me here">
+<meta property="og:description" content="quirks and hacks in making this">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://legends2k.github.io/note/site_customizations/">
         <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
@@ -120,7 +120,7 @@
         <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Blog – fit and finish</h1>
     
-        <p class="post-description" itemprop="description">quirks and hacks that got me here</p>
+        <p class="post-description" itemprop="description">quirks and hacks in making this</p>
     
         <p class="post-date">
         <time datetime="2016-08-12" itemprop="datePublished">
@@ -176,7 +176,7 @@
 \sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}
 $$</p>
 
-<p><em>MathJax</em> is the go-to solution in browsers.  The <em>display math</em> (MathJax lingo for <code>$$…$$</code>) option works with no quirks; <em>inline math</em> (<code>$…$</code>) doesn&rsquo;t work properly by default; I&rsquo;d to <a href="http://github.com/spf13/hugo/issues/1666#issuecomment-225316394">stuff</a> to get it working.  I added a custom parameter in the post&rsquo;s front matter, which is later used in a partial HTML template to include the <a href="http://gohugo.io/tutorials/mathjax/">necessary script tag</a> for the post&rsquo;s generated HTML.  MathJax may work-up the <code>&lt;code&gt;</code> tags, and the workaround for this is shown in the documentation.  The <code>TeX-AMS-MML_HTMLorMML</code> configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the <a href="http://legends2k.github.io/2d-transforms-101/"><em>2D Transforms 101</em></a> presentation; I&rsquo;d to resort to <code>TeX-AMS-MML_SVG</code> in its case.</p>
+<p><em>MathJax</em> is the go-to solution in browsers.  The <em>display math</em> (MathJax lingo to display an equation in its own line with <code>\$\$…\$\$</code>) option works with no quirks; <em>inline math</em> (<code>\$…\$</code>) doesn&rsquo;t work properly by default; I&rsquo;d to <a href="http://github.com/spf13/hugo/issues/1666#issuecomment-225316394">stuff</a> to get it working.  I added a custom parameter in the post&rsquo;s front matter, which is later used in a partial HTML template to include the <a href="http://gohugo.io/tutorials/mathjax/">necessary script tag</a> for the post&rsquo;s generated HTML.  MathJax may work-up the <code>&lt;code&gt;</code> tags, and the workaround for this is shown in the documentation.  The <code>TeX-AMS-MML_HTMLorMML</code> configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the <a href="http://legends2k.github.io/2d-transforms-101/"><em>2D Transforms 101</em></a> presentation; I&rsquo;d to resort to <code>TeX-AMS-MML_SVG</code> in its case.</p>
 
 <h2 id="5-fractions-and-footnote-return-text">5. Fractions and Footnote return text</h2>
 
@@ -194,11 +194,13 @@ $$</p>
             <span>Tagged:</span>
             
             
+                <a href="/tags/tech/">tech</a>, 
+            
                 <a href="/tags/hugo/">hugo</a>, 
             
-                <a href="/tags/css3/">css3</a>, 
+                <a href="/tags/typesetting/">typesetting</a>, 
             
-                <a href="/tags/typesetting/">typesetting</a>
+                <a href="/tags/tools/">tools</a>
             
         </p>
     
@@ -228,7 +230,7 @@ $$</p>
             </a>
         
         
-            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Blog%20%e2%80%93%20fit%20and%20finish&url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f&summary=quirks%20and%20hacks%20that%20got%20me%20here"
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Blog%20%e2%80%93%20fit%20and%20finish&url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f&summary=quirks%20and%20hacks%20in%20making%20this"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
                <i class="fa fa-linkedin"></i>
                <span class="hidden">LinkedIn</span>
@@ -279,7 +281,7 @@ $$</p>
                 </div>
 
                 <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
-                <p class="footer-copyright"><span>Assembled by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
                 <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
                 <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
             </div>

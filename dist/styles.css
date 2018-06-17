@@ -61,10 +61,6 @@ h6 {
     text-align: center;
 }
 
-p ~ ul, ol {
-    margin-bottom: 30px
-}
-
 p {
     /* like it really spaced out and tidy */
     line-height: 2.0;

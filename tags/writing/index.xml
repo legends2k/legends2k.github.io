@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Writing on Bits of Insight</title>
+    <link>https://legends2k.github.io/tags/writing/</link>
+    <description>Recent content in Writing on Bits of Insight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <lastBuildDate>Mon, 11 Jul 2016 17:00:46 +0530</lastBuildDate>
+    
+	<atom:link href="https://legends2k.github.io/tags/writing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello, Hugo!</title>
+      <link>https://legends2k.github.io/note/hello_hugo/</link>
+      <pubDate>Mon, 11 Jul 2016 17:00:46 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/hello_hugo/</guid>
+      <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&amp;rsquo;t like anything?</description>
+    </item>
+    
+  </channel>
+</rss>

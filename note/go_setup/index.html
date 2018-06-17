@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Go Setup &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="Make Emacs your Go IDE">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.42.1" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="Go Setup">
+<meta property="og:description" content="Make Emacs your Go IDE">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/go_setup/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Articles" href="/post/">Articles</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Go Setup</h1>
+    
+        <p class="post-description" itemprop="description">Make Emacs your Go IDE</p>
+    
+        <p class="post-date">
+        <time datetime="2018-06-17" itemprop="datePublished">
+    Published Sun, Jun 17, 2018</time>
+
+</time>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://legends2k.github.io/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>An IDE at least should do</p>
+
+<ul>
+<li>Auto-completion (a.k.a Intellisense)</li>
+<li>Jump to definition</li>
+<li>On-the-fly error checks</li>
+<li>Context-sensitive document lookup
+
+<ul>
+<li>Show variable and function type</li>
+<li>Show function description</li>
+</ul></li>
+<li>Autorun <code>gofmt</code> on save</li>
+<li><strong>Bonus</strong>: Auto-add/remove used/unused packages on file save</li>
+</ul>
+
+<p>We’ll try to get these going on Emacs.</p>
+
+<h2 id="external-tools">External Tools</h2>
+
+<p>Though not part of the canonical tool set, these are written by seasoned Go devs</p>
+
+<ul>
+<li>gocode</li>
+<li>godef</li>
+<li>goflymake</li>
+<li>goimports</li>
+<li>godoc</li>
+</ul>
+
+<h2 id="emacs-packages">Emacs Packages</h2>
+
+<p>We’d be needing these too to interface with above tools</p>
+
+<ul>
+<li>go-mode</li>
+<li>eldoc</li>
+<li>company-go</li>
+</ul>
+
+<p>It&rsquo;s assumed that you already have <code>company</code> installed.</p>
+
+<h2 id="steps">Steps</h2>
+
+<ol>
+<li>Install Go binary
+
+<ul>
+<li>Linux: use your distro’s package manager</li>
+<li>Windows: download and install 64-bit MSI package</li>
+</ul></li>
+<li>Set <code>$GOPATH</code>
+
+<ul>
+<li>It can have multiple entries like <code>$PATH</code></li>
+<li>First one’s where packages are downloaded by <code>go get</code></li>
+<li>Source code is search in all entries</li>
+<li>Add entries with a trailing slash</li>
+<li>Read <code>go help gopath</code></li>
+</ul></li>
+<li>Go get these tools.  On Windows add <code>-ldflags -H=windowsgui</code> for <code>gocode</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> <span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#a6e22e">nsf</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gocode</span>
+<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#a6e22e">rogpeppe</span><span style="color:#f92672">/</span><span style="color:#a6e22e">godef</span>
+<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> <span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#a6e22e">dougm</span><span style="color:#f92672">/</span><span style="color:#a6e22e">goflymake</span>
+<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">golang</span>.<span style="color:#a6e22e">org</span><span style="color:#f92672">/</span><span style="color:#a6e22e">x</span><span style="color:#f92672">/</span><span style="color:#a6e22e">tools</span><span style="color:#f92672">/</span><span style="color:#a6e22e">cmd</span><span style="color:#f92672">/</span><span style="color:#a6e22e">goimports</span>
+<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">golang</span>.<span style="color:#a6e22e">org</span><span style="color:#f92672">/</span><span style="color:#a6e22e">x</span><span style="color:#f92672">/</span><span style="color:#a6e22e">tools</span><span style="color:#f92672">/</span><span style="color:#a6e22e">cmd</span><span style="color:#f92672">/</span><span style="color:#a6e22e">godoc</span></code></pre></div></li>
+<li>Install aforementioned Emacs packages</li>
+<li>If <code>$GOPATH/bin</code> isn’t part of <code>$PATH</code> at least make it part of Emacs&rsquo; <code>exec-path</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(add-to-list <span style="color:#e6db74">&#39;exec-path</span> (concat (getenv <span style="color:#e6db74">&#34;GOPATH&#34;</span>) <span style="color:#e6db74">&#34;bin&#34;</span>) <span style="color:#66d9ef">t</span>)</code></pre></div></li>
+<li>Append to <code>.emacs</code>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(add-to-list <span style="color:#e6db74">&#39;load-path</span> (concat (getenv <span style="color:#e6db74">&#34;GOPATH&#34;</span>) <span style="color:#e6db74">&#34;src/github.com/dougm/goflymake&#34;</span>))
+(require <span style="color:#e6db74">&#39;go-flymake</span>)
+<span style="color:#75715e">; Use goimports instead of go-fmt for formatting with intelligent package addition/removal</span>
+(setq gofmt-command <span style="color:#e6db74">&#34;goimports&#34;</span>)
+(add-hook <span style="color:#e6db74">&#39;go-mode-hook</span> (lambda ()
+                          (set (make-local-variable <span style="color:#e6db74">&#39;company-backends</span>) <span style="color:#f92672">&#39;</span>(company-go))
+                          (local-set-key (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#e6db74">&#39;godef-jump</span>)
+                          (go-eldoc-setup)
+                          <span style="color:#75715e">; call Gofmt before saving</span>
+                          (add-hook <span style="color:#e6db74">&#39;before-save-hook</span> <span style="color:#e6db74">&#39;gofmt-before-save</span>)))</code></pre></div></li>
+<li>Periodically <code>go get -u all</code> to keep the downloaded tools updated.</li>
+</ol>
+
+<h1 id="usage">Usage</h1>
+
+<ul>
+<li>If you’re not open an existing source file, be sure to save your fresh buffer.
+
+<ul>
+<li>Without saving you’d get warnings from tools</li>
+</ul></li>
+<li>Auto-completion
+
+<ul>
+<li>Test it by importing <code>fmt</code> and type <code>fmt.</code></li>
+<li>It should list the package’s public members</li>
+<li>Cycle through the options with <code>M-n</code> and <code>M-p</code></li>
+<li>Additionally it’d also show the function prototype in the mini-buffer</li>
+</ul></li>
+<li>Jump to definition
+
+<ul>
+<li>When point is atop a function name, press <code>M-.</code></li>
+<li>This should open the file where it’s defined and seek to the definition</li>
+<li>To return back to original place press <code>M-,</code></li>
+</ul></li>
+<li>Flymake should work without any intervention
+
+<ul>
+<li>It’s too subtle; just highlights erroneous line with <code>!!</code> and underscores the problematic token</li>
+<li><code>flymake-show-diagnostics-buffer</code> should show you a constantly updated buffer with the actual errors/warnings</li>
+</ul></li>
+<li>Context-sensitive document lookup
+
+<ul>
+<li>Positioning point on a variable/function should show its type in the minibuffer</li>
+<li>To describe variable/expression at point do <code>C-c C-d</code></li>
+<li>To get a detailed description of a function do <code>godoc-at-point</code></li>
+<li>You could bind it to a key combo; it’s fairly handy</li>
+</ul></li>
+<li>Auto-formatting
+
+<ul>
+<li>When you save the buffer it auto-formats with <code>gofmt</code></li>
+</ul></li>
+<li>Auto-include/exclude
+
+<ul>
+<li><a href="https://golang.org/doc/effective_go.html?#blank_unused">Go is strict</a> on what you import</li>
+<li>At the top-level, include packages you wouldn’t reference</li>
+<li>In functions from packages you didn’t import</li>
+<li>Save the buffer!  Redundant packages are wiped out and needed ones are imported 😉</li>
+</ul></li>
+</ul>
+
+<p>This setup is light and good enough for now.</p>
+
+<h1 id="to-do">To Do</h1>
+
+<p>Play with <a href="https://godoc.org/golang.org/x/tools/cmd/guru"><code>guru</code></a> &ndash; looks like a sophisticated tool.</p>
+
+<h1 id="references">References</h1>
+
+<ol>
+<li><code>go-mode</code>&rsquo;s help in Emacs</li>
+<li><code>$GOPATH/src/github.com/nsf/gocode/emacs-company/README.md</code></li>
+<li><a href="https://tleyden.github.io/blog/2014/05/27/configure-emacs-as-a-go-editor-from-scratch-part-2/">Configure Emacs as a Go Editor From Scratch</a></li>
+<li><a href="https://github.com/dougm/goflymake">goflymake</a></li>
+<li><a href="https://github.com/nsf/gocode">gocode</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Go">ArchWiki’s Go page</a></li>
+</ol>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/tech/">tech</a>, 
+            
+                <a href="/tags/ide/">ide</a>, 
+            
+                <a href="/tags/tools/">tools</a>, 
+            
+                <a href="/tags/go/">go</a>, 
+            
+                <a href="/tags/emacs/">emacs</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Go%20Setup&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Go%20Setup&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f&summary=Make%20Emacs%20your%20Go%20IDE"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

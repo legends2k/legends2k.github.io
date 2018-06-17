@@ -9,7 +9,7 @@
         <meta name="description" content="Using Irony, Clang &amp; Co">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.30.2" />
+        <meta name="generator" content="Hugo 0.42.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -254,19 +254,19 @@
 
 <p><strong>Sample <code>.clang_complete</code></strong></p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Lua" data-lang="Lua"><span style="color:#f92672">-</span>std<span style="color:#f92672">=</span>c<span style="color:#f92672">++</span><span style="color:#ae81ff">14</span>
-<span style="color:#f92672">-</span>target
-i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>windows<span style="color:#f92672">-</span>gnu
-<span style="color:#f92672">-</span>Wall
-<span style="color:#f92672">-</span>pedantic
-<span style="color:#f92672">-</span>DDEBUG
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">/</span>c<span style="color:#f92672">++</span>
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">/</span>c<span style="color:#f92672">++/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">/</span>c<span style="color:#f92672">++/</span>backward
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>gcc<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span><span style="color:#ae81ff">6.3.0</span><span style="color:#f92672">/</span>include<span style="color:#f92672">-</span>fixed
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Apps<span style="color:#f92672">/</span>mingw32<span style="color:#f92672">/</span>i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>mingw32<span style="color:#f92672">/</span>include
-<span style="color:#f92672">-</span>IF:<span style="color:#f92672">/</span>Libs<span style="color:#f92672">/</span>boost_1_57_0</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">-std</span><span style="color:#f92672">=</span><span style="color:#e6db74">c++14</span>
+<span style="color:#a6e22e">-target</span>
+<span style="color:#a6e22e">i686-w64-windows-gnu</span>
+<span style="color:#a6e22e">-Wall</span>
+<span style="color:#a6e22e">-pedantic</span>
+<span style="color:#a6e22e">-DDEBUG</span>
+<span style="color:#a6e22e">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++</span>
+<span style="color:#a6e22e">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++/i686-w64-mingw32</span>
+<span style="color:#a6e22e">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++/backward</span>
+<span style="color:#a6e22e">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include</span>
+<span style="color:#a6e22e">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include-fixed</span>
+<span style="color:#a6e22e">-IF:/Apps/mingw32/i686-w64-mingw32/include</span>
+<span style="color:#a6e22e">-IF:/Libs/boost_1_57_0</span></code></pre></div>
 
 <p><strong>Note</strong>: each argument gets its own line</p>
 
@@ -278,8 +278,8 @@ i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>w
 
 <p>As a bonus of using Irony, we can do on-the-fly syntax checking using Clang and know of errors as the code is typed out without actually compiling the file separately.  This quickens the development cycle by avoiding slow compilations; when you have an error-free buffer, you&rsquo;ll only be left with linker errors, if at all, when you do a proper compilation.  Install <code>flycheck</code>, <code>flycheck-irony</code> and <code>flycheck-pos-tip</code>.  Enable it with</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Lisp" data-lang="Lisp">(eval-after-load &#39;flycheck
-  &#39;(add-hook &#39;flycheck-mode-hook #&#39;flycheck-irony-setup))</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Lisp" data-lang="Lisp">(eval-after-load <span style="color:#e6db74">&#39;flycheck</span>
+  <span style="color:#f92672">&#39;</span>(add-hook <span style="color:#e6db74">&#39;flycheck-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>flycheck-irony-setup))</code></pre></div>
 
 <p>where <code>flycheck-irony-setup</code> is a function you get with the <code>flycheck-irony</code> package.  Make sure you enable Flycheck when needed</p>
 
@@ -311,7 +311,9 @@ i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>w
             
                 <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>, 
             
-                <a href="/tags/intellisense/">intellisense</a>
+                <a href="/tags/ide/">ide</a>, 
+            
+                <a href="/tags/tools/">tools</a>
             
         </p>
     
@@ -392,7 +394,7 @@ i686<span style="color:#f92672">-</span>w64<span style="color:#f92672">-</span>w
                 </div>
 
                 <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
-                <p class="footer-copyright"><span>Assembled by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
                 <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
                 <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
             </div>

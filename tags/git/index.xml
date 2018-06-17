@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Bits of Insight</title>
+    <link>https://legends2k.github.io/tags/git/</link>
+    <description>Recent content in Git on Bits of Insight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <lastBuildDate>Thu, 19 Apr 2018 13:57:03 -0700</lastBuildDate>
+    
+	<atom:link href="https://legends2k.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git: Pushing to a Fork</title>
+      <link>https://legends2k.github.io/note/push_fork/</link>
+      <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/note/push_fork/</guid>
+      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;rdquo;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Shutting the ubiquitous backdoor &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="a.k.a Intel ME with a programmer and some guts ;)">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.42.1" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="Shutting the ubiquitous backdoor">
+<meta property="og:description" content="a.k.a Intel ME with a programmer and some guts ;)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/clean_me/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Articles" href="/post/">Articles</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Shutting the ubiquitous backdoor</h1>
+    
+        <p class="post-description" itemprop="description">a.k.a Intel ME with a programmer and some guts ;)</p>
+    
+        <p class="post-date">
+        <time datetime="2018-05-12" itemprop="datePublished">
+    Published Sat, May 12, 2018</time>
+
+</time>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://legends2k.github.io/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>I believe <a href="https://en.wikipedia.org/wiki/Borg_(Star_Trek)"><em>resistance is futile</em></a> if someone is bent on spying on you; there’re both serious and <a href="https://en.wikipedia.org/wiki/Side-channel_attack">creative ways</a> to go about it.  Talking to your processor, behind your back, isn’t the primary or only means.  Ours is <a href="https://en.wikipedia.org/wiki/Information_Age">golden age</a> where corporates and government agencies stoop low enough to pry into bedrooms.  Did you know that <em>almost</em> all machines<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> you <em>own</em> have a processor aside from the one you paid for?  It controls your processor (host) and won’t listen to you.</p>
+
+<ul>
+<li>Unbeknownst to the host, it runs out-of-band, on a separate chip</li>
+<li>It has unfettered access to any memory region; it runs at <a href="https://en.wikipedia.org/wiki/Protection_ring">ring</a> level −3<sup class="footnote-ref" id="fnref:8"><a href="#fn:8">2</a></sup></li>
+<li>It can run even when your machine is in stand-by</li>
+<li>It runs an OS and a TCP/IP server on certain ports bypassing any firewall in the host
+
+<ul>
+<li>You would never know even if you’re spied on</li>
+</ul></li>
+<li>Can’t be terminated
+
+<ul>
+<li>It controls the hosts boot cycle</li>
+</ul></li>
+</ul>
+
+<p>A processor inside your processor, having its own operating system<sup class="footnote-ref" id="fnref:7"><a href="#fn:7">3</a></sup>, running services, buried very deep within and can’t be switched completely off &ndash; it’s needed to even bring up your processor during boot.  I’m talking about the <a href="https://en.wikipedia.org/wiki/Intel_Management_Engine">Intel ME</a> &mdash; a <a href="https://en.wikipedia.org/wiki/Backdoor_(computing)">backdoor</a> that’s built into Intel processors; it’s inner workings known only to Intel who refuses divulging anything about it in the name of security<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup>.  What’s that?  Yeah, I too went &ldquo;I’m lucky! I own an AMD machine&rdquo;.  Well, look up <a href="https://en.wikipedia.org/wiki/AMD_Platform_Security_Processor">PSP</a>; it’s AMD’s ME.  I think it’s <a href="https://www.bleepingcomputer.com/news/hardware/researchers-find-a-way-to-disable-much-hated-intel-me-component-courtesy-of-the-nsa/">clear by now</a> such</p>
+
+<blockquote>
+<p>back doors would exist even on mobile and server processors.  It is just matter of time before they’re exposed.</p>
+</blockquote>
+
+<h1 id="motive">Motive</h1>
+
+<p><a href="https://github.com/corna/me_cleaner">Some bright minds</a> have found a way to neutralize Intel’s backdoor<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">5</a></sup> i.e. not completely kill it, but make it harmless.  Now neutralizing just your MEs isn’t going to stop your other machines from prying.  Security experts and the paranoids will rightfully suggest</p>
+
+<blockquote>
+<p>If you really want to be secure, go back to the cave.  Use pen and paper; burn it, when you’re done!</p>
+</blockquote>
+
+<p>Knowing it’s beyond me, why am I still doing it?  Well definitely not for security<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">6</a></sup>, but the hacker in me would like to own his toys &ndash; a reasonable expectation.  A stranger shouldn’t tell you how to use your pen; even worse, use it behind your back routinely.  It’s as simple as that.  It’s probably one of the reasons<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">7</a></sup> I’m a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> loyalist.</p>
+
+<blockquote>
+<p>I don’t want some processor, I didn’t pay for, to drain my laptop power, or steal data for some merchant who wants to sell stuff that I don’t want.</p>
+</blockquote>
+
+<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the <a href="https://github.com/corna/me_cleaner/wiki">Clean ME guides</a>, check version and compatibilities and proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
+
+<p>Let’s get on with it!</p>
+
+<h1 id="connect">Connect</h1>
+
+<p>You should just be able to physically access your motherboard; no soldering involved.</p>
+
+
+<figure>
+    
+        <img src="images/hardware.jpg" alt="USB Programmer CH341A (left), SOP8 clip (bottom), SOP16/8-DIP8 board (top)" />
+    
+    
+    <figcaption>
+        <h4>Tools</h4>
+        <p>
+        USB Programmer CH341A (left), SOP8 clip (bottom), SOP16/8-DIP8 board (top)
+        
+            
+        
+        </p> 
+    </figcaption>
+    
+</figure>
+
+
+<p>CH341A (Black) is a cheap<sup class="footnote-ref" id="fnref:10"><a href="#fn:10">9</a></sup> USB <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI chip</a> programmer.  The SOP8 clip &ndash; that saves you from removing and re-soldering the BIOS chip &ndash; is sold separately.  Make sure you buy the clip that comes with a SOP16/8-DIP8 board; this proxies as the BIOS chip going into the programmer&rsquo;s slot. Take note</p>
+
+<ol>
+<li>The first bit is denoted on the BIOS chip-top with a circle marking.</li>
+<li>Make sure the clip&rsquo;s red line, denoting the first bit, matches with this circle i.e. first on chip is connect to the first on clip when clipping.</li>
+<li>Connect the wire end of the clip to the board such that the first bits match &ndash; the board has all bit pins marked.
+
+<ul>
+<li>Usually a 10-bit bus cable is used as the connector; notice that bits 9 and 10 are cut out.</li>
+</ul></li>
+<li>Look at the CH341A programmer board for a drawing about the 25 SPI BIOS chip layout. This should also have the circle marking.</li>
+<li>Connect the board-end of the clip such that its first and the SPI&rsquo;s first bits match.</li>
+</ol>
+
+
+<figure>
+    
+        <img src="images/setup.jpg" />
+    
+    
+    <figcaption>
+        <h4>My Setup</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>Connect the programmer&rsquo;s USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You&rsquo;re all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></span></code></pre></div>
+
+<p>This means your Linux machine successfully detects the programmer.</p>
+
+<h1 id="backup">Backup</h1>
+
+<p>Install <code>flashrom</code>; your distro’s package repository will definitely have this nifty tool.  Make sure the chip is recognized by it:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ sudo flashrom --programmer ch341a_spi -r BIOS_org.bin</span>
+</span><span style="color:#a6e22e">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
+<span style="color:#a6e22e">flashrom is free software, get the source code at https://flashrom.org</span>
+
+<span style="color:#a6e22e">Calibrating delay loop... OK.</span>
+<span style="color:#a6e22e">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
+<span style="color:#a6e22e">Reading flash... done.</span></code></pre></div>
+
+<p>It should be able to auto-detect the chip and give you a full dump of the chip contents.  If it says no devices were found, re-connect the clip; loose-contacts are common with these clips.  Get two dumps and binary-compare them to make sure the connection was fine and the images are valid.</p>
+
+<p>If there&rsquo;re multiple SPI chips on your motherboard, make sure you get the right one i.e. the BIOS image you get from your OEM should have around the same size as the dump you just made.</p>
+
+
+<figure>
+    
+        <img src="images/bios_chip.jpg" alt="1 MiB Winbond EEPROM chip (left-bottom) – also an 8-pin SPI chip – was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one." />
+    
+    
+    <figcaption>
+        <h4>Eeny, meeny, miny, moe</h4>
+        <p>
+        1 MiB Winbond EEPROM chip (left-bottom) – also an 8-pin SPI chip – was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one.
+        
+            
+        
+        </p> 
+    </figcaption>
+    
+</figure>
+
+
+<p>Run <code>me_cleaner</code> on the dump to verify it:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
+
+<p>You should get a valid output.  You might also check it with the <code>ifdtool</code> from the <a href="https://www.coreboot.org/">coreboot</a> repo: <code>ifdtool -d BIOS_org.bin</code>.</p>
+
+<h1 id="clean">Clean</h1>
+
+<p>Run <code>me_cleaner</code> with the soft-clean option.  It&rsquo;s the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
+</span><span style="color:#a6e22e">Full image detected</span>
+<span style="color:#a6e22e">The ME/TXE region goes from 0x1000 to 0x200000</span>
+<span style="color:#a6e22e">Found FPT header at 0x1010</span>
+<span style="color:#a6e22e">Found 11 partition(s)</span>
+<span style="color:#a6e22e">Found FTPR header: FTPR partition spans from 0x1000 to 0xa8000</span>
+<span style="color:#a6e22e">Found FTPR manifest at 0x1448</span>
+<span style="color:#a6e22e">ME/TXE firmware version 11.6.10.1196</span>
+<span style="color:#a6e22e">Public key match: Intel ME, firmware versions 11.x.x.x</span>
+<span style="color:#a6e22e">The HAP bit is NOT SET</span>
+<span style="color:#a6e22e">Setting the HAP bit in PCHSTRP0 to disable Intel ME...</span>
+<span style="color:#a6e22e">Checking the FTPR RSA signature... VALID</span>
+<span style="color:#a6e22e">Done! Good luck!</span></code></pre></div>
+
+<p>It should set the <em>AltMeDisable</em> (or HAP) bit and wish you luck!</p>
+
+<h1 id="flash">Flash</h1>
+
+<p>Flash the cleaned image back on to the SPI chip</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ sudo flashrom --programmer ch341a_spi -w BIOS_clean.bin</span>
+</span><span style="color:#a6e22e">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
+<span style="color:#a6e22e">flashrom is free software, get the source code at https://flashrom.org</span>
+
+<span style="color:#a6e22e">Calibrating delay loop... OK.</span>
+<span style="color:#a6e22e">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
+<span style="color:#a6e22e">Reading old flash chip contents... done.</span>
+<span style="color:#a6e22e">Erasing and writing flash chip... Erase/write done.</span>
+<span style="color:#a6e22e">Verifying flash... VERIFIED.</span></code></pre></div>
+
+<p>It will first take a back-up for disaster-recovery.  It&rsquo;ll also see if it could optimize by not writing portions that don&rsquo;t differ.  Then it&rsquo;ll write and verify if the image and the chip contents match!  Quite a thorough piece of software; nice :)</p>
+
+<h1 id="verify">Verify</h1>
+
+<p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn&rsquo;t all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You&rsquo;ve successfully neutralized the backdoor! 🖖</p>
+
+<p>To verify it properly, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ MEInfoWin64.exe -FWSTS</span>
+</span>
+<span style="color:#a6e22e">Intel(R) MEInfo Version: 11.8.50.3460</span>
+<span style="color:#a6e22e">Copyright(C) 2005 - 2017, Intel Corporation. All rights reserved.</span>
+
+<span style="color:#a6e22e">FW Status Register1: 0x80022004</span>
+<span style="color:#a6e22e">FW Status Register2: 0x304D0116</span>
+<span style="color:#a6e22e">FW Status Register3: 0x00000020</span>
+<span style="color:#a6e22e">FW Status Register4: 0x00086000</span>
+<span style="color:#a6e22e">FW Status Register5: 0x00000000</span>
+<span style="color:#a6e22e">FW Status Register6: 0x40000004</span>
+
+  <span style="color:#a6e22e">CurrentState:                               Disabled</span>
+  <span style="color:#a6e22e">ManufacturingMode:                          Disabled</span>
+  <span style="color:#a6e22e">FlashPartition:                             Valid</span>
+  <span style="color:#a6e22e">OperationalState:                           Transitioning</span>
+  <span style="color:#a6e22e">InitComplete:                               Initializing</span>
+  <span style="color:#a6e22e">BUPLoadState:                               Success</span>
+  <span style="color:#a6e22e">ErrorCode:                                  Disabled</span>
+  <span style="color:#a6e22e">ModeOfOperation:                            Alt Disable Mode</span>
+  <span style="color:#a6e22e">SPI Flash Log:                              Not Present</span>
+  <span style="color:#a6e22e">FPF HW Source value:                        FPF HW Not Set</span>
+  <span style="color:#a6e22e">ME FPF Fusing Patch Status:                 ME FPF Fusing patch NOT supported in this FW Version</span>
+  <span style="color:#a6e22e">Phase:                                      BringUp</span>
+  <span style="color:#a6e22e">ICC:                                        Valid OEM data, ICC programmed</span>
+  <span style="color:#a6e22e">ME File System Corrupted:                   No</span>
+  <span style="color:#a6e22e">PhaseStatus:                                UNKNOWN</span>
+  <span style="color:#a6e22e">FPF and ME Config Status:                   Match</span></code></pre></div>
+
+<p>Make sure you uninstall any ME-related software<sup class="footnote-ref" id="fnref:12"><a href="#fn:12">10</a></sup>. If you&rsquo;re on Windows, you can also verify that in the <em>Device Manager</em>, under <em>System devices</em>, the <em>Intel&reg; Management Engine Interface</em> no longer shows up.  On <a href="https://en.wikipedia.org/wiki/Unix-like">*nix</a> the MEI entry should no longer show up for <code>lspci</code>.</p>
+
+<p>Finally, be a good team player and <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-391503079">report your success</a>!</p>
+
+<h1 id="references">References</h1>
+
+<ol>
+<li><a href="https://boingboing.net/2016/06/15/intel-x86-processors-ship-with.html">Intel x86s hide another CPU that can take over your machine</a></li>
+<li><a href="https://www.fsf.org/blogs/sysadmin/the-management-engine-an-attack-on-computer-users-freedom">The Intel Management Engine: an attack on computer users’ freedom</a></li>
+<li><a href="https://puri.sm/posts/deep-dive-into-intel-me-disablement/">Deep dive into Intel Management Engine Disablement</a></li>
+<li><a href="http://blog.ptsecurity.com/2017/08/disabling-intel-me.html">Disabling Intel ME 11 via undocumented mode</a></li>
+<li><a href="https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide/Disabling_the_Intel_Management_Engine">Sakaki’s EFI Install Guide/Disabling the Intel Management Engine</a></li>
+<li><a href="https://github.com/ptresearch/me-disablement/blob/master/How%20to%20become%20the%20sole%20owner%20of%20your%20PC.pdf">How to become the sole owner of your PC</a></li>
+<li><a href="https://media.ccc.de/v/34c3-8782-intel_me_myths_and_reality">Intel ME Myths and Reality</a></li>
+</ol>
+
+<h1 id="p-s">P.S.</h1>
+
+<p>Newer versions of ME<sup class="footnote-ref" id="fnref:13"><a href="#fn:13">11</a></sup> are tougher to clean since they&rsquo;ve protection mechanisms.  My older laptop having ME 8 was simpler; I&rsquo;d to jump through a <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-385616918">few hoops</a> logistically.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">the ones with micro-processor(s)
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:8">Negative ring levels are below the kernel which is at 0.  Lesser is deeper.
+ <a class="footnote-return" href="#fnref:8">↩</a></li>
+<li id="fn:7"><a href="https://en.wikipedia.org/wiki/MINIX">MINIX</a> OS, written by <a href="https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum">the same guy</a> who <a href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">flamed Linus Torvalds</a> for writing a monolithic kernel.  In some sense the microkernel design <em>won</em> since it’s now <a href="https://www.networkworld.com/article/3236064/servers/minix-the-most-popular-os-in-the-world-thanks-to-intel.html">the most used OS</a> 😉
+ <a class="footnote-return" href="#fnref:7">↩</a></li>
+<li id="fn:4"><em>Security by obscurity</em> &ndash; the worst form of security, as opined by security experts.
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
+<li id="fn:5">Sorry AMD owners; a consoling factor, however, is apparently PSP is much less capable than ME.
+ <a class="footnote-return" href="#fnref:5">↩</a></li>
+<li id="fn:2">Heck I wouldn’t be blogging about it if that’s the case, would I now?
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:3">Another reason is, of course, its <a href="https://en.wikipedia.org/wiki/Unix_philosophy">superior engineering</a>, better science and execution that stands the test of time, <em>despite</em> unpaid contributors not being paid engineers. Beat that corporates!
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
+<li id="fn:6">Just that it’ll be a non-OEM update this time.
+ <a class="footnote-return" href="#fnref:6">↩</a></li>
+<li id="fn:10">Decent quality ones costed around $15 together
+ <a class="footnote-return" href="#fnref:10">↩</a></li>
+<li id="fn:12">There are reports of ME software resetting the bit and resurructing the parasite
+ <a class="footnote-return" href="#fnref:12">↩</a></li>
+<li id="fn:13">This one was CSME 11, if you&rsquo;d not noticed thus far.
+ <a class="footnote-return" href="#fnref:13">↩</a></li>
+</ol>
+</div>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/tech/">tech</a>, 
+            
+                <a href="/tags/security/">security</a>, 
+            
+                <a href="/tags/hardware/">hardware</a>, 
+            
+                <a href="/tags/tinker/">tinker</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Shutting%20the%20ubiquitous%20backdoor&url=https%3a%2f%2flegends2k.github.io%2fnote%2fclean_me%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fclean_me%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fclean_me%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Shutting%20the%20ubiquitous%20backdoor&url=https%3a%2f%2flegends2k.github.io%2fnote%2fclean_me%2f&summary=a.k.a%20Intel%20ME%20with%20a%20programmer%20and%20some%20guts%20%3b%29"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

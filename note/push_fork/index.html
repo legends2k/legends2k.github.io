@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Git: Pushing to a Fork &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="the original origin">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.42.1" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="Git: Pushing to a Fork">
+<meta property="og:description" content="the original origin">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/push_fork/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Articles" href="/post/">Articles</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Git: Pushing to a Fork</h1>
+    
+        <p class="post-description" itemprop="description">the original origin</p>
+    
+        <p class="post-date">
+        <time datetime="2018-04-19" itemprop="datePublished">
+    Published Thu, Apr 19, 2018</time>
+
+</time>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://legends2k.github.io/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h1 id="fork-food">Fork? Food!?</h1>
+
+<p>When you fork<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> a repository in GitHub, from your repository&rsquo;s viewpoint, the one you forked from is called the &ldquo;<a href="https://en.wikipedia.org/wiki/Upstream_(software_development)">upstream</a>&rdquo;; a term used commonly in the <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> world for a long time, to denote the original authors (or their repository) of a software.  <em>Fork</em> is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&rsquo;t have a concept of fork; from its viewpoint, it&rsquo;s just another remote repository.  So both the <em>upstream</em> (original repo at GitHub from where you forked your repo) and <em>origin</em> (your fork at GitHub) are two remotes to your local repo.</p>
+
+<p>Between your <code>commit</code>, <code>push</code> to origin and the pull request approval, more commits could&rsquo;ve gotten pushed to the upstream.  To resolve you sync</p>
+
+<ol>
+<li>local to upstream
+
+<ul>
+<li>bringing your local up to date (the heavy-lifting a.k.a <em>merge</em>)</li>
+</ul></li>
+<li>origin to local
+
+<ul>
+<li>bringing your own remote (origin) up to date</li>
+</ul></li>
+<li>upstream to local
+
+<ul>
+<li>finally making your changes</li>
+</ul></li>
+</ol>
+
+<h1 id="steps">Steps</h1>
+
+<ol>
+<li><p>Make sure you&rsquo;ve the upstream as one of your remotes, if not add
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">git remote add Upstream git@github.com:user/project.git</span></code></pre></div></p></li>
+
+<li><p>Pull changes from upstream by rebasing instead of a merge
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">git pull --rebase Upstream &lt;branch_name&gt;</span></code></pre></div></p>
+
+<ol>
+<li>To verify you&rsquo;ve done this correctly, you can do <code>git log --oneline -10</code></li>
+<li>You should see your commit at <code>HEAD</code> followed by the most recent commit in <code>Upstream/&lt;branch_name&gt;</code></li>
+<li>This confirms that your change would be the latest commit atop all previous commits in upstream</li>
+</ol></li>
+
+<li><p>Force push your commit to origin (your fork&rsquo;s remote)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">git push --force origin &lt;branch_name&gt;</span></code></pre></div></p>
+
+<ol>
+<li>Though you&rsquo;d have earlier pushed to your origin for creating the pull request, you redo it to have these new changes gotten from upstream to be synced into your fork&rsquo;s history</li>
+<li>You can verify with the above log command again; both origin and your local <code>HEAD</code> should point to the commit you got approval for; upstream should be at the next commit</li>
+</ol></li>
+
+<li><p>Push to upstream
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">git push Upstream &lt;branch_name&gt;</span></code></pre></div></p></li>
+</ol>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">No, not the culinary or chess parlance, silly! The <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">software meaning</a>.
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+</ol>
+</div>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/tech/">tech</a>, 
+            
+                <a href="/tags/vcs/">vcs</a>, 
+            
+                <a href="/tags/git/">git</a>, 
+            
+                <a href="/tags/tools/">tools</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Git%3a%20Pushing%20to%20a%20Fork&url=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Git%3a%20Pushing%20to%20a%20Fork&url=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f&summary=the%20original%20origin"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

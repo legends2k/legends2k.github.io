@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ide on Bits of Insight</title>
+    <link>https://legends2k.github.io/tags/ide/</link>
+    <description>Recent content in Ide on Bits of Insight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <copyright>Sundaram Ramaswamy</copyright>
+    <lastBuildDate>Sun, 17 Jun 2018 07:00:43 -0700</lastBuildDate>
+    
+	<atom:link href="https://legends2k.github.io/tags/ide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go Setup</title>
+      <link>https://legends2k.github.io/note/go_setup/</link>
+      <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/note/go_setup/</guid>
+      <description>An IDE at least should do
+ Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Context-sensitive document lookup  Show variable and function type Show function description  Autorun gofmt on save Bonus: Auto-add/remove used/unused packages on file save  We’ll try to get these going on Emacs.
+External Tools Though not part of the canonical tool set, these are written by seasoned Go devs
+ gocode godef goflymake goimports godoc  Emacs Packages We’d be needing these too to interface with above tools</description>
+    </item>
+    
+    <item>
+      <title>Emacs C&#43;&#43; auto-complete setup on Windows</title>
+      <link>https://legends2k.github.io/note/install-irony-win32/</link>
+      <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/install-irony-win32/</guid>
+      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
+The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
+    </item>
+    
+    <item>
+      <title>Lua Setup on Windows</title>
+      <link>https://legends2k.github.io/note/lua_rocks/</link>
+      <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/lua_rocks/</guid>
+      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved  Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)  Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
+    </item>
+    
+  </channel>
+</rss>
