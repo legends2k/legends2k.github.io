@@ -127,7 +127,7 @@
 
     
 
-<p>I believe <a href="https://en.wikipedia.org/wiki/Borg_(Star_Trek)"><em>resistance is futile</em></a> if someone is bent on spying on you; there’re both serious and <a href="https://en.wikipedia.org/wiki/Side-channel_attack">creative ways</a> to go about it.  Talking to your processor, behind your back, isn’t the primary or only means.  Ours is <a href="https://en.wikipedia.org/wiki/Information_Age">golden age</a> where corporates and government agencies stoop low enough to pry into bedrooms.  Did you know that <em>almost</em> all machines<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> you <em>own</em> have a processor aside from the one you paid for?  It controls your processor (host) and won’t listen to you.</p>
+<p>I believe <a href="https://en.wikipedia.org/wiki/Borg_(Star_Trek)"><em>resistance is futile</em></a> if someone is bent on spying on you; there’re both serious and <a href="https://en.wikipedia.org/wiki/Side-channel_attack">creative ways</a> to go about it.  Talking to your processor, behind your back, isn’t the primary or only means.  Our’s is a <a href="https://en.wikipedia.org/wiki/Information_Age">golden age</a> where corporates and government agencies stoop low enough to pry into bedrooms.  Did you know that <em>almost</em> all machines<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> you <em>own</em> have a processor aside from the one you paid for?  It controls your processor (host) and won’t listen to you.</p>
 
 <ul>
 <li>Unbeknownst to the host, it runs out-of-band, on a separate chip</li>
@@ -141,7 +141,7 @@
 <li>Can’t be terminated
 
 <ul>
-<li>It controls the hosts boot cycle</li>
+<li>It controls the host’s boot cycle</li>
 </ul></li>
 </ul>
 
@@ -165,7 +165,7 @@
 <p>I don’t want some processor, I didn’t pay for, to drain my laptop power, or steal data for some merchant who wants to sell stuff that I don’t want.</p>
 </blockquote>
 
-<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the [ME Cleaner guides][], check versions and compatibilities then proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
+<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the <a href="https://github.com/corna/me_cleaner/wiki">ME Cleaner guides</a>, check versions and compatibilities then proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
 
 <p>Let’s get on with it!</p>
 
@@ -359,7 +359,7 @@
 
 <h1 id="p-s">P.S.</h1>
 
-<p>Newer versions of ME<sup class="footnote-ref" id="fnref:13"><a href="#fn:13">11</a></sup> are tougher to clean since they&rsquo;ve protection mechanisms.  My older laptop having ME 8 was simpler; I&rsquo;d to jump through a <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-385616918">few hoops</a> logistically.</p>
+<p>This machine has CSME 11 since it is a <a href="https://en.wikipedia.org/wiki/Kaby_Lake">Kaby Lake</a>.  Processors with older ME versions have much lesser security that this external flashing isn’t needed but is a lot cleaner.  The OEM’s BIOS firmware upgrade utility usually works.  <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-385616918">I had a fun time cleaning my older laptop</a> having ME 8.</p>
 <div class="footnotes">
 
 <hr />
@@ -385,8 +385,6 @@
  <a class="footnote-return" href="#fnref:10">↩</a></li>
 <li id="fn:12">There are reports of ME software resetting the bit and resurructing the parasite
  <a class="footnote-return" href="#fnref:12">↩</a></li>
-<li id="fn:13">This one was CSME 11, if you&rsquo;d not noticed thus far.
- <a class="footnote-return" href="#fnref:13">↩</a></li>
 </ol>
 </div>
 

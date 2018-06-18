@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://legends2k.github.io/post/ideating_acting/</loc>
+    <lastmod>2018-06-17T23:23:10-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/note/go_setup/</loc>
     <lastmod>2018-06-17T07:00:43-07:00</lastmod>
   </url>
@@ -155,6 +160,12 @@
   </url>
   
   <url>
+    <loc>https://legends2k.github.io/tags/kaizen/</loc>
+    <lastmod>2018-06-17T23:23:10-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/tags/life/</loc>
     <lastmod>2017-12-09T10:35:43+05:30</lastmod>
     <priority>0</priority>
@@ -173,6 +184,12 @@
   </url>
   
   <url>
+    <loc>https://legends2k.github.io/tags/mind/</loc>
+    <lastmod>2018-06-17T23:23:10-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/tags/package/</loc>
     <lastmod>2016-09-23T17:00:46+05:30</lastmod>
     <priority>0</priority>
@@ -181,6 +198,12 @@
   <url>
     <loc>https://legends2k.github.io/tags/philosophy/</loc>
     <lastmod>2017-12-09T10:35:43+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/psychology/</loc>
+    <lastmod>2018-06-17T23:23:10-07:00</lastmod>
     <priority>0</priority>
   </url>
   
