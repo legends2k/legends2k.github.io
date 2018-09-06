@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Arch Linux Installation &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="coexisting with Windows on a dual GPU laptop">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.48" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="Arch Linux Installation">
+<meta property="og:description" content="coexisting with Windows on a dual GPU laptop">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/arch_install/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Articles" href="/post/">Articles</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Arch Linux Installation</h1>
+    
+        <p class="post-description" itemprop="description">coexisting with Windows on a dual GPU laptop</p>
+    
+        <p class="post-date">
+        <time datetime="2018-05-27" itemprop="datePublished">
+    Published Sun, May 27, 2018</time>
+
+</time>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://legends2k.github.io/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>I&rsquo;ve a dual GPU laptop: <em>Lenovo Legion Y520-15IKBN</em>; the <em>Nvidia GeForce 1050 Ti Mobile</em> for graphics-heavy (3D) tasks and <em>Intel HD Graphics 630</em> for rendering the rest.  It has an SSD and a traditional spinning disk.  UEFI + GPT as opposed to the classic BIOS + MBR combo is preferable.  I&rsquo;m a long-time Xubuntu user but I wanted to try Arch Linux.  Here I note my experience in getting this laptop up and running.</p>
+
+<h1 id="prelims">Prelims</h1>
+
+<p>A few things upfront &mdash; detailed later &mdash; to decide if this guide is for you</p>
+
+<ol>
+<li><strong>Secure boot</strong> off: at least for (USB) installation.  Longer term, there&rsquo;re some hoops to jump through but you can enable it back on</li>
+<li><strong>SSD vs non-SSD</strong>: Use spinning disks for volatile data</li>
+<li><strong>SATA vs RAID</strong>: To even detect your M.2 PCIe SSD the storage controller is to be set to ACHI and not Intel RST</li>
+<li><strong>LVM</strong>: if you want the flexibility of changing partition sizes without data loss, post installation, even while mounted</li>
+</ol>
+
+<p>Being a Emacs junkie one of the first things I do when I start using a new environment is remap my <kbd>CAPSLOCK</kbd> to <kbd>CONTROL</kbd>.</p>
+
+<h2 id="ctrl-your-capslk">Ctrl your CapsLk</h2>
+
+<p><a href="https://www.emacswiki.org/emacs/MovingTheCtrlKey#toc8">Map <code>CAPSLOCK</code> to <code>CTRL</code></a> with <code>loadkeys</code> <a href="https://wiki.archlinux.org/index.php/Keyboard_configuration_in_console">just for the current session</a></p>
+
+<pre><code class="language-bash">dumpkeys | head -1 &gt; keys.map`
+echo 'keycode 58 = Control' &gt;&gt; keys.map
+loadkeys keys.map
+</code></pre>
+
+<p>Once we’ve a desktop environment setup, this can be made permanent with <a href="https://bitbucket.org/rmsundaram/tryouts/src/dev/Misc/config/.Xmodmap"><code>.Xmodmap</code></a>.</p>
+
+<h1 id="wireless-network">Wireless Network</h1>
+
+<p>Without network access modern linux installations are an exercise in pain.  I didn&rsquo;t have an ethernet cable so I had to get wi-fi up:</p>
+
+<ol>
+<li>If <code>ping</code> fails, disable <em>dhcpcd</em> service with <code>systemctl stop dhcpcd@</code> (press <kbd>TAB</kbd>)</li>
+<li>Check wireless interface creation with <code>iw dev</code>; it should list the interface name e.g. <code>wlp3s0</code>
+
+<ul>
+<li>If absent, <code>lspci -v</code> to ensure the wireless network controller drivers loaded right</li>
+<li><code>ip link show</code> shows the networking interfaces present</li>
+</ul></li>
+<li>Check if wireless is not blocked with <code>rfkill list</code>
+
+<ul>
+<li>If hard-blocked, press hardware button to enable wireless hardware</li>
+<li>If soft-blocked: <code>rfkill unblock wifi</code></li>
+</ul></li>
+<li><code>cp /etc/netctl{/examples,}/wireless-wpa</code>
+
+<ul>
+<li>Just copy an example profile and tweak</li>
+<li>Arch comes with <em>netctl</em> (network manager) and <em>WPA supplicant</em> for connection to WPA secured networks</li>
+<li>Can&rsquo;t use <em>iw</em> or <em>wireless_tools</em> if the network uses <em>WPA2 Personal</em></li>
+</ul></li>
+<li>Edit parameters in copied file as per network
+
+<ul>
+<li>Use <code>wpa_passphrase</code> to get the hex passphrase to put in netctl&rsquo;s profile</li>
+<li>Make sure you run <code>wpa_passphrase</code> with the correct SSID</li>
+</ul></li>
+</ol>
+
+<pre><code>Description='A simple WPA encrypted wireless connection'
+Interface=wlp3s0
+Connection=wireless
+
+Security=wpa
+IP=dhcp
+
+ESSID='InfoProbe'
+Key=\72ac...
+Hidden=yes
+</code></pre>
+
+<ol>
+<li><code>netctl start wireless-wpa</code></li>
+<li>Ping should now work if all went well</li>
+</ol>
+
+<p>In case <code>netctl</code> errors out, it might be because of two things:</p>
+
+<ol>
+<li>A DHCP daemon is still running; do <code>systemctl stop ...</code> as in step 1</li>
+<li>The interface is already up; <a href="https://bbs.archlinux.org/viewtopic.php?id=162582">netctl needs it down</a>: <code>ip link set wlp3s0 down</code></li>
+</ol>
+
+<h1 id="partitions">Partitions</h1>
+
+<h2 id="ssd">SSD</h2>
+
+<p>Check if the drive got detected <code>ls /dev/nv*</code>.  If not, the SSD is probably configured to use the RST (RAID) storage controller which Linux doesn&rsquo;t seem to detect.  It has to be AHCI (SATA) controller.</p>
+
+<p>If the default Windows installation was done with RST selection, Windows 10 will not boot if this switch is flipped.  Recovering Windows without a reinstallation <a href="http://triplescomputers.com/blog/uncategorized/solution-switch-windows-10-from-raidide-to-ahci-operation/">is possible</a>.  Minimal <em>Safe Mode</em> can be enabled/disabled without using <code>bcdedit</code> <a href="http://www.thewindowsclub.com/reboot-in-safe-mode-windows">through GUI</a> too: <code>msconfig</code>.  <a href="https://www.reddit.com/r/Dell/comments/4gke4k/a_closer_look_at_ahci_vs_raid/">Tests show</a> that using the older AHCI doesn&rsquo;t incur any significant performance hit over RAID.</p>
+
+<h2 id="scheme">Scheme</h2>
+
+<p>SSDs are <a href="https://unix.stackexchange.com/a/89230">not recommended</a> for volatile data, so <code>/var</code> and swap space should be allocated on spinning disk.  Rest like <code>/boot</code>, <code>/</code>, <code>/usr</code>, etc. can be left on the SSD: seen under <code>/dev/nvme0nXpY</code> not <code>/dev/sda</code>; <code>X</code> is the disk number, <code>Y</code> is the partition.</p>
+
+<p>Partition with <code>cfdisk</code> and verify them with <code>lsblk</code> or <code>fdisk -l</code>.  Choose <em>Linux filesystem</em> for <em>Partition Type</em> for everything except swap and LVM.  Mind that these partitions are the ones created outside the LVM; if you&rsquo;re going to manage all your Linux partitions with LVM, just create one partition and set its type to <em>Linux LVM</em> in <code>fdisk</code>.</p>
+
+<p>My final scheme (sublist intelligible after reading the next section)</p>
+
+<ol>
+<li><code>/boot</code> → <code>/dev/nvme0n1p5</code> (512 MiB)</li>
+<li>LVM → <code>/dev/nvme0n1p6</code> (54.5 GiB)
+
+<ol>
+<li><code>/</code> → <code>/dev/lvmg1/root</code> (40 GiB)</li>
+<li><code>/home</code> → <code>/dev/lvmg1/home</code> (remaining)</li>
+</ol></li>
+<li><code>/var</code> → <code>dev/sda5</code> (4 GiB)</li>
+<li>swap → <code>dev/sda6</code> (4 GiB)</li>
+</ol>
+
+<h2 id="lvm">LVM</h2>
+
+<p>Using LVM2 seems to be <a href="https://askubuntu.com/a/147266/43759">recommended</a> by many since it has <a href="https://wiki.archlinux.org/index.php/LVM#Advantages">various advantages</a> including resizing of partitions even when they&rsquo;re mounted.  I&rsquo;ve set aside the bulk (except 512 MiB for <code>/boot</code>) of SSD for LVM2.  The spinning disk is used for</p>
+
+<ul>
+<li><code>/var</code></li>
+<li>swap space</li>
+</ul>
+
+<p>Once you&rsquo;ve all the physical volumes that make up the LVM group, do</p>
+
+<pre><code>pvcreate /dev/nvme0n1p6
+vgcreate lvmg1 /dev/nvme0n1p6
+lvcreate -L 40G -n root lvmg1
+lvcreate -l 100%FREE -n home lvmg1
+</code></pre>
+
+<p>Later on, <code>pacstrap</code> would automatically add the <code>root=</code> kernal parameter to map the <code>root</code> partition to the right logical volume.  This can be verified at <code>/boot/grub/grub.cfg</code></p>
+
+<pre><code>linux /vmlinuz-linux root=/dev/mapper/lvmg1-root rw quiet
+</code></pre>
+
+<h2 id="format">Format</h2>
+
+<p>Once partitioned, make sure to format each of them. For swap</p>
+
+<pre><code>mkswap /dev/sda6
+swapon /dev/sda6
+</code></pre>
+
+<p>Likewise for ext4 do</p>
+
+<pre><code>mkfs.ext4 /dev/lvmg1/root
+</code></pre>
+
+<h2 id="mount">Mount</h2>
+
+<pre><code>mount /dev/lvmg1/root /mnt
+mkdir /mnt/boot
+mount /dev/nvme0n1p5 /mnt/boot
+mkdir /mnt/home
+mount /dev/lvmg1/home /mnt/home
+mkdir /mnt/var
+mount /dev/sda5 /mnt/var
+
+mkdir /mnt/boot/efi
+mount /dev/nvme0n1p1 /mnt/boot/efi
+</code></pre>
+
+<p><code>genfstab</code> is a Arch script that setups up <code>/etc/fstab</code> as per the current mounts; it would later detect mounted file systems and swap space.  Since we&rsquo;re on a UEFI + GPT boot scheme, mount the EFI partition too for <code>genfstab</code> and <code>os-prober</code> to pick up Windows for GRUB to list Windows too.  This is the same partition as used by Windows for booting, mounted as <code>/mnt/boot/efi</code>.  Same goes for other Windows partitions that needs to be listed in <code>fstab</code> for auto-mounting in the new OS.  Otherwise it has to be <a href="https://wiki.archlinux.org/index.php/Fstab">done manually</a> with Emacs and <code>lsblk -f</code> or <code>blkid</code>.</p>
+
+<h1 id="base-install">Base Install</h1>
+
+<p>Before proceeding, it might be a good idea to fix the order of mirrors in <code>/etc/pacman.d/mirrorlist</code> since it&rsquo;s copied to the installed system as-is.</p>
+
+<pre><code>pacstrap /mnt base
+</code></pre>
+
+<h1 id="system-config">System Config</h1>
+
+<h2 id="fstab">fstab</h2>
+
+<pre><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre>
+
+<h2 id="change-root">Change root</h2>
+
+<pre><code>arch-chroot /mnt
+</code></pre>
+
+<p>Make sure to install packages that would be needed for network access in the installed system now; specifically <code>wpa_supplicant</code> since the new system wouldn&rsquo;t have network access and will not contain this package either.  This is a dependency for <em>netctl</em>.</p>
+
+<h2 id="time">Time</h2>
+
+<p>Once done, know your time zone using <code>tzselect</code> and do</p>
+
+<pre><code>ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+hwclock --systohc
+</code></pre>
+
+<h2 id="locale">Locale</h2>
+
+<pre><code>nano /etc/locale.gen
+locale-gen
+localectl set-locale LANG=en_IN.UTF-8
+</code></pre>
+
+<p>The last line sets <code>LANG</code>.</p>
+
+<h2 id="network">Network</h2>
+
+<p>Set <code>/etc/hostname</code> and <code>/etc/hosts</code> for easy network identification.  Ping and check if the network configuration works fine.</p>
+
+<h1 id="update-initramfs">Update initramfs</h1>
+
+<p>Since we&rsquo;ve used <code>lvm2</code> for <code>/</code> itself, it has to be added to the <em>HOOKS</em> section of <code>mkinitcpio.conf</code>:</p>
+
+<pre><code># /etc/mkinitcpio.conf
+HOOKS=&quot;(base udev ... block lvm2 filesystems...)&quot;
+</code></pre>
+
+<p>Regenerate initramfs image</p>
+
+<pre><code>mkinitcpio -p linux
+</code></pre>
+
+<h1 id="root-password">Root Password</h1>
+
+<p>Use <code>passwd</code> to set <code>root</code>&rsquo;s password.</p>
+
+<h1 id="boot">Boot</h1>
+
+<p>Since Windows 8, Microsoft forces the UEFI + GPT combo, make sure this is followed by Arch for a successful coexistence with Windows.  Pre-installed Windows machines have a EFI partition already made from which Windows boots; verify this using <code>fdisk</code>.  <a href="https://wiki.archlinux.org/index.php/EFI_System_Partition#Mount_the_partition">This means</a> we don&rsquo;t have to create an EFI partition but simply mount it for GRUB to use.  We&rsquo;re using GRUB as the bootloader.  The mounting part should&rsquo;ve already been done as part of <em>§3.5 Mount</em>:</p>
+
+<pre><code>pacman -S --needed grub efibootmgr
+mkdir /boot/efi
+mount /dev/nvme0n1p1 /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+nano /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+
+<p>The suggested <em>os-prober</em> , which makes GRUB look for other OSs, didn&rsquo;t find Windows. Apparently, the EFI partition should be mounted to <code>/mnt/boot</code> <em>before</em> pacstrapping as this is where the kernel and bootloader are installed to.  If you get <code>lvmetad</code> errors, you may safely ignore them.  Once inside the new Arch, os-prober should work fine.</p>
+
+<h1 id="reboot">Reboot</h1>
+
+<pre><code>umount -R /mnt
+exit
+umount -R /mnt
+reboot
+</code></pre>
+
+<p>Secure boot doesn&rsquo;t work since it <a href="https://wiki.archlinux.org/index.php/Secure_Boot#Using_a_signed_boot_loader">needs a signed boot loader</a>; see <a href="https://bbs.archlinux.org/viewtopic.php?id=202714">the forums</a> for details.  A few other errors</p>
+
+<blockquote>
+<p>mmc0: Unknown controller version (3). You may experience problems.
+mmc0: SDHCI controller on PCI [0000:03:00.0] using ADMA</p>
+</blockquote>
+
+<p>However, this is <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1205070">a false alarm</a>, and SD cards should read fine.</p>
+
+<blockquote>
+<p>kvm disabled by bios</p>
+</blockquote>
+
+<p>Intel&rsquo;s virtualization hardware (VT-x) is disabled in BIOS and <a href="https://askubuntu.com/q/303164/">hence this error</a>.</p>
+
+<blockquote>
+<p>Failed unmounting /var</p>
+</blockquote>
+
+<p>This also seems to be <a href="https://bbs.archlinux.org/viewtopic.php?pid=1204644#p1204644">a non-issue</a>.</p>
+
+<p>This completes my Arch Linux installation process.  The newly installed Arch now has be configured and maintained 😊.  In the follow-up article, I’ll cover</p>
+
+<ul>
+<li>Xfce4 desktop environment</li>
+<li>Dual GPU set up</li>
+<li>Enlisting Windows in boot menu</li>
+<li>Auto mounting USB sticks</li>
+<li>Pulseaudio</li>
+<li>Bluetooth</li>
+<li>Laptop Mode Tools</li>
+</ul>
+
+<p>and more.</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/tech/">tech</a>, 
+            
+                <a href="/tags/tools/">tools</a>, 
+            
+                <a href="/tags/linux/">linux</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Arch%20Linux%20Installation&url=https%3a%2f%2flegends2k.github.io%2fnote%2farch_install%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2farch_install%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2farch_install%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Arch%20Linux%20Installation&url=https%3a%2f%2flegends2k.github.io%2fnote%2farch_install%2f&summary=coexisting%20with%20Windows%20on%20a%20dual%20GPU%20laptop"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="mailto:legends2k@yahoo.com">Sundaram Ramaswamy</a></span></p>
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+
