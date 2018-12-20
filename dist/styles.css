@@ -13,6 +13,7 @@ body {
     color: #424242;
     font-family: "Libre Baskerville", "Times New Roman", serif;
     font-size: 18px;
+    margin: 0;
 }
 
 /* have a top margin too, for the previous section might end with a list with no bottom margin */

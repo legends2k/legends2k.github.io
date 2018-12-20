@@ -53,6 +53,15 @@ External Tools Though not part of the canonical tool set, these are written by s
     </item>
     
     <item>
+      <title>Drawing tablet setup on Windows</title>
+      <link>https://legends2k.github.io/note/tablet_setup/</link>
+      <pubDate>Tue, 24 Apr 2018 10:53:43 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/tablet_setup/</guid>
+      <description>Steps  Disable Windows defaults  Windows 10  Run → services.msc → Touch Keyboard and Handwriting Panel Service; stop and disable Disable Tablet mode under Tablet mode settings  Windows 7  Disable Tablet PC services from the Windows Features list Disable Flicks in Pen and Tablet settings   Install latest manufacturer drivers before first plugging in to the system Plug in device and test Enable Force Proportions to avoid disproportionate lines  Tablet Area: Full Screen Area: Monitor Force Proportions mightn&amp;rsquo;t be available on non-Wacom driver software like Huion&amp;rsquo;s.</description>
+    </item>
+    
+    <item>
       <title>Git: Pushing to a Fork</title>
       <link>https://legends2k.github.io/note/push_fork/</link>
       <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
@@ -76,7 +85,7 @@ External Tools Though not part of the canonical tool set, these are written by s
       <pubDate>Thu, 02 Mar 2017 22:41:05 +0530</pubDate>
       
       <guid>https://legends2k.github.io/post/inspirers/</guid>
-      <description>I have been inspired by many unknown personalities all over the internet and otherwise, but a few linger on my mind consistently to be listed here. Not all of them are authors but they work inspired me in some way.
+      <description>I have been inspired by many unknown personalities all over the internet and otherwise, but a few linger on my mind consistently to be listed here. Not all of them are authors but their works inspired me in some way.
 Kalki R. Krishnamurthy A great writer, and freedom fighter, who effortlessly balanced content against gripping narration. He pioneered in writing under a unique genre &amp;mdash; Historical fiction &amp;mdash; by mixing imagination with facts in the right amount and proved that it can be done with great success.</description>
     </item>
     

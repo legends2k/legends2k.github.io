@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>https://legends2k.github.io/note/tablet_setup/</loc>
+    <lastmod>2018-04-24T10:53:43+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/note/push_fork/</loc>
     <lastmod>2018-04-19T13:57:03-07:00</lastmod>
   </url>
@@ -113,6 +118,12 @@
   <url>
     <loc>https://legends2k.github.io/tags/culture/</loc>
     <lastmod>2017-12-09T10:35:43+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/drawing/</loc>
+    <lastmod>2018-04-24T10:53:43+05:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -221,6 +232,18 @@
   <url>
     <loc>https://legends2k.github.io/tags/security/</loc>
     <lastmod>2018-05-12T15:00:46-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/setup/</loc>
+    <lastmod>2018-04-24T10:53:43+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/tablet/</loc>
+    <lastmod>2018-04-24T10:53:43+05:30</lastmod>
     <priority>0</priority>
   </url>
   
