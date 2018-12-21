@@ -146,10 +146,9 @@
 
 <p><a href="https://www.emacswiki.org/emacs/MovingTheCtrlKey#toc8">Map <code>CAPSLOCK</code> to <code>CTRL</code></a> with <code>loadkeys</code> <a href="https://wiki.archlinux.org/index.php/Keyboard_configuration_in_console">just for the current session</a></p>
 
-<pre><code class="language-bash">dumpkeys | head -1 &gt; keys.map`
-echo 'keycode 58 = Control' &gt;&gt; keys.map
-loadkeys keys.map
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">dumpkeys</span> <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">head</span> <span style="color:#bd93f9">-1</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">keys</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">map</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#6272a4">&#39;keycode 58 = Control&#39; &gt;&gt; keys.map</span>
+<span style="color:#8be9fd;font-style:italic">loadkeys</span> <span style="color:#8be9fd;font-style:italic">keys</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">map</span></code></pre></div>
 
 <p>Once we’ve a desktop environment setup, this can be made permanent with <a href="https://bitbucket.org/rmsundaram/tryouts/src/dev/Misc/config/.Xmodmap"><code>.Xmodmap</code></a>.</p>
 
@@ -186,17 +185,16 @@ loadkeys keys.map
 </ul></li>
 </ol>
 
-<pre><code>Description='A simple WPA encrypted wireless connection'
-Interface=wlp3s0
-Connection=wireless
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">Description</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;A simple WPA encrypted wireless connection&#39;</span>
+<span style="color:#50fa7b">Interface</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">wlp3s0</span>
+<span style="color:#50fa7b">Connection</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">wireless</span>
 
-Security=wpa
-IP=dhcp
+<span style="color:#50fa7b">Security</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">wpa</span>
+<span style="color:#50fa7b">IP</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">dhcp</span>
 
-ESSID='InfoProbe'
-Key=\72ac...
-Hidden=yes
-</code></pre>
+<span style="color:#50fa7b">ESSID</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;InfoProbe&#39;</span>
+<span style="color:#50fa7b">Key</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">\72ac...</span>
+<span style="color:#50fa7b">Hidden</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">yes</span></code></pre></div>
 
 <ol>
 <li><code>netctl start wireless-wpa</code></li>
@@ -249,43 +247,38 @@ Hidden=yes
 
 <p>Once you&rsquo;ve all the physical volumes that make up the LVM group, do</p>
 
-<pre><code>pvcreate /dev/nvme0n1p6
-vgcreate lvmg1 /dev/nvme0n1p6
-lvcreate -L 40G -n root lvmg1
-lvcreate -l 100%FREE -n home lvmg1
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">pvcreate</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p6</span>
+<span style="color:#8be9fd;font-style:italic">vgcreate</span> <span style="color:#8be9fd;font-style:italic">lvmg1</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p6</span>
+<span style="color:#8be9fd;font-style:italic">lvcreate</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">L</span> <span style="color:#8be9fd;font-style:italic">40</span><span style="color:#8be9fd;font-style:italic">G</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">n</span> <span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#8be9fd;font-style:italic">lvmg1</span>
+<span style="color:#8be9fd;font-style:italic">lvcreate</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">l</span> <span style="color:#8be9fd;font-style:italic">100</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">FREE</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">n</span> <span style="color:#8be9fd;font-style:italic">home</span> <span style="color:#8be9fd;font-style:italic">lvmg1</span></code></pre></div>
 
 <p>Later on, <code>pacstrap</code> would automatically add the <code>root=</code> kernal parameter to map the <code>root</code> partition to the right logical volume.  This can be verified at <code>/boot/grub/grub.cfg</code></p>
 
-<pre><code>linux /vmlinuz-linux root=/dev/mapper/lvmg1-root rw quiet
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">linux</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">vmlinuz</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">linux</span> <span style="color:#8be9fd;font-style:italic">root</span><span style="color:#ff79c6">=/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mapper</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#8be9fd;font-style:italic">rw</span> <span style="color:#8be9fd;font-style:italic">quiet</span></code></pre></div>
 
 <h2 id="format">Format</h2>
 
 <p>Once partitioned, make sure to format each of them. For swap</p>
 
-<pre><code>mkswap /dev/sda6
-swapon /dev/sda6
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mkswap</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda6</span>
+<span style="color:#8be9fd;font-style:italic">swapon</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda6</span></code></pre></div>
 
 <p>Likewise for ext4 do</p>
 
-<pre><code>mkfs.ext4 /dev/lvmg1/root
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mkfs</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">ext4</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span></code></pre></div>
 
 <h2 id="mount">Mount</h2>
 
-<pre><code>mount /dev/lvmg1/root /mnt
-mkdir /mnt/boot
-mount /dev/nvme0n1p5 /mnt/boot
-mkdir /mnt/home
-mount /dev/lvmg1/home /mnt/home
-mkdir /mnt/var
-mount /dev/sda5 /mnt/var
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
+<span style="color:#8be9fd;font-style:italic">mkdir</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span>
+<span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span>
+<span style="color:#8be9fd;font-style:italic">mkdir</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span>
+<span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span>
+<span style="color:#8be9fd;font-style:italic">mkdir</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">var</span>
+<span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">var</span>
 
-mkdir /mnt/boot/efi
-mount /dev/nvme0n1p1 /mnt/boot/efi
-</code></pre>
+<span style="color:#8be9fd;font-style:italic">mkdir</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span>
+<span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p1</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span></code></pre></div>
 
 <p><code>genfstab</code> is a Arch script that setups up <code>/etc/fstab</code> as per the current mounts; it would later detect mounted file systems and swap space.  Since we&rsquo;re on a UEFI + GPT boot scheme, mount the EFI partition too for <code>genfstab</code> and <code>os-prober</code> to pick up Windows for GRUB to list Windows too.  This is the same partition as used by Windows for booting, mounted as <code>/mnt/boot/efi</code>.  Same goes for other Windows partitions that needs to be listed in <code>fstab</code> for auto-mounting in the new OS.  Otherwise it has to be <a href="https://wiki.archlinux.org/index.php/Fstab">done manually</a> with Emacs and <code>lsblk -f</code> or <code>blkid</code>.</p>
 
@@ -293,20 +286,17 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 
 <p>Before proceeding, it might be a good idea to fix the order of mirrors in <code>/etc/pacman.d/mirrorlist</code> since it&rsquo;s copied to the installed system as-is.</p>
 
-<pre><code>pacstrap /mnt base
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">pacstrap</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span> <span style="color:#8be9fd;font-style:italic">base</span></code></pre></div>
 
 <h1 id="system-config">System Config</h1>
 
 <h2 id="fstab">fstab</h2>
 
-<pre><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">genfstab</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">U</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span> <span style="color:#ff79c6">&gt;&gt;</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">etc</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">fstab</span></code></pre></div>
 
 <h2 id="change-root">Change root</h2>
 
-<pre><code>arch-chroot /mnt
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">arch</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">chroot</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span></code></pre></div>
 
 <p>Make sure to install packages that would be needed for network access in the installed system now; specifically <code>wpa_supplicant</code> since the new system wouldn&rsquo;t have network access and will not contain this package either.  This is a dependency for <em>netctl</em>.</p>
 
@@ -314,16 +304,14 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 
 <p>Once done, know your time zone using <code>tzselect</code> and do</p>
 
-<pre><code>ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-hwclock --systohc
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">ln</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">sf</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">usr</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">share</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">zoneinfo</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">Asia</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">Kolkata</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">etc</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">localtime</span>
+<span style="color:#8be9fd;font-style:italic">hwclock</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">systohc</span></code></pre></div>
 
 <h2 id="locale">Locale</h2>
 
-<pre><code>nano /etc/locale.gen
-locale-gen
-localectl set-locale LANG=en_IN.UTF-8
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">nano</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">etc</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">locale</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">gen</span>
+<span style="color:#8be9fd;font-style:italic">locale</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">gen</span>
+<span style="color:#8be9fd;font-style:italic">localectl</span> <span style="color:#8be9fd;font-style:italic">set</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">locale</span> <span style="color:#8be9fd;font-style:italic">LANG</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">en_IN</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">UTF</span><span style="color:#bd93f9">-8</span></code></pre></div>
 
 <p>The last line sets <code>LANG</code>.</p>
 
@@ -335,14 +323,12 @@ localectl set-locale LANG=en_IN.UTF-8
 
 <p>Since we&rsquo;ve used <code>lvm2</code> for <code>/</code> itself, it has to be added to the <em>HOOKS</em> section of <code>mkinitcpio.conf</code>:</p>
 
-<pre><code># /etc/mkinitcpio.conf
-HOOKS=&quot;(base udev ... block lvm2 filesystems...)&quot;
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#6272a4"># /etc/mkinitcpio.conf</span>
+<span style="color:#50fa7b">HOOKS</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;(base udev ... block lvm2 filesystems...)&#34;</span></code></pre></div>
 
-<p>Regenerate initramfs image</p>
+<p>Regenerate <code>initramfs</code> image</p>
 
-<pre><code>mkinitcpio -p linux
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mkinitcpio</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">p</span> <span style="color:#8be9fd;font-style:italic">linux</span></code></pre></div>
 
 <h1 id="root-password">Root Password</h1>
 
@@ -352,42 +338,34 @@ HOOKS=&quot;(base udev ... block lvm2 filesystems...)&quot;
 
 <p>Since Windows 8, Microsoft forces the UEFI + GPT combo, make sure this is followed by Arch for a successful coexistence with Windows.  Pre-installed Windows machines have a EFI partition already made from which Windows boots; verify this using <code>fdisk</code>.  <a href="https://wiki.archlinux.org/index.php/EFI_System_Partition#Mount_the_partition">This means</a> we don&rsquo;t have to create an EFI partition but simply mount it for GRUB to use.  We&rsquo;re using GRUB as the bootloader.  The mounting part should&rsquo;ve already been done as part of <em>§3.5 Mount</em>:</p>
 
-<pre><code>pacman -S --needed grub efibootmgr
-mkdir /boot/efi
-mount /dev/nvme0n1p1 /boot/efi
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-nano /etc/default/grub
-grub-mkconfig -o /boot/grub/grub.cfg
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">pacman</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">S</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">needed</span> <span style="color:#8be9fd;font-style:italic">grub</span> <span style="color:#8be9fd;font-style:italic">efibootmgr</span>
+<span style="color:#8be9fd;font-style:italic">mkdir</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span>
+<span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p1</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span>
+<span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">install</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">target</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">x86_64</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">efi</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">efi</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">directory</span><span style="color:#ff79c6">=/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">bootloader</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">id</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">GRUB</span>
+<span style="color:#8be9fd;font-style:italic">nano</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">etc</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">default</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">grub</span>
+<span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">mkconfig</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">o</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cfg</span></code></pre></div>
 
 <p>The suggested <em>os-prober</em> , which makes GRUB look for other OSs, didn&rsquo;t find Windows. Apparently, the EFI partition should be mounted to <code>/mnt/boot</code> <em>before</em> pacstrapping as this is where the kernel and bootloader are installed to.  If you get <code>lvmetad</code> errors, you may safely ignore them.  Once inside the new Arch, os-prober should work fine.</p>
 
 <h1 id="reboot">Reboot</h1>
 
-<pre><code>umount -R /mnt
-exit
-umount -R /mnt
-reboot
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">umount</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">R</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
+<span style="color:#8be9fd;font-style:italic">exit</span>
+<span style="color:#8be9fd;font-style:italic">umount</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">R</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
+<span style="color:#8be9fd;font-style:italic">reboot</span></code></pre></div>
 
 <p>Secure boot doesn&rsquo;t work since it <a href="https://wiki.archlinux.org/index.php/Secure_Boot#Using_a_signed_boot_loader">needs a signed boot loader</a>; see <a href="https://bbs.archlinux.org/viewtopic.php?id=202714">the forums</a> for details.  A few other errors</p>
 
-<blockquote>
-<p>mmc0: Unknown controller version (3). You may experience problems.
-mmc0: SDHCI controller on PCI [0000:03:00.0] using ADMA</p>
-</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mmc0:</span> <span style="color:#8be9fd;font-style:italic">Unknown</span> <span style="color:#8be9fd;font-style:italic">controller</span> <span style="color:#8be9fd;font-style:italic">version</span> (<span style="color:#8be9fd;font-style:italic">3</span>)<span style="color:#ff79c6">.</span> <span style="color:#8be9fd;font-style:italic">You</span> <span style="color:#8be9fd;font-style:italic">may</span> <span style="color:#8be9fd;font-style:italic">experience</span> <span style="color:#8be9fd;font-style:italic">problems</span><span style="color:#ff79c6">.</span>
+<span style="color:#8be9fd;font-style:italic">mmc0:</span> <span style="color:#8be9fd;font-style:italic">SDHCI</span> <span style="color:#8be9fd;font-style:italic">controller</span> <span style="color:#8be9fd;font-style:italic">on</span> <span style="color:#8be9fd;font-style:italic">PCI</span> [<span style="color:#8be9fd;font-style:italic">0000</span><span style="color:#ff79c6">:</span><span style="color:#8be9fd;font-style:italic">03</span><span style="color:#ff79c6">:</span><span style="color:#8be9fd;font-style:italic">00</span><span style="color:#bd93f9">.0</span>] <span style="color:#8be9fd;font-style:italic">using</span> <span style="color:#8be9fd;font-style:italic">ADMA</span></code></pre></div>
 
 <p>However, this is <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1205070">a false alarm</a>, and SD cards should read fine.</p>
 
-<blockquote>
-<p>kvm disabled by bios</p>
-</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">kvm</span> <span style="color:#8be9fd;font-style:italic">disabled</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#8be9fd;font-style:italic">bios</span></code></pre></div>
 
 <p>Intel&rsquo;s virtualization hardware (VT-x) is disabled in BIOS and <a href="https://askubuntu.com/q/303164/">hence this error</a>.</p>
 
-<blockquote>
-<p>Failed unmounting /var</p>
-</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">Failed</span> <span style="color:#8be9fd;font-style:italic">unmounting</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">var</span></code></pre></div>
 
 <p>This also seems to be <a href="https://bbs.archlinux.org/viewtopic.php?pid=1204644#p1204644">a non-issue</a>.</p>
 

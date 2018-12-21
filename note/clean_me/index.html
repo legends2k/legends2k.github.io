@@ -204,7 +204,7 @@
 
 <p>Connect the programmer&rsquo;s USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You&rsquo;re all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></code></pre></div>
 
 <p>This means your Linux machine successfully detects the programmer.</p>
 
@@ -212,13 +212,13 @@
 
 <p>Install <code>flashrom</code>; your distro’s package repository will definitely have this nifty tool.  Make sure the chip is recognized by it:</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ sudo flashrom --programmer ch341a_spi -r BIOS_org.bin</span>
-</span><span style="color:#a6e22e">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
-<span style="color:#a6e22e">flashrom is free software, get the source code at https://flashrom.org</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -r BIOS_org.bin</span>
+</span><span style="color:#50fa7b">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
+<span style="color:#50fa7b">flashrom is free software, get the source code at https://flashrom.org</span>
 
-<span style="color:#a6e22e">Calibrating delay loop... OK.</span>
-<span style="color:#a6e22e">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
-<span style="color:#a6e22e">Reading flash... done.</span></code></pre></div>
+<span style="color:#50fa7b">Calibrating delay loop... OK.</span>
+<span style="color:#50fa7b">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
+<span style="color:#50fa7b">Reading flash... done.</span></code></pre></div>
 
 <p>It should be able to auto-detect the chip and give you a full dump of the chip contents.  If it says no devices were found, re-connect the clip; loose-contacts are common with these clips.  Get two dumps and binary-compare them to make sure the connection was fine and the images are valid.</p>
 
@@ -234,7 +234,7 @@
 
 <p>Run <code>me_cleaner</code> on the dump to verify it:</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
 
 <p>You should get a valid output.  You might also check it with the <code>ifdtool</code> from the <a href="https://www.coreboot.org/">coreboot</a> repo: <code>ifdtool -d BIOS_org.bin</code>.</p>
 
@@ -242,19 +242,19 @@
 
 <p>Run <code>me_cleaner</code> with the soft-clean option.  It&rsquo;s the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
-</span><span style="color:#a6e22e">Full image detected</span>
-<span style="color:#a6e22e">The ME/TXE region goes from 0x1000 to 0x200000</span>
-<span style="color:#a6e22e">Found FPT header at 0x1010</span>
-<span style="color:#a6e22e">Found 11 partition(s)</span>
-<span style="color:#a6e22e">Found FTPR header: FTPR partition spans from 0x1000 to 0xa8000</span>
-<span style="color:#a6e22e">Found FTPR manifest at 0x1448</span>
-<span style="color:#a6e22e">ME/TXE firmware version 11.6.10.1196</span>
-<span style="color:#a6e22e">Public key match: Intel ME, firmware versions 11.x.x.x</span>
-<span style="color:#a6e22e">The HAP bit is NOT SET</span>
-<span style="color:#a6e22e">Setting the HAP bit in PCHSTRP0 to disable Intel ME...</span>
-<span style="color:#a6e22e">Checking the FTPR RSA signature... VALID</span>
-<span style="color:#a6e22e">Done! Good luck!</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
+</span><span style="color:#50fa7b">Full image detected</span>
+<span style="color:#50fa7b">The ME/TXE region goes from 0x1000 to 0x200000</span>
+<span style="color:#50fa7b">Found FPT header at 0x1010</span>
+<span style="color:#50fa7b">Found 11 partition(s)</span>
+<span style="color:#50fa7b">Found FTPR header: FTPR partition spans from 0x1000 to 0xa8000</span>
+<span style="color:#50fa7b">Found FTPR manifest at 0x1448</span>
+<span style="color:#50fa7b">ME/TXE firmware version 11.6.10.1196</span>
+<span style="color:#50fa7b">Public key match: Intel ME, firmware versions 11.x.x.x</span>
+<span style="color:#50fa7b">The HAP bit is NOT SET</span>
+<span style="color:#50fa7b">Setting the HAP bit in PCHSTRP0 to disable Intel ME...</span>
+<span style="color:#50fa7b">Checking the FTPR RSA signature... VALID</span>
+<span style="color:#50fa7b">Done! Good luck!</span></code></pre></div>
 
 <p>It should set the <em>AltMeDisable</em> (or HAP) bit and wish you luck!</p>
 
@@ -262,15 +262,15 @@
 
 <p>Flash the cleaned image back on to the SPI chip</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3c3d38"><span style="color:#a6e22e">$ sudo flashrom --programmer ch341a_spi -w BIOS_clean.bin</span>
-</span><span style="color:#a6e22e">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
-<span style="color:#a6e22e">flashrom is free software, get the source code at https://flashrom.org</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -w BIOS_clean.bin</span>
+</span><span style="color:#50fa7b">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
+<span style="color:#50fa7b">flashrom is free software, get the source code at https://flashrom.org</span>
 
-<span style="color:#a6e22e">Calibrating delay loop... OK.</span>
-<span style="color:#a6e22e">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
-<span style="color:#a6e22e">Reading old flash chip contents... done.</span>
-<span style="color:#a6e22e">Erasing and writing flash chip... Erase/write done.</span>
-<span style="color:#a6e22e">Verifying flash... VERIFIED.</span></code></pre></div>
+<span style="color:#50fa7b">Calibrating delay loop... OK.</span>
+<span style="color:#50fa7b">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
+<span style="color:#50fa7b">Reading old flash chip contents... done.</span>
+<span style="color:#50fa7b">Erasing and writing flash chip... Erase/write done.</span>
+<span style="color:#50fa7b">Verifying flash... VERIFIED.</span></code></pre></div>
 
 <p>It will first take a back-up for disaster-recovery.  It&rsquo;ll also see if it could optimize by not writing portions that don&rsquo;t differ.  Then it&rsquo;ll write and verify if the image and the chip contents match!  Quite a thorough piece of software; nice :)</p>
 
@@ -282,34 +282,34 @@
 
 <p>For Windows, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#a6e22e">$ MEInfoWin64.exe -FWSTS</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ MEInfoWin64.exe -FWSTS</span>
 
-<span style="color:#a6e22e">Intel(R) MEInfo Version: 11.8.50.3460</span>
-<span style="color:#a6e22e">Copyright(C) 2005 - 2017, Intel Corporation. All rights reserved.</span>
+<span style="color:#50fa7b">Intel(R) MEInfo Version: 11.8.50.3460</span>
+<span style="color:#50fa7b">Copyright(C) 2005 - 2017, Intel Corporation. All rights reserved.</span>
 
-<span style="color:#a6e22e">FW Status Register1: 0x80022004</span>
-<span style="color:#a6e22e">FW Status Register2: 0x304D0116</span>
-<span style="color:#a6e22e">FW Status Register3: 0x00000020</span>
-<span style="color:#a6e22e">FW Status Register4: 0x00086000</span>
-<span style="color:#a6e22e">FW Status Register5: 0x00000000</span>
-<span style="color:#a6e22e">FW Status Register6: 0x40000004</span>
+<span style="color:#50fa7b">FW Status Register1: 0x80022004</span>
+<span style="color:#50fa7b">FW Status Register2: 0x304D0116</span>
+<span style="color:#50fa7b">FW Status Register3: 0x00000020</span>
+<span style="color:#50fa7b">FW Status Register4: 0x00086000</span>
+<span style="color:#50fa7b">FW Status Register5: 0x00000000</span>
+<span style="color:#50fa7b">FW Status Register6: 0x40000004</span>
 
-  <span style="color:#a6e22e">CurrentState:                               Disabled</span>
-  <span style="color:#a6e22e">ManufacturingMode:                          Disabled</span>
-  <span style="color:#a6e22e">FlashPartition:                             Valid</span>
-  <span style="color:#a6e22e">OperationalState:                           Transitioning</span>
-  <span style="color:#a6e22e">InitComplete:                               Initializing</span>
-  <span style="color:#a6e22e">BUPLoadState:                               Success</span>
-  <span style="color:#a6e22e">ErrorCode:                                  Disabled</span>
-<span style="display:block;width:100%;background-color:#3c3d38">  <span style="color:#a6e22e">ModeOfOperation:                            Alt Disable Mode</span>
-</span>  <span style="color:#a6e22e">SPI Flash Log:                              Not Present</span>
-  <span style="color:#a6e22e">FPF HW Source value:                        FPF HW Not Set</span>
-  <span style="color:#a6e22e">ME FPF Fusing Patch Status:                 ME FPF Fusing patch NOT supported in this FW Version</span>
-  <span style="color:#a6e22e">Phase:                                      BringUp</span>
-  <span style="color:#a6e22e">ICC:                                        Valid OEM data, ICC programmed</span>
-  <span style="color:#a6e22e">ME File System Corrupted:                   No</span>
-  <span style="color:#a6e22e">PhaseStatus:                                UNKNOWN</span>
-  <span style="color:#a6e22e">FPF and ME Config Status:                   Match</span></code></pre></div>
+  <span style="color:#50fa7b">CurrentState:                               Disabled</span>
+  <span style="color:#50fa7b">ManufacturingMode:                          Disabled</span>
+  <span style="color:#50fa7b">FlashPartition:                             Valid</span>
+  <span style="color:#50fa7b">OperationalState:                           Transitioning</span>
+  <span style="color:#50fa7b">InitComplete:                               Initializing</span>
+  <span style="color:#50fa7b">BUPLoadState:                               Success</span>
+  <span style="color:#50fa7b">ErrorCode:                                  Disabled</span>
+<span style="display:block;width:100%;background-color:#3d3f4a">  <span style="color:#50fa7b">ModeOfOperation:                            Alt Disable Mode</span>
+</span>  <span style="color:#50fa7b">SPI Flash Log:                              Not Present</span>
+  <span style="color:#50fa7b">FPF HW Source value:                        FPF HW Not Set</span>
+  <span style="color:#50fa7b">ME FPF Fusing Patch Status:                 ME FPF Fusing patch NOT supported in this FW Version</span>
+  <span style="color:#50fa7b">Phase:                                      BringUp</span>
+  <span style="color:#50fa7b">ICC:                                        Valid OEM data, ICC programmed</span>
+  <span style="color:#50fa7b">ME File System Corrupted:                   No</span>
+  <span style="color:#50fa7b">PhaseStatus:                                UNKNOWN</span>
+  <span style="color:#50fa7b">FPF and ME Config Status:                   Match</span></code></pre></div>
 
 <p>You can also verify that in the <em>Device Manager</em>, under <em>System devices</em>, the <em>Intel&reg; Management Engine Interface</em> no longer shows up.  Make sure you uninstall any ME-related software<sup class="footnote-ref" id="fnref:12"><a href="#fn:12">10</a></sup>.</p>
 
