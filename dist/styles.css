@@ -185,6 +185,30 @@ table tr {
     display: block;
 }
 
+/* blockquote’s background and default selection background are almost the same
+   colours; set a different selection background for blockquote elements */
+blockquote ::selection {
+    background: #AFEEEE;
+    coloe: #000;
+    display: block;
+}
+
+blockquote ::-moz-selection {
+    background: #AFEEEE;
+    coloe: #000;
+    display: block;
+}
+
+/* prevent footnote numbers from getting selected and, there by, copied */
+/* https://stackoverflow.com/a/10777263/183120 */
+.footnote-ref {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 .fluid-width-video-wrapper {
     margin-bottom: 40px;
 }
