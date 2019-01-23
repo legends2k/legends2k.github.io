@@ -182,6 +182,7 @@
 <ul>
 <li>Use <code>wpa_passphrase</code> to get the hex passphrase to put in netctl&rsquo;s profile</li>
 <li>Make sure you run <code>wpa_passphrase</code> with the correct SSID</li>
+<li>Set custom DNS servers for <em>netctl</em> to write to <code>/etc/resolv.conf</code></li>
 </ul></li>
 </ol>
 
@@ -194,7 +195,8 @@
 
 <span style="color:#50fa7b">ESSID</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;InfoProbe&#39;</span>
 <span style="color:#50fa7b">Key</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">\72ac...</span>
-<span style="color:#50fa7b">Hidden</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">yes</span></code></pre></div>
+<span style="color:#50fa7b">Hidden</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">yes</span>
+<span style="color:#50fa7b">DNS</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">(&#39;1.1.1.1&#39; &#39;1.0.0.1&#39;)</span></code></pre></div>
 
 <ol>
 <li><code>netctl start wireless-wpa</code></li>

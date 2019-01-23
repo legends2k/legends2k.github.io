@@ -13,6 +13,16 @@
     
     
     <item>
+      <title>GRUB Recovery</title>
+      <link>https://legends2k.github.io/note/grub2_recovery/</link>
+      <pubDate>Sun, 20 Jan 2019 18:35:20 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/grub2_recovery/</guid>
+      <description>I tried upgrading the firmware of my old iOmega 1 TB HDD. Internally it’s a Barracuda LP family, ST31000520AS model Segate HDD. Seagate had released a firmware upgrade for this drive in 2010. I’m around 9 years late to the party!
+My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB stick &amp;mdash; why waste a CD, eh? Rufus kindly refused as the supplied Seagate update ISO’s boot format was unrecognizable.</description>
+    </item>
+    
+    <item>
       <title>Go Setup</title>
       <link>https://legends2k.github.io/note/go_setup/</link>
       <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
