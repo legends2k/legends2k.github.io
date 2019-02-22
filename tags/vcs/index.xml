@@ -18,7 +18,8 @@
       <pubDate>Wed, 20 Feb 2019 19:56:56 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/git_concepts/</guid>
-      <description>Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)  Git diagrams often have arrows backwards for this reason only  Git stores snapshots not differences i.e. entire file contents &amp;mdash; as a blob  Every commit is a complete snapshot of tracked repo contents + (0 or more) parent ID(s) identified with a 40-byte SHA1-digested hash This way, the exact state of your project can be referred to, copied, or restored at any time    &amp;ldquo;finally figuring out that git commands are strangely named graph manipulation commands &amp;ndash; creating/deleting nodes, moving around pointers&amp;rdquo; &amp;ndash; Kent Beck</description>
+      <description>Basics like initializing (a repository), staging and commiting files aren’t explained here; they simply make sense; no ‘Aha!’s there. Moving references, branching and merging, coupled with Git’s arcane names are the confusing parts.
+ Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)  Git diagrams often have arrows backwards (←) for this reason  Git stores snapshots not differences i.</description>
     </item>
     
     <item>

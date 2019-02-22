@@ -127,13 +127,15 @@
 
     
 
+<p>Basics like initializing (a repository), staging and commiting files aren’t explained here; they simply make sense; no ‘Aha!’s there.  Moving references, branching and merging, coupled with Git’s arcane names are the confusing parts.</p>
+
 <ul>
 <li>Git is a distributed VCS; each repo can be both a server/client</li>
 <li>Honestly, <code>git</code> (sub)commands are just graph manipulating commands</li>
 <li>Every codebase is made of a graph; each commit is a node with edges to parent(s)
 
 <ul>
-<li>Git diagrams often have arrows backwards for this reason only</li>
+<li>Git diagrams often have arrows backwards (←) for this reason</li>
 </ul></li>
 <li>Git stores <a href="https://git-scm.com/book/en/v1/Getting-Started-Git-Basics#_snapshots_not_differences">snapshots not differences</a> i.e. entire file contents &mdash; as a blob
 
@@ -148,6 +150,16 @@
    &ndash; Kent Beck</p>
 </blockquote>
 
+<ul>
+<li>Nodes of the graph are created by your commits</li>
+<li>Nodes are never really deleted in the traditional sense; they’re made unreachable (see below)
+
+<ul>
+<li>These unreachable nodes eventually get garbage collected by Git</li>
+</ul></li>
+<li>A commit’s parent(s) &mdash; merge commits have more than one parent &mdash; form the edges of the graph</li>
+</ul>
+
 <h1 id="reachablity">Reachablity</h1>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg">      <span style="color:#50fa7b">A---B---C</span>
@@ -157,12 +169,12 @@
       <span style="color:#50fa7b">H---I</span></code></pre></div>
 
 <ul>
-<li>An important (linked-list) concept that applies here too
+<li>An important (linked-list) concept that applies to Git too
 
 <ul>
 <li>If <code>void* first</code> is lost, the list, too, is lost</li>
 </ul></li>
-<li>Since a commit also has (0+) parent commits, following the chain of parents will eventually take you back to the beginning of the project</li>
+<li>Since a commit also has (1+) parent commits (except root), following the chain of parents will eventually take you back to the beginning of the project</li>
 <li>In a well-branched graph, depending on the leaf node you start from, <a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">different parts of the graph will be <em>reachable</em></a></li>
 <li><a href="https://git-scm.com/docs/user-manual#understanding-reachability">Commit X is &ldquo;reachable&rdquo; from commit Y if commit X is an ancestor of commit Y</a>
 
@@ -190,12 +202,12 @@
 <ul>
 <li>Branches and tags are references too</li>
 <li>Creating a branch is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later <code>[reachability]</code></li>
-<li>They’re specific to a single repository</li>
 </ul></li>
 <li>They facilitate easy git-speak with your friends/colleagues 😜</li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">Internally</a> just a 40-byte file containing a commit ID
 
 <ul>
+<li>They’re specific to a single repository</li>
 <li>Remote references point to commits in remote repositories</li>
 </ul></li>
 <li>There’re many more ways of referring to commits: <code>man gitrevisions</code> is your friend</li>
@@ -203,7 +215,7 @@
 
 <h2 id="commands-affecting-refs">Commands Affecting Refs</h2>
 
-<p>Only these <code>git</code> subcommands allow you to move refs:</p>
+<p>These are the primary subcommands that allow you to move refs directly:</p>
 
 <ul>
 <li><code>commit</code></li>
@@ -219,7 +231,110 @@
 <li><code>push</code></li>
 </ul>
 
-<p>Commands like <code>cherry-pick</code> internally use one of these.</p>
+<p>Commands like <code>cherry-pick</code> seem to work atop one of these.</p>
+
+<h1 id="rebase">Rebase</h1>
+
+<p><code>rebase</code>  seems to have a scary reputation on the web, with good reason of course, since it’s infamous for rewriting history; something your teammates mightn’t take kindly.  However, when you’re doing this only within your repo, before pushing elsewhere, it’s a great tool.</p>
+
+<p>The crux of a <code>rebase</code>: consider a subgraph’s root node; what <code>rebase</code> does is, it moves this root’s parent pointer from one node to another; thereby <em>rebasing</em> the entire subgraph to a new parent.</p>
+
+<p>When pulling from a repository, you might know that your changes are unrelated to what lurks in the merged-into branch.  In this case, to avoid a merge commit and have a linear commit history, you’d pass <code>--rebase</code> since the default strategy of <code>pull</code> is to merge.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
+
+<p>Interactive rebase is quite useful too.  I frequently use it to amend, fix, reword or squash commits.</p>
+
+<h1 id="checkout-vs-reset">Checkout vs Reset</h1>
+
+<p>To understand both commands, you need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>.  Most people know about working tree and stating area though.</p>
+
+<p><code>HEAD</code> references the currently checked out commit; your working tree will mostly be from this snapshot i.e. the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
+
+<blockquote>
+<p><code>HEAD</code> will be the parent of the next commit that is created</p>
+</blockquote>
+
+<h2 id="checkout">Checkout</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">--</span> <span style="color:#8be9fd;font-style:italic">file</span></code></pre></div>
+
+<p>When you <code>checkout</code> a <code>file</code> from <code>HEAD</code>, what you do is get a clean copy of <code>file</code> from the commit <code>HEAD</code> is pointing to; this <em>replaces</em> your working tree copy.  Of course, one could use other refs too, <code>HEAD</code> is just a convenient default, you can replace it with any ref; if <code>HEAD</code> is omitted, it’ll be from index &mdash; the stage.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">topic</span></code></pre></div>
+
+<p>When you checkout a branch (reference to a commit/node) e.g. <code>topic</code>, <code>HEAD</code> will be moved to that branch and hence the entire working tree, not just a file, will be from the snapshot of the commit that branch is pointing to.</p>
+
+<h2 id="reset">Reset</h2>
+
+<p>Plainly, <code>reset</code> moves <code>HEAD</code> around.  It’s used to move <code>HEAD</code> to a given commit.  There’re different flavours of doing this &mdash; depending on what happens to the index and working tree (<code>--hard</code>, <code>--soft</code>, <code>--mix</code> …) &mdash; but the crux is to move <code>HEAD</code>.</p>
+
+<p>When moving, <code>HEAD</code> will also move the branch reference along with it, if it’s <em>attached</em>.</p>
+
+<h3 id="detached-head">Detached <code>HEAD</code></h3>
+
+<p>Whoa! Slow down there, cowboy.  Before talking about detached, what’s the attached state of <code>HEAD</code>?  We already know that <code>HEAD</code> is just a reference to a commit.  Say this commit also has another reference pointing to it: a branch name.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">C1</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C2</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C3</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C4</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C5</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">master</span>
+                             <span style="color:#ff79c6">^</span>
+                             <span style="color:#ff79c6">|</span>
+                            <span style="color:#8be9fd;font-style:italic">HEAD</span></code></pre></div>
+
+<blockquote>
+<p>Now, when <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference will move along with <code>HEAD</code>.</p>
+</blockquote>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
+
+<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state.</p>
+
+<p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
+<span style="color:#8be9fd;font-style:italic">On</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">master</span>
+…
+<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
+# <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
+
+<p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
+<span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+…
+<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
+<span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span>, <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span></code></pre></div>
+
+<p>Note that when <code>HEAD</code> is attached, you see an arrow (→) pointing to the branch it’s attached to.  However, in the detached state they’re list as independent items.</p>
+
+<h3 id="attach-detaching-head">Attach/Detaching <code>HEAD</code></h3>
+
+<p>How do we attach or detach <code>HEAD</code> to a reference?  Both are done with <code>checkout</code>, but with a subtle difference.  To attach <code>HEAD</code>, you’d <code>checkout</code></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
+
+<p><em>When you checkout a commit by using anything other than a branch name (commit ID, HEAD~1, branch~3, HEAD^^, etc.), you’d detach <code>HEAD</code></em> i.e. Git wouldn’t know what to associate <code>HEAD</code> with.  When you want to poke around and see how the repository looked like at a particular unnamed commit (except for its commit ID), this is what you would normally do.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">lk3nw7ef</span></code></pre></div>
+
+<p>Here, it doesn’t matter if this commit has other branch references to it.  Since you referred to it using the raw commit ID, Git takes it as a cue to detach <code>HEAD</code>.</p>
+
+<p>I highly recommend playing around in <a href="https://git-school.github.io/visualizing-git/">Visualizing Git</a> with <code>checkout</code>, <code>reset</code>; get your hands dirty with the whole attach/detach business.  Here’s a small snippet to get you started; see what happens as each command gets executed:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+# <span style="color:#8be9fd;font-style:italic">create</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">checkout</span>; <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">now</span> <span style="color:#8be9fd;font-style:italic">attached</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">topic</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">b</span> <span style="color:#8be9fd;font-style:italic">topic</span>
+# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">one</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">behind</span> <span style="color:#8be9fd;font-style:italic">topic</span>; <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">will</span> <span style="color:#8be9fd;font-style:italic">also</span> <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">HEAD</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">topic</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">1</span>
+# <span style="color:#8be9fd;font-style:italic">detach</span> <span style="color:#8be9fd;font-style:italic">HEAD!</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">2</span>
+# <span style="color:#8be9fd;font-style:italic">attach</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">master</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span>
+# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">back</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#8be9fd;font-style:italic">3</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">3</span></code></pre></div>
 
 <h1 id="learn-by-doing">Learn by Doing</h1>
 
@@ -237,6 +352,17 @@
 <li><a href="http://think-like-a-git.net/">Think like a Git</a></li>
 <li><a href="https://git-scm.com/book/en/v2">Pro Git</a></li>
 </ol>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">case-sensitive
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">using <code>C3</code> for readability; substitute with proper commit ID
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+</ol>
+</div>
 
 </div>
 
