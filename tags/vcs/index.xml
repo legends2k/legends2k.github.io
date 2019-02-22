@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Thu, 19 Apr 2018 13:57:03 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 20 Feb 2019 19:56:56 +0530</lastBuildDate>
     
 	<atom:link href="https://legends2k.github.io/tags/vcs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git Concepts</title>
+      <link>https://legends2k.github.io/note/git_concepts/</link>
+      <pubDate>Wed, 20 Feb 2019 19:56:56 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/git_concepts/</guid>
+      <description>Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)  Git diagrams often have arrows backwards for this reason only  Git stores snapshots not differences i.e. entire file contents &amp;mdash; as a blob  Every commit is a complete snapshot of tracked repo contents + (0 or more) parent ID(s) identified with a 40-byte SHA1-digested hash This way, the exact state of your project can be referred to, copied, or restored at any time    &amp;ldquo;finally figuring out that git commands are strangely named graph manipulation commands &amp;ndash; creating/deleting nodes, moving around pointers&amp;rdquo; &amp;ndash; Kent Beck</description>
+    </item>
     
     <item>
       <title>Git: Pushing to a Fork</title>

@@ -9,7 +9,7 @@
         <meta name="description" content="coexisting with Windows on a dual GPU laptop">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.53" />
+        <meta name="generator" content="Hugo 0.54.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -148,13 +148,14 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">dumpkeys</span> <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">head</span> <span style="color:#bd93f9">-1</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">keys</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">map</span>
 <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#6272a4">&#39;keycode 58 = Control&#39; &gt;&gt; keys.map</span>
-<span style="color:#8be9fd;font-style:italic">loadkeys</span> <span style="color:#8be9fd;font-style:italic">keys</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">map</span></code></pre></div>
+<span style="color:#8be9fd;font-style:italic">loadkeys</span> <span style="color:#8be9fd;font-style:italic">keys</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">map</span>
+<span style="color:#8be9fd;font-style:italic">rm</span> <span style="color:#8be9fd;font-style:italic">keys</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">map</span></code></pre></div>
 
 <p>Once we’ve a desktop environment setup, this can be made permanent with <a href="https://bitbucket.org/rmsundaram/tryouts/src/dev/Misc/config/.Xmodmap"><code>.Xmodmap</code></a>.</p>
 
 <h1 id="wireless-network">Wireless Network</h1>
 
-<p>Without network access modern linux installations are an exercise in pain.  I didn&rsquo;t have an ethernet cable so I had to get wi-fi up:</p>
+<p>Without internet access modern linux installations are an exercise in pain.  I didn&rsquo;t have an ethernet cable so I had to get wi-fi up:</p>
 
 <ol>
 <li>If <code>ping</code> fails, disable <em>dhcpcd</em> service with <code>systemctl stop dhcpcd@</code> (press <kbd>TAB</kbd>)</li>
@@ -300,7 +301,7 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">arch</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">chroot</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span></code></pre></div>
 
-<p>Make sure to install packages that would be needed for network access in the installed system now; specifically <code>wpa_supplicant</code> since the new system wouldn&rsquo;t have network access and will not contain this package either.  This is a dependency for <em>netctl</em>.</p>
+<p>Make sure to install packages that would be needed for network access in the installed system now; specifically <code>wpa_supplicant</code> since the new system wouldn&rsquo;t have network access and will not contain this package either.  This is a dependency for <code>netctl</code>.</p>
 
 <h2 id="time">Time</h2>
 
@@ -347,7 +348,7 @@
 <span style="color:#8be9fd;font-style:italic">nano</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">etc</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">default</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">grub</span>
 <span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">mkconfig</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">o</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cfg</span></code></pre></div>
 
-<p>The suggested <em>os-prober</em> , which makes GRUB look for other OSs, didn&rsquo;t find Windows. Apparently, the EFI partition should be mounted to <code>/mnt/boot</code> <em>before</em> pacstrapping as this is where the kernel and bootloader are installed to.  If you get <code>lvmetad</code> errors, you may safely ignore them.  Once inside the new Arch, os-prober should work fine.</p>
+<p>The suggested <code>os-prober</code> package, which makes GRUB look for other OSs, didn&rsquo;t find Windows. Apparently, the EFI partition should be mounted to <code>/mnt/boot</code> <em>before</em> pacstrapping as this is where the kernel and bootloader are installed to.  If you get <code>lvmetad</code> errors, you may safely ignore them.  Probing should work inside the new Arch.</p>
 
 <h1 id="reboot">Reboot</h1>
 

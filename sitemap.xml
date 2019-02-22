@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://legends2k.github.io/note/git_concepts/</loc>
+    <lastmod>2019-02-20T19:56:56+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/note/grub2_recovery/</loc>
     <lastmod>2019-01-20T18:35:20+05:30</lastmod>
   </url>
@@ -58,17 +63,17 @@
   </url>
   
   <url>
+    <loc>https://legends2k.github.io/</loc>
+    <lastmod>2017-02-24T12:14:41+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://legends2k.github.io/post/</loc>
     <lastmod>2017-02-24T12:14:41+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/note/</loc>
-    <lastmod>2017-02-24T12:14:41+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://legends2k.github.io/</loc>
     <lastmod>2017-02-24T12:14:41+05:30</lastmod>
   </url>
   
@@ -141,12 +146,6 @@
   <url>
     <loc>https://legends2k.github.io/tags/gcc/</loc>
     <lastmod>2017-02-08T16:45:02+05:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://legends2k.github.io/tags/git/</loc>
-    <lastmod>2018-04-19T13:57:03-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -260,7 +259,7 @@
   
   <url>
     <loc>https://legends2k.github.io/tags/tech/</loc>
-    <lastmod>2019-01-20T18:35:20+05:30</lastmod>
+    <lastmod>2019-02-20T19:56:56+05:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -272,7 +271,7 @@
   
   <url>
     <loc>https://legends2k.github.io/tags/tools/</loc>
-    <lastmod>2018-06-17T07:00:43-07:00</lastmod>
+    <lastmod>2019-02-20T19:56:56+05:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -284,7 +283,7 @@
   
   <url>
     <loc>https://legends2k.github.io/tags/vcs/</loc>
-    <lastmod>2018-04-19T13:57:03-07:00</lastmod>
+    <lastmod>2019-02-20T19:56:56+05:30</lastmod>
     <priority>0</priority>
   </url>
   
