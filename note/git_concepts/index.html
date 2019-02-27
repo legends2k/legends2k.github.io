@@ -330,11 +330,13 @@
 
 <h1 id="rebase">Rebase</h1>
 
-<p><code>rebase</code>  seems to have a scary reputation on the web, with good reason of course, since it’s infamous for rewriting history; something your teammates mightn’t take kindly.  However, when you’re doing this only within your repo, before pushing, it’s a great tool.</p>
+<p><code>rebase</code>  seems to have a scary reputation on the web, with good reason of course.  It’s infamous for rewriting history; something your teammates mightn’t take kindly.  However, when you’re doing this only locally, within your repo, before pushing, it’s a great tool.</p>
 
 <blockquote>
 <p>The crux of a <code>rebase</code>: given a subgraph’s root node, <code>rebase</code> changes its parent pointer from one node to another; thereby <em>rebasing</em> the entire subgraph to a new parent.</p>
 </blockquote>
+
+<p>Take note, a commit is not just its contents but also includes its parent(s).  So any kind of rebase entails &mdash; since the parent/lineage changed &mdash; <a href="https://stackoverflow.com/a/4629407/183120">change of commit ID</a> for the same commit contents.</p>
 
 <p>Interactive rebase (<code>rebase -i</code>) is quite useful.  I frequently use it to amend (not just the recent commit), fix, reword, edit, drop or squash commits.  During an interactive rebase, one can even create multiple commits as usual and continue with the rebase; things will be taken care of!  This is normal when <a href="https://stackoverflow.com/q/6217156/183120">dividing</a> a commit into smaller parts.</p>
 
