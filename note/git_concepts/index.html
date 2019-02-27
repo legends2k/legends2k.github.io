@@ -127,7 +127,7 @@
 
     
 
-<p>Basics like initializing (a repository), staging and commiting files aren’t explained here; they simply make sense; no ‘Aha!’s there.  Moving references, branching and merging &mdash; coupled with Git’s arcane command names &mdash; are the confusing parts.</p>
+<p>Basics like initializing (a repository), staging and commiting files aren’t explained here; they simply make sense; no ‘Aha!’s there.  Moving references, branching and merging &mdash; coupled with Git’s arcane command names<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">1</a></sup> &mdash; are the confusing parts.</p>
 
 <h1 id="basics">Basics</h1>
 
@@ -237,12 +237,12 @@
 
 <h1 id="checkout-vs-reset">Checkout vs Reset</h1>
 
-<p>To understand both commands, you need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>.  Most people know about working tree and stating area though.</p>
+<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">2</a></sup>.  Most people know about working tree and stating area but not <code>HEAD</code>.</p>
 
-<p><code>HEAD</code> references the currently checked out commit; your working tree will mostly be from this snapshot i.e. the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
+<p><a href="https://stackoverflow.com/q/5772192/183120"><code>HEAD</code></a> references the currently checked out commit; your working tree will mostly be from this snapshot i.e. the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
 
 <blockquote>
-<p><code>HEAD</code> will be the parent of the next commit that is created</p>
+<p><code>HEAD</code> will be the parent of the next commit that is created.</p>
 </blockquote>
 
 <h2 id="checkout">Checkout</h2>
@@ -271,14 +271,14 @@
                             <span style="color:#8be9fd;font-style:italic">HEAD</span></code></pre></div>
 
 <blockquote>
-<p>Now, when <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference will move along with <code>HEAD</code>.</p>
+<p>When <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference will move along with <code>HEAD</code>.</p>
 </blockquote>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 
-<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state.</p>
+<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">3</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state.</p>
 
-<p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
+<p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
 <span style="color:#8be9fd;font-style:italic">On</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">master</span>
@@ -286,7 +286,7 @@
 <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
 # <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
 
-<p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
+<p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
 <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
@@ -324,23 +324,39 @@
 # <span style="color:#8be9fd;font-style:italic">attach</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">master</span>
 <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span>
 # <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">back</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#8be9fd;font-style:italic">3</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">3</span></code></pre></div>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">3</span>
+# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">forward</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">backward</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">ID</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">f08ad6</span></code></pre></div>
 
 <h1 id="rebase">Rebase</h1>
 
-<p><code>rebase</code>  seems to have a scary reputation on the web, with good reason of course, since it’s infamous for rewriting history; something your teammates mightn’t take kindly.  However, when you’re doing this only within your repo, before pushing elsewhere, it’s a great tool.</p>
+<p><code>rebase</code>  seems to have a scary reputation on the web, with good reason of course, since it’s infamous for rewriting history; something your teammates mightn’t take kindly.  However, when you’re doing this only within your repo, before pushing, it’s a great tool.</p>
 
-<p>The crux of a <code>rebase</code>: consider a subgraph’s root node; what <code>rebase</code> does is, it moves this root’s parent pointer from one node to another; thereby <em>rebasing</em> the entire subgraph to a new parent.</p>
+<blockquote>
+<p>The crux of a <code>rebase</code>: given a subgraph’s root node, <code>rebase</code> changes its parent pointer from one node to another; thereby <em>rebasing</em> the entire subgraph to a new parent.</p>
+</blockquote>
 
-<p>When pulling from a repository, you might know that your changes are unrelated to what lurks in the merged-into branch.  In this case, to avoid a merge commit and have a linear commit history, you’d pass <code>--rebase</code> since the default strategy of <code>pull</code> is to merge.</p>
+<p>Interactive rebase (<code>rebase -i</code>) is quite useful.  I frequently use it to amend (not just the recent commit), fix, reword, edit, drop or squash commits.  During an interactive rebase, one can even create multiple commits as usual and continue with the rebase; things will be taken care of!  This is normal when <a href="https://stackoverflow.com/q/6217156/183120">dividing</a> a commit into smaller parts.</p>
+
+<h2 id="pull-fetch-merge-rebase">pull = fetch + <del>merge</del> rebase? 🤔</h2>
+
+<p>When pulling from a remote branch, you might know that your changes are unrelated to the ones coming down.  In this case, to avoid a merge commit and have a linear commit history, you’d pass <code>--rebase</code> do override the default merge strategy of <code>pull</code>: merge.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
 
-<p>Interactive rebase is quite useful too.  I frequently use it to amend, fix, reword or squash commits.</p>
+<p><code>git pull</code> is just <code>git fetch</code> followed by <code>git merge</code> which creates a new merge commit.  <code>git pull --rebase</code>, however, is <code>git fetch</code> and <code>git rebase</code>; it pulls commits from remote to your current branch and then replay your commits atop your current branch’s tip &ndash; this works if there’re no merge conflicts; otherwise you’ve to resolve conflicts as you’d normally.  The resolution (changes) become a part of one of your commits where rebase halted; you’d end up <a href="https://stackoverflow.com/a/35025978/183120">re-writing your commit</a>.  However, you don’t have to force push your changes to the remote since the resolution just happened in your local commits.  Rewriting of (commit) history, as long as it is not public, is OK 😉</p>
+
+<p>A counter point to pull-with-rebase: if you want logical separation of a set of commits, say for a completely new feature, then rebase &mdash; which makes them inline, muddled with unrelated history &mdash; isn’t the right tool; use <code>merge</code> instead.</p>
+
+<blockquote>
+<p>Use <code>git pull --rebase</code> when your changes do not deserve a separate branch.</p>
+</blockquote>
+
+<p>seems to be the appropriate answer to <a href="https://stackoverflow.com/q/2472254/183120">when should I <code>git pull --rebase</code></a>.</p>
 
 <h1 id="learn-by-doing">Learn by Doing</h1>
 
-<p><a href="https://try.github.io/">try.github.io</a> for good try-it-yourself resources.</p>
+<p><a href="https://try.github.io/">try.github.io</a> for good DIY resources.</p>
 
 <ul>
 <li><a href="https://git-school.github.io/visualizing-git/">Visualizing Git</a> &ndash; lets you visualize your git commands</li>
@@ -353,12 +369,16 @@
 <ol>
 <li><a href="http://think-like-a-git.net/">Think like a Git</a></li>
 <li><a href="https://git-scm.com/book/en/v2">Pro Git</a></li>
+<li><a href="https://www.atlassian.com/git/tutorials">Git Tutorials by Atlassian</a></li>
+<li><a href="http://gitready.com/">Git Ready</a></li>
 </ol>
 <div class="footnotes">
 
 <hr />
 
 <ol>
+<li id="fn:3">I use <a href="https://magit.vc/">Magit</a> to interact with Git but knowing them helps
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
 <li id="fn:1">case-sensitive
  <a class="footnote-return" href="#fnref:1">↩</a></li>
 <li id="fn:2">using <code>C3</code> for readability; substitute with proper commit ID
