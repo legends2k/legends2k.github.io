@@ -4,12 +4,12 @@
 <html prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>I Git it! &middot; Sundaram Ramaswamy</title>
         <meta name="description" content="Summary of my ‘Aha!’ moments with Git">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.54.0" />
+        <meta name="generator" content="Hugo 0.55.3" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -24,7 +24,8 @@
         
         
         
-    </head>
+        
+        </head>
     <body>
         
 
@@ -33,7 +34,7 @@
                 <div class="container">
                     <div class="site-title-wrapper">
                         
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/" rel="me">
                                 <i class="fa fa-home"></i>
                             </a>
                         
@@ -42,29 +43,29 @@
                         
                         
                         
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k" rel="me">
                                 <i class="fa fa-github-alt"></i>
                             </a>
                         
                         
                         
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram" rel="me">
                                 <i class="fa fa-bitbucket"></i>
                             </a>
                         
                         
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k" rel="me">
                                 <i class="fa fa-stack-overflow"></i>
                             </a>
                         
                         
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0" rel="me">
                                 <i class="fa fa-linkedin"></i>
                             </a>
                         
                         
                         
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k">
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k" rel="me">
                                 <i class="fa fa-flickr"></i>
                             </a>
                         
@@ -107,11 +108,17 @@
     
         <p class="post-description" itemprop="description">Summary of my ‘Aha!’ moments with Git</p>
     
-        <p class="post-date">
-        <time datetime="2019-02-20" itemprop="datePublished">
-    Published Wed, Feb 20, 2019</time>
+    <p class="post-date">
+        <span>
 
-</time>
+  
+
+
+
+  
+
+<time datetime="2019-02-20" itemprop="dateUpdated">Updated Tue, Apr 23, 2019</time>
+        </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
             <span itemprop="name">
@@ -119,6 +126,7 @@
             </span>
         </span>
     </p>
+    
 </header>
 
 
@@ -203,14 +211,14 @@
 
 <ul>
 <li>Branches and tags are references too</li>
-<li>Creating a branch is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later <code>[reachability]</code></li>
+<li>Creating a branch is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later (<a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">reachability</a>)</li>
 </ul></li>
 <li>They facilitate easy git-speak with your friends/colleagues 😜</li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">Internally</a> just a 40-byte file containing a commit ID
 
 <ul>
 <li>They’re specific to a single repository</li>
-<li>Remote references point to commits in remote repositories</li>
+<li>Remote references are local, remote-tracking references to a commit in a remote repository <sup class="footnote-ref" id="fnref:4"><a href="#fn:4">2</a></sup></li>
 </ul></li>
 <li>There’re many more ways of referring to commits: <code>man gitrevisions</code> is your friend</li>
 </ul>
@@ -237,7 +245,7 @@
 
 <h1 id="checkout-vs-reset">Checkout vs Reset</h1>
 
-<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">2</a></sup>.  Most people know about working tree and stating area but not <code>HEAD</code>.</p>
+<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">3</a></sup>.  Most people know about working tree and stating area but not <code>HEAD</code>.</p>
 
 <p><a href="https://stackoverflow.com/q/5772192/183120"><code>HEAD</code></a> references the currently checked out commit; your working tree will mostly be from this snapshot i.e. the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
 
@@ -276,7 +284,7 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 
-<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">3</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state.</p>
+<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">4</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state.</p>
 
 <p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
 
@@ -381,7 +389,9 @@
 <ol>
 <li id="fn:3">I use <a href="https://magit.vc/">Magit</a> to interact with Git but knowing them helps
  <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:1">case-sensitive
+<li id="fn:4">Remote-tracking branches (<code>origin/master</code>) are different from remote branches (<code>origin master</code>); former is updated with <code>fetch</code>.  See <a href="https://stackoverflow.com/q/7642273/183120">this</a>.
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
+<li id="fn:1">Case-sensitive!  <em>HEAD</em> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
 <li id="fn:2">using <code>C3</code> for readability; substitute with proper commit ID
  <a class="footnote-return" href="#fnref:2">↩</a></li>
