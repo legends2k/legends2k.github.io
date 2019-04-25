@@ -191,7 +191,7 @@
 <ul>
 <li>In the above example, <code>A</code>, <code>B</code> and <code>C</code> are unreachable from <code>G</code>, so are <code>F</code> and <code>G</code> when starting from <code>C</code> or <code>B</code> or <code>A</code></li>
 </ul></li>
-<li>The <code>gc</code> subcommand walks through the graph, building a list of every commit it can reach; removes unreachable ones
+<li>The <code>gc</code> subcommand<sup class="footnote-ref" id="fnref:8"><a href="#fn:8">3</a></sup> walks the graph, building a list of every commit it can reach; removes unreachable ones<sup class="footnote-ref" id="fnref:7"><a href="#fn:7">4</a></sup>
 
 <ul>
 <li>Will clear-up disk space; no good reason to run it often</li>
@@ -213,12 +213,12 @@
 <li>They facilitate easy git-speak with your friends/colleagues 😜</li>
 <li>Branches and tags are references too</li>
 </ul></li>
-<li>Creating a branch is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later (<a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">reachability</a>)</li>
-<li>Just a reference-named <a href="http://think-like-a-git.net/sections/graphs-and-git/references.html">file containing a 40-byte commit ID</a>
+<li>Creating a <del>branch</del> reference is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later (<a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">reachability</a>)</li>
+<li>References are just reference-named <a href="http://think-like-a-git.net/sections/graphs-and-git/references.html">files containing a 40-byte commit ID</a>
 
 <ul>
 <li>They’re specific to a single repository</li>
-<li>Remote references are local, remote-tracking references to a commit in a remote repository <sup class="footnote-ref" id="fnref:4"><a href="#fn:4">3</a></sup></li>
+<li>Remote references are local, remote-tracking references to a commit in a remote repository <sup class="footnote-ref" id="fnref:4"><a href="#fn:4">5</a></sup></li>
 </ul></li>
 <li>There’re many more ways of referring to commits: <code>man gitrevisions</code> is your friend</li>
 </ul>
@@ -245,9 +245,9 @@
 
 <h1 id="checkout-vs-reset">Checkout vs Reset</h1>
 
-<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">4</a></sup>.  Most people know about the working tree and stating area but not <code>HEAD</code>.</p>
+<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">6</a></sup>.  Most people know about the working tree and stating area but not <code>HEAD</code>.</p>
 
-<p><a href="https://stackoverflow.com/q/5772192/183120"><code>HEAD</code></a> references the currently checked out commit; your working tree will mostly be from this snapshot i.e. the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
+<p><a href="https://stackoverflow.com/q/5772192/183120"><code>HEAD</code></a> references the currently checked out commit; your working tree will mostly be from this snapshot &ndash; the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
 
 <blockquote>
 <p><code>HEAD</code> will be the parent of the next commit that is created.</p>
@@ -267,7 +267,7 @@
 
 <p>Plainly, <code>reset</code> moves <code>HEAD</code> around.  It’s used to move <code>HEAD</code> to a given commit.  There’re different flavours of doing this &mdash; depending on what happens to the index and working tree (<code>--hard</code>, <code>--soft</code>, <code>--mix</code> …) &mdash; but the crux is to move <code>HEAD</code>.</p>
 
-<p>When moving, <code>HEAD</code> will also move the branch reference along with it, if it’s <em>attached</em>.</p>
+<p>When moving, <code>HEAD</code> will also move the branch reference along with it, <em>if it’s attached</em>.</p>
 
 <h3 id="detached-head">Detached <code>HEAD</code></h3>
 
@@ -284,7 +284,7 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 
-<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">5</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">6</a></sup>.</p>
+<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">7</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.</p>
 
 <p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
 
@@ -302,7 +302,7 @@
 <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
 <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span>, <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span></code></pre></div>
 
-<p>Note that when <code>HEAD</code> is attached, you see an arrow (→) pointing to the branch it’s attached to.  However, in the detached state they’re list as independent items.</p>
+<p>Notice that when <code>HEAD</code> is attached, you see an arrow (→) pointing to the branch it’s attached to.  However, in the detached state they’re listed as independent items.</p>
 
 <h3 id="attach-detaching-head">Attach/Detaching <code>HEAD</code></h3>
 
@@ -391,6 +391,10 @@
  <a class="footnote-return" href="#fnref:3">↩</a></li>
 <li id="fn:5">Merge commits have more than one parent.
  <a class="footnote-return" href="#fnref:5">↩</a></li>
+<li id="fn:8">Not to be confused with <code>git clean</code> which removes untracked files from the working tree.
+ <a class="footnote-return" href="#fnref:8">↩</a></li>
+<li id="fn:7"><code>git reflog</code> shows these otherwise unreachable commits.  You’ve time until <code>git gc</code> is run to make a commit reachable by adding a reference to it.
+ <a class="footnote-return" href="#fnref:7">↩</a></li>
 <li id="fn:4">Remote-tracking branches (<code>origin/master</code>) are <a href="https://stackoverflow.com/q/7642273/183120">different</a> from remote branches (<code>origin master</code>); former is local, updated by <code>fetch</code>ing from the latter.
  <a class="footnote-return" href="#fnref:4">↩</a></li>
 <li id="fn:1">Case-sensitive!  <em>HEAD</em> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
