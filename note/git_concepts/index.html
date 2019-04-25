@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2019-02-20" itemprop="dateUpdated">Updated Tue, Apr 23, 2019</time>
+<time datetime="2019-02-20" itemprop="dateUpdated">Updated Thu, Apr 25, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -142,7 +142,7 @@
 <ul>
 <li>Git is a distributed VCS; each repo can be both a server/client</li>
 <li>Honestly, <code>git</code> (sub)commands are just graph manipulating commands</li>
-<li>Every codebase is made of a graph; each commit is a node with edges to parent(s)
+<li>Every codebase is made of a graph; each commit is a node with edges to parent(s)<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">2</a></sup>
 
 <ul>
 <li>Git diagrams often have arrows backwards (←) for this reason</li>
@@ -150,7 +150,7 @@
 <li>Git stores <a href="https://git-scm.com/book/en/v1/Getting-Started-Git-Basics#_snapshots_not_differences">snapshots not differences</a> i.e. entire file contents &mdash; as a blob
 
 <ul>
-<li>Every commit is a complete <a href="http://think-like-a-git.net/sections/graphs-and-git/references.html">snapshot of tracked repo contents + (0 or more) parent ID(s)</a> identified with a 40-byte SHA1-digested hash</li>
+<li>Every commit is a complete <a href="http://think-like-a-git.net/sections/graphs-and-git.html">snapshot of tracked repo contents + (0 or more) parent ID(s)</a> identified with a 40-byte <a href="https://en.wikipedia.org/wiki/SHA-1">SHA-1</a> hash</li>
 <li>This way, the exact state of your project can be referred to, copied, or restored at any time</li>
 </ul></li>
 </ul>
@@ -165,9 +165,8 @@
 <li>Nodes are never really deleted in the traditional sense; they’re made unreachable (see below)
 
 <ul>
-<li>These unreachable nodes eventually get garbage collected by Git</li>
+<li>These unreachable nodes eventually get <a href="http://think-like-a-git.net/sections/graphs-and-git/garbage-collection.html">garbage collected</a> by Git</li>
 </ul></li>
-<li>A commit’s parent(s) &mdash; merge commits have more than one parent &mdash; form the edges of the graph</li>
 </ul>
 
 <h1 id="reachablity">Reachablity</h1>
@@ -178,13 +177,14 @@
      <span style="color:#50fa7b">\</span>
       <span style="color:#50fa7b">H---I</span></code></pre></div>
 
-<ul>
-<li>An important (linked-list) concept that applies to Git too
+<p>An important (linked-list) concept that applies to Git too.</p>
+
+<blockquote>
+<p>If <code>void* first</code> is lost, the list, too, is lost.</p>
+</blockquote>
 
 <ul>
-<li>If <code>void* first</code> is lost, the list, too, is lost</li>
-</ul></li>
-<li>Since a commit also has (1+) parent commits (except root), following the chain of parents will eventually take you back to the beginning of the project</li>
+<li>Since a commit also has parent commit(s) (except root), following the chain of parents will eventually take you back to the beginning of the project</li>
 <li>In a well-branched graph, depending on the leaf node you start from, <a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">different parts of the graph will be <em>reachable</em></a></li>
 <li><a href="https://git-scm.com/docs/user-manual#understanding-reachability">Commit X is &ldquo;reachable&rdquo; from commit Y if commit X is an ancestor of commit Y</a>
 
@@ -199,7 +199,7 @@
 </ul></li>
 </ul>
 
-<h1 id="refs">Refs</h1>
+<h1 id="references">References</h1>
 
 <blockquote>
 <p>&ldquo;References make commits reachable&rdquo;
@@ -207,18 +207,18 @@
 </blockquote>
 
 <ul>
-<li>Plainly, <a href="http://think-like-a-git.net/sections/graphs-and-git/references.html">references</a> are &ldquo;meaningful&rdquo; names to some commits
+<li>Plainly, <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">references</a> are &ldquo;meaningful&rdquo; names to some commits
 
 <ul>
-<li>Branches and tags are references too</li>
-<li>Creating a branch is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later (<a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">reachability</a>)</li>
-</ul></li>
 <li>They facilitate easy git-speak with your friends/colleagues 😜</li>
-<li><a href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">Internally</a> just a 40-byte file containing a commit ID
+<li>Branches and tags are references too</li>
+</ul></li>
+<li>Creating a branch is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later (<a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">reachability</a>)</li>
+<li>Just a reference-named <a href="http://think-like-a-git.net/sections/graphs-and-git/references.html">file containing a 40-byte commit ID</a>
 
 <ul>
 <li>They’re specific to a single repository</li>
-<li>Remote references are local, remote-tracking references to a commit in a remote repository <sup class="footnote-ref" id="fnref:4"><a href="#fn:4">2</a></sup></li>
+<li>Remote references are local, remote-tracking references to a commit in a remote repository <sup class="footnote-ref" id="fnref:4"><a href="#fn:4">3</a></sup></li>
 </ul></li>
 <li>There’re many more ways of referring to commits: <code>man gitrevisions</code> is your friend</li>
 </ul>
@@ -241,11 +241,11 @@
 <li><code>push</code></li>
 </ul>
 
-<p>Commands like <code>cherry-pick</code> seem to work atop one of these.</p>
+<p>Commands like <code>pull</code>, <code>cherry-pick</code>, … work atop these.</p>
 
 <h1 id="checkout-vs-reset">Checkout vs Reset</h1>
 
-<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">3</a></sup>.  Most people know about working tree and stating area but not <code>HEAD</code>.</p>
+<p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">4</a></sup>.  Most people know about the working tree and stating area but not <code>HEAD</code>.</p>
 
 <p><a href="https://stackoverflow.com/q/5772192/183120"><code>HEAD</code></a> references the currently checked out commit; your working tree will mostly be from this snapshot i.e. the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
 
@@ -284,7 +284,7 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 
-<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">4</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state.</p>
+<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">5</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">6</a></sup>.</p>
 
 <p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
 
@@ -344,7 +344,7 @@
 <p>The crux of a <code>rebase</code>: given a subgraph’s root node, <code>rebase</code> changes its parent pointer from one node to another; thereby <em>rebasing</em> the entire subgraph to a new parent.</p>
 </blockquote>
 
-<p>Take note, a commit is not just its contents but also includes its parent(s).  So any kind of rebase entails &mdash; since the parent/lineage changed &mdash; <a href="https://stackoverflow.com/a/4629407/183120">change of commit ID</a> for the same commit contents.</p>
+<p>Take note, a commit is not just its contents but also includes its parent(s).  So any kind of rebase entails &mdash; since the parent/lineage is changed &mdash; a <a href="https://stackoverflow.com/a/4629407/183120">change of commit ID</a> for the same commit contents.</p>
 
 <p>Interactive rebase (<code>rebase -i</code>) is quite useful.  I frequently use it to amend (not just the recent commit), fix, reword, edit, drop or squash commits.  During an interactive rebase, one can even create multiple commits as usual and continue with the rebase; things will be taken care of!  This is normal when <a href="https://stackoverflow.com/q/6217156/183120">dividing</a> a commit into smaller parts.</p>
 
@@ -374,7 +374,7 @@
 <li>A <a href="http://marklodato.github.io/visual-git-guide/index-en.html">Visual Git Reference</a> &ndash; explains commands with images</li>
 </ul>
 
-<h1 id="references">References</h1>
+<h1 id="references-1">References</h1>
 
 <ol>
 <li><a href="http://think-like-a-git.net/">Think like a Git</a></li>
@@ -387,14 +387,18 @@
 <hr />
 
 <ol>
-<li id="fn:3">I use <a href="https://magit.vc/">Magit</a> to interact with Git but knowing them helps
+<li id="fn:3"><a href="https://magit.vc/">Magit</a> &ndash; Git porcelain for Emacs &ndash; shields me mostly but knowing them helps.
  <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:4">Remote-tracking branches (<code>origin/master</code>) are different from remote branches (<code>origin master</code>); former is updated with <code>fetch</code>.  See <a href="https://stackoverflow.com/q/7642273/183120">this</a>.
+<li id="fn:5">Merge commits have more than one parent.
+ <a class="footnote-return" href="#fnref:5">↩</a></li>
+<li id="fn:4">Remote-tracking branches (<code>origin/master</code>) are <a href="https://stackoverflow.com/q/7642273/183120">different</a> from remote branches (<code>origin master</code>); former is local, updated by <code>fetch</code>ing from the latter.
  <a class="footnote-return" href="#fnref:4">↩</a></li>
 <li id="fn:1">Case-sensitive!  <em>HEAD</em> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">using <code>C3</code> for readability; substitute with proper commit ID
+<li id="fn:2">Using <code>C3</code> for readability; substitute with proper commit ID.
  <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:6">Refer <code>man git-checkout</code>; <em>§DETACHED HEAD</em> details with nice ASCII art ✨.
+ <a class="footnote-return" href="#fnref:6">↩</a></li>
 </ol>
 </div>
 
