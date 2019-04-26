@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2019-02-20" itemprop="dateUpdated">Updated Thu, Apr 25, 2019</time>
+<time datetime="2019-02-20" itemprop="dateUpdated">Updated Fri, Apr 26, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -354,15 +354,15 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
 
-<p><code>git pull</code> is just <code>git fetch</code> followed by <code>git merge</code> which creates a new merge commit.  <code>git pull --rebase</code>, however, is <code>git fetch</code> and <code>git rebase</code>; it pulls commits from remote to your current branch and then replay your commits atop your current branch’s tip &ndash; this works if there’re no merge conflicts; otherwise you’ve to resolve conflicts as you’d normally.  The resolution (changes) become a part of one of your commits where rebase halted; you’d end up <a href="https://stackoverflow.com/a/35025978/183120">re-writing your commit</a>.  However, you don’t have to force push your changes to the remote since the resolution just happened in your local commits.  Rewriting of (commit) history, as long as it is not public, is OK 😉</p>
+<p><code>git pull</code> is just <code>git fetch</code> followed by <code>git merge</code> which creates a new merge commit.  <code>git pull --rebase</code>, however, is <code>git fetch</code> and <code>git rebase</code>; it pulls commits from remote to your current branch and then replay your commits atop your current branch’s tip &ndash; this works if there’re no merge conflicts; otherwise you’ve to resolve conflicts as you’d normally.  The resolution (changes) become a part of one of your commits where rebase halted; you’d end up <a href="https://stackoverflow.com/a/35025978/183120">re-writing your commit</a>.  However, you don’t have to force push your changes to the remote since the resolution just happened in your local commits.  Rewriting (commit) history, as long as it is not public, is OK 😉</p>
 
 <p>A counter point to pull-with-rebase: if you want logical separation of a set of commits, say for a completely new feature, then rebase &mdash; which makes them inline, muddled with unrelated history &mdash; isn’t the right tool; use <code>merge</code> instead.</p>
 
 <blockquote>
-<p>Use <code>git pull --rebase</code> when your changes do not deserve a separate branch.</p>
+<p>Use <code>git pull --rebase</code> when your changes do not deserve a separate branch.</p>
 </blockquote>
 
-<p>seems to be the appropriate answer to <a href="https://stackoverflow.com/q/2472254/183120">when should I <code>git pull --rebase</code></a>.</p>
+<p>seems to be the appropriate answer to <a href="https://stackoverflow.com/q/2472254/183120">when should I <code>git pull --rebase</code></a>.</p>
 
 <h1 id="learn-by-doing">Learn by Doing</h1>
 
@@ -401,7 +401,7 @@
  <a class="footnote-return" href="#fnref:1">↩</a></li>
 <li id="fn:2">Using <code>C3</code> for readability; substitute with proper commit ID.
  <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:6">Refer <code>man git-checkout</code>; <em>§DETACHED HEAD</em> details with nice ASCII art ✨.
+<li id="fn:6">Refer <code>man git-checkout</code>; <em>§DETACHED HEAD</em> details it with nice ASCII art ✨.
  <a class="footnote-return" href="#fnref:6">↩</a></li>
 </ol>
 </div>
