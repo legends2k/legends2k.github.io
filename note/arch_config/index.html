@@ -446,7 +446,7 @@
 <span style="color:#8be9fd;font-style:italic">cd</span> <span style="color:#8be9fd;font-style:italic">yay</span><span style="color:#ff79c6">/</span>
 <span style="color:#8be9fd;font-style:italic">makepkg</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">si</span>    # <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">needs</span> <span style="color:#8be9fd;font-style:italic">sudo</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">install</span> <span style="color:#8be9fd;font-style:italic">built</span> <span style="color:#8be9fd;font-style:italic">pacakge</span></code></pre></div>
 
-<p>I <a href="https://bbs.archlinux.org/viewtopic.phpid=90635">found</a> a couple of useful tricks as (my machine’s) admin:</p>
+<p>I <a href="https://bbs.archlinux.org/viewtopic.phpid=90635">found</a> a few useful tricks as (my machine’s) admin:</p>
 
 <ul>
 <li>Map an existing file back to its (installed) package: <code>pacman -Qo FILE-PATH</code>
@@ -514,14 +514,14 @@
 
 <p>Another option is to customize font setting per user by fixing <code>{HOME}/.config/fontconfig/fonts.conf</code>.  I did this too for good measure.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd;font-style:italic">match</span> <span style="color:#8be9fd;font-style:italic">target</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;pattern&#34;</span><span style="color:#ff79c6">&gt;</span>
-  <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd;font-style:italic">test</span> <span style="color:#8be9fd;font-style:italic">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;family&#34;</span> <span style="color:#8be9fd;font-style:italic">qual</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;any&#34;</span><span style="color:#ff79c6">&gt;</span>
-    <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd;font-style:italic">string</span><span style="color:#ff79c6">&gt;</span><span style="color:#8be9fd;font-style:italic">monospace</span><span style="color:#ff79c6">&lt;/</span><span style="color:#8be9fd;font-style:italic">string</span><span style="color:#ff79c6">&gt;</span>
-  <span style="color:#ff79c6">&lt;/</span><span style="color:#8be9fd;font-style:italic">test</span><span style="color:#ff79c6">&gt;</span>
-  <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd;font-style:italic">edit</span> <span style="color:#8be9fd;font-style:italic">binding</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;strong&#34;</span> <span style="color:#8be9fd;font-style:italic">mode</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;prepend&#34;</span> <span style="color:#8be9fd;font-style:italic">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;family&#34;</span><span style="color:#ff79c6">&gt;</span>
-    <span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd;font-style:italic">string</span><span style="color:#ff79c6">&gt;</span><span style="color:#8be9fd;font-style:italic">mononoki</span><span style="color:#ff79c6">&lt;/</span><span style="color:#8be9fd;font-style:italic">string</span><span style="color:#ff79c6">&gt;</span>
-  <span style="color:#ff79c6">&lt;/</span><span style="color:#8be9fd;font-style:italic">edit</span><span style="color:#ff79c6">&gt;</span>
-<span style="color:#ff79c6">&lt;/</span><span style="color:#8be9fd;font-style:italic">match</span><span style="color:#ff79c6">&gt;</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;match</span> <span style="color:#50fa7b">target=</span><span style="color:#f1fa8c">&#34;pattern&#34;</span><span style="color:#ff79c6">&gt;</span>
+  <span style="color:#ff79c6">&lt;test</span> <span style="color:#50fa7b">name=</span><span style="color:#f1fa8c">&#34;family&#34;</span> <span style="color:#50fa7b">qual=</span><span style="color:#f1fa8c">&#34;any&#34;</span><span style="color:#ff79c6">&gt;</span>
+    <span style="color:#ff79c6">&lt;string&gt;</span>monospace<span style="color:#ff79c6">&lt;/string&gt;</span>
+  <span style="color:#ff79c6">&lt;/test&gt;</span>
+  <span style="color:#ff79c6">&lt;edit</span> <span style="color:#50fa7b">binding=</span><span style="color:#f1fa8c">&#34;strong&#34;</span> <span style="color:#50fa7b">mode=</span><span style="color:#f1fa8c">&#34;prepend&#34;</span> <span style="color:#50fa7b">name=</span><span style="color:#f1fa8c">&#34;family&#34;</span><span style="color:#ff79c6">&gt;</span>
+    <span style="color:#ff79c6">&lt;string&gt;</span>mononoki<span style="color:#ff79c6">&lt;/string&gt;</span>
+  <span style="color:#ff79c6">&lt;/edit&gt;</span>
+<span style="color:#ff79c6">&lt;/match&gt;</span></code></pre></div>
 
 <p>I got both of these from <a href="https://unix.stackexchange.com/questions/106070/changing-monospace-fonts-system-wide">Unix.StackExchange</a>.</p>
 
