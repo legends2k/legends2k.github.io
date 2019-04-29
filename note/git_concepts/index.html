@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2019-02-20" itemprop="dateUpdated">Updated Fri, Apr 26, 2019</time>
+<time datetime="2019-02-20" itemprop="dateUpdated">Updated Mon, Apr 29, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -261,30 +261,38 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">topic</span></code></pre></div>
 
-<p>When you checkout a branch (reference to a commit/node) e.g. <code>topic</code>, <code>HEAD</code> will be moved to that branch and hence the entire working tree, not just a file, will be from the snapshot of the commit that branch is pointing to.</p>
+<p>When you checkout a branch (reference to a commit/node) e.g. <code>topic</code>, <code>HEAD</code> will be set to its tip commit and hence the entire working tree, not just a file, will be from the commit that branch is pointing to.</p>
 
 <h2 id="reset">Reset</h2>
 
 <p>Plainly, <code>reset</code> moves <code>HEAD</code> around.  It’s used to move <code>HEAD</code> to a given commit.  There’re different flavours of doing this &mdash; depending on what happens to the index and working tree (<code>--hard</code>, <code>--soft</code>, <code>--mix</code> …) &mdash; but the crux is to move <code>HEAD</code>.</p>
 
-<p>When moving, <code>HEAD</code> will also move the branch reference along with it, <em>if it’s attached</em>.</p>
+<p>But isn’t that what <code>checkout</code> does too?  Yes, but with a difference.  Quoting <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified#_step_1_move_head">Pro Git</a>, with my emphasis</p>
+
+<blockquote>
+<p>reset will [&hellip;] move what HEAD points to. This isn’t the same as changing HEAD itself (which is what checkout does); <strong>reset moves the branch that HEAD is pointing to</strong><sup class="footnote-ref" id="fnref:9"><a href="#fn:9">7</a></sup>.</p>
+</blockquote>
+
+<p><strong>Caveat</strong>: with <code>reset</code>, <code>HEAD</code> moves the branch reference along with it, <em>only if it’s attached</em>.</p>
 
 <h3 id="detached-head">Detached <code>HEAD</code></h3>
 
 <p>Whoa! Slow down there, cowboy.  Before talking about detached, what’s the attached state of <code>HEAD</code>?  We already know that <code>HEAD</code> is just a reference to a commit.  Say this commit also has another reference pointing to it: a branch name.</p>
 
+<blockquote>
+<p>When <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference too will move with <code>HEAD</code>.</p>
+</blockquote>
+
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">C1</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C2</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C3</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C4</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C5</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">master</span>
                              <span style="color:#ff79c6">^</span>
                              <span style="color:#ff79c6">|</span>
-                            <span style="color:#8be9fd;font-style:italic">HEAD</span></code></pre></div>
+                            <span style="color:#8be9fd;font-style:italic">HEAD</span>
 
-<blockquote>
-<p>When <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference will move along with <code>HEAD</code>.</p>
-</blockquote>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
+<p>This would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">8</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">9</a></sup>.</p>
 
-<p>would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">7</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.</p>
+<p>In its detached state, <code>HEAD</code> refers to a specific commit as opposed to referring to a named branch.  Like Git’s diagnostic message says, it’s useful to poke around and inspect the code base at a particular commit.  Making a new commit now would mean a commit only pointed to by <code>HEAD</code>.</p>
 
 <p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
 
@@ -310,13 +318,15 @@
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
 
-<p><em>When you checkout a commit by using anything other than a branch name (commit ID, HEAD~1, branch~3, HEAD^^, etc.), you’d detach <code>HEAD</code></em> i.e. Git wouldn’t know what to associate <code>HEAD</code> with.  When you want to poke around and see how the repository looked like at a particular unnamed commit (except for its commit ID), this is what you would normally do.</p>
+<p><em>When you checkout a commit using anything other than a branch name, you’d detach <code>HEAD</code></em> e.g. commit ID, <code>HEAD~1, branch~3, HEAD{5}, HEAD^^</code>, etc.  Since it wouldn’t know what to associate <code>HEAD</code> with, Git detaches <code>HEAD</code>.  When you want to inspect the code base at a particular unnamed &ndash; except for its commit ID &ndash; commit, this is what you normally do.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">lk3nw7ef</span></code></pre></div>
 
 <p>Here, it doesn’t matter if this commit has other branch references to it.  Since you referred to it using the raw commit ID, Git takes it as a cue to detach <code>HEAD</code>.</p>
 
-<p>I highly recommend playing around in <a href="https://git-school.github.io/visualizing-git/">Visualizing Git</a> with <code>checkout</code>, <code>reset</code>; get your hands dirty with the whole attach/detach business.  Here’s a small snippet to get you started; see what happens as each command gets executed:</p>
+<h2 id="practise">Practise</h2>
+
+<p>I highly recommend playing around in <a href="https://git-school.github.io/visualizing-git/">Visualizing Git</a> with <code>checkout</code>, <code>reset</code>; also get your hands dirty with the whole attach/detach business.  Here’s a small snippet to get you started; see what happens as each command gets executed:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
 <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
@@ -399,6 +409,8 @@
  <a class="footnote-return" href="#fnref:4">↩</a></li>
 <li id="fn:1">Case-sensitive!  <em>HEAD</em> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:9"><em>Pro Git</em> is explaining <code>reset</code>’s internals here, so it may sound like it won’t move <code>HEAD</code> but only the branch, but rest assured that it moves both.
+ <a class="footnote-return" href="#fnref:9">↩</a></li>
 <li id="fn:2">Using <code>C3</code> for readability; substitute with proper commit ID.
  <a class="footnote-return" href="#fnref:2">↩</a></li>
 <li id="fn:6">Refer <code>man git-checkout</code>; <em>§DETACHED HEAD</em> details it with nice ASCII art ✨.

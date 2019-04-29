@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2018-05-27" itemprop="dateUpdated">Updated Fri, Apr 26, 2019</time>
+<time datetime="2018-05-27" itemprop="dateUpdated">Updated Mon, Apr 29, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -293,9 +293,23 @@
 
 <p><code>genfstab</code> is a Arch script that setups up <code>/etc/fstab</code> as per the current mounts; it would later detect mounted file systems and swap space.  Since we&rsquo;re on a UEFI + GPT boot scheme, mount the EFI partition too for <code>genfstab</code> and <code>os-prober</code> to pick up Windows for GRUB to list Windows too.  This is the same partition as used by Windows for booting, mounted as <code>/mnt/boot/efi</code>.  Same goes for other Windows partitions that needs to be listed in <code>fstab</code> for auto-mounting in the new OS.  Otherwise it has to be <a href="https://wiki.archlinux.org/index.php/Fstab">done manually</a> with Emacs and <code>lsblk -f</code> or <code>blkid</code>.</p>
 
+<h4 id="reserved-space">Reserved Space</h4>
+
+<p>I came to know that on ext4 <a href="https://unix.stackexchange.com/q/7950/30580">Linux silently reserves</a> 5% of system partitions for the root user; to be able to log in, if a regular user fills up the drive.  <a href="https://superuser.com/q/444269/50345">See the reservation</a> thus</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">sudo</span> <span style="color:#8be9fd;font-style:italic">tune2fs</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">l</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda5</span> <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">egrep</span> <span style="color:#f1fa8c">&#34;Reserved block count|Block size&#34;</span> <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">paste</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">sd</span><span style="color:#ff79c6">\</span> <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">awk</span> <span style="color:#6272a4">&#39;{print ($4 * $7 / ( 1024 * 1024 ) ), &#34;MiB&#34;}&#39;</span>
+<span style="color:#8be9fd;font-style:italic">204</span><span style="color:#bd93f9">.797</span> <span style="color:#8be9fd;font-style:italic">MiB</span></code></pre></div>
+
+<p>You can change this with <code>tune2fs -m &lt;percentage&gt; &lt;device&gt;</code>; mine’s too petty to change.</p>
+
 <h1 id="base-install">Base Install</h1>
 
-<p>Before proceeding, it might be a good idea to fix the order of mirrors in <code>/etc/pacman.d/mirrorlist</code> since it&rsquo;s copied to the installed system as-is.</p>
+<p>Before proceeding, it might be a good idea to fix the order of mirrors in <code>/etc/pacman.d/mirrorlist</code> since it&rsquo;s copied to the installed system as-is.  Instead of doing this manually, you might prefer using <a href="https://www.ostechnix.com/retrieve-latest-mirror-list-using-reflector-arch-linux/"><code>reflector</code></a>; it retrieves latest mirror list based on country:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">pacman</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">S</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">needed</span> <span style="color:#8be9fd;font-style:italic">reflector</span>
+<span style="color:#8be9fd;font-style:italic">reflector</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">verbose</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">country</span> <span style="color:#8be9fd;font-style:italic">IN</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">l10</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">sort</span> <span style="color:#8be9fd;font-style:italic">rate</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">save</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">etc</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">pacman</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">d</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mirrorlist</span></code></pre></div>
+
+<p>Once satisfied with <code>mirrorlist</code>, proceed with the base installation:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">pacstrap</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span> <span style="color:#8be9fd;font-style:italic">base</span></code></pre></div>
 
