@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2019-02-20" itemprop="dateUpdated">Updated Mon, Apr 29, 2019</time>
+<time datetime="2019-02-20" itemprop="dateUpdated">Updated Tue, Apr 30, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -270,7 +270,7 @@
 <p>But isn’t that what <code>checkout</code> does too?  Yes, but with a difference.  Quoting <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified#_step_1_move_head">Pro Git</a>, with my emphasis</p>
 
 <blockquote>
-<p>reset will [&hellip;] move what <code>HEAD</code> points to. This isn’t the same as changing <code>HEAD</code> itself (which is what checkout does); <strong>reset moves the branch that HEAD is pointing to</strong><sup class="footnote-ref" id="fnref:9"><a href="#fn:9">7</a></sup>.</p>
+<p>reset will [&hellip;] move what <code>HEAD</code> points to. This isn’t the same as changing <code>HEAD</code> itself (which is what checkout does); <strong>reset moves the branch that <code>HEAD</code> is pointing to</strong><sup class="footnote-ref" id="fnref:9"><a href="#fn:9">7</a></sup>.</p>
 </blockquote>
 
 <p><strong>Caveat</strong>: with <code>reset</code>, <code>HEAD</code> moves the branch reference along with it, <em>only if it’s attached</em>.</p>
@@ -407,7 +407,7 @@
  <a class="footnote-return" href="#fnref:7">↩</a></li>
 <li id="fn:4">Remote-tracking branches (<code>origin/master</code>) are <a href="https://stackoverflow.com/q/7642273/183120">different</a> from remote branches (<code>origin master</code>); former is local, updated by <code>fetch</code>ing from the latter.
  <a class="footnote-return" href="#fnref:4">↩</a></li>
-<li id="fn:1">Case-sensitive!  <em>HEAD</em> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
+<li id="fn:1">Case-sensitive!  <code>HEAD</code> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
 <li id="fn:9"><em>Pro Git</em> is explaining <code>reset</code>’s internals here, so it may sound like it won’t move <code>HEAD</code> but only the branch, but rest assured that it moves both.
  <a class="footnote-return" href="#fnref:9">↩</a></li>
