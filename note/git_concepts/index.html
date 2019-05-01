@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2019-02-20" itemprop="dateUpdated">Updated Tue, Apr 30, 2019</time>
+<time datetime="2019-02-20" itemprop="dateUpdated">Updated Wed, May 1, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -245,6 +245,12 @@
 
 <h1 id="checkout-vs-reset">Checkout vs Reset</h1>
 
+<p>Before getting into the details, here’s <a href="https://stackoverflow.com/q/3639342">the gist</a></p>
+
+<blockquote>
+<p><code>checkout</code> mostly operates on the working tree, while <code>reset</code> operates on index.</p>
+</blockquote>
+
 <p>To understand both commands, you first need to understand <code>HEAD</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">6</a></sup>.  Most people know about the working tree and stating area but not <code>HEAD</code>.</p>
 
 <p><a href="https://stackoverflow.com/q/5772192/183120"><code>HEAD</code></a> references the currently checked out commit; your working tree will mostly be from this snapshot &ndash; the commit pointed to by <code>HEAD</code>.  <a href="https://www.git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">Pro Git</a> summarizes this nicely</p>
@@ -265,12 +271,12 @@
 
 <h2 id="reset">Reset</h2>
 
-<p>Plainly, <code>reset</code> moves <code>HEAD</code> around.  It’s used to move <code>HEAD</code> to a given commit.  There’re different flavours of doing this &mdash; depending on what happens to the index and working tree (<code>--hard</code>, <code>--soft</code>, <code>--mix</code> …) &mdash; but the crux is to move <code>HEAD</code>.</p>
+<p>Plainly, <code>reset</code> moves <code>HEAD</code> around.  It’s used to move <code>HEAD</code> to a given commit.  There’re different flavours of doing this &mdash; depending on what happens to the index<sup class="footnote-ref" id="fnref:10"><a href="#fn:10">7</a></sup> and working tree (<code>--hard</code>, <code>--soft</code>, <code>--mix</code> …) &mdash; but the crux is to move <code>HEAD</code>.</p>
 
 <p>But isn’t that what <code>checkout</code> does too?  Yes, but with a difference.  Quoting <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified#_step_1_move_head">Pro Git</a>, with my emphasis</p>
 
 <blockquote>
-<p>reset will [&hellip;] move what <code>HEAD</code> points to. This isn’t the same as changing <code>HEAD</code> itself (which is what checkout does); <strong>reset moves the branch that <code>HEAD</code> is pointing to</strong><sup class="footnote-ref" id="fnref:9"><a href="#fn:9">7</a></sup>.</p>
+<p>reset will [&hellip;] move what <code>HEAD</code> points to. This isn’t the same as changing <code>HEAD</code> itself (which is what checkout does); <strong>reset moves the branch that <code>HEAD</code> is pointing to</strong><sup class="footnote-ref" id="fnref:9"><a href="#fn:9">8</a></sup>.</p>
 </blockquote>
 
 <p><strong>Caveat</strong>: with <code>reset</code>, <code>HEAD</code> moves the branch reference along with it, <em>only if it’s attached</em>.</p>
@@ -290,7 +296,7 @@
 
 <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 
-<p>This would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">8</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">9</a></sup>.</p>
+<p>This would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">9</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">10</a></sup>.</p>
 
 <p>In its detached state, <code>HEAD</code> refers to a specific commit as opposed to referring to a named branch.  Like Git’s diagnostic message says, it’s useful to poke around and inspect the code base at a particular commit.  Making a new commit now would mean a commit only pointed to by <code>HEAD</code>.</p>
 
@@ -409,6 +415,8 @@
  <a class="footnote-return" href="#fnref:4">↩</a></li>
 <li id="fn:1">Case-sensitive!  <code>HEAD</code> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:10">I thought index is empty until something’s staged.  However, <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified#_the_index">Pro Git</a> clarifies that index actually has &ldquo;<em>all</em> the file contents that were last checked out into your working directory!&rdquo;  Don’t believe me?  Try <code>git ls-files -s</code>.  You’ve to grok this to get why <code>git reset --mixed</code> works the way it does.
+ <a class="footnote-return" href="#fnref:10">↩</a></li>
 <li id="fn:9"><em>Pro Git</em> is explaining <code>reset</code>’s internals here, so it may sound like it won’t move <code>HEAD</code> but only the branch, but rest assured that it moves both.
  <a class="footnote-return" href="#fnref:9">↩</a></li>
 <li id="fn:2">Using <code>C3</code> for readability; substitute with proper commit ID.
