@@ -9,7 +9,7 @@
         <meta name="description" content="Using Irony, Clang &amp; Co">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.55.3" />
+        <meta name="generator" content="Hugo 0.57.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -177,11 +177,11 @@
 
 <p>This snippet was lifted from the project&rsquo;s homepage.  Make sure you do the Windows performance tweaks; there are <a href="https://github.com/Sarcasm/irony-mode/wiki/Setting-up-irony-mode-on-Windows">good reasons</a> to do this.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#8be9fd;font-style:italic">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-read-delay</span>)
-  (<span style="color:#8be9fd;font-style:italic">setq</span> <span style="color:#8be9fd;font-style:italic">w32-pipe-read-delay</span> <span style="color:#bd93f9">0</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#50fa7b">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-read-delay</span>)
+  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">w32-pipe-read-delay</span> <span style="color:#bd93f9">0</span>))
 <span style="color:#6272a4">;; Set the buffer size to 64K on Windows (from the original 4K)</span>
-(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#8be9fd;font-style:italic">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-buffer-size</span>)
-  (<span style="color:#8be9fd;font-style:italic">setq</span> <span style="color:#8be9fd;font-style:italic">irony-server-w32-pipe-buffer-size</span> (<span style="color:#8be9fd;font-style:italic">*</span> <span style="color:#bd93f9">64</span> <span style="color:#bd93f9">1024</span>)))</code></pre></div>
+(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#50fa7b">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-buffer-size</span>)
+  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">irony-server-w32-pipe-buffer-size</span> (<span style="color:#50fa7b">*</span> <span style="color:#bd93f9">64</span> <span style="color:#bd93f9">1024</span>)))</code></pre></div>
 
 <h1 id="clang">Clang</h1>
 

@@ -9,7 +9,7 @@
         <meta name="description" content="Know thy compiler!">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.55.3" />
+        <meta name="generator" content="Hugo 0.57.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2017-02-08" itemprop="dateUpdated">Updated Fri, Dec 21, 2018</time>
+<time datetime="2017-02-08" itemprop="dateUpdated">Updated Sat, Sep 7, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -133,21 +133,29 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    <p>Here are some of the useful, but not widely known, options of GCC that I want to document.</p>
+    
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">gcc -dumpspecs</span></code></pre></div>
+<p>Here are some of the useful, but not widely known, options of GCC that I want to document.</p>
+
+<h1 id="gcc-build-specs">GCC Build Specs</h1>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">gcc</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">dumpspecs</span></code></pre></div>
 
 <p>Gives the specifications with which GCC was built.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">gcc -fstack-usage</span></code></pre></div>
+<h1 id="stack-usage">Stack Usage</h1>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">gcc</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">fstack</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">usage</span></code></pre></div>
 
 <p>Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage.  <a href="https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html#index-fstack-usage">See the manual</a> for details on deciphering its output.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#6272a4"># get macros defined when the language is C++</span>
-<span style="color:#50fa7b">cpp -xc++ -dM /dev/null</span>
+<h1 id="macros-and-include-directories">Macros and Include Directories</h1>
 
-<span style="color:#6272a4"># get macros defined when the language is C</span>
-<span style="color:#50fa7b">cpp -dM /dev/null</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"># <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">macros</span> <span style="color:#8be9fd;font-style:italic">defined</span> <span style="color:#8be9fd;font-style:italic">when</span> <span style="color:#8be9fd;font-style:italic">the</span> <span style="color:#8be9fd;font-style:italic">language</span> <span style="color:#8be9fd;font-style:italic">is</span> <span style="color:#8be9fd;font-style:italic">C</span><span style="color:#ff79c6">++</span>
+<span style="color:#8be9fd;font-style:italic">cpp</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">xc</span><span style="color:#ff79c6">++</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">dM</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">null</span>
+
+# <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">macros</span> <span style="color:#8be9fd;font-style:italic">defined</span> <span style="color:#8be9fd;font-style:italic">when</span> <span style="color:#8be9fd;font-style:italic">the</span> <span style="color:#8be9fd;font-style:italic">language</span> <span style="color:#8be9fd;font-style:italic">is</span> <span style="color:#8be9fd;font-style:italic">C</span>
+<span style="color:#8be9fd;font-style:italic">cpp</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">dM</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">null</span></code></pre></div>
 
 <p>Prints the macros defined when the preprocessor was called.  The last command <a href="http://stackoverflow.com/a/2224357/183120">is popular</a> as <code>gcc -dM -E - &lt;&lt; /dev/null</code> but is not as good for two reasons:</p>
 
@@ -158,17 +166,49 @@
 
 <p>For setting up auto completion in Emacs using Irony, I needed to know the include directories GCC searches.  How do we find them?</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">cpp -xc++ -Wp,-v /dev/null</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">cpp</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">xc</span><span style="color:#ff79c6">++</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">Wp</span>,<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">v</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">null</span></code></pre></div>
 
 <p>This prints the list of standard include directories.  <code>g++ -v some.cpp</code> would give it too, but this is fast &amp; easy; no input file or fake compiler calls.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">g</span><span style="color:#ff79c6">++</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">std</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">c</span><span style="color:#ff79c6">++</span><span style="color:#8be9fd;font-style:italic">14</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">O3</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">c</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">masm</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">intel</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">fverbose</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">asm</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">Wa</span>,<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">adhln</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">prgm</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">s</span> <span style="color:#8be9fd;font-style:italic">prgm</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cpp</span></code></pre></div>
+<h1 id="disassembly">Disassembly</h1>
 
-<p>will show the disassembly of a compilation unit in Intel syntax <em>with inter-weaved source listing</em>.  This one is very popular among optimisation enthusiasts 😃  Here&rsquo;s one more for them:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">g</span><span style="color:#ff79c6">++</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">std</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">c</span><span style="color:#ff79c6">++</span><span style="color:#bd93f9">14</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">O3</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">c</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">masm</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">intel</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">fverbose</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">asm</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">Wa</span>,<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">adhln</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">prgm</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">s</span> <span style="color:#8be9fd;font-style:italic">prgm</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cpp</span></code></pre></div>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">g++ -fdump-class-hierarchy my_classes.cpp</span></code></pre></div>
+<p>will show the disassembly of a compilation unit in Intel syntax <em>with inter-weaved source listing</em>.  This one is very popular among optimisation enthusiasts 😃  Here&rsquo;s one more for them.</p>
+
+<h1 id="class-memory-layout">Class Memory Layout</h1>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">g</span><span style="color:#ff79c6">++</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">fdump</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">class</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">hierarchy</span> <span style="color:#8be9fd;font-style:italic">my_classes</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cpp</span></code></pre></div>
 
 <p>This would show object memory layout of classes in the source; includes classes with complex inheritance hierarchies.</p>
+
+<h1 id="optimization-result">Optimization Result</h1>
+
+<p>With GCC 9 you can check if an optimization was performed or missed (<a href="https://gcc.gnu.org/onlinedocs/gcc-9.1.0/gcc/Developer-Options.html#index-fopt-info"><code>-fopt-info</code></a>). Example</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic">$ <span style="color:#8be9fd;font-style:italic">g</span><span style="color:#ff79c6">++</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">c</span> <span style="color:#8be9fd;font-style:italic">inline</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cc</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">O2</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">fopt</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">info</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">inline</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">all</span>
+<span style="color:#8be9fd;font-style:italic">inline</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cc:</span><span style="color:#bd93f9">24</span><span style="color:#ff79c6">:</span><span style="color:#bd93f9">11</span><span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">note:</span> <span style="color:#8be9fd;font-style:italic">Considering</span> <span style="color:#8be9fd;font-style:italic">inline</span> <span style="color:#8be9fd;font-style:italic">candidate</span> <span style="color:#8be9fd;font-style:italic">void</span> <span style="color:#8be9fd;font-style:italic">foreach</span>(<span style="color:#8be9fd;font-style:italic">T</span>, <span style="color:#8be9fd;font-style:italic">T</span>, <span style="color:#8be9fd;font-style:italic">void</span> (<span style="color:#ff79c6">*</span>)(<span style="color:#8be9fd;font-style:italic">E</span>)) [<span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">T</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">**</span>; <span style="color:#8be9fd;font-style:italic">E</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">*</span>]<span style="color:#ff79c6">/</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">.</span>
+<span style="color:#8be9fd;font-style:italic">inline</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cc:</span><span style="color:#bd93f9">24</span><span style="color:#ff79c6">:</span><span style="color:#bd93f9">11</span><span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">optimized:</span>  <span style="color:#8be9fd;font-style:italic">Inlining</span> <span style="color:#8be9fd;font-style:italic">void</span> <span style="color:#8be9fd;font-style:italic">foreach</span>(<span style="color:#8be9fd;font-style:italic">T</span>, <span style="color:#8be9fd;font-style:italic">T</span>, <span style="color:#8be9fd;font-style:italic">void</span> (<span style="color:#ff79c6">*</span>)(<span style="color:#8be9fd;font-style:italic">E</span>)) [<span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">T</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">**</span>; <span style="color:#8be9fd;font-style:italic">E</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">*</span>]<span style="color:#ff79c6">/</span><span style="color:#bd93f9">2</span> <span style="color:#8be9fd;font-style:italic">into</span> <span style="color:#8be9fd;font-style:italic">int</span> <span style="color:#8be9fd;font-style:italic">main</span>(<span style="color:#8be9fd;font-style:italic">int</span>, <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">**</span>)<span style="color:#ff79c6">/</span><span style="color:#bd93f9">1</span><span style="color:#ff79c6">.</span>
+<span style="color:#8be9fd;font-style:italic">inline</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cc:</span><span style="color:#bd93f9">19</span><span style="color:#ff79c6">:</span><span style="color:#bd93f9">12</span><span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">missed:</span>   <span style="color:#8be9fd;font-style:italic">not</span> <span style="color:#8be9fd;font-style:italic">inlinable:</span> <span style="color:#8be9fd;font-style:italic">void</span> <span style="color:#8be9fd;font-style:italic">inline_me</span>(<span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">/</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">int</span> <span style="color:#8be9fd;font-style:italic">std:</span><span style="color:#ff79c6">:</span><span style="color:#8be9fd;font-style:italic">puts</span>(<span style="color:#8be9fd;font-style:italic">const</span> <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">/</span><span style="color:#bd93f9">3</span>, <span style="color:#8be9fd;font-style:italic">function</span> <span style="color:#8be9fd;font-style:italic">body</span> <span style="color:#8be9fd;font-style:italic">not</span> <span style="color:#8be9fd;font-style:italic">available</span>
+<span style="color:#8be9fd;font-style:italic">inline</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">cc:</span><span style="color:#bd93f9">13</span><span style="color:#ff79c6">:</span><span style="color:#bd93f9">8</span><span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">optimized:</span>  <span style="color:#8be9fd;font-style:italic">Inlined</span> <span style="color:#8be9fd;font-style:italic">void</span> <span style="color:#8be9fd;font-style:italic">inline_me</span>(<span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">/</span><span style="color:#bd93f9">4</span> <span style="color:#8be9fd;font-style:italic">into</span> <span style="color:#8be9fd;font-style:italic">int</span> <span style="color:#8be9fd;font-style:italic">main</span>(<span style="color:#8be9fd;font-style:italic">int</span>, <span style="color:#8be9fd;font-style:italic">char</span><span style="color:#ff79c6">**</span>)<span style="color:#ff79c6">/</span><span style="color:#bd93f9">1</span> <span style="color:#8be9fd;font-style:italic">which</span> <span style="color:#8be9fd;font-style:italic">now</span> <span style="color:#8be9fd;font-style:italic">has</span> <span style="color:#8be9fd;font-style:italic">time</span> <span style="color:#bd93f9">127.363637</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">size</span> <span style="color:#bd93f9">11</span>, <span style="color:#8be9fd;font-style:italic">net</span> <span style="color:#8be9fd;font-style:italic">change</span> <span style="color:#8be9fd;font-style:italic">of</span> <span style="color:#ff79c6">+</span><span style="color:#bd93f9">0</span><span style="color:#ff79c6">.</span>
+<span style="color:#8be9fd;font-style:italic">Unit</span> <span style="color:#8be9fd;font-style:italic">growth</span> <span style="color:#8be9fd;font-style:italic">for</span> <span style="color:#8be9fd;font-style:italic">small</span> <span style="color:#8be9fd;font-style:italic">function</span> <span style="color:#8be9fd;font-style:italic">inlining:</span> <span style="color:#bd93f9">16</span><span style="color:#ff79c6">-&gt;</span><span style="color:#bd93f9">16</span> (<span style="color:#bd93f9">0</span><span style="color:#ff79c6">%</span>)
+
+<span style="color:#8be9fd;font-style:italic">Inlined</span> <span style="color:#bd93f9">2</span> <span style="color:#8be9fd;font-style:italic">calls</span>, <span style="color:#8be9fd;font-style:italic">eliminated</span> <span style="color:#bd93f9">1</span> <span style="color:#8be9fd;font-style:italic">functions</span></code></pre></div>
+
+<h1 id="vectorization">Vectorization</h1>
+
+<p>Use <code>-ftree-vectorize</code> to enable vectorization of loops; this is implicitly enabled at <code>-O3</code>.</p>
+
+<h1 id="sanitizers">Sanitizers</h1>
+
+<p>If you’re a C or C++ programmer, you should definitely try the sanitizers GCC has (<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html"><code>-fsanitize</code></a>).  Some interesting ones</p>
+
+<ul>
+<li>Address sanitizer (<code>-fsanitize=address</code>)</li>
+<li>Leak sanitizer (<code>-fsanitize=leak</code>)</li>
+<li>Thread sanitizer (<code>-fsanitize=thread</code>)</li>
+<li>Undefined Behaviour sanitizer (<code>-fsanitize=undefined</code>)</li>
+</ul>
 
 <p>What interesting GCC options do you know?</p>
 

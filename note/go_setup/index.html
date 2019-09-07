@@ -9,7 +9,7 @@
         <meta name="description" content="Make Emacs your Go IDE">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.55.3" />
+        <meta name="generator" content="Hugo 0.57.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -206,11 +206,11 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;exec-path</span> (<span style="color:#8be9fd;font-style:italic">concat</span> (<span style="color:#8be9fd;font-style:italic">getenv</span> <span style="color:#f1fa8c">&#34;GOPATH&#34;</span>) <span style="color:#f1fa8c">&#34;bin&#34;</span>) t)</code></pre></div></li>
 <li>Append to <code>.emacs</code>:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;load-path</span> (<span style="color:#8be9fd;font-style:italic">concat</span> (<span style="color:#8be9fd;font-style:italic">getenv</span> <span style="color:#f1fa8c">&#34;GOPATH&#34;</span>) <span style="color:#f1fa8c">&#34;src/github.com/dougm/goflymake&#34;</span>))
-(<span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;go-flymake</span>)
+(<span style="color:#50fa7b">require</span> <span style="color:#f1fa8c">&#39;go-flymake</span>)
 <span style="color:#6272a4">; Use goimports instead of go-fmt for formatting with intelligent package addition/removal</span>
-(<span style="color:#8be9fd;font-style:italic">setq</span> <span style="color:#8be9fd;font-style:italic">gofmt-command</span> <span style="color:#f1fa8c">&#34;goimports&#34;</span>)
+(<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">gofmt-command</span> <span style="color:#f1fa8c">&#34;goimports&#34;</span>)
 (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;go-mode-hook</span> (<span style="color:#8be9fd;font-style:italic">lambda</span> ()
-                          (<span style="color:#8be9fd;font-style:italic">set</span> (<span style="color:#8be9fd;font-style:italic">make-local-variable</span> <span style="color:#f1fa8c">&#39;company-backends</span>) <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">company-go</span>))
+                          (<span style="color:#50fa7b">set</span> (<span style="color:#8be9fd;font-style:italic">make-local-variable</span> <span style="color:#f1fa8c">&#39;company-backends</span>) <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">company-go</span>))
                           (<span style="color:#8be9fd;font-style:italic">local-set-key</span> (<span style="color:#8be9fd;font-style:italic">kbd</span> <span style="color:#f1fa8c">&#34;M-.&#34;</span>) <span style="color:#f1fa8c">&#39;godef-jump</span>)
                           (<span style="color:#8be9fd;font-style:italic">go-eldoc-setup</span>)
                           <span style="color:#6272a4">; call Gofmt before saving</span>

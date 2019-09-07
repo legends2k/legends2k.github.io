@@ -9,7 +9,7 @@
         <meta name="description" content="Summary of my ‘Aha!’ moments with Git">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.55.3" />
+        <meta name="generator" content="Hugo 0.57.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -306,7 +306,7 @@
 <span style="color:#8be9fd;font-style:italic">On</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">master</span>
 …
 <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
-# <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
+# <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#bd93f9">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
 
 <p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
 
@@ -342,13 +342,13 @@
 # <span style="color:#8be9fd;font-style:italic">create</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">checkout</span>; <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">now</span> <span style="color:#8be9fd;font-style:italic">attached</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">topic</span>
 <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">b</span> <span style="color:#8be9fd;font-style:italic">topic</span>
 # <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">one</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">behind</span> <span style="color:#8be9fd;font-style:italic">topic</span>; <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">will</span> <span style="color:#8be9fd;font-style:italic">also</span> <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">HEAD</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">topic</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">1</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">topic</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">1</span>
 # <span style="color:#8be9fd;font-style:italic">detach</span> <span style="color:#8be9fd;font-style:italic">HEAD!</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">2</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">2</span>
 # <span style="color:#8be9fd;font-style:italic">attach</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">master</span>
 <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span>
-# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">back</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#8be9fd;font-style:italic">3</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#8be9fd;font-style:italic">3</span>
+# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">back</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#bd93f9">3</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">3</span>
 # <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">forward</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">backward</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">ID</span>
 <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">f08ad6</span></code></pre></div>
 

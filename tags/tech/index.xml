@@ -87,9 +87,9 @@ External Tools Though not part of the canonical tool set, these are written by s
       
       <guid>https://legends2k.github.io/note/useful_gcc_opts/</guid>
       <description>Here are some of the useful, but not widely known, options of GCC that I want to document.
-gcc -dumpspecs Gives the specifications with which GCC was built.
-gcc -fstack-usage Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage. See the manual for details on deciphering its output.
-# get macros defined when the language is C++ cpp -xc++ -dM /dev/null # get macros defined when the language is C cpp -dM /dev/null Prints the macros defined when the preprocessor was called.</description>
+GCC Build Specs gcc -dumpspecs Gives the specifications with which GCC was built.
+Stack Usage gcc -fstack-usage Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage. See the manual for details on deciphering its output.
+Macros and Include Directories # get macros defined when the language is C++ cpp -xc++ -dM /dev/null # get macros defined when the language is C cpp -dM /dev/null Prints the macros defined when the preprocessor was called.</description>
     </item>
     
     <item>

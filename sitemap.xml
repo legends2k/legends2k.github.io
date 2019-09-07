@@ -9,26 +9,22 @@
   
   <url>
     <loc>https://legends2k.github.io/tags/</loc>
-    <lastmod>2019-05-01T10:23:04+05:30</lastmod>
-    <priority>0</priority>
+    <lastmod>2019-09-07T11:26:26+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/tech/</loc>
-    <lastmod>2019-05-01T10:23:04+05:30</lastmod>
-    <priority>0</priority>
+    <lastmod>2019-09-07T11:26:26+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/tools/</loc>
-    <lastmod>2019-05-01T10:23:04+05:30</lastmod>
-    <priority>0</priority>
+    <lastmod>2019-09-07T11:26:26+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/vcs/</loc>
     <lastmod>2019-05-01T10:23:04+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -39,7 +35,6 @@
   <url>
     <loc>https://legends2k.github.io/tags/linux/</loc>
     <lastmod>2019-04-29T12:22:59+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -50,19 +45,26 @@
   <url>
     <loc>https://legends2k.github.io/tags/kaizen/</loc>
     <lastmod>2018-12-21T20:15:28+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/mind/</loc>
     <lastmod>2018-12-21T20:15:28+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/psychology/</loc>
     <lastmod>2018-12-21T20:15:28+05:30</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/emacs/</loc>
+    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/go/</loc>
+    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
   </url>
   
   <url>
@@ -71,21 +73,8 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/tags/emacs/</loc>
-    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://legends2k.github.io/tags/go/</loc>
-    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://legends2k.github.io/tags/ide/</loc>
     <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -99,26 +88,28 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/note/clean_me/</loc>
-    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://legends2k.github.io/tags/hardware/</loc>
     <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/security/</loc>
     <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/clean_me/</loc>
+    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/tinker/</loc>
     <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/drawing/</loc>
+    <lastmod>2018-12-20T15:34:53+05:30</lastmod>
   </url>
   
   <url>
@@ -127,21 +118,13 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/tags/drawing/</loc>
-    <lastmod>2018-12-20T15:34:53+05:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://legends2k.github.io/tags/setup/</loc>
     <lastmod>2018-12-20T15:34:53+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/tablet/</loc>
     <lastmod>2018-12-20T15:34:53+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -150,49 +133,43 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/post/valley_review/</loc>
-    <lastmod>2018-07-24T10:39:43-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://legends2k.github.io/tags/culture/</loc>
     <lastmod>2018-07-24T10:39:43-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/life/</loc>
     <lastmod>2018-07-24T10:39:43-07:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/post/valley_review/</loc>
+    <lastmod>2018-07-24T10:39:43-07:00</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/philosophy/</loc>
     <lastmod>2018-07-24T10:39:43-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://legends2k.github.io/post/inspirers/</loc>
-    <lastmod>2018-12-20T15:34:53+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/bookmark/</loc>
     <lastmod>2018-12-20T15:34:53+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/creators/</loc>
     <lastmod>2018-12-20T15:34:53+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/inspiration/</loc>
     <lastmod>2018-12-20T15:34:53+05:30</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/post/inspirers/</loc>
+    <lastmod>2018-12-20T15:34:53+05:30</lastmod>
   </url>
   
   <url>
@@ -203,7 +180,6 @@
   <url>
     <loc>https://legends2k.github.io/tags/meta/</loc>
     <lastmod>2018-06-17T07:11:14-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -228,18 +204,22 @@
   
   <url>
     <loc>https://legends2k.github.io/about/</loc>
-    <lastmod>2018-12-21T19:47:14+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://legends2k.github.io/note/useful_gcc_opts/</loc>
-    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
+    <lastmod>2019-09-07T11:26:26+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/gcc/</loc>
-    <lastmod>2018-12-21T19:29:30+05:30</lastmod>
-    <priority>0</priority>
+    <lastmod>2019-09-07T11:26:26+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/note/useful_gcc_opts/</loc>
+    <lastmod>2019-09-07T11:26:26+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://legends2k.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2018-06-17T07:11:14-07:00</lastmod>
   </url>
   
   <url>
@@ -248,9 +228,8 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/tags/c&#43;&#43;/</loc>
+    <loc>https://legends2k.github.io/tags/lua/</loc>
     <lastmod>2018-06-17T07:11:14-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -259,15 +238,8 @@
   </url>
   
   <url>
-    <loc>https://legends2k.github.io/tags/lua/</loc>
-    <lastmod>2018-06-17T07:11:14-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://legends2k.github.io/tags/package/</loc>
     <lastmod>2018-06-17T07:11:14-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -278,13 +250,11 @@
   <url>
     <loc>https://legends2k.github.io/tags/hugo/</loc>
     <lastmod>2018-06-17T07:11:14-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://legends2k.github.io/tags/typesetting/</loc>
     <lastmod>2018-06-17T07:11:14-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -295,7 +265,6 @@
   <url>
     <loc>https://legends2k.github.io/tags/writing/</loc>
     <lastmod>2018-12-21T00:08:37+05:30</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
