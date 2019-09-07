@@ -491,13 +491,32 @@ blockquote ::-moz-selection {
 
 .post-stub-date {
     display: inline-block;
+    float: right;
+    line-height: 250%;
     font-size: 80%;
     color: darkgray;
+}
+.post-stub a:hover .post-stub-date {
+    display: none;
 }
 .post-stub {
     border-bottom: 1px dotted #303030;
     margin: 0;
     position: relative;
+}
+.post-stub-tag-list {
+    display: none;
+    float: right;
+}
+.post-stub-tag-item {
+    color: #FF9994;
+    letter-spacing: 0.2mm;
+    font-size: 0.8em;
+    font-style: italic;
+    padding: 0 7px;
+}
+.post-stub a:hover .post-stub-tag-list {
+    display: inline;
 }
 .post-stub:first-child {
     padding-top: 0;
@@ -513,7 +532,6 @@ blockquote ::-moz-selection {
 .post-stub a:hover {
     background: #FCF5F5;
     color: #F03838;
-    padding: 20px 12px;
 }
 .post-stub a:hover .post-stub-tag {
     background: #F03838;
