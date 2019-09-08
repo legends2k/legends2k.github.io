@@ -491,8 +491,6 @@ blockquote ::-moz-selection {
 
 .post-stub-date {
     display: inline-block;
-    float: right;
-    line-height: 250%;
     font-size: 80%;
     color: darkgray;
 }
@@ -504,20 +502,6 @@ blockquote ::-moz-selection {
     margin: 0;
     position: relative;
 }
-.post-stub-tag-list {
-    display: none;
-    float: right;
-}
-.post-stub-tag-item {
-    color: #FF9994;
-    letter-spacing: 0.2mm;
-    font-size: 0.8em;
-    font-style: italic;
-    padding: 0 7px;
-}
-.post-stub a:hover .post-stub-tag-list {
-    display: inline;
-}
 .post-stub:first-child {
     padding-top: 0;
 }
@@ -525,9 +509,12 @@ blockquote ::-moz-selection {
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    display: block;
     color: #424242;
     padding: 20px 5px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 .post-stub a:hover {
     background: #FCF5F5;
@@ -541,11 +528,23 @@ blockquote ::-moz-selection {
     background: #303030;
     border-radius: 3px;
     color: #FFF;
-    float: right;
     font-size: 10px;
-    margin: 7px 0 0;
     padding: 0 5px;
     text-transform: uppercase;
+}
+
+.post-stub-tag-list {
+    display: none;
+}
+.post-stub a:hover .post-stub-tag-list {
+    display: inline;
+}
+.post-stub-tag-item {
+    color: #FF9994;
+    letter-spacing: 0.2mm;
+    font-size: 0.8em;
+    font-style: italic;
+    padding: 0 7px;
 }
 
 .post-stub-title {
@@ -792,6 +791,16 @@ blockquote ::-moz-selection {
     .post-stub-date:before {
         content: "";
         display: block;
+    }
+
+    /* disable tag(s) display on hover for small devices which mostly wouldn’t
+       have hover (no mouse) or the realty to show them */
+    .post-stub a:hover .post-stub-date {
+        display: inline-block;
+    }
+
+    .post-stub a:hover .post-stub-tag-list {
+        display: none;
     }
 
     .post-list {
