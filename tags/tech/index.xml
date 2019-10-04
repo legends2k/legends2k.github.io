@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Wed, 20 Feb 2019 19:56:56 +0530</lastBuildDate>
+    <lastBuildDate>Tue, 26 Feb 2019 20:54:34 +0530</lastBuildDate>
     
 	<atom:link href="https://legends2k.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>First game jam experience!</title>
+      <link>https://legends2k.github.io/note/sneak_out/</link>
+      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/sneak_out/</guid>
+      <description>I had a great first experience participating in a game jam &amp;ndash; 5th Alakajam. A three-day game jam where we1 wrote a primitive, real-time tactical strategy game: Sneak Out. The game is playable within a browser, thanks to raylib and WebAssembly.
+ Sneak Out! from within the browser
+  I’m a person with a decent degree of analysis paralysis. A code jam was the perfect antidote to kick me out of my rut!</description>
+    </item>
     
     <item>
       <title>I Git it!</title>

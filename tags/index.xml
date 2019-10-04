@@ -7,15 +7,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Wed, 20 Feb 2019 19:56:56 +0530</lastBuildDate>
+    <lastBuildDate>Tue, 26 Feb 2019 20:54:34 +0530</lastBuildDate>
     
 	<atom:link href="https://legends2k.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>self</title>
+      <link>https://legends2k.github.io/tags/self/</link>
+      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/self/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>software</title>
+      <link>https://legends2k.github.io/tags/software/</link>
+      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/software/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>tech</title>
       <link>https://legends2k.github.io/tags/tech/</link>
-      <pubDate>Wed, 20 Feb 2019 19:56:56 +0530</pubDate>
+      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/tech/</guid>
       <description></description>
