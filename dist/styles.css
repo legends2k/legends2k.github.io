@@ -189,13 +189,13 @@ table tr {
 }
 
 ::selection {
-    background: #FFF5B8;
+    background: #FFF200;
     color: #000;
     display: block;
 }
 
 ::-moz-selection {
-    background: #FFF5B8;
+    background: #FFF200;
     color: #000;
     display: block;
 }

@@ -117,7 +117,7 @@
 
   
 
-<time datetime="2019-02-26" itemprop="dateUpdated">Updated Fri, Oct 4, 2019</time>
+<time datetime="2019-02-26" itemprop="dateUpdated">Updated Wed, Oct 9, 2019</time>
         </span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
@@ -149,7 +149,7 @@
 
 <h1 id="hurdles-crossed">Hurdles Crossed</h1>
 
-<p>We hit a lot of roadblocks which we swiftly hurdled.  Normally I’d have spent days or weeks to &ldquo;solve it perfectly&rdquo; &ndash; a fool’s errand.  A game jam makes you realize that the clock is constantly ticking and don’t have that kind of time.</p>
+<p>We hit a lot of roadblocks which we swiftly hurdled.  Normally I’d have spent days or weeks to &ldquo;solve it perfectly&rdquo; &ndash; a fool’s errand.  A game jam makes you realize that the clock is constantly ticking and you don’t have that kind of time.</p>
 
 <h2 id="scope-minimization">Scope Minimization</h2>
 
@@ -180,10 +180,10 @@
 <ol>
 <li>Help text</li>
 <li>About screen</li>
-<li>Balance game to be not too hard / too easy</li>
+<li>Game balance (tweak b/w too hard vs too easy)</li>
 </ol>
 
-<p>These are absolutely needed to call something a game instead of a tech demo.  <em>When there’s a good-to-have feature vs showing help for existing feature, choose the latter</em>.  I find it odd to even state this, but many developers hastily or naively overlook.</p>
+<p>These are absolutely needed to call something a game rather than a tech demo.  <em>When there’s a good-to-have feature vs showing help for an existing feature, choose the latter</em>.  I find it odd to even state this, but many developers naively overlook this because it isn’t as <em>fun</em> from a programming viewpoint; the <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> however is inversely proportional 😉.</p>
 
 <h2 id="technical-issues">Technical Issues</h2>
 
@@ -202,22 +202,21 @@
 <li><strong>Drawing</strong>
 
 <ul>
-<li>raylib 2.0 has no Bézier curve drawing</li>
+<li>raylib 2.0 doesn’t offer Bézier curves</li>
 <li>raylib expects filled figure points ordered counter-clockwise</li>
 </ul></li>
-<li><strong>JavaScript to C++ Porting</strong> (<a href="https://legends2k.github.io/2d-fov/">FoV</a> code)
+<li><strong>Porting JavaScript to C++</strong> (<a href="https://legends2k.github.io/2d-fov/">FoV</a> code)
 
 <ul>
 <li>Functions returning <code>undefined</code> replaced with <code>std::optional</code></li>
 <li>Multiple return values with <a href="https://skebanga.github.io/structured-bindings/">structured bindings (C++17)</a></li>
 <li>Functor of <code>Array.sort</code> vs <code>std::sort</code> (<code>&lt; 0</code> vs <code>bool</code>)</li>
 </ul></li>
-<li><strong>raylib’s <code>emsdk</code> Building</strong>
+<li><strong>Building raylib for WebAssembly</strong>
 
 <ul>
-<li>Issues in raylib’s <a href="https://emscripten.org/">Emscripten</a> scripts</li>
-<li>Enabling VAO supported for <code>PLATFORM_WEB</code> led to exceptions</li>
-<li>Game pad not checked before respective API calls</li>
+<li>Issues in <a href="https://emscripten.org/">Emscripten</a> build scripts</li>
+<li>Exceptions in enabling VAO support and <a href="https://emscripten.org/docs/api_reference/html5.h.html#c.emscripten_get_num_gamepads">querying game pads</a> without sampling game pad data &ndash; <a href="https://github.com/raysan5/raylib/commit/0c567cd259285fb33b3e2ab514c48322da0a0000#diff-9fb9786d0a4c67039ae8e8af40475bca">now fixed</a></li>
 </ul></li>
 </ol>
 
@@ -233,7 +232,7 @@
 
 <p>Game jams and code jams are great exercises &ndash; not just technically but (project) managerially too!  Most of my learnings were in this area.  Of course, depending on your existing skills, you may learn more technically.</p>
 
-<p>Participating in a jam is a very refreshing and rewarding experience.  Highly recommended to break the vicious loop of not finishing started projects.</p>
+<p>Participating in a jam is a very refreshing and rewarding experience.  Highly recommended to break the vicious loop of not <a href="https://makegames.tumblr.com/post/1136623767/finishing-a-game">finishing started projects</a>.</p>
 <div class="footnotes">
 
 <hr />
