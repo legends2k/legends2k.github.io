@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Bits of Insight</title>
@@ -13,20 +13,20 @@
     
     
     <item>
+      <title>gamedev</title>
+      <link>https://legends2k.github.io/tags/gamedev/</link>
+      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/gamedev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>self</title>
       <link>https://legends2k.github.io/tags/self/</link>
       <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/self/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>software</title>
-      <link>https://legends2k.github.io/tags/software/</link>
-      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/software/</guid>
       <description></description>
     </item>
     
@@ -67,6 +67,15 @@
     </item>
     
     <item>
+      <title>language</title>
+      <link>https://legends2k.github.io/tags/language/</link>
+      <pubDate>Thu, 06 Sep 2018 17:00:46 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>kaizen</title>
       <link>https://legends2k.github.io/tags/kaizen/</link>
       <pubDate>Sun, 17 Jun 2018 23:23:10 -0700</pubDate>
@@ -103,24 +112,6 @@
     </item>
     
     <item>
-      <title>go</title>
-      <link>https://legends2k.github.io/tags/go/</link>
-      <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ide</title>
-      <link>https://legends2k.github.io/tags/ide/</link>
-      <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/ide/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>hardware</title>
       <link>https://legends2k.github.io/tags/hardware/</link>
       <pubDate>Sat, 12 May 2018 15:00:46 -0700</pubDate>
@@ -153,24 +144,6 @@
       <pubDate>Tue, 24 Apr 2018 10:53:43 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/drawing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>setup</title>
-      <link>https://legends2k.github.io/tags/setup/</link>
-      <pubDate>Tue, 24 Apr 2018 10:53:43 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/setup/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tablet</title>
-      <link>https://legends2k.github.io/tags/tablet/</link>
-      <pubDate>Tue, 24 Apr 2018 10:53:43 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/tablet/</guid>
       <description></description>
     </item>
     
@@ -247,54 +220,9 @@
     </item>
     
     <item>
-      <title>c&#43;&#43;</title>
-      <link>https://legends2k.github.io/tags/c&#43;&#43;/</link>
-      <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/c&#43;&#43;/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>lua</title>
-      <link>https://legends2k.github.io/tags/lua/</link>
-      <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/lua/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>package</title>
-      <link>https://legends2k.github.io/tags/package/</link>
-      <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/package/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://legends2k.github.io/tags/hugo/</link>
-      <pubDate>Fri, 12 Aug 2016 17:00:46 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>typesetting</title>
-      <link>https://legends2k.github.io/tags/typesetting/</link>
-      <pubDate>Fri, 12 Aug 2016 17:00:46 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/typesetting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>writing</title>
       <link>https://legends2k.github.io/tags/writing/</link>
-      <pubDate>Mon, 11 Jul 2016 17:00:46 +0530</pubDate>
+      <pubDate>Fri, 12 Aug 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/writing/</guid>
       <description></description>

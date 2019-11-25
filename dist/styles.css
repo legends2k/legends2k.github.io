@@ -111,7 +111,6 @@ blockquote {
     background-color: #fffacd;
 }
 blockquote p {
-    /* color: #AEADAD; */
     display: block;
     font-style: italic;
     margin: 0;
@@ -143,6 +142,7 @@ pre {
 /* have rounded radius for code snippets */
 div.highlight {
     border-radius: 5px;
+    margin-top: 0.25em;
 }
 
 /* have black background as in code */
@@ -156,11 +156,17 @@ pre code {
     padding: 0;
 }
 
-code {
+/* inline code i.e. code not inside div.highlight pre */
+code:not([class])  {
+    background-color: #F1F9FF;
     padding: 2px 4px;
     font-size: 90%;
     color: #F03838;
     border-radius: 4px;
+}
+
+blockquote code:not([class]) {
+    background-color: inherit;
 }
 
 hr {

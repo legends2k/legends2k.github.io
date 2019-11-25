@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tools on Bits of Insight</title>
@@ -23,7 +23,7 @@ Basics  Git is a distributed VCS; each repo can be both a server/client Honestly
     </item>
     
     <item>
-      <title>Go Setup</title>
+      <title>Emacs Go Setup</title>
       <link>https://legends2k.github.io/note/go_setup/</link>
       <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
       
@@ -74,13 +74,22 @@ Macros and Include Directories # get macros defined when the language is C++ cpp
     </item>
     
     <item>
-      <title>Emacs C&#43;&#43; auto-complete setup on Windows</title>
-      <link>https://legends2k.github.io/note/install-irony-win32/</link>
+      <title>Emacs C&#43;&#43; auto-complete on Windows</title>
+      <link>https://legends2k.github.io/note/c&#43;&#43;_irony_win32/</link>
       <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
       
-      <guid>https://legends2k.github.io/note/install-irony-win32/</guid>
+      <guid>https://legends2k.github.io/note/c&#43;&#43;_irony_win32/</guid>
       <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
 The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
+    </item>
+    
+    <item>
+      <title>Lua Setup on Windows</title>
+      <link>https://legends2k.github.io/note/lua_rocks/</link>
+      <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/lua_rocks/</guid>
+      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved  Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)  Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
     </item>
     
     <item>

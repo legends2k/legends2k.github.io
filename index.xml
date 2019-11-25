@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bits of Insight</title>
@@ -44,6 +44,16 @@ My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB 
     </item>
     
     <item>
+      <title>C&#43;&#43; Primer</title>
+      <link>https://legends2k.github.io/note/c&#43;&#43;_primer/</link>
+      <pubDate>Thu, 06 Sep 2018 17:00:46 -0700</pubDate>
+      
+      <guid>https://legends2k.github.io/note/c&#43;&#43;_primer/</guid>
+      <description>Within C++, there is a much smaller and cleaner language struggling to get out. — Bjarne Stroustrup
+ C++ is vast. If you’re beginning to learn it, the internet has enough discouraging words. Just start learning instead of reading about it i.e. don’t learn about C++, learn C++. The innumerable topics might be daunting, but don’t worry. Knowing a few concepts will get you productive. More than the actual content, this article aims to give you keywords of that set, so that you can pursue them further.</description>
+    </item>
+    
+    <item>
       <title>Ideating vs Acting</title>
       <link>https://legends2k.github.io/post/ideating_acting/</link>
       <pubDate>Sun, 17 Jun 2018 23:23:10 -0700</pubDate>
@@ -54,7 +64,7 @@ Even as adults, many read motivational text, watch TED talks, discuss our proble
     </item>
     
     <item>
-      <title>Go Setup</title>
+      <title>Emacs Go Setup</title>
       <link>https://legends2k.github.io/note/go_setup/</link>
       <pubDate>Sun, 17 Jun 2018 07:00:43 -0700</pubDate>
       
@@ -126,7 +136,7 @@ External Tools Though not part of the canonical tool set, these are written by s
       
       <guid>https://legends2k.github.io/post/inspirers/</guid>
       <description>I have been inspired by many unknown personalities all over the internet and otherwise, but a few linger on my mind consistently to be listed here. Not all of them are authors but their works inspired me in some way.
-Kalki R. Krishnamurthy A great writer, and freedom fighter, who effortlessly balanced content against gripping narration. He pioneered in writing under a unique genre &amp;mdash; Historical fiction &amp;mdash; by mixing imagination with facts in the right amount and proved that it can be done with great success.</description>
+Kalki R. Krishnamurthy A great writer, and freedom fighter, who effortlessly balanced content against gripping narration. He pioneered in writing under a unique genre &amp;mdash; Historical Fiction &amp;mdash; by mixing imagination with facts in the right amount and proved that it can be done with great success.</description>
     </item>
     
     <item>
@@ -151,11 +161,11 @@ Macros and Include Directories # get macros defined when the language is C++ cpp
     </item>
     
     <item>
-      <title>Emacs C&#43;&#43; auto-complete setup on Windows</title>
-      <link>https://legends2k.github.io/note/install-irony-win32/</link>
+      <title>Emacs C&#43;&#43; auto-complete on Windows</title>
+      <link>https://legends2k.github.io/note/c&#43;&#43;_irony_win32/</link>
       <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
       
-      <guid>https://legends2k.github.io/note/install-irony-win32/</guid>
+      <guid>https://legends2k.github.io/note/c&#43;&#43;_irony_win32/</guid>
       <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
 The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
     </item>
@@ -186,6 +196,15 @@ Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; c
       
       <guid>https://legends2k.github.io/note/hello_hugo/</guid>
       <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&amp;rsquo;t like anything?</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://legends2k.github.io/note/stoicism.md/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://legends2k.github.io/note/stoicism.md/</guid>
+      <description>**Little Book of Stoicism** **Jonas Salzgeber**  &#34;Dig within. Within is the wellspring of Good; and it is always ready to bubble up, if you just dig.&#34;  -- Marcus Aurelius # Basics Eudaimonia : Happy and smooth flowing life. The core of the stoic triangle. The ultimate goal of life that all ancient philosophies agreed on: living a thriving life. *************************************** * Take Responsibility * * . * * / \ * * / \ * * / \ * * / \ * * / \ * * / \ * * / \ * * / Eudaimonia \ * * / \ * * &#39;-------------------&#39; * * Live with Focus on What * * Areté You Control * *************************************** **Living with Areté[^fn1]** : Express your highest self in every moment.</description>
     </item>
     
   </channel>

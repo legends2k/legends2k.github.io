@@ -1,0 +1,998 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>C&#43;&#43; Primer &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="solving “you don’t know what you don’t know">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="C&#43;&#43; Primer">
+<meta property="og:description" content="solving “you don’t know what you don’t know">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/c&#43;&#43;_primer/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+        
+        </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/" rel="me">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k" rel="me">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram" rel="me">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k" rel="me">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0" rel="me">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k" rel="me">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Posts" href="/post/">Posts</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">C&#43;&#43; Primer</h1>
+    
+        <p class="post-description" itemprop="description">solving “you don’t know what you don’t know</p>
+    
+    <p class="post-date">
+        <span>
+
+  
+
+
+
+  
+
+<time datetime="2018-09-06" itemprop="dateUpdated">Updated Mon, Nov 25, 2019</time>
+        </span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+            </span>
+        </span>
+    </p>
+    
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<blockquote>
+<p>Within C++, there is a much smaller and cleaner language struggling to get out. — Bjarne Stroustrup</p>
+</blockquote>
+
+<p>C++ is vast.  If you’re beginning to learn it, the internet has enough discouraging words.  Just start learning instead of reading about it i.e. don’t learn <em>about</em> C++, learn C++.  The innumerable topics might be daunting, but don’t worry.  Knowing a few concepts will get you productive.  More than the actual content, this article aims to give you keywords of <em>that</em> set, so that you can pursue them further.</p>
+
+<p><em><a href="https://legends2k.github.io/spirit-of-cpp">Spirit of C++</a></em> is a beginner presentation I’d given to a 50+ team; it <a href="https://www.reddit.com/r/cpp/comments/da4xrd/spirit_of_c/">received good comments</a> too.  See that for a tutorial-style, more in-depth treatment of the basics.</p>
+
+<h1 id="overview">Overview</h1>
+
+<ul>
+<li>Based on C
+
+<ul>
+<li>More popular sibling of Objective-C</li>
+<li>Intermediate-level: can operate at both low and high-levels</li>
+<li>Native: compiles to object, not byte, code</li>
+<li>Rich standard library</li>
+<li>Fairly modern with new standards: C++11, 14, 17 and 20</li>
+</ul></li>
+<li>Static, strongly typed
+
+<ul>
+<li><strong>Static</strong> Variables are tied to types</li>
+<li><strong>Strong</strong> Type system is rigid and <em>tries</em> to prevent
+cross-overs</li>
+<li>Calling on nil crashes; can’t call a non-existent method</li>
+<li>A set of type safety properties for all possible inputs
+guaranteed</li>
+</ul></li>
+<li>Key Differences to C#, Objective-C and Java
+
+<ul>
+<li>Multi-paradigm language
+
+<ul>
+<li>Imperative, OOP, generic and functional</li>
+</ul></li>
+<li>Allows static and virtual methods</li>
+<li>Supports multiple inheritance</li>
+<li>No Reflection
+
+<ul>
+<li>Queries about type system at run-time unsupported</li>
+<li>NO type system once compiled</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>Lots of dark corners not discussed; we want to build a good mental model
+of a language; corner cases build a weak model.</p>
+
+<h1 id="structure">Structure</h1>
+
+<ul>
+<li>Comment: <code>//</code>, <code>/**/</code></li>
+<li>Token: <code>int</code>, <code>a</code></li>
+<li>Expression: <code>a + b</code>
+
+<ul>
+<li>Operators: <code>*</code>, <code>static_cast&lt;T&gt;()</code>, <code>sizeof</code>, <code>new</code>, …</li>
+</ul></li>
+<li>Statement: <code>c = a + b;</code></li>
+<li>Block: <code>{ c = a + b; }</code></li>
+<li>Function: <code>int add(int a, int b) { return a + b; }</code></li>
+<li>Function template <code>template &lt;typename T&gt; T add(T a, T b) { return a + b; }</code></li>
+<li>Class</li>
+<li>Class template</li>
+<li>Inclusions (header <em>and</em> source)</li>
+</ul>
+
+<p><strong>Bonus</strong>: Inherits C’s header issues.</p>
+
+<h1 id="data-types">Data Types</h1>
+
+<h2 id="built-in-types">Built-in Types</h2>
+
+<ul>
+<li><strong>Nullity</strong> <code>void</code></li>
+<li><strong>Integral</strong>
+
+<ul>
+<li><code>bool</code></li>
+<li><code>char</code>
+
+<ul>
+<li><code>wchar_t</code></li>
+<li><code>char16_t</code></li>
+<li><code>char32_t</code></li>
+</ul></li>
+<li><code>int</code>, <code>unsigned int</code>
+
+<ul>
+<li><code>short</code>, <code>unsigned short</code></li>
+<li><code>long</code>, <code>unsigned long</code></li>
+<li><code>long long</code>, <code>unsigned long long</code></li>
+<li><code>uint8_t</code>, <code>int8_t</code>, … from <code>cstdint</code></li>
+</ul></li>
+</ul></li>
+<li><strong>Floating Point</strong>
+
+<ul>
+<li><code>float</code></li>
+<li><code>double</code>
+
+<ul>
+<li><code>long double</code></li>
+</ul></li>
+</ul></li>
+<li><strong>Arrays</strong> <code>int[3]</code>, <code>float[5]</code></li>
+<li><strong>Function types</strong> <code>int (float, char)</code></li>
+<li><strong>Pointers</strong> <code>int*</code>, <code>float*</code>, <code>int (*addptr)(int, int)</code> …</li>
+<li><strong>References</strong></li>
+<li><strong>Class and struct types</strong></li>
+</ul>
+
+<p>None have guaranteed sizes except size-named ones.</p>
+
+<h1 id="sample-1">Sample 1</h1>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6"></span>
+<span style="color:#6272a4">// function definition
+</span><span style="color:#6272a4">// pass by value
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span> y) {
+  <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y;
+}
+
+<span style="color:#6272a4">// pass by reference; can also be achieved with pointers
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">myswap</span>(<span style="color:#8be9fd">int</span> <span style="color:#ff79c6">&amp;</span>x, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">&amp;</span>y) {
+  <span style="color:#8be9fd">int</span> t <span style="color:#ff79c6">=</span> x;
+  x <span style="color:#ff79c6">=</span> y;
+  y <span style="color:#ff79c6">=</span> t;
+}
+
+<span style="color:#6272a4">// function declaration
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span>, <span style="color:#8be9fd">int</span> <span style="color:#6272a4">/*z*/</span>);
+
+<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+  <span style="color:#8be9fd">int</span> a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>, b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>;
+  myswap(a, b);
+  <span style="color:#8be9fd">float</span> f <span style="color:#ff79c6">=</span> add(a, b);    <span style="color:#6272a4">// widening assignment, cast unneeded
+</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// really a call to std::ostream&amp; std::ios::operator&lt;&lt;(std::ostream&amp;, float)
+</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// with std::cout and f as parameters; notice the return type that enables expression chaining
+</span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> f <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+  <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">double</span> PI <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14</span>;
+  <span style="color:#6272a4">// clang++ 9.1.0
+</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// warning: implicit conversion from &#39;double&#39; to &#39;int&#39; changes value from 3.14 to 3
+</span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> add(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, PI);
+  <span style="color:#6272a4">// static_cast&lt;int&gt;(3.14) states programmer intention explicitly; no warning
+</span><span style="color:#6272a4"></span>}
+
+<span style="color:#6272a4">// pass by value
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span> y, <span style="color:#8be9fd">int</span> z) {
+  <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y <span style="color:#ff79c6">+</span> z;
+}
+</code></pre></div>
+
+<h2 id="notice">Notice</h2>
+
+<ul>
+<li>Inclusion</li>
+<li>Variables, types</li>
+<li>Function definition</li>
+<li>Function declaration</li>
+<li>Function call</li>
+<li>Function overloading</li>
+<li>Standard functions</li>
+</ul>
+
+<h2 id="compilation">Compilation</h2>
+
+<p>Compile with GCC/Clang’s C++ frontend</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">g++ -Wall -std<span style="color:#ff79c6">=</span>c++14 -pedantic test.cpp -o test</code></pre></div>
+
+<p>Add <code>-g -O0</code> for debug symbols.</p>
+
+<p>Compile with VC++ (use <code>/D_DEBUG</code> for debug symbols)</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">cl /EHsc test.cpp</code></pre></div>
+
+<h1 id="conditionals-and-loops">Conditionals and Loops</h1>
+
+<ul>
+<li>If… else</li>
+<li>For
+
+<ul>
+<li>Range for</li>
+</ul></li>
+<li>While
+
+<ul>
+<li>Do.. while</li>
+</ul></li>
+<li>Switch</li>
+<li>Go to</li>
+</ul>
+
+<p>Loops additionally support <code>break</code> and <code>continue</code>.</p>
+
+<h2 id="sample-2">Sample 2</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6"></span>
+<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+  <span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#8be9fd">int</span> arr[<span style="color:#bd93f9">10</span>] <span style="color:#ff79c6">=</span> { };
+  <span style="color:#ff79c6">do</span> {
+    arr[i] <span style="color:#ff79c6">=</span> i;
+    <span style="color:#ff79c6">++</span>i;
+  } <span style="color:#ff79c6">while</span> (i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>);
+  <span style="color:#6272a4">// idomatic way of doing this: std::iota
+</span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> i <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+
+  <span style="color:#6272a4">// boolean context
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>i)  <span style="color:#6272a4">// checks if i is 0
+</span><span style="color:#6272a4"></span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;What!</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+  <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">10</span>)
+    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Cool</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+  <span style="color:#ff79c6">else</span>
+    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Whatever</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+
+  <span style="color:#ff79c6">goto</span> vowels;
+
+  <span style="color:#ff79c6">for</span> (; i <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>; <span style="color:#ff79c6">--</span>i) {
+    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> i <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\t&#39;</span>;
+  }
+
+<span style="color:#8be9fd;font-style:italic">vowels</span>:
+  std<span style="color:#ff79c6">::</span>string s <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">Hello&#34;</span>;
+  <span style="color:#6272a4">// range for
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">char</span> <span style="color:#8be9fd;font-style:italic">c</span> : s) {
+    <span style="color:#6272a4">// switch only operates on integral types
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">switch</span> (c) {
+      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;a&#39;</span><span style="color:#ff79c6">:</span>
+        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+        <span style="color:#ff79c6">break</span>;
+      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;e&#39;</span><span style="color:#ff79c6">:</span>
+        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+        <span style="color:#ff79c6">break</span>;
+      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;i&#39;</span><span style="color:#ff79c6">:</span>
+        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+        <span style="color:#ff79c6">break</span>;
+      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;o&#39;</span><span style="color:#ff79c6">:</span>
+        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+        <span style="color:#ff79c6">break</span>;
+      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;u&#39;</span><span style="color:#ff79c6">:</span>
+        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+        <span style="color:#ff79c6">break</span>;
+      <span style="color:#ff79c6">default</span><span style="color:#ff79c6">:</span>
+        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;x</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+    }
+  }
+}
+</code></pre></div>
+
+<h1 id="scope-storage-duration-and-linkage">Scope, Storage Duration and Linkage</h1>
+
+<ul>
+<li><strong>Scope</strong>: Region in which a name is visible to compiler
+
+<ul>
+<li>Namespaces are used for better organising</li>
+</ul></li>
+<li><strong>Linkage</strong>: Name visibility for linker</li>
+<li><a href="https://stackoverflow.com/a/13415659/183120">Variable Scopes</a>
+
+<ul>
+<li><strong>Local</strong>: Visible only in the current block</li>
+<li><strong>Global</strong>: Visible to the compilation unit</li>
+</ul></li>
+<li>Storage Duration
+
+<ul>
+<li><strong>Automatic / Local</strong>: Lifetime ends as execution leaves scope</li>
+<li><strong>Static</strong>: Alive throughout the program</li>
+</ul></li>
+<li><a href="https://stackoverflow.com/q/1358400">Linkage</a>
+
+<ul>
+<li><strong>None</strong>: No linkage</li>
+<li><strong>Internal</strong>: Translation unit</li>
+<li><strong>External</strong>: Beyond compilation unit</li>
+<li>Global variables are by default internal; change with <code>extern</code></li>
+<li>Function are by default external; change with <code>static</code></li>
+</ul></li>
+</ul>
+
+<h1 id="object-construction-and-memory-management">Object Construction and Memory Management</h1>
+
+<ul>
+<li><strong>Two types</strong>:
+<a href="https://stackoverflow.com/questions/146452/what-are-pod-types-in-c">POD</a>s (no magic) and non-PODs (magic)</li>
+<li><strong>Construction</strong>: memory allocation + initialization</li>
+<li><strong>Destruction</strong>: deinitialization + memory deallocation</li>
+<li>Memory spaces
+
+<ul>
+<li>Stack
+
+<ul>
+<li>A stack frame / function (memory) of limited size</li>
+<li>Hosts function parameters and local variables</li>
+<li>Frame popped out when function returns to caller or an exception occurs</li>
+<li>Current frame and the ones above can <em>access</em> data</li>
+<li>Fast and short-lived; <strong>preferred</strong></li>
+</ul></li>
+<li>Free store (heap)
+
+<ul>
+<li>A large area free to allocate memory</li>
+<li>Never deleted until done explicitly</li>
+<li>Greater visibility and flexibility in life time</li>
+<li>Greater chances of fragmentation</li>
+<li>Manual management; cumbersome</li>
+</ul></li>
+</ul></li>
+<li>No garbage collector; mostly manual
+
+<ul>
+<li>Writing <a href="https://github.com/mtrebi/memory-allocators">custom memory allocators are not uncommon</a></li>
+<li>Overloading <code>new</code> isn’t uncommon but highly discouraged</li>
+</ul></li>
+<li>Modern C++ with RAII relieves one from <em>most</em> manual rote work (sometimes called “eagerly managed”)</li>
+<li>Avoid <code>new</code> and <code>delete</code> like the plague!</li>
+<li>Use <code>std::unique_ptr</code> and sparingly <code>std::shared_ptr</code></li>
+<li>Use containers or the many higher-level constructs available in <code>std</code></li>
+</ul>
+
+<h2 id="sample-3">Sample 3</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6"></span>
+<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+  <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>intPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd">int</span>{<span style="color:#bd93f9">0</span>};  <span style="color:#6272a4">// initialize value to 0
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">delete</span> intPtr;             <span style="color:#6272a4">// call dtor and release memory
+</span><span style="color:#6272a4"></span>  intPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;          <span style="color:#6272a4">// initialize pointer to 0
+</span><span style="color:#6272a4"></span>
+  <span style="color:#6272a4">// array has its own operators
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>arrPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd">int</span>[<span style="color:#bd93f9">4</span>]{<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>};  <span style="color:#6272a4">// &lt;- initializer list
+</span><span style="color:#6272a4"></span>  arrPtr[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">delete</span> [] arrPtr;
+  arrPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
+
+  std<span style="color:#ff79c6">::</span>unique_ptr<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;</span> ip <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">3</span>);
+  std<span style="color:#ff79c6">::</span>unique_ptr<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span>[]<span style="color:#ff79c6">&gt;</span> ap <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span>[]<span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">3</span>);
+  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#ff79c6">*</span>ip <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span> <span style="color:#ff79c6">&lt;&lt;</span> ap[<span style="color:#bd93f9">2</span>];
+}
+</code></pre></div>
+
+<h2 id="sample-4">Sample 4</h2>
+
+<p>Shows the difference between traditional and modern C++ dialects.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;vector&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;algorithm&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iterator&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdexcept&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;limits&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6"></span>
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">mySafeInt</span>
+{
+<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+    mySafeInt(<span style="color:#8be9fd">int</span> x) <span style="color:#ff79c6">:</span> i{x} { }
+
+    <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">get</span>() <span style="color:#ff79c6">const</span> { <span style="color:#ff79c6">return</span> i; }
+
+<span style="color:#ff79c6">private</span><span style="color:#ff79c6">:</span>
+    <span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+};
+
+mySafeInt<span style="color:#ff79c6">**</span> <span style="color:#50fa7b">conv_old</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv, <span style="color:#8be9fd">int</span><span style="color:#ff79c6">*</span> count) {
+    mySafeInt <span style="color:#ff79c6">**</span>p <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
+    <span style="color:#8be9fd">int</span> processed <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    <span style="color:#ff79c6">if</span> (argc <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">2</span>) {
+        p <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> mySafeInt<span style="color:#ff79c6">*</span>[argc];
+        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; i <span style="color:#ff79c6">&lt;</span> argc; <span style="color:#ff79c6">++</span>i) {
+            <span style="color:#8be9fd">int</span> x <span style="color:#ff79c6">=</span> strtoul(argv[i], <span style="color:#ff79c6">nullptr</span>, <span style="color:#bd93f9">10</span>);
+            <span style="color:#ff79c6">if</span> (x <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>)
+                p[processed<span style="color:#ff79c6">++</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> mySafeInt{x};
+        }
+    }
+    <span style="color:#ff79c6">*</span>count <span style="color:#ff79c6">=</span> processed;
+    <span style="color:#ff79c6">return</span> p;
+}
+
+std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span> conv_new(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv) {
+    std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>std<span style="color:#ff79c6">::</span>string<span style="color:#ff79c6">&gt;</span> vs(argv <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>, argv <span style="color:#ff79c6">+</span> argc);
+    std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span> v;
+    std<span style="color:#ff79c6">::</span>for_each(vs.cbegin(), vs.cend(), [<span style="color:#ff79c6">&amp;</span>](<span style="color:#ff79c6">const</span> std<span style="color:#ff79c6">::</span>string<span style="color:#ff79c6">&amp;</span> s){
+                                              <span style="color:#ff79c6">try</span> {
+                                                  v.emplace_back(mySafeInt{std<span style="color:#ff79c6">::</span>stoi(s, <span style="color:#ff79c6">nullptr</span>, <span style="color:#bd93f9">10</span>)});
+                                              }
+                                              <span style="color:#ff79c6">catch</span> (std<span style="color:#ff79c6">::</span>invalid_argument<span style="color:#ff79c6">&amp;</span>) {
+                                                  std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Invalid argument &#39;&#34;</span> <span style="color:#ff79c6">&lt;&lt;</span> s <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;&#39; ignored.</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+                                              }
+                                              <span style="color:#ff79c6">catch</span> (std<span style="color:#ff79c6">::</span>out_of_range<span style="color:#ff79c6">&amp;</span>) {
+                                                  std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> s <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34; beyond MAX_INT(&#34;</span> <span style="color:#ff79c6">&lt;&lt;</span> std<span style="color:#ff79c6">::</span>numeric_limits<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;::</span>max() <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;); ignored.</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+                                              }
+                                          });
+    <span style="color:#ff79c6">return</span> v;
+}
+
+std<span style="color:#ff79c6">::</span>ostream<span style="color:#ff79c6">&amp;</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">&lt;&lt;</span> (std<span style="color:#ff79c6">::</span>ostream<span style="color:#ff79c6">&amp;</span> os, <span style="color:#ff79c6">const</span> mySafeInt <span style="color:#ff79c6">&amp;</span>i) {
+    <span style="color:#ff79c6">return</span> os <span style="color:#ff79c6">&lt;&lt;</span> i.get();
+}
+
+<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv) {
+    <span style="color:#8be9fd">int</span> outLen <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    mySafeInt<span style="color:#ff79c6">**</span> ip <span style="color:#ff79c6">=</span> conv_old(argc, argv, <span style="color:#ff79c6">&amp;</span>outLen);
+    <span style="color:#ff79c6">if</span> ((ip <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">nullptr</span>) <span style="color:#ff79c6">||</span> (outLen <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>))
+         std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Insufficient data</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+    <span style="color:#ff79c6">else</span> {
+        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> outLen; <span style="color:#ff79c6">++</span>i)
+            std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> ip[i]<span style="color:#ff79c6">-&gt;</span>get() <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;, &#34;</span>;
+
+        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> outLen; <span style="color:#ff79c6">++</span>i) {
+            <span style="color:#ff79c6">delete</span> ip[i];
+        }
+        <span style="color:#ff79c6">delete</span> [] ip;
+    }
+    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+
+    <span style="color:#ff79c6">auto</span> v <span style="color:#ff79c6">=</span> conv_new(argc, argv);
+    <span style="color:#ff79c6">if</span> (v.empty())
+        std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Insufficient data</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+    <span style="color:#ff79c6">else</span> {
+        std<span style="color:#ff79c6">::</span>copy(v.cbegin(), v.cend(), std<span style="color:#ff79c6">::</span>ostream_iterator<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span>{std<span style="color:#ff79c6">::</span>cout, <span style="color:#f1fa8c">&#34;, &#34;</span>});
+    }
+    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+}
+</code></pre></div>
+
+<h1 id="structs-and-classes">Structs and Classes</h1>
+
+<ul>
+<li>User-defined types built atop primitives</li>
+<li>Class and object-level data members and member functions
+
+<ul>
+<li>Beware of <a href="https://isocpp.org/wiki/faq/ctors#static-init-order">static initialization order fiasco</a>!</li>
+</ul></li>
+<li>Composition and inheritance; <a href="https://blog.codinghorror.com/inherits-nothing/">prefer former over latter</a></li>
+</ul>
+
+<blockquote>
+<p><a href="https://isocpp.org/wiki/faq/objective-c#objective-c-and-inherit">Inheritance isn’t for code reuse</a>; it’s for interface conformance.</p>
+</blockquote>
+
+<ul>
+<li>Allows fine-grained control over
+
+<ul>
+<li>Allocation</li>
+<li>Initialization</li>
+<li>Copy</li>
+<li>Move</li>
+<li>Assignment (both copy and move)</li>
+<li>Deinitialization</li>
+<li>Deallocation</li>
+<li>Operators</li>
+</ul></li>
+<li>Popularly called <strong>Rule of Three</strong>, then <strong>Rule of Five</strong> but now really <strong><a href="https://en.cppreference.com/w/cpp/language/rule_of_three">Rule of Zero</a></strong></li>
+<li>Order is important
+
+<ul>
+<li>Construction happens from top to bottom e.g. inheritance,
+variables of a class, function, etc.</li>
+<li>Destruction happens from bottom to top</li>
+</ul></li>
+</ul>
+
+<h2 id="sample-5">Sample 5</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span><span style="color:#ff79c6"></span>
+<span style="color:#6272a4">// HEADER: shape.hpp
+</span><span style="color:#6272a4"></span>
+<span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">Point</span>
+{
+  <span style="color:#8be9fd">float</span> x <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, y <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+};
+
+<span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">Shape2D</span>
+{
+  <span style="color:#6272a4">// data members
+</span><span style="color:#6272a4"></span>  Point pos;
+
+  <span style="color:#6272a4">// member functions
+</span><span style="color:#6272a4"></span>
+  <span style="color:#6272a4">// constructors
+</span><span style="color:#6272a4"></span>  Shape2D() <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">default</span>;
+  Shape2D(<span style="color:#8be9fd">float</span> posX, <span style="color:#8be9fd">float</span> posY);
+
+  <span style="color:#6272a4">// accessors and modifiers; former is usually const
+</span><span style="color:#6272a4"></span>  Point <span style="color:#50fa7b">GetPos</span>() <span style="color:#ff79c6">const</span>;
+  <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">SetPos</span>(<span style="color:#8be9fd">int</span> posX, <span style="color:#8be9fd">int</span> posY);
+
+  <span style="color:#6272a4">// class data and functions
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">static</span> <span style="color:#ff79c6">constexpr</span> <span style="color:#8be9fd">float</span> PI <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14f</span>;
+  <span style="color:#ff79c6">static</span> <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">GetResID</span>();
+};
+
+<span style="color:#6272a4">// IMPLEMENTATION: shape.cpp
+</span><span style="color:#6272a4"></span>
+Shape2D<span style="color:#ff79c6">::</span>Shape2D(<span style="color:#8be9fd">float</span> posX, <span style="color:#8be9fd">float</span> posY) <span style="color:#ff79c6">:</span> pos{posX, posY} {
+}
+
+<span style="color:#8be9fd">void</span> Shape2D<span style="color:#ff79c6">::</span>SetPos(<span style="color:#8be9fd">int</span> posX, <span style="color:#8be9fd">int</span> posY) {
+  pos.x <span style="color:#ff79c6">=</span> posX;
+  pos.y <span style="color:#ff79c6">=</span> posY;
+}
+
+Point Shape2D<span style="color:#ff79c6">::</span>GetPos() <span style="color:#ff79c6">const</span> {
+  <span style="color:#ff79c6">return</span> pos;
+}
+
+<span style="color:#6272a4">// can’t access members from a static function
+</span><span style="color:#6272a4">// call as Shape2D::GetResID() or obj.GetResID()
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> Shape2D<span style="color:#ff79c6">::</span>GetResID() {
+  <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0x12</span>;
+}
+
+<span style="color:#6272a4">// HEADER: circle.hpp
+</span><span style="color:#6272a4"></span>
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Circle</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">public</span> Shape2D
+{
+<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+
+  Circle();
+  Circle(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y, <span style="color:#8be9fd">float</span> rad);
+  Circle(Point pt, <span style="color:#8be9fd">float</span> rad);
+  Circle(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that);
+
+  Circle<span style="color:#ff79c6">&amp;</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that);
+  <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">+</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">const</span>;
+
+  <span style="color:#ff79c6">~</span>Circle() <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">default</span>;
+
+<span style="color:#ff79c6">private</span><span style="color:#ff79c6">:</span>
+  <span style="color:#8be9fd">float</span> r <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1.0f</span>;            <span style="color:#6272a4">// in-place initilizers
+</span><span style="color:#6272a4"></span>};
+
+<span style="color:#6272a4">// IMPLEMNTATION: circle.cpp
+</span><span style="color:#6272a4"></span>
+Circle<span style="color:#ff79c6">::</span>Circle() <span style="color:#ff79c6">:</span> r{<span style="color:#bd93f9">1.0f</span>} {
+}
+
+<span style="color:#6272a4">// initialization lists
+</span><span style="color:#6272a4"></span>Circle<span style="color:#ff79c6">::</span>Circle(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y, <span style="color:#8be9fd">float</span> rad) <span style="color:#ff79c6">:</span> Shape2D(x, y), r{rad} {
+}
+
+Circle<span style="color:#ff79c6">::</span>Circle(Point pt, <span style="color:#8be9fd">float</span> rad) <span style="color:#ff79c6">:</span> Shape2D(pt.x, pt.y) {
+  r <span style="color:#ff79c6">=</span> rad;        <span style="color:#6272a4">// perhaps slower way
+</span><span style="color:#6272a4"></span>}
+
+<span style="color:#6272a4">// copy constructor; take by reference
+</span><span style="color:#6272a4"></span>Circle<span style="color:#ff79c6">::</span>Circle(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">:</span> Shape2D{that.pos.x, that.pos.y}, r{that.r} {
+}
+
+<span style="color:#8be9fd">float</span> Circle<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">+</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">const</span> {
+  <span style="color:#ff79c6">return</span> r <span style="color:#ff79c6">+</span> that.r;
+}
+
+Circle<span style="color:#ff79c6">&amp;</span> Circle<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span> <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">&amp;</span>that) {
+    <span style="color:#ff79c6">this</span><span style="color:#ff79c6">-&gt;</span>r <span style="color:#ff79c6">=</span> that.r;
+    <span style="color:#6272a4">// base class method call syntax is the same as static function call interface
+</span><span style="color:#6272a4"></span>    Shape2D<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(that);
+  }
+  <span style="color:#6272a4">// return this for expression chaining
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">*</span><span style="color:#ff79c6">this</span>;
+}
+
+<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+  Circle c1;
+  <span style="color:#ff79c6">auto</span> c2 <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span>Circle<span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">6</span>);
+  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> c1 <span style="color:#ff79c6">+</span> <span style="color:#ff79c6">*</span>c2 <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+}
+</code></pre></div>
+
+<h1 id="interfaces-or-abcs">Interfaces or ABCs</h1>
+
+<ul>
+<li>Abstract base classes are interfaces in C++</li>
+<li>Concrete classes implement ABCs</li>
+<li>Overridable methods are marked <code>virtual</code></li>
+<li>Must-override methods are made pure virtual <code>= 0</code></li>
+<li>Polymorphism with dynamic binding
+
+<ul>
+<li>Works only with pointers and references</li>
+<li>Polymorphism: <code>animal.eat()</code> might be <code>squirrel.nibble()</code> or
+<code>cow.chew()</code> depending on the object at runtime</li>
+<li><a href="https://isocpp.org/wiki/faq/virtual-functions#dyn-binding">Dynamic Binding</a>: the mechanism that enables polymorphism
+
+<ul>
+<li>Call to actual function resolved based on <code>vtbl</code> (virtual table)</li>
+</ul></li>
+<li>Never call a virtual function during construction!</li>
+</ul></li>
+</ul>
+
+<h2 id="sample-6">Sample 6</h2>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Shape</span>  <span style="color:#6272a4">// abstract
+</span><span style="color:#6272a4"></span>{
+
+<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+  <span style="color:#ff79c6">virtual</span> <span style="color:#ff79c6">~</span>Shape() { }   <span style="color:#6272a4">// &lt;- without this it’s not an interface!!
+</span><span style="color:#6272a4"></span>
+  <span style="color:#ff79c6">virtual</span> Point <span style="color:#50fa7b">GetPosition</span>() <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;  <span style="color:#6272a4">// pure virtual
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">virtual</span> <span style="color:#8be9fd">void</span>  <span style="color:#50fa7b">SetPosition</span>(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y) <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+};
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Square</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">public</span> Shape
+{
+<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+  Point GetPosition() <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">override</span> {
+  }
+};
+</code></pre></div>
+
+<h1 id="asserts-errors-and-exceptions">Asserts, Errors and Exceptions</h1>
+
+<ul>
+<li>Asserts are validation for programmer whether internal systems work
+correctly
+
+<ul>
+<li>e.g. assert if an internal invariant has remained unchanged</li>
+</ul></li>
+<li>Errors are when at runtime something goes wrong
+
+<ul>
+<li>e.g. user input is invalid, file system is not longer available</li>
+<li>Fail fast / early</li>
+</ul></li>
+<li><a href="https://stackoverflow.com/a/21084587/183120">Assertions: planned, errors: unplanned</a></li>
+<li>Use static asserts for compile-time validation/conformance</li>
+<li>C/COM-style: return error code</li>
+<li>C++ allows both error codes and exceptions (<code>try { throw(...); } catch(...) { }</code>)</li>
+<li>Internal errors, if you’re throwing an exception, be prepared to
+catch it too</li>
+<li>External errors that are manageable catch else throw
+
+<ul>
+<li>Uncaught exceptions bubble up and abort the program when the
+stack is empty</li>
+</ul></li>
+<li>Don’t use exceptions as a control mechanism</li>
+<li>When a <a href="https://isocpp.org/wiki/faq/exceptions#ctors-can-throw">constructor fails throw an exception</a>;
+notice that the return type is missing</li>
+<li>When a destructor fails? <a href="https://isocpp.org/wiki/faq/exceptions#dtors-shouldnt-throw">Call Aunt Tilda</a>
+
+<ul>
+<li>Seriously, never throw an exception from a destructor</li>
+<li>Disrupts stack unwind sequence and aborts the program</li>
+</ul></li>
+</ul>
+
+<h1 id="commonly-used-std-facilities">Commonly used <code>std::</code> facilities</h1>
+
+<p>C++ ships with a very versatile standard library. Take advantage of it!
+Explore now; find gems!</p>
+
+<h2 id="containers-https-en-cppreference-com-w-cpp-container"><a href="https://en.cppreference.com/w/cpp/container">Containers</a></h2>
+
+<h3 id="sequences">Sequences</h3>
+
+<ul>
+<li><code>std::vector</code> all-purpose, auto-expanding array type when size unknown at compile-time</li>
+<li><code>std::array</code> when you know the size; wrapper over simple arrays; avoids ugliness</li>
+<li><code>std::deque</code> double-ended queue that’s almost as fast as vector; Herb Sutter recommends highly</li>
+<li><code>std::list</code>, <code>std::forward_list</code> doubly and singly linked list</li>
+</ul>
+
+<h3 id="associative">Associative</h3>
+
+<ul>
+<li><code>std::set</code> collection of unique items; sorted and searchable in O(log<sub>2</sub> N) time<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></li>
+<li><code>std::map</code> collection of key-value pairs; same as <code>set</code> with a value associated to the key</li>
+<li><code>std::multiset</code>, <code>std::multimap</code> multiple keys allowed; not just unique</li>
+</ul>
+
+<h3 id="unordered-associative">Unordered Associative</h3>
+
+<ul>
+<li><code>std::unordered_set</code> hash map with no values</li>
+<li><code>std::unordered_map</code> hash map<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></li>
+<li><code>std::unordered_multiset</code>, <code>std::unordered_multimap</code></li>
+</ul>
+
+<h3 id="container-adopters">Container Adopters</h3>
+
+<ul>
+<li><code>std::stack</code></li>
+<li><code>std::queue</code></li>
+<li><code>std::priority_queue</code></li>
+</ul>
+
+<h2 id="algorithms-https-en-cppreference-com-w-cpp-algorithm"><a href="https://en.cppreference.com/w/cpp/algorithm">Algorithms</a></h2>
+
+<ul>
+<li><code>std::for_each</code></li>
+<li><code>std::copy</code></li>
+<li><code>std::lower_bound</code>, <code>std::upper_bound</code> (binary search on sorted sequences)</li>
+<li><code>std::transform</code></li>
+<li><code>std::find_if</code></li>
+<li><code>std::any_of</code>, <code>std::all_of</code>, <code>std::none_of</code></li>
+</ul>
+
+<h2 id="concurrency-https-en-cppreference-com-w-cpp-thread"><a href="https://en.cppreference.com/w/cpp/thread">Concurrency</a></h2>
+
+<ul>
+<li><code>std::thread</code></li>
+<li><code>std::packaged_task</code></li>
+<li><code>std::async</code></li>
+<li><code>std::future</code>, <code>std::promise</code></li>
+<li><code>std::mutex</code></li>
+<li><code>std::lock_guard</code></li>
+</ul>
+
+<p>Atomics, filesystem library and many more, not covered here due to
+scope.</p>
+
+<h1 id="further-reading">Further Reading</h1>
+
+<ol>
+<li><a href="https://isocpp.org/wiki/faq">ISO C++ FAQ</a></li>
+<li><a href="https://en.cppreference.com">C++ and standard library reference</a></li>
+<li><a href="https://stackoverflow.com/tags/c++-faq">StackOverflow C++ FAQ</a></li>
+<li>C++ Primer, 5th Edition</li>
+<li>The C++ Programming Language, Bjarne Stroustrup</li>
+<li><a href="https://riptutorial.com/cplusplus">RIP Tutorial</a> includes eccentric
+topics like alignment, ADL, metaprogramming, etc.</li>
+<li><a href="https://stackoverflow.com/questions/388242/the-definitive-c-book-guide-and-list">The Definitive C++ Book Guide and List</a></li>
+<li><a href="https://en.wikibooks.org/wiki/More_C%252B%252B_Idioms">C++ Idioms</a></li>
+</ol>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><a href="http://lafstern.org/matt/col1.pdf">Use sorted vector instead of set</a>, if <code>find</code> calls outnumber <code>insert</code>; it’d be lot faster — Matt Austern.
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2"><a href="https://github.com/martinus/robin-hood-hashing">Robin hood hashing</a> is faster than what usually comes with <code>std::unordered_map</code>.
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+</ol>
+</div>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/tech/">tech</a>, 
+            
+                <a href="/tags/language/">language</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=C%2b%2b%20Primer&url=https%3a%2f%2flegends2k.github.io%2fnote%2fc%2b%2b_primer%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fc%2b%2b_primer%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fc%2b%2b_primer%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=C%2b%2b%20Primer&url=https%3a%2f%2flegends2k.github.io%2fnote%2fc%2b%2b_primer%2f&summary=solving%20%e2%80%9cyou%20don%e2%80%99t%20know%20what%20you%20don%e2%80%99t%20know"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="https://legends2k.github.io/about/">Sundaram Ramaswamy</a></span></p>
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+
