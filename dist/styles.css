@@ -89,6 +89,10 @@ a {
     text-decoration: none;
 }
 
+a code:not([class]) {
+    text-decoration: underline;
+}
+
 ul, ol {
     line-height: 1.8;
     /* margin: 0 0 20px; */
