@@ -9,7 +9,7 @@
         <meta name="description" content="a.k.a Intel ME with a programmer and some guts ;)">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="generator" content="Hugo 0.62.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -109,23 +109,20 @@
         <p class="post-description" itemprop="description">a.k.a Intel ME with a programmer and some guts ;)</p>
     
     <p class="post-date">
-        <span>
-
-  
-
-
-
-  
-
-<time datetime="2018-05-12" itemprop="dateUpdated">Updated Fri, Oct 4, 2019</time>
+    Published <time datetime="2018-05-12" itemprop="datePublished">May 12, 2018</time>
+    <span>by</span>
+    <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+        <span itemprop="name">
+            <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
         </span>
-        <span>by</span>
-        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
-            <span itemprop="name">
-                <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
-            </span>
-        </span>
-    </p>
+    </span>
+    
+    <span class="post-update-date">
+        Updated <time datetime="2018-05-12" itemprop="datePublished">Oct 4, 2019</time>
+    </span>
+    
+</p>
+
     
 </header>
 
@@ -133,54 +130,39 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    
-
-<p>I believe <a href="https://en.wikipedia.org/wiki/Borg_(Star_Trek)"><em>resistance is futile</em></a> if someone is bent on spying on you; there’re both serious and <a href="https://en.wikipedia.org/wiki/Side-channel_attack">creative ways</a> to go about it.  Talking to your processor, behind your back, isn’t the primary or only means.  Our’s is a <a href="https://en.wikipedia.org/wiki/Information_Age">golden age</a> where corporates and government agencies stoop low enough to pry into bedrooms.  Did you know that <em>almost</em> all machines<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> you <em>own</em> have a processor aside from the one you paid for?  It controls your processor (host) and won’t listen to you.</p>
-
+    <p>I believe <a href="https://en.wikipedia.org/wiki/Borg_(Star_Trek)"><em>resistance is futile</em></a> if someone is bent on spying on you; there’re both serious and <a href="https://en.wikipedia.org/wiki/Side-channel_attack">creative ways</a> to go about it.  Talking to your processor, behind your back, isn’t the primary or only means.  Our’s is a <a href="https://en.wikipedia.org/wiki/Information_Age">golden age</a> where corporates and government agencies stoop low enough to pry into bedrooms.  Did you know that <em>almost</em> all machines<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> you <em>own</em> have a processor aside from the one you paid for?  It controls your processor (host) and won’t listen to you.</p>
 <ul>
 <li>Unbeknownst to the host, it runs out-of-band, on a separate chip</li>
-<li>It has unfettered access to any memory region; it runs at <a href="https://en.wikipedia.org/wiki/Protection_ring">ring</a> level −3<sup class="footnote-ref" id="fnref:8"><a href="#fn:8">2</a></sup></li>
+<li>It has unfettered access to any memory region; it runs at <a href="https://en.wikipedia.org/wiki/Protection_ring">ring</a> level −3<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
 <li>It can run even when your machine is in stand-by</li>
 <li>It runs an OS and a TCP/IP server on certain ports bypassing any firewall in the host
-
 <ul>
 <li>You would never know even if you’re spied on</li>
-</ul></li>
+</ul>
+</li>
 <li>Can’t be terminated
-
 <ul>
 <li>It controls the host’s boot cycle</li>
-</ul></li>
 </ul>
-
-<p>A processor inside your processor, having its own operating system<sup class="footnote-ref" id="fnref:7"><a href="#fn:7">3</a></sup>, running services, buried very deep within and can’t be switched completely off &ndash; it’s needed to even bring up your processor during boot.  I’m talking about the <a href="https://en.wikipedia.org/wiki/Intel_Management_Engine">Intel ME</a> &mdash; a <a href="https://en.wikipedia.org/wiki/Backdoor_(computing)">backdoor</a> that’s built into Intel processors; it’s inner workings known only to Intel who refuses divulging anything about it in the name of security<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup>.  What’s that?  Yeah, I too went &ldquo;I’m lucky! I own an AMD machine&rdquo;.  Well, look up <a href="https://en.wikipedia.org/wiki/AMD_Platform_Security_Processor">PSP</a>; it’s AMD’s ME.  I think it’s <a href="https://www.bleepingcomputer.com/news/hardware/researchers-find-a-way-to-disable-much-hated-intel-me-component-courtesy-of-the-nsa/">clear by now</a> such</p>
-
+</li>
+</ul>
+<p>A processor inside your processor, having its own operating system<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, running services, buried very deep within and can’t be switched completely off &ndash; it’s needed to even bring up your processor during boot.  I’m talking about the <a href="https://en.wikipedia.org/wiki/Intel_Management_Engine">Intel ME</a> &mdash; a <a href="https://en.wikipedia.org/wiki/Backdoor_(computing)">backdoor</a> that’s built into Intel processors; it’s inner workings known only to Intel who refuses divulging anything about it in the name of security<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.  What’s that?  Yeah, I too went &ldquo;I’m lucky! I own an AMD machine&rdquo;.  Well, look up <a href="https://en.wikipedia.org/wiki/AMD_Platform_Security_Processor">PSP</a>; it’s AMD’s ME.  I think it’s <a href="https://www.bleepingcomputer.com/news/hardware/researchers-find-a-way-to-disable-much-hated-intel-me-component-courtesy-of-the-nsa/">clear by now</a> such</p>
 <blockquote>
 <p>back doors would exist even on mobile and server processors.  It is just matter of time before they’re exposed.</p>
 </blockquote>
-
 <h1 id="motive">Motive</h1>
-
-<p><a href="https://github.com/corna/me_cleaner">Some bright minds</a> have found a way to neutralize Intel’s backdoor<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">5</a></sup> i.e. not completely kill it, but make it harmless.  Now neutralizing just your MEs isn’t going to stop your other machines from prying.  Security experts and the paranoids will rightfully suggest</p>
-
+<p><a href="https://github.com/corna/me_cleaner">Some bright minds</a> have found a way to neutralize Intel’s backdoor<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> i.e. not completely kill it, but make it harmless.  Now neutralizing just your MEs isn’t going to stop your other machines from prying.  Security experts and the paranoids will rightfully suggest</p>
 <blockquote>
 <p>If you really want to be secure, go back to the cave.  Use pen and paper; burn it, when you’re done!</p>
 </blockquote>
-
-<p>Knowing it’s beyond me, why am I still doing it?  Well definitely not for security<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">6</a></sup>, but the hacker in me would like to own his toys &ndash; a reasonable expectation.  A stranger shouldn’t tell you how to use your pen; even worse, use it behind your back routinely.  It’s as simple as that.  It’s probably one of the reasons<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">7</a></sup> I’m a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> loyalist.</p>
-
+<p>Knowing it’s beyond me, why am I still doing it?  Well definitely not for security<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>, but the hacker in me would like to own his toys &ndash; a reasonable expectation.  A stranger shouldn’t tell you how to use your pen; even worse, use it behind your back routinely.  It’s as simple as that.  It’s probably one of the reasons<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> I’m a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> loyalist.</p>
 <blockquote>
 <p>I don’t want some processor, I didn’t pay for, to drain my laptop power, or steal data for some merchant who wants to sell stuff that I don’t want.</p>
 </blockquote>
-
-<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the <a href="https://github.com/corna/me_cleaner/wiki">ME Cleaner guides</a>, check versions and compatibilities then proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
-
+<p>If this makes sense then you should clean your machine too, but at your own risk.  Make sure you read the <a href="https://github.com/corna/me_cleaner/wiki">ME Cleaner guides</a>, check versions and compatibilities then proceed cautiously.  Basically, we’re going to do a BIOS firmware update<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>.  Just that it’s not done internally using software but externally with a cheap <a href="https://en.wikipedia.org/wiki/Programmer_(hardware)">BIOS programmer</a>.  How come re-programming the BIOS firmware shuts the backdoor?  When you cold boot your processor, <a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/">it starts with an amnesia</a> and so it always starts with the BIOS boot program.  In this program, there’s a hidden kill-switch for the back door: the <a href="https://github.com/corna/me_cleaner/wiki/HAP-AltMeDisable-bit"><em>HAP/AltMeDisable</em> bit</a>.  If set, ME will just boot the host and halt.</p>
 <p>Let’s get on with it!</p>
-
 <h1 id="connect">Connect</h1>
-
 <p>You should just be able to physically access your motherboard; no soldering involved.</p>
-
 <figure>
     <img src="images/hardware.jpg"
          alt="USB Programmer CH341A (left), SOP8 clip (bottom), SOP16/8-DIP8 board (top)"/> <figcaption>
@@ -188,38 +170,29 @@
         </figcaption>
 </figure>
 
-
-<p>CH341A (Black) is a cheap<sup class="footnote-ref" id="fnref:10"><a href="#fn:10">9</a></sup> USB <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI chip</a> programmer.  The SOP8 clip &ndash; that saves you from removing and re-soldering the BIOS chip &ndash; is sold separately.  Make sure you buy the clip that comes with a SOP16/8-DIP8 board; this proxies as the BIOS chip going into the programmer&rsquo;s slot. Take note</p>
-
+<p>CH341A (Black) is a cheap<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup> USB <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI chip</a> programmer.  The SOP8 clip &ndash; that saves you from removing and re-soldering the BIOS chip &ndash; is sold separately.  Make sure you buy the clip that comes with a SOP16/8-DIP8 board; this proxies as the BIOS chip going into the programmer's slot. Take note</p>
 <ol>
 <li>The first bit is denoted on the BIOS chip-top with a circle marking.</li>
-<li>Make sure the clip&rsquo;s red line, denoting the first bit, matches with this circle i.e. first on chip is connect to the first on clip when clipping.</li>
+<li>Make sure the clip's red line, denoting the first bit, matches with this circle i.e. first on chip is connect to the first on clip when clipping.</li>
 <li>Connect the wire end of the clip to the board such that the first bits match &ndash; the board has all bit pins marked.
-
 <ul>
 <li>Usually a 10-bit bus cable is used as the connector; notice that bits 9 and 10 are cut out.</li>
-</ul></li>
+</ul>
+</li>
 <li>Look at the CH341A programmer board for a drawing about the 25 SPI BIOS chip layout. This should also have the circle marking.</li>
-<li>Connect the board-end of the clip such that its first and the SPI&rsquo;s first bits match.</li>
+<li>Connect the board-end of the clip such that its first and the SPI's first bits match.</li>
 </ol>
-
 <figure>
     <img src="images/setup.jpg"/> <figcaption>
             <h4>My Setup</h4>
         </figcaption>
 </figure>
 
-
-<p>Connect the programmer&rsquo;s USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You&rsquo;re all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
-
+<p>Connect the programmer's USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You're all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></code></pre></div>
-
 <p>This means your Linux machine successfully detects the programmer.</p>
-
 <h1 id="backup">Backup</h1>
-
 <p>Install <code>flashrom</code>; your distro’s package repository will definitely have this nifty tool.  Make sure the chip is recognized by it:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -r BIOS_org.bin</span>
 </span><span style="color:#50fa7b">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
 <span style="color:#50fa7b">flashrom is free software, get the source code at https://flashrom.org</span>
@@ -227,11 +200,8 @@
 <span style="color:#50fa7b">Calibrating delay loop... OK.</span>
 <span style="color:#50fa7b">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
 <span style="color:#50fa7b">Reading flash... done.</span></code></pre></div>
-
 <p>It should be able to auto-detect the chip and give you a full dump of the chip contents.  If it says no devices were found, re-connect the clip; loose-contacts are common with these clips.  Get two dumps and binary-compare them to make sure the connection was fine and the images are valid.</p>
-
-<p>If there&rsquo;re multiple SPI chips on your motherboard, make sure you get the right one i.e. the BIOS image you get from your OEM should have around the same size as the dump you just made.</p>
-
+<p>If there're multiple SPI chips on your motherboard, make sure you get the right one i.e. the BIOS image you get from your OEM should have around the same size as the dump you just made.</p>
 <figure>
     <img src="images/bios_chip.jpg"
          alt="1 MiB Winbond EEPROM chip (left-bottom) was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one."/> <figcaption>
@@ -239,17 +209,11 @@
         </figcaption>
 </figure>
 
-
 <p>Run <code>me_cleaner</code> on the dump to verify it:</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
-
 <p>You should get a valid output.  You might also check it with the <code>ifdtool</code> from the <a href="https://www.coreboot.org/">coreboot</a> repo: <code>ifdtool -d BIOS_org.bin</code>.</p>
-
 <h1 id="clean">Clean</h1>
-
-<p>Run <code>me_cleaner</code> with the soft-clean option.  It&rsquo;s the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
-
+<p>Run <code>me_cleaner</code> with the soft-clean option.  It's the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
 </span><span style="color:#50fa7b">Full image detected</span>
 <span style="color:#50fa7b">The ME/TXE region goes from 0x1000 to 0x200000</span>
@@ -263,13 +227,9 @@
 <span style="color:#50fa7b">Setting the HAP bit in PCHSTRP0 to disable Intel ME...</span>
 <span style="color:#50fa7b">Checking the FTPR RSA signature... VALID</span>
 <span style="color:#50fa7b">Done! Good luck!</span></code></pre></div>
-
 <p>It should set the <em>AltMeDisable</em> (or HAP) bit and wish you luck!</p>
-
 <h1 id="flash">Flash</h1>
-
 <p>Flash the cleaned image back on to the SPI chip</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -w BIOS_clean.bin</span>
 </span><span style="color:#50fa7b">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
 <span style="color:#50fa7b">flashrom is free software, get the source code at https://flashrom.org</span>
@@ -279,17 +239,11 @@
 <span style="color:#50fa7b">Reading old flash chip contents... done.</span>
 <span style="color:#50fa7b">Erasing and writing flash chip... Erase/write done.</span>
 <span style="color:#50fa7b">Verifying flash... VERIFIED.</span></code></pre></div>
-
-<p>It will first take a back-up for disaster-recovery.  It&rsquo;ll also see if it could optimize by not writing portions that don&rsquo;t differ.  Then it&rsquo;ll write and verify if the image and the chip contents match!  Quite a thorough piece of software; nice :)</p>
-
+<p>It will first take a back-up for disaster-recovery.  It'll also see if it could optimize by not writing portions that don't differ.  Then it'll write and verify if the image and the chip contents match!  Quite a thorough piece of software; nice :)</p>
 <h1 id="verify">Verify</h1>
-
-<p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn&rsquo;t all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You&rsquo;ve successfully neutralized the backdoor! 🖖</p>
-
+<p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn't all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You've successfully neutralized the backdoor! 🖖</p>
 <p>On <a href="https://en.wikipedia.org/wiki/Unix-like">*nix</a>, <code>/dev/mei0</code> would no longer exist.  Also the MEI entry should no longer show up for <code>lspci</code>.  A more through way is <a href="https://github.com/corna/me_cleaner/wiki/Get-the-status-of-Intel-ME"><code>intelmetool -s</code></a>.</p>
-
 <p>For Windows, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ MEInfoWin64.exe -FWSTS</span>
 
 <span style="color:#50fa7b">Intel(R) MEInfo Version: 11.8.50.3460</span>
@@ -318,13 +272,9 @@
   <span style="color:#50fa7b">ME File System Corrupted:                   No</span>
   <span style="color:#50fa7b">PhaseStatus:                                UNKNOWN</span>
   <span style="color:#50fa7b">FPF and ME Config Status:                   Match</span></code></pre></div>
-
-<p>You can also verify that in the <em>Device Manager</em>, under <em>System devices</em>, the <em>Intel&reg; Management Engine Interface</em> no longer shows up.  Make sure you uninstall any ME-related software<sup class="footnote-ref" id="fnref:12"><a href="#fn:12">10</a></sup>.</p>
-
+<p>You can also verify that in the <em>Device Manager</em>, under <em>System devices</em>, the <em>Intel(R) Management Engine Interface</em> no longer shows up.  Make sure you uninstall any ME-related software<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup>.</p>
 <p>Finally, be a good team player and <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-391503079">report your success</a>!</p>
-
 <h1 id="references">References</h1>
-
 <ol>
 <li><a href="https://boingboing.net/2016/06/15/intel-x86-processors-ship-with.html">Intel x86s hide another CPU that can take over your machine</a></li>
 <li><a href="https://www.fsf.org/blogs/sysadmin/the-management-engine-an-attack-on-computer-users-freedom">The Intel Management Engine: an attack on computer users’ freedom</a></li>
@@ -335,37 +285,43 @@
 <li><a href="https://media.ccc.de/v/34c3-8782-intel_me_myths_and_reality">Intel ME Myths and Reality</a></li>
 <li>Me Cleaner’s <a href="https://github.com/corna/me_cleaner/wiki/External-flashing">external flashing guide</a></li>
 </ol>
-
-<h1 id="p-s">P.S.</h1>
-
+<h1 id="ps">P.S.</h1>
 <p>This machine has CSME 11 since it is a <a href="https://en.wikipedia.org/wiki/Kaby_Lake">Kaby Lake</a>.  Processors with older ME versions have much lesser security that this external flashing isn’t needed but is a lot cleaner.  The OEM’s BIOS firmware upgrade utility usually works.  <a href="https://github.com/corna/me_cleaner/issues/3#issuecomment-385616918">I had a fun time cleaning my older laptop</a> having ME 8.</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">the ones with micro-processor(s)
- <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:8">Negative ring levels are below the kernel which is at 0.  Lesser is deeper.
- <a class="footnote-return" href="#fnref:8">↩</a></li>
-<li id="fn:7"><a href="https://en.wikipedia.org/wiki/MINIX">MINIX</a> OS, written by <a href="https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum">the same guy</a> who <a href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">flamed Linus Torvalds</a> for writing a monolithic kernel.  In some sense the microkernel design <em>won</em> since it’s now <a href="https://www.networkworld.com/article/3236064/servers/minix-the-most-popular-os-in-the-world-thanks-to-intel.html">the most used OS</a> 😉
- <a class="footnote-return" href="#fnref:7">↩</a></li>
-<li id="fn:4"><em>Security by obscurity</em> &ndash; the worst form of security, as opined by security experts.
- <a class="footnote-return" href="#fnref:4">↩</a></li>
-<li id="fn:5">Sorry AMD owners; a consoling factor, however, is apparently PSP is much less capable than ME.
- <a class="footnote-return" href="#fnref:5">↩</a></li>
-<li id="fn:2">Heck! I wouldn’t be blogging about it if that’s the case, would I now?
- <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">Another reason is, of course, its <a href="https://en.wikipedia.org/wiki/Unix_philosophy">superior engineering</a>, better science and execution that stands the test of time, <em>despite</em> contributors not being paid engineers. Beat that corporates!
- <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:6">Just that it’ll be a non-OEM update this time.
- <a class="footnote-return" href="#fnref:6">↩</a></li>
-<li id="fn:10">Decent quality ones costed around $15 together
- <a class="footnote-return" href="#fnref:10">↩</a></li>
-<li id="fn:12">There are reports of ME software resetting the bit and resurructing the parasite
- <a class="footnote-return" href="#fnref:12">↩</a></li>
+<li id="fn:1" role="doc-endnote">
+<p>the ones with micro-processor(s) <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Negative ring levels are below the kernel which is at 0.  Lesser is deeper. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/MINIX">MINIX</a> OS, written by <a href="https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum">the same guy</a> who <a href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">flamed Linus Torvalds</a> for writing a monolithic kernel.  In some sense the microkernel design <em>won</em> since it’s now <a href="https://www.networkworld.com/article/3236064/servers/minix-the-most-popular-os-in-the-world-thanks-to-intel.html">the most used OS</a> 😉 <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><em>Security by obscurity</em> &ndash; the worst form of security, as opined by security experts. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>Sorry AMD owners; a consoling factor, however, is apparently PSP is much less capable than ME. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>Heck! I wouldn’t be blogging about it if that’s the case, would I now? <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>Another reason is, of course, its <a href="https://en.wikipedia.org/wiki/Unix_philosophy">superior engineering</a>, better science and execution that stands the test of time, <em>despite</em> contributors not being paid engineers. Beat that corporates! <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p>Just that it’ll be a non-OEM update this time. <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9" role="doc-endnote">
+<p>Decent quality ones costed around $15 together <a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:10" role="doc-endnote">
+<p>There are reports of ME software resetting the bit and resurructing the parasite <a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
 </div>
 

@@ -9,7 +9,7 @@
         <meta name="description" content="after a Windows boot loader overwrite">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="generator" content="Hugo 0.62.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -109,23 +109,20 @@
         <p class="post-description" itemprop="description">after a Windows boot loader overwrite</p>
     
     <p class="post-date">
-        <span>
-
-  
-
-
-
-  
-
-<time datetime="2019-01-20" itemprop="dateUpdated">Updated Wed, Jan 23, 2019</time>
+    Published <time datetime="2019-01-20" itemprop="datePublished">Jan 20, 2019</time>
+    <span>by</span>
+    <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+        <span itemprop="name">
+            <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
         </span>
-        <span>by</span>
-        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
-            <span itemprop="name">
-                <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
-            </span>
-        </span>
-    </p>
+    </span>
+    
+    <span class="post-update-date">
+        Updated <time datetime="2019-01-20" itemprop="datePublished">Jan 23, 2019</time>
+    </span>
+    
+</p>
+
     
 </header>
 
@@ -133,12 +130,8 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    
-
-<p>I tried upgrading the firmware of my old iOmega 1 TB HDD.  Internally it’s a <em>Barracuda LP</em> family, ST31000520AS model Segate HDD.  Seagate had released a <a href="http://knowledge.seagate.com/articles/en_US/FAQ/213915en">firmware upgrade</a> for this drive in 2010.  I’m around 9 years late to the party!</p>
-
-<p>My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB stick &mdash; why waste a CD, eh?  <a href="https://rufus.akeo.ie/">Rufus</a> kindly refused as the supplied Seagate update ISO’s boot format was unrecognizable.  In the process, I’d tried using another tool &ndash; <em>RMPrepUsb</em> &ndash; in vain.  It’d done something, owing to some option I chose of course, to overwrite GRUB2 with Windows boot loader &mdash; some <code>BCDedit</code> command I guess.  My meddling with BIOS didn’t help either as GRUB wasn’t even listed in <em>EFI order</em>, so I reverted to orignial settings<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>:</p>
-
+    <p>I tried upgrading the firmware of my old iOmega 1 TB HDD.  Internally it’s a <em>Barracuda LP</em> family, ST31000520AS model Segate HDD.  Seagate had released a <a href="http://knowledge.seagate.com/articles/en_US/FAQ/213915en">firmware upgrade</a> for this drive in 2010.  I’m around 9 years late to the party!</p>
+<p>My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB stick &mdash; why waste a CD, eh?  <a href="https://rufus.akeo.ie/">Rufus</a> kindly refused as the supplied Seagate update ISO’s boot format was unrecognizable.  In the process, I’d tried using another tool &ndash; <em>RMPrepUsb</em> &ndash; in vain.  It’d done something, owing to some option I chose of course, to overwrite GRUB2 with Windows boot loader &mdash; some <code>BCDedit</code> command I guess.  My meddling with BIOS didn’t help either as GRUB wasn’t even listed in <em>EFI order</em>, so I reverted to orignial settings<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>:</p>
 <table>
 <thead>
 <tr>
@@ -146,78 +139,59 @@
 <th>Value</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Boot Mode</td>
 <td>UEFI</td>
 </tr>
-
 <tr>
 <td>USB Boot</td>
 <td>Enabled</td>
 </tr>
-
 <tr>
 <td>EFI order</td>
 <td>GRUB, Windows Boot Manager, EFI PXE Network</td>
 </tr>
-
 <tr>
 <td>Secure Boot</td>
 <td>Disabled</td>
 </tr>
-
 <tr>
 <td>Fast Boot</td>
 <td>Enabled</td>
 </tr>
 </tbody>
 </table>
-
-<p>Thanks to <a href="https://wiki.debian.org/GrubEFIReinstall">Debian’s GrubEFIReinstall guide</a>; it made me recall that the <em>Boot Mode</em> should be UEFI; it also gave the way verify it.  I’d to use a UEFI-bootable<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup> USB stick with Arch Linux ISO.  Things were smooth thereon!</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # [ <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">d</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sys</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">firmware</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span> ] <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;EFI boot on HDD&#34;</span> <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Legacy boot on HDD&#34;</span>
+<p>Thanks to <a href="https://wiki.debian.org/GrubEFIReinstall">Debian’s GrubEFIReinstall guide</a>; it made me recall that the <em>Boot Mode</em> should be UEFI; it also gave the way verify it.  I’d to use a UEFI-bootable<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> USB stick with Arch Linux ISO.  Things were smooth thereon!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # [ <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">d</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sys</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">firmware</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span> ] <span style="color:#ff79c6">&amp;</span><span style="color:#ff79c6">&amp;</span> <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;EFI boot on HDD&#34;</span> <span style="color:#ff79c6">|</span><span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Legacy boot on HDD&#34;</span>
 <span style="color:#8be9fd;font-style:italic">EFI</span> <span style="color:#8be9fd;font-style:italic">boot</span> <span style="color:#8be9fd;font-style:italic">on</span> <span style="color:#8be9fd;font-style:italic">HDD</span>
-<span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
-<span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span>
-<span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span>
-<span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">var</span>
-<span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">swapon</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda6</span>
-<span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">arch</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">chroot</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span></code></pre></div>
-
-<p>Once <a href="https://en.wikipedia.org/wiki/Chroot">chroot</a>ed<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup>, I’d to reinstall GRUB to fix the issue!</p>
-
+<span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
+<span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span>
+<span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span>
+<span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">var</span>
+<span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">swapon</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda6</span>
+<span style="color:#8be9fd;font-style:italic">root@</span><span style="color:#8be9fd;font-style:italic">archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">arch</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">chroot</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span></code></pre></div>
+<p>Once <a href="https://en.wikipedia.org/wiki/Chroot">chroot</a>ed<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, I’d to reinstall GRUB to fix the issue!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p1</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span>
-<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">install</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">target</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">x86_64</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">efi</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">efi</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">directory</span><span style="color:#ff79c6">=/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">bootloader</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">id</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">GRUB</span></code></pre></div>
-
+<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">grub</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">install</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">target</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">x86_64</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">efi</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">efi</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">directory</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">bootloader</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">id</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">GRUB</span></code></pre></div>
 <p>All is well now 😀</p>
-
 <h1 id="see-also">See Also</h1>
-
 <ul>
 <li><a href="https://wiki.debian.org/GrubEFIReinstall">Debian’s GrubEFIReinstall guide</a> &ndash; like most Debian documents, thorough!</li>
 <li><a href="https://www.dedoimedo.com/computers/grub2-efi-recovery.html">GRUB2 &amp; EFI Recovery Tutorial</a> seems to be a detailed guide with multiple methods; I only glanced it.</li>
 <li><a href="https://github.com/jandelgado/general/wiki/Firmware-update-of-Seagate-harddisk-using-Linux">Firmware update Seagate HDD using Linux</a> uses <code>hdparm</code> to do it on Linux; something the OEM doesn’t support.  I didn’t have to resort to it.  I dunno if this would’ve worked if the HDD was connected via USB.</li>
 </ul>
-
-<hr />
-
+<hr>
 <h1 id="hdd-upgrade-story">HDD Upgrade Story</h1>
-
 <p>Those still reading to know about the poor ’ol HDD’s fate, read on!  It ends well :)</p>
-
 <p>I created a plain <em>Free DOS</em> bootable USB with Rufus; extracted the IMA floppy image to root; this worked since the update ISO was also using Free DOS.  The tool, booted with Free DOS, still couldn’t do the deed!  It couldn’t detect the drive that was connected via USB; <a href="https://niallbest.com/seagate-2tb-st32000542as-cc35-firmware-upgrade/">I realised</a> that it expects BIOS to be set to ATA; neither AHCI nor RAID &ndash; the only options mine has.</p>
-
 <p>Luckily my 2006 desktop (AMD Phenom X4 machine) had the SATA option (in addition to the other two)!  I didn’t even have to resort to a force firmware write, the tool did it straight-forward.  I didn’t connect it via USB though; I opened the iOmega case, connected the internal HDD directly to the motherboard’s SATA power and data connectors.</p>
-
 <p>Before firmware upgrade <code>smartctl</code> warned about an older firmware.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">smartctl</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">i</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sdb</span>
-<span style="color:#8be9fd;font-style:italic">smartctl</span> <span style="color:#bd93f9">7.0</span> <span style="color:#bd93f9">2018-12-30</span> <span style="color:#8be9fd;font-style:italic">r4883</span> [<span style="color:#8be9fd;font-style:italic">x86_64</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">linux</span><span style="color:#bd93f9">-4.20.3</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">arch1</span><span style="color:#bd93f9">-1</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">ARCH</span>] (<span style="color:#8be9fd;font-style:italic">local</span> <span style="color:#8be9fd;font-style:italic">build</span>)
-<span style="color:#8be9fd;font-style:italic">Copyright</span> (<span style="color:#8be9fd;font-style:italic">C</span>) <span style="color:#bd93f9">2002-18</span>, <span style="color:#8be9fd;font-style:italic">Bruce</span> <span style="color:#8be9fd;font-style:italic">Allen</span>, <span style="color:#8be9fd;font-style:italic">Christian</span> <span style="color:#8be9fd;font-style:italic">Franke</span>, <span style="color:#8be9fd;font-style:italic">www</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">smartmontools</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span>
+<span style="color:#8be9fd;font-style:italic">smartctl</span> <span style="color:#bd93f9">7.0</span> <span style="color:#bd93f9">2018</span><span style="color:#bd93f9">-12</span><span style="color:#bd93f9">-30</span> <span style="color:#8be9fd;font-style:italic">r4883</span> [<span style="color:#8be9fd;font-style:italic">x86_64</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">linux</span><span style="color:#bd93f9">-4.20</span><span style="color:#bd93f9">.3</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">arch1</span><span style="color:#bd93f9">-1</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">ARCH</span>] (<span style="color:#8be9fd;font-style:italic">local</span> <span style="color:#8be9fd;font-style:italic">build</span>)
+<span style="color:#8be9fd;font-style:italic">Copyright</span> (<span style="color:#8be9fd;font-style:italic">C</span>) <span style="color:#bd93f9">2002</span><span style="color:#bd93f9">-18</span>, <span style="color:#8be9fd;font-style:italic">Bruce</span> <span style="color:#8be9fd;font-style:italic">Allen</span>, <span style="color:#8be9fd;font-style:italic">Christian</span> <span style="color:#8be9fd;font-style:italic">Franke</span>, <span style="color:#8be9fd;font-style:italic">www</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">smartmontools</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span>
 
-<span style="color:#ff79c6">===</span> <span style="color:#8be9fd;font-style:italic">START</span> <span style="color:#8be9fd;font-style:italic">OF</span> <span style="color:#8be9fd;font-style:italic">INFORMATION</span> <span style="color:#8be9fd;font-style:italic">SECTION</span> <span style="color:#ff79c6">===</span>
+<span style="color:#ff79c6">==</span><span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">START</span> <span style="color:#8be9fd;font-style:italic">OF</span> <span style="color:#8be9fd;font-style:italic">INFORMATION</span> <span style="color:#8be9fd;font-style:italic">SECTION</span> <span style="color:#ff79c6">==</span><span style="color:#ff79c6">=</span>
 <span style="color:#8be9fd;font-style:italic">Model</span> <span style="color:#8be9fd;font-style:italic">Family:</span>     <span style="color:#8be9fd;font-style:italic">Seagate</span> <span style="color:#8be9fd;font-style:italic">Barracuda</span> <span style="color:#8be9fd;font-style:italic">LP</span>
 <span style="color:#8be9fd;font-style:italic">Device</span> <span style="color:#8be9fd;font-style:italic">Model:</span>     <span style="color:#8be9fd;font-style:italic">ST31000520AS</span>
 <span style="color:#8be9fd;font-style:italic">Serial</span> <span style="color:#8be9fd;font-style:italic">Number:</span>    <span style="color:#8be9fd;font-style:italic">XXXXXXXX</span>
@@ -233,25 +207,25 @@
 <span style="color:#8be9fd;font-style:italic">SMART</span> <span style="color:#8be9fd;font-style:italic">support</span> <span style="color:#8be9fd;font-style:italic">is:</span> <span style="color:#8be9fd;font-style:italic">Available</span> <span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">device</span> <span style="color:#8be9fd;font-style:italic">has</span> <span style="color:#8be9fd;font-style:italic">SMART</span> <span style="color:#8be9fd;font-style:italic">capability</span><span style="color:#ff79c6">.</span>
 <span style="color:#8be9fd;font-style:italic">SMART</span> <span style="color:#8be9fd;font-style:italic">support</span> <span style="color:#8be9fd;font-style:italic">is:</span> <span style="color:#8be9fd;font-style:italic">Enabled</span>
 
-<span style="color:#ff79c6">==&gt;</span> <span style="color:#8be9fd;font-style:italic">WARNING:</span> <span style="color:#8be9fd;font-style:italic">A</span> <span style="color:#8be9fd;font-style:italic">firmware</span> <span style="color:#8be9fd;font-style:italic">update</span> <span style="color:#8be9fd;font-style:italic">for</span> <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">drive</span> <span style="color:#8be9fd;font-style:italic">may</span> <span style="color:#8be9fd;font-style:italic">be</span> <span style="color:#8be9fd;font-style:italic">available</span>,
+<span style="color:#ff79c6">==</span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">WARNING:</span> <span style="color:#8be9fd;font-style:italic">A</span> <span style="color:#8be9fd;font-style:italic">firmware</span> <span style="color:#8be9fd;font-style:italic">update</span> <span style="color:#8be9fd;font-style:italic">for</span> <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">drive</span> <span style="color:#8be9fd;font-style:italic">may</span> <span style="color:#8be9fd;font-style:italic">be</span> <span style="color:#8be9fd;font-style:italic">available</span>,
 <span style="color:#8be9fd;font-style:italic">see</span> <span style="color:#8be9fd;font-style:italic">the</span> <span style="color:#8be9fd;font-style:italic">following</span> <span style="color:#8be9fd;font-style:italic">Seagate</span> <span style="color:#8be9fd;font-style:italic">web</span> <span style="color:#8be9fd;font-style:italic">pages:</span>
-<span style="color:#8be9fd;font-style:italic">http:</span><span style="color:#ff79c6">//</span><span style="color:#8be9fd;font-style:italic">knowledge</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">seagate</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">articles</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">en_US</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">FAQ</span><span style="color:#ff79c6">/</span><span style="color:#bd93f9">207931</span><span style="color:#8be9fd;font-style:italic">en</span>
-<span style="color:#8be9fd;font-style:italic">http:</span><span style="color:#ff79c6">//</span><span style="color:#8be9fd;font-style:italic">knowledge</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">seagate</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">articles</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">en_US</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">FAQ</span><span style="color:#ff79c6">/</span><span style="color:#bd93f9">213915</span><span style="color:#8be9fd;font-style:italic">en</span></code></pre></div>
-
+<span style="color:#8be9fd;font-style:italic">http:</span><span style="color:#ff79c6">/</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">knowledge</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">seagate</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">articles</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">en_US</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">FAQ</span><span style="color:#ff79c6">/</span><span style="color:#bd93f9">207931</span><span style="color:#8be9fd;font-style:italic">en</span>
+<span style="color:#8be9fd;font-style:italic">http:</span><span style="color:#ff79c6">/</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">knowledge</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">seagate</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">articles</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">en_US</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">FAQ</span><span style="color:#ff79c6">/</span><span style="color:#bd93f9">213915</span><span style="color:#8be9fd;font-style:italic">en</span></code></pre></div>
 <p>After the upgrade, the warning vanished and <em>Firmware Version</em> reads <code>CC35</code> 😇</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">GRUB is present in <em>EFI Order</em> since this was made after the recovery.
- <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">This is rather important; a legacy boot USB stick wouldn’t be bootable when <em>Boot Mode</em> is UEFI.
- <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">This is important too; without chrooting file paths would be off.
- <a class="footnote-return" href="#fnref:3">↩</a></li>
+<li id="fn:1" role="doc-endnote">
+<p>GRUB is present in <em>EFI Order</em> since this was made after the recovery. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>This is rather important; a legacy boot USB stick wouldn’t be bootable when <em>Boot Mode</em> is UEFI. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>This is important too; without chrooting file paths would be off. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
 </div>
 

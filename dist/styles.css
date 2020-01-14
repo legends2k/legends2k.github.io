@@ -407,6 +407,7 @@ blockquote ::-moz-selection {
 .post-date a,
 .blog-description a {
     color: #AEADAD;
+    font-style: italic;
 }
 .post-date a:hover,
 .blog-description a:hover {
@@ -420,6 +421,11 @@ blockquote ::-moz-selection {
     display: block;
     margin: 40px auto 0;
     width: 100px;
+}
+
+.post-update-date {
+    display: block;
+    margin: 1em;
 }
 
 .post-content a:hover {

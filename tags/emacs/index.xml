@@ -19,7 +19,7 @@
       
       <guid>https://legends2k.github.io/note/go_setup/</guid>
       <description>An IDE at least should do
- Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Context-sensitive document lookup  Show variable and function type Show function description  Autorun gofmt on save Bonus: Auto-add/remove used/unused packages on file save  We’ll try to get these going on Emacs.
+ Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Context-sensitive document lookup  Show variable and function type Show function description   Autorun gofmt on save Bonus: Auto-add/remove used/unused packages on file save  We’ll try to get these going on Emacs.
 External Tools Though not part of the canonical tool set, these are written by seasoned Go devs
  gocode godef goflymake goimports godoc  Emacs Packages We’d be needing these too to interface with above tools</description>
     </item>
@@ -30,8 +30,8 @@ External Tools Though not part of the canonical tool set, these are written by s
       <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/c&#43;&#43;_irony_win32/</guid>
-      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
-The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
+      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&#39;m documenting it here.
+The general installation instructions provided in Irony&#39;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
     </item>
     
   </channel>

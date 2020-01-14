@@ -28,7 +28,8 @@ My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB 
       <pubDate>Sun, 27 May 2018 17:00:46 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/arch_config/</guid>
-      <description>Network In the newly installed Arch you might notice that there&amp;rsquo;s no network connectivity. To enable do what you did during installation (see Arch Linux Installation, §2 Wireless Network). I did it only to realize, for netctl to hook to a WPA-secured network, the wpa_supplicant package is needed but was absent on the installed system. To connect to the internet, you need a package from the internet!? To get out of this Catch 22 situation, I&amp;rsquo;d to reboot from the installation USB, setup network and install wpa_supplicant to the new OS by chrooting</description>
+      <description>See Arch Linux Installation for installation notes.
+Network In the newly installed Arch you might notice that there&#39;s no network connectivity. To enable do what you did during installation (see Arch Linux Installation, §2 Wireless Network). I did it only to realize, for netctl to hook to a WPA-secured network, the wpa_supplicant package is needed but was absent on the installed system. To connect to the internet, you need a package from the internet!</description>
     </item>
     
     <item>
@@ -37,7 +38,7 @@ My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB 
       <pubDate>Sun, 27 May 2018 17:00:46 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/arch_install/</guid>
-      <description>I&amp;rsquo;ve a dual GPU laptop: Lenovo Legion Y520-15IKBN; the Nvidia GeForce 1050 Ti Mobile for graphics-heavy (3D) tasks and Intel HD Graphics 630 for rendering the rest. It has an SSD and a traditional spinning disk. UEFI + GPT as opposed to the classic BIOS + MBR combo is preferable. I&amp;rsquo;m a long-time Xubuntu user but I wanted to try Arch Linux. Here I note my experience in getting this laptop up and running.</description>
+      <description>I&#39;ve a dual GPU laptop: Lenovo Legion Y520-15IKBN; the Nvidia GeForce 1050 Ti Mobile for graphics-heavy (3D) tasks and Intel HD Graphics 630 for rendering the rest. It has an SSD and a traditional spinning disk. UEFI + GPT as opposed to the classic BIOS + MBR combo is preferable. I&#39;m a long-time Xubuntu user but I wanted to try Arch Linux. Here I note my experience in getting this laptop up and running.</description>
     </item>
     
   </channel>

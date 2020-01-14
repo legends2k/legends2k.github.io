@@ -9,7 +9,7 @@
         <meta name="description" content="Make Emacs your Go IDE">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="generator" content="Hugo 0.62.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -109,23 +109,20 @@
         <p class="post-description" itemprop="description">Make Emacs your Go IDE</p>
     
     <p class="post-date">
-        <span>
-
-  
-
-
-
-  
-
-<time datetime="2018-06-17" itemprop="dateUpdated">Updated Mon, Nov 25, 2019</time>
+    Published <time datetime="2018-06-17" itemprop="datePublished">Jun 17, 2018</time>
+    <span>by</span>
+    <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+        <span itemprop="name">
+            <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
         </span>
-        <span>by</span>
-        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
-            <span itemprop="name">
-                <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
-            </span>
-        </span>
-    </p>
+    </span>
+    
+    <span class="post-update-date">
+        Updated <time datetime="2018-06-17" itemprop="datePublished">Nov 25, 2019</time>
+    </span>
+    
+</p>
+
     
 </header>
 
@@ -133,30 +130,23 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    
-
-<p>An IDE at least should do</p>
-
+    <p>An IDE at least should do</p>
 <ul>
 <li>Auto-completion (a.k.a Intellisense)</li>
 <li>Jump to definition</li>
 <li>On-the-fly error checks</li>
 <li>Context-sensitive document lookup
-
 <ul>
 <li>Show variable and function type</li>
 <li>Show function description</li>
-</ul></li>
+</ul>
+</li>
 <li>Autorun <code>gofmt</code> on save</li>
 <li><strong>Bonus</strong>: Auto-add/remove used/unused packages on file save</li>
 </ul>
-
 <p>We’ll try to get these going on Emacs.</p>
-
 <h2 id="external-tools">External Tools</h2>
-
 <p>Though not part of the canonical tool set, these are written by seasoned Go devs</p>
-
 <ul>
 <li>gocode</li>
 <li>godef</li>
@@ -164,37 +154,31 @@
 <li>goimports</li>
 <li>godoc</li>
 </ul>
-
 <h2 id="emacs-packages">Emacs Packages</h2>
-
 <p>We’d be needing these too to interface with above tools</p>
-
 <ul>
 <li>go-mode</li>
 <li>eldoc</li>
 <li>company-go</li>
 </ul>
-
-<p>It&rsquo;s assumed that you already have <code>company</code> installed.</p>
-
+<p>It's assumed that you already have <code>company</code> installed.</p>
 <h2 id="steps">Steps</h2>
-
 <ol>
 <li>Install Go binary
-
 <ul>
 <li>Linux: use your distro’s package manager</li>
 <li>Windows: download and install 64-bit MSI package</li>
-</ul></li>
+</ul>
+</li>
 <li>Set <code>$GOPATH</code>
-
 <ul>
 <li>It can have multiple entries like <code>$PATH</code></li>
 <li>First one’s where packages are downloaded by <code>go get</code></li>
 <li>Source code is searched in all entries</li>
 <li>Add entries with a trailing slash</li>
 <li>Read <code>go help gopath</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Go get these tools.  On Windows add <code>-ldflags -H=windowsgui</code> for <code>gocode</code>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">u</span> <span style="color:#8be9fd;font-style:italic">github</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mdempsky</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">gocode</span>
 <span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">github</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">rogpeppe</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">godef</span>
@@ -217,69 +201,62 @@
                           (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;before-save-hook</span> <span style="color:#f1fa8c">&#39;gofmt-before-save</span>)))</code></pre></div></li>
 <li>Periodically <code>go get -u all</code> to keep the downloaded tools updated.</li>
 </ol>
-
 <h1 id="usage">Usage</h1>
-
 <ul>
 <li>If you’re not open an existing source file, be sure to save your fresh buffer.
-
 <ul>
 <li>Without saving you’d get warnings from tools</li>
-</ul></li>
+</ul>
+</li>
 <li>Auto-completion
-
 <ul>
 <li>Test it by importing <code>fmt</code> and type <code>fmt.</code></li>
 <li>It should list the package’s public members</li>
 <li>Cycle through the options with <code>M-n</code> and <code>M-p</code></li>
 <li>Additionally it’d also show the function prototype in the mini-buffer</li>
-</ul></li>
+</ul>
+</li>
 <li>Jump to definition
-
 <ul>
 <li>When point is atop a function name, press <code>M-.</code></li>
 <li>This should open the file where it’s defined and seek to the definition</li>
 <li>To return back to original place press <code>M-,</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Flymake should work without any intervention
-
 <ul>
 <li>It’s too subtle; just highlights erroneous line with <code>!!</code> and underscores the problematic token</li>
 <li><code>flymake-show-diagnostics-buffer</code> should show you a constantly updated buffer with the actual errors/warnings</li>
-</ul></li>
+</ul>
+</li>
 <li>Context-sensitive document lookup
-
 <ul>
 <li>Positioning point on a variable/function should show its type in the minibuffer</li>
 <li>To describe variable/expression at point do <code>C-c C-d</code></li>
 <li>To get a detailed description of a function do <code>godoc-at-point</code></li>
 <li>You could bind it to a key combo; it’s fairly handy</li>
-</ul></li>
+</ul>
+</li>
 <li>Auto-formatting
-
 <ul>
 <li>When you save the buffer it auto-formats with <code>gofmt</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Auto-include/exclude
-
 <ul>
 <li><a href="https://golang.org/doc/effective_go.html?#blank_unused">Go is strict</a> on what you import</li>
 <li>At the top-level, include packages you wouldn’t reference</li>
 <li>In functions from packages you didn’t import</li>
 <li>Save the buffer!  Redundant packages are wiped out and needed ones are imported 😉</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>This setup is light and good enough for now.</p>
-
 <h1 id="to-do">To Do</h1>
-
 <p>Play with <a href="https://godoc.org/golang.org/x/tools/cmd/guru"><code>guru</code></a> &ndash; looks like a sophisticated tool.</p>
-
 <h1 id="references">References</h1>
-
 <ol>
-<li><code>go-mode</code>&rsquo;s help in Emacs</li>
+<li><code>go-mode</code>'s help in Emacs</li>
 <li><code>$GOPATH/src/github.com/mdempsky/gocode/emacs-company/README.md</code></li>
 <li><a href="https://tleyden.github.io/blog/2014/05/27/configure-emacs-as-a-go-editor-from-scratch-part-2/">Configure Emacs as a Go Editor From Scratch</a></li>
 <li><a href="https://github.com/dougm/goflymake">goflymake</a></li>

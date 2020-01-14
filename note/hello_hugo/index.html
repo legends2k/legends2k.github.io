@@ -9,7 +9,7 @@
         <meta name="description" content="static site generators and how they can help">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="generator" content="Hugo 0.62.2" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -124,23 +124,20 @@
         <p class="post-description" itemprop="description">static site generators and how they can help</p>
     
     <p class="post-date">
-        <span>
-
-  
-
-
-
-  
-
-<time datetime="2016-07-11" itemprop="dateUpdated">Updated Fri, Dec 21, 2018</time>
+    Published <time datetime="2016-07-11" itemprop="datePublished">Jul 11, 2016</time>
+    <span>by</span>
+    <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+        <span itemprop="name">
+            <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
         </span>
-        <span>by</span>
-        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
-            <span itemprop="name">
-                <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
-            </span>
-        </span>
-    </p>
+    </span>
+    
+    <span class="post-update-date">
+        Updated <time datetime="2016-07-11" itemprop="datePublished">Dec 21, 2018</time>
+    </span>
+    
+</p>
+
     
 </header>
 
@@ -148,19 +145,12 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    
-
-<p>Many <a href="http://www.staticgen.com/">static site generators</a> are coming up these days; 175 and still counting.  Apart from the prime selling point of content creation from the comfort of your favourite text editor in <a href="https://daringfireball.net/projects/markdown/basics">Markdown</a>, most have a wide gamut of themes to choose from.  You are free to <a href="/note/site_customizations">remix the theme to your taste</a> however you see fit.  Want to change the line spacing and paragraph alignment?  Sure thing!  Don&rsquo;t like anything?  Ditch them all and whip up something new.  Share it with others, perhaps?  You do not have to be a web programmer or designer to customize themes; I am a C++ programmer but I had no trouble picking up CSS3; just a few days of tussling did the trick.</p>
-
-<p>You get these advantages in most SSG&rsquo;s but <a href="https://gohugo.io">Hugo</a> has one more: it has <em>no</em> dependencies from an end-user viewpoint; download and extract it on any machine, and get down to stuff that matters &mdash; content.  I think it gets this by virtue of being authored in <a href="https://golang.org">Go</a>.</p>
-
+    <p>Many <a href="http://www.staticgen.com/">static site generators</a> are coming up these days; 175 and still counting.  Apart from the prime selling point of content creation from the comfort of your favourite text editor in <a href="https://daringfireball.net/projects/markdown/basics">Markdown</a>, most have a wide gamut of themes to choose from.  You are free to <a href="/note/site_customizations">remix the theme to your taste</a> however you see fit.  Want to change the line spacing and paragraph alignment?  Sure thing!  Don't like anything?  Ditch them all and whip up something new.  Share it with others, perhaps?  You do not have to be a web programmer or designer to customize themes; I am a C++ programmer but I had no trouble picking up CSS3; just a few days of tussling did the trick.</p>
+<p>You get these advantages in most SSG's but <a href="https://gohugo.io">Hugo</a> has one more: it has <em>no</em> dependencies from an end-user viewpoint; download and extract it on any machine, and get down to stuff that matters &mdash; content.  I think it gets this by virtue of being authored in <a href="https://golang.org">Go</a>.</p>
 <p>This is a test page I tried to check out Hugo; to verify its fitness as a technical blog generator that supports the following sorely-needed scenarios for this web log.</p>
-
 <h1 id="text-formatting">Text Formatting</h1>
-
 <ul>
 <li>Formatting
-
 <ul>
 <li><strong>bold</strong></li>
 <li><em>italics</em></li>
@@ -169,7 +159,8 @@
 <li>blockquotes</li>
 <li>custom font</li>
 <li>line spacing</li>
-</ul></li>
+</ul>
+</li>
 <li>Footnotes</li>
 <li>Unicode, UTF8 and emoticons support</li>
 <li>Math equations</li>
@@ -177,63 +168,45 @@
 <li><em>SVG</em> render with captions</li>
 <li>Interactive Demos with HTML5 Canvas</li>
 </ul>
-
 <h1 id="blockquote-and-footnote">Blockquote and Footnote</h1>
-
-<p>This is an obscure alternative to the famous &ldquo;<em>The quick brown fox…</em>&rdquo; pangram<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></p>
-
+<p>This is an obscure alternative to the famous &ldquo;<em>The quick brown fox…</em>&rdquo; pangram<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <blockquote>
 <p>Exploring the zoo, we saw every kangaroo jump and quite a few carried babies.</p>
 </blockquote>
-
 <h2 id="unicode-utf8-and-special-characters">Unicode, UTF8 and Special Characters</h2>
-
 <p>பிறந்த குழந்தைகட்கு இந்த பாடலைப் பாடிக்காட்டுவது வழ்க்கம்:</p>
-
-<p><strong>அ</strong>ம்மா இங்கே வா! வா!<br />
-<strong>ஆ</strong>சை முத்தம் தா! தா!<br />
-<strong>இ</strong>லையில் சோறு போட்டு<br />
-<strong>ஈ</strong>யை தூர ஓட்டு!<br />
-<strong>உ</strong>ன்னைப் போன்று நல்லார்<br />
-<strong>ஊ</strong>ரில் யாவர் உள்ளார்?<br />
-<strong>எ</strong>ன்னால் உனக்குத் தொல்லை<br />
-<strong>ஏ</strong>தும் இங்கே இல்லை!<br />
-<strong>ஐ</strong>யம் இன்றி சொல்வேன்<br />
-<strong>ஒ</strong>ற்றுமை என்றும் பலமாம்!<br />
-<strong>ஓ</strong>தும் செயலே நலமாம்!<br />
-<strong>ஔ</strong>வை சொன்ன மொழியாம்!<br />
+<p><strong>அ</strong>ம்மா இங்கே வா! வா!<br>
+<strong>ஆ</strong>சை முத்தம் தா! தா!<br>
+<strong>இ</strong>லையில் சோறு போட்டு<br>
+<strong>ஈ</strong>யை தூர ஓட்டு!<br>
+<strong>உ</strong>ன்னைப் போன்று நல்லார்<br>
+<strong>ஊ</strong>ரில் யாவர் உள்ளார்?<br>
+<strong>எ</strong>ன்னால் உனக்குத் தொல்லை<br>
+<strong>ஏ</strong>தும் இங்கே இல்லை!<br>
+<strong>ஐ</strong>யம் இன்றி சொல்வேன்<br>
+<strong>ஒ</strong>ற்றுமை என்றும் பலமாம்!<br>
+<strong>ஓ</strong>தும் செயலே நலமாம்!<br>
+<strong>ஔ</strong>வை சொன்ன மொழியாம்!<br>
 அ<strong>ஃ</strong>தே எமக்கு வழியாம்!</p>
-
 <p>ஏனெனில் இப்பாடலில் அனைத்து உயிரெழுத்துக்களும் ஒவ்வொரு அடியின் தொடக்கத்திலும் இடம் பெரும்.</p>
-
-<p><code>--</code> gives an <code>EN DASH</code> (&ndash;), while <code>---</code> is an <code>EM DASH</code> (&mdash;). Fractions, like <sup>9</sup>&frasl;<sub>22</sub>, are beautifully rendered too 😃</p>
-
+<p><code>--</code> gives an <code>EN DASH</code> (&ndash;), while <code>---</code> is an <code>EM DASH</code> (&mdash;). Fractions, like 9/22, are beautifully rendered too 😃</p>
 <h2 id="code">Code</h2>
-
 <p>This C++ code is syntax highlighted.  It also has a particular line highlighted; this line prints <code>hello, world!</code> on the terminal:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#</span><span style="color:#ff79c6">include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6"></span>
 <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>()
 {
-<span style="display:block;width:100%;background-color:#3d3f4a">    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;hello, world!</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+<span style="display:block;width:100%;background-color:#3d3f4a">    std<span style="color:#ff79c6">:</span><span style="color:#ff79c6">:</span>cout <span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">&lt;</span> <span style="color:#f1fa8c"></span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">hello, world!</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
 </span>}
 </code></pre></div>
-
 <h2 id="math-equation">Math Equation</h2>
-
 <p>Perhaps this</p>
-
 <p>$$
 e^{i\pi}+1=0
 $$</p>
-
 <p>equation is more beautiful than the highly over-rated $E = mc^2$.  They are rendered here with MathJax which is supported by Hugo elegantly.</p>
-
 <h1 id="table">Table</h1>
-
 <p>A table with different alignments:</p>
-
 <table>
 <thead>
 <tr>
@@ -242,14 +215,12 @@ $$</p>
 <th align="right">Help</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="left"><code>git status</code></td>
 <td align="center">Know the current status of the repo</td>
 <td align="right"><code>man git-status</code></td>
 </tr>
-
 <tr>
 <td align="left"><code>git diff</code></td>
 <td align="center">Diff tracked but not-yet-staged files</td>
@@ -257,37 +228,29 @@ $$</p>
 </tr>
 </tbody>
 </table>
-
 <h1 id="vector-graphics">Vector Graphics</h1>
-
-<p>Let&rsquo;s see how an <code>SVG</code> shows up with an accompanying caption!</p>
-
+<p>Let's see how an <code>SVG</code> shows up with an accompanying caption!</p>
 <figure>
     <img src="images/cub_bez_arc.svg"/> <figcaption>
             <h4>Cubic Bézier Circles</h4>
         </figcaption>
 </figure>
 
-
 <h2 id="interactive-demo">Interactive Demo</h2>
-
 <p>Red is the viewer here; green dots are end points of walls. Click and drag one of them to see where the vision ray from the viewer can go past the walls.</p>
-
 <iframe style="width: 640px; height: 480px; border: 1px solid black; margin-left: auto; margin-right: auto; display: block; box-sizing: border-box;" src="/demos/vision_beyond.html">
 </iframe>
 <p></p>
 
-
 <p>An external HTML document, containing JavaScript, is embedded in an <code>iframe</code> here.</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">A sentence using <em>every</em> letter of the alphabet at least once.
- <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:1" role="doc-endnote">
+<p>A sentence using <em>every</em> letter of the alphabet at least once. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
 </div>
 
