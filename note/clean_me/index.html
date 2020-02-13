@@ -9,7 +9,7 @@
         <meta name="description" content="a.k.a Intel ME with a programmer and some guts ;)">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.62.2" />
+        <meta name="generator" content="Hugo 0.64.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -170,17 +170,17 @@
         </figcaption>
 </figure>
 
-<p>CH341A (Black) is a cheap<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup> USB <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI chip</a> programmer.  The SOP8 clip &ndash; that saves you from removing and re-soldering the BIOS chip &ndash; is sold separately.  Make sure you buy the clip that comes with a SOP16/8-DIP8 board; this proxies as the BIOS chip going into the programmer's slot. Take note</p>
+<p>CH341A (Black) is a cheap<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup> USB <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI chip</a> programmer.  The SOP8 clip &ndash; that saves you from removing and re-soldering the BIOS chip &ndash; is sold separately.  Make sure you buy the clip that comes with a SOP16/8-DIP8 board; this proxies as the BIOS chip going into the programmer&rsquo;s slot. Take note</p>
 <ol>
 <li>The first bit is denoted on the BIOS chip-top with a circle marking.</li>
-<li>Make sure the clip's red line, denoting the first bit, matches with this circle i.e. first on chip is connect to the first on clip when clipping.</li>
+<li>Make sure the clip&rsquo;s red line, denoting the first bit, matches with this circle i.e. first on chip is connect to the first on clip when clipping.</li>
 <li>Connect the wire end of the clip to the board such that the first bits match &ndash; the board has all bit pins marked.
 <ul>
 <li>Usually a 10-bit bus cable is used as the connector; notice that bits 9 and 10 are cut out.</li>
 </ul>
 </li>
 <li>Look at the CH341A programmer board for a drawing about the 25 SPI BIOS chip layout. This should also have the circle marking.</li>
-<li>Connect the board-end of the clip such that its first and the SPI's first bits match.</li>
+<li>Connect the board-end of the clip such that its first and the SPI&rsquo;s first bits match.</li>
 </ol>
 <figure>
     <img src="images/setup.jpg"/> <figcaption>
@@ -188,7 +188,7 @@
         </figcaption>
 </figure>
 
-<p>Connect the programmer's USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You're all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
+<p>Connect the programmer&rsquo;s USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You&rsquo;re all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></code></pre></div>
 <p>This means your Linux machine successfully detects the programmer.</p>
 <h1 id="backup">Backup</h1>
@@ -201,7 +201,7 @@
 <span style="color:#50fa7b">Found GigaDevice flash chip &#34;GD25Q64(B)&#34; (8192 kB, SPI) on ch341a_spi.</span>
 <span style="color:#50fa7b">Reading flash... done.</span></code></pre></div>
 <p>It should be able to auto-detect the chip and give you a full dump of the chip contents.  If it says no devices were found, re-connect the clip; loose-contacts are common with these clips.  Get two dumps and binary-compare them to make sure the connection was fine and the images are valid.</p>
-<p>If there're multiple SPI chips on your motherboard, make sure you get the right one i.e. the BIOS image you get from your OEM should have around the same size as the dump you just made.</p>
+<p>If there&rsquo;re multiple SPI chips on your motherboard, make sure you get the right one i.e. the BIOS image you get from your OEM should have around the same size as the dump you just made.</p>
 <figure>
     <img src="images/bios_chip.jpg"
          alt="1 MiB Winbond EEPROM chip (left-bottom) was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one."/> <figcaption>
@@ -213,7 +213,7 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
 <p>You should get a valid output.  You might also check it with the <code>ifdtool</code> from the <a href="https://www.coreboot.org/">coreboot</a> repo: <code>ifdtool -d BIOS_org.bin</code>.</p>
 <h1 id="clean">Clean</h1>
-<p>Run <code>me_cleaner</code> with the soft-clean option.  It's the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
+<p>Run <code>me_cleaner</code> with the soft-clean option.  It&rsquo;s the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
 </span><span style="color:#50fa7b">Full image detected</span>
 <span style="color:#50fa7b">The ME/TXE region goes from 0x1000 to 0x200000</span>
@@ -239,9 +239,9 @@
 <span style="color:#50fa7b">Reading old flash chip contents... done.</span>
 <span style="color:#50fa7b">Erasing and writing flash chip... Erase/write done.</span>
 <span style="color:#50fa7b">Verifying flash... VERIFIED.</span></code></pre></div>
-<p>It will first take a back-up for disaster-recovery.  It'll also see if it could optimize by not writing portions that don't differ.  Then it'll write and verify if the image and the chip contents match!  Quite a thorough piece of software; nice :)</p>
+<p>It will first take a back-up for disaster-recovery.  It&rsquo;ll also see if it could optimize by not writing portions that don&rsquo;t differ.  Then it&rsquo;ll write and verify if the image and the chip contents match!  Quite a thorough piece of software; nice :)</p>
 <h1 id="verify">Verify</h1>
-<p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn't all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You've successfully neutralized the backdoor! 🖖</p>
+<p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn&rsquo;t all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You&rsquo;ve successfully neutralized the backdoor! 🖖</p>
 <p>On <a href="https://en.wikipedia.org/wiki/Unix-like">*nix</a>, <code>/dev/mei0</code> would no longer exist.  Also the MEI entry should no longer show up for <code>lspci</code>.  A more through way is <a href="https://github.com/corna/me_cleaner/wiki/Get-the-status-of-Intel-ME"><code>intelmetool -s</code></a>.</p>
 <p>For Windows, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ MEInfoWin64.exe -FWSTS</span>

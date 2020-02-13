@@ -41,7 +41,7 @@ External Tools Though not part of the canonical tool set, these are written by s
       
       <guid>https://legends2k.github.io/note/arch_config/</guid>
       <description>See Arch Linux Installation for installation notes.
-Network In the newly installed Arch you might notice that there&#39;s no network connectivity. To enable do what you did during installation (see Arch Linux Installation, §2 Wireless Network). I did it only to realize, for netctl to hook to a WPA-secured network, the wpa_supplicant package is needed but was absent on the installed system. To connect to the internet, you need a package from the internet!</description>
+Network In the newly installed Arch you might notice that there&amp;rsquo;s no network connectivity. To enable do what you did during installation (see Arch Linux Installation, §2 Wireless Network). I did it only to realize, for netctl to hook to a WPA-secured network, the wpa_supplicant package is needed but was absent on the installed system. To connect to the internet, you need a package from the internet!</description>
     </item>
     
     <item>
@@ -50,7 +50,7 @@ Network In the newly installed Arch you might notice that there&#39;s no network
       <pubDate>Sun, 27 May 2018 17:00:46 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/arch_install/</guid>
-      <description>I&#39;ve a dual GPU laptop: Lenovo Legion Y520-15IKBN; the Nvidia GeForce 1050 Ti Mobile for graphics-heavy (3D) tasks and Intel HD Graphics 630 for rendering the rest. It has an SSD and a traditional spinning disk. UEFI + GPT as opposed to the classic BIOS + MBR combo is preferable. I&#39;m a long-time Xubuntu user but I wanted to try Arch Linux. Here I note my experience in getting this laptop up and running.</description>
+      <description>I&amp;rsquo;ve a dual GPU laptop: Lenovo Legion Y520-15IKBN; the Nvidia GeForce 1050 Ti Mobile for graphics-heavy (3D) tasks and Intel HD Graphics 630 for rendering the rest. It has an SSD and a traditional spinning disk. UEFI + GPT as opposed to the classic BIOS + MBR combo is preferable. I&amp;rsquo;m a long-time Xubuntu user but I wanted to try Arch Linux. Here I note my experience in getting this laptop up and running.</description>
     </item>
     
     <item>
@@ -59,7 +59,7 @@ Network In the newly installed Arch you might notice that there&#39;s no network
       <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/push_fork/</guid>
-      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&#39;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&#39;t have a concept of fork; from its viewpoint, it&#39;s just another remote repository.</description>
+      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
     </item>
     
     <item>
@@ -80,8 +80,8 @@ Macros and Include Directories # get macros defined when the language is C++ cpp
       <pubDate>Tue, 24 Jan 2017 17:33:27 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/c&#43;&#43;_irony_win32/</guid>
-      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&#39;m documenting it here.
-The general installation instructions provided in Irony&#39;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
+      <description>This note is a guide to setup auto completion for C and C++ modes in Emacs on Windows with minimal manual work. We need Clang, Irony and some Company; we additionally require CMake and MinGW for building something small. Although there are many methods of getting this working, this was the most performant and least time-taking solution for me, so I&amp;rsquo;m documenting it here.
+The general installation instructions provided in Irony&amp;rsquo;s README works but it asks you to build the complete Clang compiler from source for a single DLL (libclang.</description>
     </item>
     
     <item>
@@ -90,7 +90,7 @@ The general installation instructions provided in Irony&#39;s README works but i
       <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/lua_rocks/</guid>
-      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&#39;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)   Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
+      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)   Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
     </item>
     
     <item>
@@ -100,7 +100,7 @@ The general installation instructions provided in Irony&#39;s README works but i
       
       <guid>https://legends2k.github.io/note/site_customizations/</guid>
       <description>I did quite a few things to get this blog up and running the way you see it now.
-Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&#39;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&#39;s directory tree to clearly differentiate customizations. I followed it.</description>
+Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.</description>
     </item>
     
     <item>
@@ -109,7 +109,7 @@ Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; c
       <pubDate>Mon, 11 Jul 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/hello_hugo/</guid>
-      <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&#39;t like anything? Ditch them all and whip up something new.</description>
+      <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&amp;rsquo;t like anything? Ditch them all and whip up something new.</description>
     </item>
     
   </channel>

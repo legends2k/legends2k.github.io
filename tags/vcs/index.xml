@@ -28,7 +28,7 @@ Basics  Git is a distributed VCS; each repo can be both a server/client Honestly
       <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/push_fork/</guid>
-      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&#39;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&#39;t have a concept of fork; from its viewpoint, it&#39;s just another remote repository.</description>
+      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
     </item>
     
   </channel>
