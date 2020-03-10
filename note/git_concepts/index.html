@@ -9,7 +9,7 @@
         <meta name="description" content="Summary of my ‘Aha!’ moments with Git">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.64.1" />
+        <meta name="generator" content="Hugo 0.67.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-02-20" itemprop="datePublished">May 1, 2019</time>
+        Updated <time datetime="2019-02-20" itemprop="datePublished">Mar 10, 2020</time>
     </span>
     
 </p>
@@ -171,8 +171,8 @@
 </blockquote>
 <ul>
 <li>Since a commit also has parent commit(s) (except root), following the chain of parents will eventually take you back to the beginning of the project</li>
-<li>In a well-branched graph, depending on the leaf node you start from, [different parts of the graph will be <em>reachable</em>][reachability]</li>
-<li>[Commit X is &ldquo;reachable&rdquo; from commit Y if commit X is an ancestor of commit Y][reachability-pro-git]
+<li>In a well-branched graph, depending on the leaf node you start from, <a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">different parts of the graph will be <em>reachable</em></a></li>
+<li><a href="https://git-scm.com/docs/user-manual#understanding-reachability">Commit X is &ldquo;reachable&rdquo; from commit Y if commit X is an ancestor of commit Y</a>
 <ul>
 <li>In the above example, <code>A</code>, <code>B</code> and <code>C</code> are unreachable from <code>G</code>, so are <code>F</code> and <code>G</code> when starting from <code>C</code> or <code>B</code> or <code>A</code></li>
 </ul>
@@ -180,10 +180,7 @@
 <li>The <code>gc</code> subcommand<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> walks the graph, building a list of every commit it can reach; removes unreachable ones<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
 <ul>
 <li>Will clear-up disk space; no good reason to run it often</li>
-<li>Some Git subcommands [may run it automatically][gc-man-page] too!
-[reachability]: <a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">http://think-like-a-git.net/sections/graph-theory/reachability.html</a>
-[reachability-pro-git]: <a href="https://git-scm.com/docs/user-manual#understanding-reachability">https://git-scm.com/docs/user-manual#understanding-reachability</a>
-[gc-man-page]: <a href="https://git-scm.com/docs/git-gc">https://git-scm.com/docs/git-gc</a></li>
+<li>Some Git subcommands <a href="https://git-scm.com/docs/git-gc">may run it automatically</a> too!</li>
 </ul>
 </li>
 </ul>
@@ -199,7 +196,7 @@
 <li>Branches and tags are references too</li>
 </ul>
 </li>
-<li>Creating a <del>branch</del> reference is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later ([reachability][])</li>
+<li>Creating a <del>branch</del> reference is a way to &ldquo;nail down&rdquo; part of the graph that you want to return to later (<a href="http://think-like-a-git.net/sections/graph-theory/reachability.html">reachability</a>)</li>
 <li>References are just reference-named <a href="http://think-like-a-git.net/sections/graphs-and-git/references.html">files containing a 40-byte commit ID</a>
 <ul>
 <li>They’re specific to a single repository</li>
@@ -233,7 +230,7 @@
 <p><code>HEAD</code> will be the parent of the next commit that is created.</p>
 </blockquote>
 <h2 id="checkout">Checkout</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">file</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">--</span> <span style="color:#8be9fd;font-style:italic">file</span></code></pre></div>
 <p>When you <code>checkout</code> a <code>file</code> from <code>HEAD</code>, what you do is get a clean copy of <code>file</code> from the commit <code>HEAD</code> is pointing to; this <em>replaces</em> your working tree copy.  Of course, one could use other refs too, <code>HEAD</code> is just a convenient default, you can replace it with any ref; if <code>HEAD</code> is omitted, it’ll be from index &mdash; the stage.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">topic</span></code></pre></div>
 <p>When you checkout a branch (reference to a commit/node) e.g. <code>topic</code>, <code>HEAD</code> will be set to its tip commit and hence the entire working tree, not just a file, will be from the commit that branch is pointing to.</p>
@@ -249,12 +246,12 @@
 <blockquote>
 <p>When <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference too will move with <code>HEAD</code>.</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">C1</span> <span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">C2</span> <span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">C3</span> <span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">C4</span> <span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">C5</span> <span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">master</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">C1</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C2</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C3</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C4</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C5</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">master</span>
                              <span style="color:#ff79c6">^</span>
                              <span style="color:#ff79c6">|</span>
                             <span style="color:#8be9fd;font-style:italic">HEAD</span>
 
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
 <p>This would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup>.</p>
 <p>In its detached state, <code>HEAD</code> refers to a specific commit as opposed to referring to a named branch.  Like Git’s diagnostic message says, it’s useful to poke around and inspect the code base at a particular commit.  Making a new commit now would mean a commit only pointed to by <code>HEAD</code>.</p>
 <p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
@@ -264,10 +261,10 @@
 <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
 # <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#bd93f9">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
 <p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
-<span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
+<span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
 …
-<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
+<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
 <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span>, <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span></code></pre></div>
 <p>Notice that when <code>HEAD</code> is attached, you see an arrow (→) pointing to the branch it’s attached to.  However, in the detached state they’re listed as independent items.</p>
 <h3 id="attachdetaching-head">Attach/Detaching <code>HEAD</code></h3>
@@ -304,7 +301,7 @@
 <p>Interactive rebase (<code>rebase -i</code>) is quite useful.  I frequently use it to amend (not just the recent commit), fix, reword, edit, drop or squash commits.  During an interactive rebase, one can even create multiple commits as usual and continue with the rebase; things will be taken care of!  This is normal when <a href="https://stackoverflow.com/q/6217156/183120">dividing</a> a commit into smaller parts.</p>
 <h2 id="pull--fetch--merge-rebase-">pull = fetch + <del>merge</del> rebase? 🤔</h2>
 <p>When pulling from a remote branch, you might know that your changes are unrelated to the ones coming down.  In this case, to avoid a merge commit and have a linear commit history, you’d pass <code>--rebase</code> do override the default merge strategy of <code>pull</code>: merge.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">-</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
 <p><code>git pull</code> is just <code>git fetch</code> followed by <code>git merge</code> which creates a new merge commit.  <code>git pull --rebase</code>, however, is <code>git fetch</code> and <code>git rebase</code>; it pulls commits from remote to your current branch and then replay your commits atop your current branch’s tip &ndash; this works if there’re no merge conflicts; otherwise you’ve to resolve conflicts as you’d normally.  The resolution (changes) become a part of one of your commits where rebase halted; you’d end up <a href="https://stackoverflow.com/a/35025978/183120">re-writing your commit</a>.  However, you don’t have to force push your changes to the remote since the resolution just happened in your local commits.  Rewriting (commit) history, as long as it is not public, is OK 😉</p>
 <p>A counter point to pull-with-rebase: if you want logical separation of a set of commits, say for a completely new feature, then rebase &mdash; which makes them inline, muddled with unrelated history &mdash; isn’t the right tool; use <code>merge</code> instead.</p>
 <blockquote>
