@@ -154,11 +154,11 @@
 <ol>
 <li>
 <p>Make sure you&rsquo;ve the upstream as one of your remotes, if not add
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git remote add upstream git@github.com:user/project.git</span></code></pre></div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git remote add upstream git@github.com:user/project.git</span></code></pre></div></p>
 </li>
 <li>
 <p>Pull changes from upstream by rebasing instead of a merge
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git pull --rebase upstream &lt;branch_name&gt;</span></code></pre></div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git pull --rebase upstream &lt;branch_name&gt;</span></code></pre></div></p>
 <ol>
 <li>To verify you&rsquo;ve done this correctly, you can do <code>git log --oneline -10</code></li>
 <li>You should see your commit at <code>HEAD</code> followed by the most recent commit in <code>upstream/&lt;branch_name&gt;</code></li>
@@ -167,7 +167,7 @@
 </li>
 <li>
 <p>Force push your commit to origin (your fork&rsquo;s remote)
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push --force origin &lt;branch_name&gt;</span></code></pre></div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push --force origin &lt;branch_name&gt;</span></code></pre></div></p>
 <ol>
 <li>Though you&rsquo;d have earlier pushed to your origin for creating the pull request, you redo it to have these new changes gotten from upstream to be synced into your fork&rsquo;s history</li>
 <li>You can verify with the above log command again; both origin and your local <code>HEAD</code> should point to the commit you got approval for; upstream should be at the next commit</li>
@@ -175,7 +175,7 @@
 </li>
 <li>
 <p>Push to upstream
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push upstream &lt;branch_name&gt;</span></code></pre></div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push upstream &lt;branch_name&gt;</span></code></pre></div></p>
 </li>
 </ol>
 <section class="footnotes" role="doc-endnotes">

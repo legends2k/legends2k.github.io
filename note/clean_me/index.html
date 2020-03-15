@@ -189,11 +189,11 @@
 </figure>
 
 <p>Connect the programmer&rsquo;s USB to a Linux machine; I used a Xubuntu bootable USB to convert my old Windows 10 laptop.  You&rsquo;re all set hardware-wise.  Run <code>lsusb</code> on the terminal and make sure you see something like</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">BUS 008 Device 012: ID 1a86:5512 QinHeng Electronics CH341 in EPP/MEM/I2C mode, EPP/I2C adapter</span></code></pre></div>
 <p>This means your Linux machine successfully detects the programmer.</p>
 <h1 id="backup">Backup</h1>
 <p>Install <code>flashrom</code>; your distro’s package repository will definitely have this nifty tool.  Make sure the chip is recognized by it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -r BIOS_org.bin</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -r BIOS_org.bin</span>
 </span><span style="color:#50fa7b">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
 <span style="color:#50fa7b">flashrom is free software, get the source code at https://flashrom.org</span>
 
@@ -210,11 +210,11 @@
 </figure>
 
 <p>Run <code>me_cleaner</code> on the dump to verify it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ ./me_cleaner.py -c BIOS_org.bin</span></code></pre></div>
 <p>You should get a valid output.  You might also check it with the <code>ifdtool</code> from the <a href="https://www.coreboot.org/">coreboot</a> repo: <code>ifdtool -d BIOS_org.bin</code>.</p>
 <h1 id="clean">Clean</h1>
 <p>Run <code>me_cleaner</code> with the soft-clean option.  It&rsquo;s the safest; others wipe out the Intel ME module regions from the firmware; this one simply sets <em>the</em> bit.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ ./me_cleaner.py -s -O BIOS_clean.bin BIOS_org.bin</span>
 </span><span style="color:#50fa7b">Full image detected</span>
 <span style="color:#50fa7b">The ME/TXE region goes from 0x1000 to 0x200000</span>
 <span style="color:#50fa7b">Found FPT header at 0x1010</span>
@@ -230,7 +230,7 @@
 <p>It should set the <em>AltMeDisable</em> (or HAP) bit and wish you luck!</p>
 <h1 id="flash">Flash</h1>
 <p>Flash the cleaned image back on to the SPI chip</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -w BIOS_clean.bin</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="display:block;width:100%;background-color:#3d3f4a"><span style="color:#50fa7b">$ sudo flashrom --programmer ch341a_spi -w BIOS_clean.bin</span>
 </span><span style="color:#50fa7b">flashrom v0.9.9-r1954 on Linux 4.15.0-20-generic (x86_64)</span>
 <span style="color:#50fa7b">flashrom is free software, get the source code at https://flashrom.org</span>
 
@@ -244,7 +244,7 @@
 <p>Now for the moment of truth!  Disconnet the clip, restart your machine.  The machine should boot in to the OS normally.  That isn&rsquo;t all: make sure you use it for more than 40 mins and if nothing goes wrong, yay!  You&rsquo;ve successfully neutralized the backdoor! 🖖</p>
 <p>On <a href="https://en.wikipedia.org/wiki/Unix-like">*nix</a>, <code>/dev/mei0</code> would no longer exist.  Also the MEI entry should no longer show up for <code>lspci</code>.  A more through way is <a href="https://github.com/corna/me_cleaner/wiki/Get-the-status-of-Intel-ME"><code>intelmetool -s</code></a>.</p>
 <p>For Windows, get the right version of <a href="https://www.win-raid.com/t596f39-Intel-Management-Engine-Drivers-Firmware-amp-System-Tools.html">Intel ME System Tools</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ MEInfoWin64.exe -FWSTS</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">$ MEInfoWin64.exe -FWSTS</span>
 
 <span style="color:#50fa7b">Intel(R) MEInfo Version: 11.8.50.3460</span>
 <span style="color:#50fa7b">Copyright(C) 2005 - 2017, Intel Corporation. All rights reserved.</span>
