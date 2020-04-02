@@ -9,7 +9,7 @@
         <meta name="description" content="Display, Audio, Bluetooth and tools">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.67.0" />
+        <meta name="generator" content="Hugo 0.68.3" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-04-26" itemprop="datePublished">Mar 10, 2020</time>
+        Updated <time datetime="2019-04-26" itemprop="datePublished">Apr 2, 2020</time>
     </span>
     
 </p>
@@ -132,7 +132,7 @@
 
     <p>See <a href="/note/arch_install"><em>Arch Linux Installation</em></a> for installation notes.</p>
 <h1 id="network">Network</h1>
-<p>In the newly installed Arch you might notice that there&rsquo;s no network connectivity.  To enable do what you did during installation (see <em>Arch Linux Installation</em>, <a href="/note/arch_install/#wireless-network">§2 Wireless Network</a>).  I did it only to realize, for <code>netctl</code> to hook to a WPA-secured network, the <code>wpa_supplicant</code> package is needed but was absent on the installed system.  To connect to the internet, you need a package from the internet!?  To get out of this Catch 22 situation, I&rsquo;d to reboot from the installation USB, setup network and install <code>wpa_supplicant</code> to the new OS by chrooting</p>
+<p>In the newly installed Arch you might notice that there&rsquo;s no network connectivity.  To enable do what you did during installation (see <em>Arch Linux Installation</em>, <a href="/note/arch_install/#wireless-network">§2 Wireless Network</a>).  I did it only to realize, for <code>netctl</code> to hook to a WPA-secured network, the <code>wpa_supplicant</code> package is needed but was absent on the installed system.  To connect to the internet, you need a package from the internet!?  To get out of this <a href="https://en.wikipedia.org/wiki/Catch-22_(logic)">Catch-22</a> situation, I&rsquo;d to reboot from the installation USB, setup network and install <code>wpa_supplicant</code> to the new OS by chrooting</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
 <span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p5</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span>
 <span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">home</span>
@@ -162,6 +162,23 @@
 <p>The <code>Glibc</code> resolver provides only the most basic necessities, it does not cache queries nor provides any security features. If you require more functionality, use another resolver.</p>
 </blockquote>
 <p>However, another statement admonitions that a router usually does this caching at the network-level, so you can skip setting up a more robust resolver.</p>
+<h2 id="ethernet">Ethernet</h2>
+<p>To use an ethernet connection too you need a profile.  However, I noticed that on every reboot the interface name kept changing between <code>enp4s0</code> and <code>eth0</code>.  <a href="https://wiki.archlinux.org/index.php/Network_configuration#Change_interface_name">ArchLinux documents</a> this too!  Basically create a rule file (<code>/etc/udev/rules.d/10-network.rules</code>) with the MAC address mapped to a name</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">SUBSYSTEM</span><span style="color:#ff79c6">==</span><span style="color:#f1fa8c">&#34;net&#34;</span>, <span style="color:#8be9fd;font-style:italic">ACTION</span><span style="color:#ff79c6">==</span><span style="color:#f1fa8c">&#34;add&#34;</span>, <span style="color:#8be9fd;font-style:italic">ATTR</span>{<span style="color:#8be9fd;font-style:italic">address</span>}<span style="color:#ff79c6">==</span><span style="color:#f1fa8c">&#34;fe:ed:f0:0d:ba:cc&#34;</span>, <span style="color:#8be9fd;font-style:italic">NAME</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;eth0&#34;</span></code></pre></div>
+<p>Check if the interface name is stable (<code>ip link</code>) after this change.</p>
+<p>Check if the interface is down (<code>cat /sys/class/net/eth0/operstate</code>), else take it down: <code>ip link set dev eth0 down</code>.  Create a profile for the wired network by copying from <code>/etc/netctl/examples/ethernet-dhcp</code>.  Fix the interface name to match the one you named.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">Interface</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">eth0</span>
+<span style="color:#50fa7b">Connection</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">ethernet</span>
+<span style="color:#50fa7b">IP</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">dhcp</span>
+<span style="color:#50fa7b">DNS</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">(&#39;1.1.1.1&#39; &#39;1.0.0.1&#39;)</span></code></pre></div>
+<p>Start/switch to this profile as you normally would: <code>netctl switch-to wired</code>.</p>
+<h2 id="auto-switching">Auto-Switching</h2>
+<p>To automatically configure your ethernet device on cable un/plug, install <code>ifplugd</code> and enable the service.  Likewise to automatically start/stop profiles as you move from a wireless network’s range into another, you need to enable another service.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">netctl disable infoprobe  <span style="color:#6272a4"># disable any earlier enabled profile</span>
+
+systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-ifplugd@eth0.service
+systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-auto@wlp3s0.service</code></pre></div>
+<p>Refer <a href="https://wiki.archlinux.org/index.php/Netctl#Special_systemd_units">Special systemd units</a> for details.</p>
 <h1 id="resurrecting-windows">Resurrecting Windows</h1>
 <p>On a dual boot setup, if you notice that <em>Windows</em> is’t an option in the boot menu, install the <code>os-prober</code> package.  Mount the EFI partition and re-run GRUB config maker:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">nvme0n1p1</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">boot</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span>
