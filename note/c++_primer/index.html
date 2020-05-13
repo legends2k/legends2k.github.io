@@ -9,7 +9,7 @@
         <meta name="description" content="solving “you don’t know what you don’t know”">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.68.3" />
+        <meta name="generator" content="Hugo 0.70.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2018-09-06" itemprop="datePublished">Nov 25, 2019</time>
+        Updated <time datetime="2018-09-06" itemprop="datePublished">May 13, 2020</time>
     </span>
     
 </p>
@@ -748,6 +748,12 @@ notice that the return type is missing</li>
 <li>Disrupts stack unwind sequence and aborts the program</li>
 </ul>
 </li>
+<li>Some projects turn off exceptions for various reasons including
+<ul>
+<li>Legacy <em>C</em> code interfacing that doesn’t have exceptions</li>
+<li>Performance (common in <a href="https://stackoverflow.com/a/943169/183120">game engines</a>)</li>
+</ul>
+</li>
 </ul>
 <h1 id="commonly-used-std-facilities">Commonly used <code>std::</code> facilities</h1>
 <p>C++ ships with a very versatile standard library. Take advantage of it!
@@ -817,7 +823,7 @@ topics like alignment, ADL, metaprogramming, etc.</li>
 <p><a href="http://lafstern.org/matt/col1.pdf">Use sorted vector instead of set</a>, if <code>find</code> calls outnumber <code>insert</code>; it’d be lot faster — Matt Austern. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://github.com/martinus/robin-hood-hashing">Robin hood hashing</a> is faster than what usually comes with <code>std::unordered_map</code>. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://cs.uwaterloo.ca/research/tr/1986/CS-86-14.pdf">Robin Hood hashing</a> is faster than what usually comes with <code>std::unordered_map</code>.  People suggest that <a href="https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/">it should be your default hashing implementation</a>.  <a href="https://github.com/martinus/robin-hood-hashing"><code>robin_hood::unordered_map</code></a> is a handy drop-in replacement. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

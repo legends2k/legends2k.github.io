@@ -9,7 +9,7 @@
         <meta name="description" content="Summary of my ‘Aha!’ moments with Git">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.68.3" />
+        <meta name="generator" content="Hugo 0.70.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-02-20" itemprop="datePublished">Mar 10, 2020</time>
+        Updated <time datetime="2019-02-20" itemprop="datePublished">May 13, 2020</time>
     </span>
     
 </p>
@@ -203,7 +203,11 @@
 <li>Remote references are local, remote-tracking references to a commit in a remote repository <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></li>
 </ul>
 </li>
-<li>There’re many more ways of referring to commits: <code>man gitrevisions</code> is your friend</li>
+<li>There’re many more ways of referring to commits: <code>man gitrevisions</code> is your friend
+<ul>
+<li>Collectively called <em><a href="https://stackoverflow.com/a/23303550/183120">commit-ish</a></em></li>
+</ul>
+</li>
 </ul>
 <h2 id="commands-affecting-refs">Commands Affecting Refs</h2>
 <p>These are the primary subcommands that allow you to move refs directly:</p>
@@ -261,10 +265,10 @@
 <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
 # <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#bd93f9">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
 <p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#bd93f9">-5</span>
 <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
 …
-<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">all</span> <span style="color:#bd93f9">-5</span>
+<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#bd93f9">-5</span>
 <span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span>, <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span></code></pre></div>
 <p>Notice that when <code>HEAD</code> is attached, you see an arrow (→) pointing to the branch it’s attached to.  However, in the detached state they’re listed as independent items.</p>
 <h3 id="attachdetaching-head">Attach/Detaching <code>HEAD</code></h3>
@@ -308,6 +312,19 @@
 <p>Use <code>git pull --rebase</code> when your changes do not deserve a separate branch.</p>
 </blockquote>
 <p>seems to be the appropriate answer to <a href="https://stackoverflow.com/q/2472254/183120">when should I <code>git pull --rebase</code></a>.</p>
+<h1 id="showtime"><code>show</code>time!</h1>
+<p>The easiest way to see the diff introduced by a reference is not <code>git diff</code>!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF</span></code></pre></div>
+<p>Of course, you can control the amount of information thrown at you with the usual options <code>show</code> shares with <code>log</code>: <code>--name-status</code>, <code>--shortstat</code>, <code>--stat</code>, <code>--summary</code>, etc.</p>
+<p><code>show</code> can also give you a file’s clean copy from a commit &mdash; very handy:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF:</span><span style="color:#8be9fd;font-style:italic">some</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">path</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">from</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">repo</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">README</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">md</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">README_copy</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">md</span></code></pre></div>
+<h2 id="-vs--differences"><code>..</code> vs <code>... diff</code>erences</h2>
+<p><code>git diff REF-1..REF-2</code> = diff <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Including_or_excluding_endpoints">(<code>REF-1</code>, <code>REF-2</code>]</a>.  Why?  Since a diff-ing utility just takes a pair of file sets, these references simply denote the repository at a given state i.e. difference between the code base after committing <code>REF-1</code> and after committing <code>REF-2</code>.  This diffs the repository at <em>two points</em>.</p>
+<p><code>git diff REF-1...REF-2</code> = <code>git diff $(git merge-commit REF-1 REF-2)..REF-2</code> i.e. difference between the common ancestor<sup id="fnref:11"><a href="#fn:11" class="footnote-ref" role="doc-noteref">11</a></sup> of both references and <code>REF-2</code>.  <code>REF-1</code> is usually <code>HEAD</code> and <code>REF-2</code> is commonly a branch head, so this shows work done in that branch.  <em>Memory aid</em>: triple dots ≈ range of commits.</p>
+<p>However, the <a href="https://stackoverflow.com/a/7256391/183120">meanings feel reversed for <code>git log</code></a>! 🤦 Also <code>A..B</code> and <code>A B</code> mean the same in <code>diff</code> while not in <code>log</code>!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git log A...B  <span style="color:#6272a4"># show A-only and B-only commits</span>
+git log A..B   <span style="color:#6272a4"># show B-only commits</span>
+git log A B    <span style="color:#6272a4"># show A ∪ B commits</span></code></pre></div>
 <h1 id="learn-by-doing">Learn by Doing</h1>
 <p><a href="https://try.github.io/">try.github.io</a> for good DIY resources.</p>
 <ul>
@@ -354,6 +371,9 @@
 </li>
 <li id="fn:10" role="doc-endnote">
 <p>Refer <code>man git-checkout</code>; <em>§DETACHED HEAD</em> details it with nice ASCII art ✨. <a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:11" role="doc-endnote">
+<p><code>git merge-base REF-1 REF-2</code> gives the common commit <a href="#fnref:11" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
