@@ -13,6 +13,18 @@
     
     
     <item>
+      <title>Git Wizardry</title>
+      <link>https://legends2k.github.io/note/git_nuances/</link>
+      <pubDate>Wed, 13 May 2020 19:56:56 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/git_nuances/</guid>
+      <description>Git has its oddities with unusual commands and flags. I keep learning something new every now and then.
+A decent understanding of basic Git concepts is a perquisite.
+show time! The easiest way to see the diff introduced by a reference is not git diff!
+git show REF It shows details about the commit along with the changes it brings about. Of course, you can control the amount of information thrown at you with the usual options show shares with log: --name-status, --shortstat, --stat, --summary, etc.</description>
+    </item>
+    
+    <item>
       <title>First game jam experience!</title>
       <link>https://legends2k.github.io/note/sneak_out/</link>
       <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>

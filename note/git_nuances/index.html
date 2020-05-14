@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Git Wizardry &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="Obscure but useful Git incantations">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.70.0" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
+        <meta property="og:title" content="Git Wizardry">
+<meta property="og:description" content="Obscure but useful Git incantations">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://legends2k.github.io/note/git_nuances/">
+        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+        
+        </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/" rel="me">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        
+                        <a class="button-square hint--top hint--rounded hint--bounce"
+                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k" rel="me">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram" rel="me">
+                                <i class="fa fa-bitbucket"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k" rel="me">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0" rel="me">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k" rel="me">
+                                <i class="fa fa-flickr"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Posts" href="/post/">Posts</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Notes" href="/note/">Notes</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/projects/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Git Wizardry</h1>
+    
+        <p class="post-description" itemprop="description">Obscure but useful Git incantations</p>
+    
+    <p class="post-date">
+    Published <time datetime="2020-05-13" itemprop="datePublished">May 13, 2020</time>
+    <span>by</span>
+    <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+        <span itemprop="name">
+            <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
+        </span>
+    </span>
+    
+    <span class="post-update-date">
+        Updated <time datetime="2020-05-13" itemprop="datePublished">May 14, 2020</time>
+    </span>
+    
+</p>
+
+    
+</header>
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    <p>Git has its oddities with unusual commands and flags.  I keep learning something new every now and then.</p>
+<p>A decent understanding of <a href="/note/git_concepts/">basic Git concepts</a> is a perquisite.</p>
+<h1 id="show-time"><code>show</code> time!</h1>
+<p>The easiest way to see the diff introduced by a <a href="/note/git_concepts/">reference</a> is not <code>git diff</code>!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF</span></code></pre></div>
+<p>It shows details about the commit along with the changes it brings about.  Of course, you can control the amount of information thrown at you with the usual options <code>show</code> shares with <code>log</code>: <code>--name-status</code>, <code>--shortstat</code>, <code>--stat</code>, <code>--summary</code>, etc.</p>
+<p><code>show</code> can also give you a file’s clean copy from a commit &mdash; very handy:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF:</span><span style="color:#8be9fd;font-style:italic">path</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">to</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">a</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">file</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">file_copy</span></code></pre></div>
+<p><code>show</code> is a versatile command that can explain <em>any</em> <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git object</a>, not just references.</p>
+<h1 id="mans-search-for-meaning-config-">Man’s search for <del>meaning</del> config 😛</h1>
+<p>Ever been annoyed by a Git setting you didn’t set and didn’t know where it comes from?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git config --show-origin  --list</span>
+
+<span style="color:#50fa7b">file:/usr/local/etc/gitconfig       credential.helper</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">osxkeychain</span>
+<span style="color:#50fa7b">file:/Users/my_user/.gitconfig      user.name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">John Q. Public</span>
+<span style="color:#50fa7b">file:/tmp/Cool_Project/.gitconfig   core.pager</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">less --quit-if-one-screen --no-init</span></code></pre></div>
+<p>will list all the settings along with the corresponding <code>.gitconfig</code> file it’s coming from.</p>
+<h1 id="youre-on-stage">You&rsquo;re on stage!</h1>
+<p><code>git add</code> has some <a href="https://stackoverflow.com/q/572549/183120">good tricks</a> up its sleeves:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">add</span> <span style="color:#ff79c6">.</span>    # <span style="color:#8be9fd;font-style:italic">stage</span> <span style="color:#8be9fd;font-style:italic">changes</span> (<span style="color:#8be9fd;font-style:italic">untracked</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">tracked</span>)
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">add</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">u</span>   # <span style="color:#8be9fd;font-style:italic">stage</span> <span style="color:#8be9fd;font-style:italic">changes</span> (<span style="color:#8be9fd;font-style:italic">tracked</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">only</span>)</code></pre></div>
+<p><code>-n</code> dry runs <code>add</code> without actually staging anything; <code>-v</code> makes <code>add</code> tell what is staged.  If you want to stage only parts of a file, pass <code>-p</code> to interactively stage hunks of patch.</p>
+<p>If you’re sure of your changes and just want to <code>commit</code>, skipping the intermediate <code>add</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">a</span></code></pre></div>
+<p>This will auto-<code>add</code> all tracked, changed files and <code>commit</code>.</p>
+<h1 id="stuff-that-matters">Stuff that matters!</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">ls</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">files</span> [<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd;font-style:italic">pathspec</span><span style="color:#ff79c6">&gt;</span>]</code></pre></div>
+<p>lists only tracked files of the repository; it optionally takes a <a href="https://stackoverflow.com/q/27711924/183120">pathspec</a> argument.  Quite useful when you’ve to separate the wheat from the chaff in a directory with many untracked files.</p>
+<h1 id="pull-another-branch">Pull another branch</h1>
+<p>Contrary to popular belief, <a href="https://stackoverflow.com/a/42902058/183120"><code>git pull</code> can be run on a branch that’s not current</a>.  Say <code>HEAD</code> is attached to <code>master</code>, you can still pull in changes for <code>topic</code> branch from a remote.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">fetch</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">topic:</span><span style="color:#8be9fd;font-style:italic">topic</span></code></pre></div>
+<h1 id="please-mind-the-dotsmind-gap">Please <a href="https://en.wikipedia.org/wiki/Mind_the_gap">mind the dots</a></h1>
+<p><code>git diff A..B</code> = diff <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Including_or_excluding_endpoints">(<code>A</code>, <code>B</code>]</a> i.e. the diff includes changes made by <code>B</code> but not by <code>A</code>.  Since a diff-ing utility just takes a pair of file sets, with these references we simply denote the repository at different states &ndash; after committing <code>A</code> and after committing <code>B</code>.  This diffs the repository at <em>two points</em>.  <code>git diff A B</code> is a nicer way of saying the same thing.</p>
+<p><code>git diff A...B</code> = <code>git diff $(git merge-base A B) B</code> i.e. difference between the common ancestor of both references and <code>B</code>.  <code>A</code> is usually <code>HEAD</code> and <code>B</code> is commonly a branch head, so this shows work done independently in a branch.  <em>Memory aid</em>: triple dots ≈ branch.</p>
+<p>However, the <a href="https://stackoverflow.com/a/7256391/183120">meanings feel reversed for <code>git log</code></a>! 🤦 Also <code>A..B</code> and <code>A B</code> mean the same in <code>diff</code> while not in <code>log</code>!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git log A...B  <span style="color:#6272a4"># show A-only and B-only commits</span>
+git log A..B   <span style="color:#6272a4"># show B-only commits</span>
+git log A B    <span style="color:#6272a4"># show A ∪ B commits</span></code></pre></div>
+<p><a href="https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection">Pro Git v2 explains</a> these in <code>git log</code>’s context.</p>
+<h1 id="overloaded-checkout">Overloaded <code>checkout</code></h1>
+<p>Keep getting confused between the various tasks that the overloaded <code>checkout</code> command performs?  It’s used to create new branches, switch branches and restore files from the index or a reference.  You don’t have to use it much these days; <a href="https://hub.packtpub.com/git-2-23-released-with-two-new-commands-git-switch-and-git-restore-a-new-tutorial-and-much-more/">Git 2.23 added two very useful commands</a> to remedy the situation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># create new branch</span>
+git switch -c shiny-topic-branch
+
+<span style="color:#6272a4"># switch BRANCH</span>
+git switch master
+
+<span style="color:#6272a4"># restore hello from index</span>
+git restore hello
+
+<span style="color:#6272a4"># restore hello from commit 1fe35f</span>
+git restore --source 1fe35f hello
+
+<span style="color:#6272a4"># restore hello in index from HEAD</span>
+git restore --staged hello
+
+<span style="color:#6272a4"># restore hello in both index and working tree from 1fe35f</span>
+git restore --WS --source 1fe35f hello</code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><code>switch</code> and <code>restore</code> are still experimental as of Git 2.26.2 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/tech/">tech</a>, 
+            
+                <a href="/tags/vcs/">vcs</a>, 
+            
+                <a href="/tags/tools/">tools</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Git%20Wizardry&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgit_nuances%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fgit_nuances%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fgit_nuances%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Git%20Wizardry&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgit_nuances%2f&summary=Obscure%20but%20useful%20Git%20incantations"
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
+               <i class="fa fa-linkedin"></i>
+               <span class="hidden">LinkedIn</span>
+            </a>
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-double-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
+                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
+                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
+                <p class="footer-copyright">Occured to <a href="https://legends2k.github.io/about/">Sundaram Ramaswamy</a></span></p>
+            </div>
+        </footer>
+
+        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://legends2k.github.io/js/scripts.js"></script>
+    </body>
+</html>
+
