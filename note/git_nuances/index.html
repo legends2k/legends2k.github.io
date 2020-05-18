@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">May 16, 2020</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">May 19, 2020</time>
     </span>
     
 </p>
@@ -131,22 +131,22 @@
     
 
     <p>Git has its oddities with unusual commands and flags.  I keep learning something new every now and then.</p>
-<p>A decent understanding of <a href="/note/git_concepts/">basic Git concepts</a> is a perquisite.</p>
+<p>A decent understanding of <a href="/note/git_concepts/">basic Git concepts</a> is a prerequisite.</p>
 <h1 id="show-time"><code>show</code> time!</h1>
-<p>The easiest way to see the diff introduced by a <a href="/note/git_concepts/#references">reference</a> is not <code>git diff</code>!</p>
+<p>The easiest way to see the diff introduced by a <a href="/note/git_concepts/#references">reference</a> (fancy name for commit) is not <code>git diff</code>!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF</span></code></pre></div>
 <p>It shows details about the commit along with the changes it brings about.  Of course, you can control the amount of information thrown at you with the usual options <code>show</code> shares with <code>log</code>: <code>--name-status</code>, <code>--shortstat</code>, <code>--stat</code>, <code>--summary</code>, etc.</p>
 <p><code>show</code> can also give you a file’s clean copy from a commit &mdash; very handy:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF:</span><span style="color:#8be9fd;font-style:italic">path</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">to</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">a</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">file</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">file_copy</span></code></pre></div>
 <p><code>show</code> is a versatile command that can explain <em>any</em> <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git object</a>, not just references.</p>
 <h1 id="mans-search-for-meaning-config-">Man’s search for <del>meaning</del> config 😛</h1>
-<p>Ever been annoyed by a Git setting you didn’t set and didn’t know where it comes from?</p>
+<p>Ever been annoyed by a Git setting you didn’t set; clueless about where it’s coming from?</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git config --show-origin  --list</span>
 
 <span style="color:#50fa7b">file:/usr/local/etc/gitconfig       credential.helper</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">osxkeychain</span>
 <span style="color:#50fa7b">file:/Users/my_user/.gitconfig      user.name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">John Q. Public</span>
 <span style="color:#50fa7b">file:/tmp/Cool_Project/.gitconfig   core.pager</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">less --quit-if-one-screen --no-init</span></code></pre></div>
-<p>will list all the settings along with the corresponding <code>.gitconfig</code> file it’s coming from.</p>
+<p>lists all settings along with the corresponding <code>.gitconfig</code> it’s coming from.</p>
 <h1 id="youre-on-stage">You&rsquo;re on stage!</h1>
 <p><code>git add</code> has some <a href="https://stackoverflow.com/q/572549/183120">good tricks</a> up its sleeves:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">add</span> <span style="color:#ff79c6">.</span>    # <span style="color:#8be9fd;font-style:italic">stage</span> <span style="color:#8be9fd;font-style:italic">changes</span> (<span style="color:#8be9fd;font-style:italic">untracked</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">tracked</span>)
@@ -167,7 +167,7 @@
 git diff A..B   <span style="color:#6272a4"># diff commits A and B</span>
 git diff A...B  <span style="color:#6272a4"># diff commits ancestor(A, B) and B</span></code></pre></div>
 <p><code>git diff A...B</code> = <code>git diff $(git merge-base A B) B</code> i.e. difference between the common ancestor of both references and <code>B</code>.  <code>A</code> is usually <code>HEAD</code> and <code>B</code> is commonly a branch head, so this shows work done independently in a branch.  <em>Memory aid</em>: triple dots ≈ branch.</p>
-<p>However, the <a href="https://stackoverflow.com/a/7256391/183120">meanings feel reversed for <code>git log</code></a>!  🤦  Also <code>A..B</code> and <code>A B</code> mean the same in <code>diff</code> while not in <code>log</code>!  Before reading <code>log</code>’s nuances, remember that <code>log</code> operates on a range of commits while diff only does on two.  Also <a href="https://gitolite.com/tips-2.html#how-to-remember-what-...-does">Gitolite’s nice observation</a> might help you internalise <code>...</code> better:</p>
+<p>However, the <a href="https://stackoverflow.com/a/7256391/183120">meanings feel reversed for <code>git log</code></a>!  🤦  Also <code>A..B</code> and <code>A B</code> mean the same in <code>diff</code> while not in <code>log</code>!  Before reading <code>log</code>’s nuances, remember that <code>log</code> operates on a range of commits while <code>diff</code> only does on two.  <a href="https://gitolite.com/tips-2.html#how-to-remember-what-...-does">Gitolite’s nice observation</a> might also help you internalise <code>...</code> better:</p>
 <blockquote>
 <p><code>...</code> somehow involves the common ancestor for both <code>diff</code> and <code>log</code></p>
 </blockquote>
