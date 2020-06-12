@@ -5,8 +5,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Blog – fit and finish &middot; Sundaram Ramaswamy</title>
-        <meta name="description" content="quirks and hacks in making this">
+        <title>Improving Programmer Kata &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="Form through Practise">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
         <meta name="generator" content="Hugo 0.72.0" />
@@ -14,29 +14,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
-        <meta property="og:title" content="Blog – fit and finish">
-<meta property="og:description" content="quirks and hacks in making this">
+        <meta property="og:title" content="Improving Programmer Kata">
+<meta property="og:description" content="Form through Practise">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://legends2k.github.io/note/site_customizations/">
+<meta property="og:url" content="https://legends2k.github.io/note/programmer_kata/">
         <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         
-        
-            
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-             MathJax.Hub.Config({
-                 tex2jax: {
-                     inlineMath: [['$','$'], ['\\(','\\)']],
-                     displayMath: [['$$','$$'], ['\\[','\\]']],
-                     processEscapes: true,
-                     processEnvironments: true,
-                     skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-                     TeX: { equationNumbers: { autoNumber: "AMS" },
-                            extensions: ["AMSmath.js", "AMSsymbols.js"] }
-                 }
-             });
-            </script>
         
         
         
@@ -119,12 +104,12 @@
 <div class="container">
     <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
         <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Blog – fit and finish</h1>
+    <h1 class="post-title" itemprop="name headline">Improving Programmer Kata</h1>
     
-        <p class="post-description" itemprop="description">quirks and hacks in making this</p>
+        <p class="post-description" itemprop="description">Form through Practise</p>
     
     <p class="post-date">
-    Published <time datetime="2016-08-12" itemprop="datePublished">Aug 12, 2016</time>
+    Published <time datetime="2020-06-12" itemprop="datePublished">Jun 12, 2020</time>
     <span>by</span>
     <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
         <span itemprop="name">
@@ -133,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2016-08-12" itemprop="datePublished">Nov 25, 2019</time>
+        Updated <time datetime="2020-06-12" itemprop="datePublished">Jun 12, 2020</time>
     </span>
     
 </p>
@@ -145,31 +130,158 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    <p>I did quite a few things to get this blog up and running the way you see it now.</p>
-<h1 id="steps-i-still-remember">Steps I Still Remember</h1>
-<ol>
-<li>Install <a href="https://gohugo.io">Hugo</a>; just extract and put in <code>PATH</code> &mdash; can&rsquo;t be simpler.</li>
-<li>Create a dummy site using <a href="http://gohugo.io/overview/quickstart/">the Quickstart guide</a>; straight forward.</li>
-<li>Install <em><a href="http://themes.gohugo.io/theme/ghostwriter/">Ghostwriter</a></em> inside the <code>themes</code> directory.</li>
-</ol>
-<p>Hugo recommends that customizations be done outside the theme&rsquo;s directory tree to clearly differentiate customizations.  I followed it.</p>
-<h2 id="1-syntax-highlighting">1. Syntax Highlighting</h2>
-<p>This theme uses <em><a href="https://highlightjs.org/">highlight.js</a></em> for syntax highlighting while I like <em><a href="http://pygments.org/">Pygments</a></em> since the latter means no processing at the client&rsquo;s end; everything needed is preprocessed and only the final rendering is done at the reader&rsquo;s end.  Even after switching to Pygments, it didn&rsquo;t work as expected with this theme&rsquo;s stylesheet.  Debugged the site with Firefox and made a copula hacks to get it working; see <code>/static/dist/style.css</code> for the hacks with comments.  For Pygments, make sure <code>Python</code> and Pygments (a <code>pip</code> install) are installed and is reachable from the command-line.</p>
-<p>Also, prefer using the Hugo <em><a href="https://gohugo.io/extras/shortcodes/">shortcode</a></em> <code>{{ &lt;highlight&gt; }}</code> instead of <!-- raw HTML omitted -->```<!-- raw HTML omitted --> since it can additionally highlight specific line(s).  The default of Pygments is <em>Monokai</em> as opposed to the dull, light background theme that comes with Ghostwriter.</p>
-<h2 id="2-nice-font">2. Nice Font</h2>
-<p>I really like the font used in <em><a href="https://thebookofshaders.com/">The Book of Shaders</a></em> and saw that the font name is <strong>Baskerville</strong>.  I recalled that for custom web fonts, <em>reveal.js</em> used to do this using <a href="http://fonts.google.com">Google Fonts</a>; luckily it had <em>Libre Baskerville</em>, an open version of the face.  Thankfully the site also gives the code to use it and everything started looking great!  Beautiful fonts everywhere! 😁</p>
-<h2 id="3-external-content">3. External Content</h2>
-<p>Showing any image is no big deal; the usual markdown syntax for showing images would do. It took some time to figure out where to actually place the image file.  The <code>content</code> directory is for posts, while the <code>static</code> directory is for putting any kind of file or external content that may be referred to by the posts.  Plunking the <code>.svg</code>s here and referring them in the post did the trick.  Likewise to show a HTML5 canvas demo, just adding a <code>.html</code> and <code>.js</code> and embedding the HTML in an <code>&lt;iframe&gt;</code> worked.  To remove the extraneous scroll bars I&rsquo;d to refer <a href="http://webglfundamentals.org/">WebGL Fundamentals</a> to check out how <em>Gregg Tavares</em> did it.</p>
-<h2 id="4-beautiful-math-equations">4. Beautiful Math Equations</h2>
-<p>Be it for showing inline math, such as <code>$\pi$</code>, or full-blown equations like</p>
-<p>$$
-\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}
-$$</p>
-<p><em>MathJax</em> is the go-to solution in browsers.  The <em>display math</em> (MathJax lingo to display an equation in its own line with <code>\$\$…\$\$</code>) option works with no quirks; <em>inline math</em> (<code>\$…\$</code>) doesn&rsquo;t work properly by default; I&rsquo;d to <a href="http://github.com/spf13/hugo/issues/1666#issuecomment-225316394">stuff</a> to get it working.  I added a custom parameter in the post&rsquo;s front matter, which is later used in a partial HTML template to include the <a href="http://gohugo.io/tutorials/mathjax/">necessary script tag</a> for the post&rsquo;s generated HTML.  MathJax may work-up the <code>&lt;code&gt;</code> tags, and the workaround for this is shown in the documentation.  The <code>TeX-AMS-MML_HTMLorMML</code> configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the <a href="http://legends2k.github.io/2d-transforms-101/"><em>2D Transforms 101</em></a> presentation; I&rsquo;d to resort to <code>TeX-AMS-MML_SVG</code> in its case.</p>
-<h2 id="5-fractions-and-footnote-return-text">5. Fractions and Footnote return text</h2>
-<p>Things like footnote return link text can be configured directly in the site&rsquo;s <code>config.toml</code>.  More such options are explained in the configuration page of Hugo&rsquo;s excellent documentation.  When a fraction is typed out ordinarily like <code>355/113</code>, it still shows up like 355/113, which is nice; it does it just with <code>&lt;sup&gt;</code> and <code>&lt;sub&gt;</code> tags, no CSS or MathJax.  This is due to <em>Blackfriday</em>, the underlying Go markdown rendering engine used by Hugo.</p>
-<h2 id="6-test-and-deploy">6. Test and Deploy</h2>
-<p>Running Hugo with <code>hugo server</code> serves the content on-the-fly at <code>localhost:1313</code>; port can be changed.  When testing is complete and all is well, the final run would be just <code>hugo</code> without any parameters; this generates the entire site tree inside the <code>public</code> directory which needs to be hosted.</p>
+    <p>Becoming a senior programmer/engineer doesn’t happen in a day.</p>
+<blockquote>
+<p>Like most skills, often <a href="https://www.bakadesuyo.com/2012/11/secret-success-not-giving-up/">you need grit</a> than intelligence/smartness.</p>
+</blockquote>
+<h1 id="guidelines">Guidelines</h1>
+<ul>
+<li>Write small toy programs to prove yourself right / wrong
+<ul>
+<li>It’s easy to get lost in the details of a large project; however it’s just noise</li>
+<li>A toy programs is a simple way of filtering signal from noise</li>
+</ul>
+</li>
+<li>Document what you learn
+<ul>
+<li>Sprinkle enough comments; they&rsquo;ll help you later</li>
+<li>Write markdown articles for involved topics</li>
+</ul>
+</li>
+<li>Keep a repository handy
+<ul>
+<li>This should have all your workouts, big or small</li>
+<li>It used be usable any where without installing big tool chains</li>
+<li>Preferably plain text; searchable readily with omnipresent tools <code>grep</code> and <code>find</code></li>
+</ul>
+</li>
+<li>Write something substantial &ndash; a mini-project
+<ul>
+<li>Professionally most programmers are just <em>cogs in a large wheel</em></li>
+<li>Authoring a small project end-to-end leads to much deeper insights</li>
+</ul>
+</li>
+<li>Scope
+<ul>
+<li>Start with something small and tangible</li>
+<li>Not having something decent in a week is a sign</li>
+<li>You&rsquo;re biting more than you could chew, cut back</li>
+</ul>
+</li>
+<li>Always <a href="https://en.wikipedia.org/wiki/RTFM">RTFM</a>
+<ul>
+<li>Mark of a good engineer: ability to digest design, API documentation or books</li>
+<li>Grok documentation and articles written by better programmers</li>
+</ul>
+</li>
+<li><strong>Be consistent</strong>
+<ul>
+<li>Work on your pet project at least an hour a day</li>
+<li>An hour isn&rsquo;t much &ndash; consider the minutes that go wasted in a day</li>
+<li><em>Trick</em>: small, incremental changes every day; <em>don’t lose steam</em></li>
+</ul>
+</li>
+<li>Write cross-platform and cross toolchain code
+<ul>
+<li>It makes you a better programmer</li>
+<li>Code adhering to standards has longevity and better portability</li>
+<li>Widens user base</li>
+</ul>
+</li>
+<li>Toolchain
+<ul>
+<li>Use the same set of tools everywhere (across platforms)</li>
+<li>Improves muscle memory</li>
+<li>Sticking to a same set of tools lets tools not get in your way</li>
+<li><em>Examples</em>: <a href="https://www.gnu.org/software/coreutils/coreutils.html">coreutils</a>, <a href="https://www.gnu.org/software/findutils/">findutils</a>, <a href="https://www.gnu.org/software/binutils">binutils</a>, <a href="https://www.gnu.org/software/emacs/">Emacs</a>, <a href="https://www.vim.org/">Vim</a>, etc.</li>
+</ul>
+</li>
+<li>Dependencies
+<ul>
+<li>Minimize your dependencies; <a href="https://talks.golang.org/2012/splash.article#TOC_7."><em>dependency hygiene trumps code reuse</em></a></li>
+<li>Maintaining dependencies isn&rsquo;t fun</li>
+<li>Pick one that has decent maintenance and is well-designed</li>
+<li>Pick on that supports all the platforms you&rsquo;ve in mind</li>
+</ul>
+</li>
+</ul>
+<h2 id="to-depend-or-not">To Depend or Not?</h2>
+<p>If you’re writing an image viewer, then rolling your own PNG decoder is a project in itself, perhaps you can take a dependency on a library like <code>libpng</code>.  However, if your project is something else; you need to read just one field in a PNG’s header, then taking a library to just do that is an overkill.</p>
+<h1 id="mini-project-suggestions">Mini-project Suggestions</h1>
+<p>I’m a systems/middleware programmer, I’m partial to projects of those kinds.  Feel free to pick any project you fancy!</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Ray_tracing_(graphics)">Ray tracer</a>
+<ul>
+<li>High-quality free tutorials <a href="http://www.realtimerendering.com/raytracing/Ray%20Tracing%20in%20a%20Weekend.pdf">[1]</a>, <a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing">[2]</a></li>
+<li>Lots of scope for parallelization</li>
+<li>Pluggable into 3D packages like <a href="https://www.blender.org/">Blender</a>, Maya, etc.</li>
+</ul>
+</li>
+<li>Image viewer / editor
+<ul>
+<li>Exposes you to GUI programming and user settings management</li>
+<li><a href="https://en.wikipedia.org/wiki/Digital_image_processing">Filters/Effects</a></li>
+<li>Lots of scope for parallelization</li>
+</ul>
+</li>
+<li>Text Viewer / Editor
+<ul>
+<li>Infinite extensibility
+<ul>
+<li>Syntax Highlighting</li>
+<li>Auto-completion, jump-to-definition (<a href="https://en.wikipedia.org/wiki/Language_Server_Protocol">LSP</a>)</li>
+<li>Spell checking</li>
+</ul>
+</li>
+<li>Find/replace – regex</li>
+<li>Buffering (when dealing with very large files; <a href="https://en.wikipedia.org/wiki/Memory-mapped_file">memory mapping</a>)</li>
+<li>Ideas like <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">MVC</a>, <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM</a></li>
+</ul>
+</li>
+<li>File Explorer
+<ul>
+<li>nCurses-based ;)</li>
+<li>Interfacing with the OS</li>
+<li>File systems</li>
+</ul>
+</li>
+<li>Arbitrary precision calculator
+<ul>
+<li>Exposes to big numbers and floating-point intricacies</li>
+<li>Libraries like <a href="https://en.wikipedia.org/wiki/GNU_Multiple_Precision_Arithmetic_Library">GMP</a>, <a href="https://en.wikipedia.org/wiki/GNU_MPFR">GNU MPFR</a>, etc.</li>
+</ul>
+</li>
+<li>Simple game
+<ul>
+<li>Exposes to graphics, performance, math, GPU programming (shader code)</li>
+<li>Great beginner tutorials like <a href="http://lazyfoo.net/articles/article01/index.php">lazyfoo</a>’s</li>
+<li>Free tools/engines: <a href="https://www.mapeditor.org/">Tiled</a>, <a href="https://godotengine.org/">Godot</a></li>
+<li>Free libraries: <a href="https://libsdl.org/">SDL</a>, <a href="https://raylib.com/">Raylib</a>, etc.</li>
+<li>Free assets: <a href="https://kenney.nl/">Kenny NL</a>, <a href="https://opengameart.org/">OpenGameArt</a>, etc.</li>
+</ul>
+</li>
+<li>Media player
+<ul>
+<li>Exposes to encoding, decoding, streams, audio-Video sync</li>
+<li>Libraries like <a href="https://ffmpeg.org">ffmpeg</a></li>
+</ul>
+</li>
+<li>Video post-processing / filters
+<ul>
+<li>WebGL video processing</li>
+</ul>
+</li>
+<li>Graph plotter</li>
+<li>Markdown renderer / viewer</li>
+<li>Procedural content generation</li>
+<li>Language Server Protocol (for your favourite editor)
+<ul>
+<li>Parser</li>
+<li>Lexer</li>
+<li>Compiler-toolchain</li>
+</ul>
+</li>
+</ul>
 
 </div>
 
@@ -181,16 +293,16 @@ $$</p>
             
                 <a href="/tags/tech/">tech</a>, 
             
-                <a href="/tags/writing/">writing</a>, 
+                <a href="/tags/tips/">tips</a>, 
             
-                <a href="/tags/tools/">tools</a>
+                <a href="/tags/learning/">learning</a>
             
         </p>
     
 
     <div class="share">
         
-            <a class="icon-twitter" href="https://twitter.com/share?text=Blog%20%e2%80%93%20fit%20and%20finish&url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f"
+            <a class="icon-twitter" href="https://twitter.com/share?text=Improving%20Programmer%20Kata&url=https%3a%2f%2flegends2k.github.io%2fnote%2fprogrammer_kata%2f"
                 onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="fa fa-twitter"></i>
                 <span class="hidden">Twitter</span>
@@ -198,7 +310,7 @@ $$</p>
         
 
         
-            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f"
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fprogrammer_kata%2f"
                 onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                 <i class="fa fa-facebook"></i>
                 <span class="hidden">Facebook</span>
@@ -206,14 +318,14 @@ $$</p>
         
 
         
-            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f"
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fprogrammer_kata%2f"
               onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
               <i class="fa fa-google-plus"></i>
                 <span class="hidden">Google+</span>
             </a>
         
         
-            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Blog%20%e2%80%93%20fit%20and%20finish&url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f&summary=quirks%20and%20hacks%20in%20making%20this"
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Improving%20Programmer%20Kata&url=https%3a%2f%2flegends2k.github.io%2fnote%2fprogrammer_kata%2f&summary=Form%20through%20Practise"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
                <i class="fa fa-linkedin"></i>
                <span class="hidden">LinkedIn</span>
