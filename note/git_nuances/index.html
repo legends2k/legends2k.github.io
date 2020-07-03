@@ -9,7 +9,7 @@
         <meta name="description" content="Obscure but useful Git incantations">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.72.0" />
+        <meta name="generator" content="Hugo 0.73.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">May 19, 2020</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">Jul 3, 2020</time>
     </span>
     
 </p>
@@ -161,6 +161,7 @@
 <h1 id="pull-another-branch">Pull another branch</h1>
 <p>Contrary to popular belief, <a href="https://stackoverflow.com/a/42902058/183120"><code>git pull</code> can be run on a branch that’s not current</a>.  Say <code>HEAD</code> is attached to <code>master</code>, you can still pull in changes to <code>my-topic</code> branch from a remote.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">fetch</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">my</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">topic:</span><span style="color:#8be9fd;font-style:italic">my</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">topic</span></code></pre></div>
+<p>If <code>my-topic</code> and <code>origin/my-topic</code> have diverged, this gets reduced to an ordinary <code>fetch</code> i.e. only <code>origin/my-topic</code> gets updated.</p>
 <h1 id="please-mind-the-dotsmind-gap">Please <a href="https://en.wikipedia.org/wiki/Mind_the_gap">mind the dots</a></h1>
 <p><code>git diff A..B</code> = diff <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Including_or_excluding_endpoints">(<code>A</code>, <code>B</code>]</a> i.e. the diff includes changes made by <code>B</code> but not by <code>A</code>.  Since a diff-ing utility just takes a pair of file sets, with these references we simply denote the repository at different states &ndash; after committing <code>A</code> and after committing <code>B</code>.  This diffs the repository at <em>two points</em>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git diff A B    <span style="color:#6272a4"># same as below; only nicer</span>

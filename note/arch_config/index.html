@@ -9,7 +9,7 @@
         <meta name="description" content="Display, Audio, Bluetooth and tools">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.72.0" />
+        <meta name="generator" content="Hugo 0.73.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-04-26" itemprop="datePublished">Apr 2, 2020</time>
+        Updated <time datetime="2019-04-26" itemprop="datePublished">Jul 3, 2020</time>
     </span>
     
 </p>
@@ -254,7 +254,8 @@ systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-aut
 <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sys</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">bus</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">pci</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">rescan</span></code></pre></div>
 <p>However, since Linux kernel version 5 I didn’t have to do this once!</p>
 <h1 id="pulse-audio">(Pulse) Audio</h1>
-<p>Just install <code>pulseaudio</code>, <code>pulseaudio-alsa</code>, <code>pavucontrol</code> and <code>xfce4-pulseaudio-plugin</code>; little to no configuring seems to be needed to get audio working.  I set <em>Built-in Audio</em> to <em>Analog Stereo Output</em> since this laptop has stereo out only.</p>
+<p>Just install <code>pulseaudio</code>, <code>pulseaudio-alsa</code>, <code>pavucontrol</code> and <code>xfce4-pulseaudio-plugin</code>; little to no configuring seems to be needed to get audio (out) working.  I set <em>Built-in Audio</em> to <em>Analog Stereo Duplex</em> since this laptop has stereo speakers, a built-in microphone and a 3.5 mm jack conducting both line in and out (stereo).</p>
+<p>The microphone needed work even with right settings in <code>pavucontrol</code>.  Install <code>alsa-utils</code> and launch <code>alsamixer</code>.  Make sure to choose the right device, set appropriate <code>CAPTURE</code> level and un-mute.  Test with <code>arecord -f dat -d 5 test.wav &amp;&amp; aplay test.wav</code>.</p>
 <h1 id="bluetooth">Bluetooth</h1>
 <p>Install <code>bluez</code>, <code>bluez-utils</code> and <code>blueman</code> &ndash; for a decent GTK+ bluetooth manager with an applet.  Verify if bluetooth hardware is not hard blocked but is soft blocked.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">rfkill</span> <span style="color:#8be9fd;font-style:italic">list</span> <span style="color:#8be9fd;font-style:italic">highlight</span>
