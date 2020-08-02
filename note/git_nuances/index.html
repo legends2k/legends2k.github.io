@@ -9,7 +9,7 @@
         <meta name="description" content="Obscure but useful Git incantations">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.73.0" />
+        <meta name="generator" content="Hugo 0.74.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">Jul 3, 2020</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">Aug 2, 2020</time>
     </span>
     
 </p>
@@ -196,6 +196,14 @@ git restore --staged hello
 
 <span style="color:#6272a4"># restore hello in both index and working tree from 1fe35f</span>
 git restore --WS --source 1fe35f hello</code></pre></div>
+<h1 id="_strings-attached_-tags"><em>Strings Attached</em> Tags</h1>
+<p>Annotated tags are tags with an accompanying message that are displayed by <code>git show</code>.  Unlike <a href="https://stackoverflow.com/q/11514075/183120">lightweight tags</a> they are unintuitive.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># Lightweight tag</span>
+git tag 1.0.0
+
+<span style="color:#6272a4"># Annotated tag</span>
+git tag -m <span style="color:#f1fa8c">&#34;Tag for release after sign off from CI team&#34;</span> 1.0.0</code></pre></div>
+<p>However, the differences go deeper.  Annotated tags themselves are separate objects while lightweight objects are just pointers i.e. they point to a commit object.  Like commit objects, apart from the message, annotated tags also carry their own <em>tagger</em> and <em>date</em> fields.  When you <code>git push --follow-tags</code>, only annotated tags are pushed; <code>git push --tags</code> pushes both.  Since they’re separate objects, like all <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git objects</a>, they’ve a distinct hash; consequently they can also be tagged!  This can bite you when you <a href="https://stackoverflow.com/a/49286861/183120">rename an annotated tag</a> by <a href="https://stackoverflow.com/a/5719854/183120">creating the new tag with the old one</a>.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
