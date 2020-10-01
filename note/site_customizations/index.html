@@ -94,20 +94,21 @@
                     <ul class="site-nav">
                         
     <li class="site-nav-item">
-        <a title="Posts" href="/post/">Posts</a>
+        <a href="/post/">Posts</a>
     </li>
 
     <li class="site-nav-item">
-        <a title="Notes" href="/note/">Notes</a>
+        <a href="/note/">Notes</a>
     </li>
 
     <li class="site-nav-item">
-        <a title="Projects" href="/projects/">Projects</a>
+        <a href="/projects/">Projects</a>
     </li>
 
     <li class="site-nav-item">
-        <a title="About" href="/about/">About</a>
+        <a href="/about/">About</a>
     </li>
+
 
                     </ul>
                 </div>
@@ -133,7 +134,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2016-08-12" itemprop="datePublished">Nov 25, 2019</time>
+        Updated <time datetime="2016-08-12" itemprop="datePublished">Oct 1, 2020</time>
     </span>
     
 </p>
@@ -165,7 +166,7 @@
 <p>$$
 \sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}
 $$</p>
-<p><em>MathJax</em> is the go-to solution in browsers.  The <em>display math</em> (MathJax lingo to display an equation in its own line with <code>\$\$…\$\$</code>) option works with no quirks; <em>inline math</em> (<code>\$…\$</code>) doesn&rsquo;t work properly by default; I&rsquo;d to <a href="http://github.com/spf13/hugo/issues/1666#issuecomment-225316394">stuff</a> to get it working.  I added a custom parameter in the post&rsquo;s front matter, which is later used in a partial HTML template to include the <a href="http://gohugo.io/tutorials/mathjax/">necessary script tag</a> for the post&rsquo;s generated HTML.  MathJax may work-up the <code>&lt;code&gt;</code> tags, and the workaround for this is shown in the documentation.  The <code>TeX-AMS-MML_HTMLorMML</code> configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the <a href="http://legends2k.github.io/2d-transforms-101/"><em>2D Transforms 101</em></a> presentation; I&rsquo;d to resort to <code>TeX-AMS-MML_SVG</code> in its case.</p>
+<p><em>MathJax</em> is the go-to solution in browsers.  The <em>display math</em> (MathJax lingo to display an equation in its own line with <code>\$\$…\$\$</code>) option works with no quirks; <em>inline math</em> (<code>\$…\$</code>) doesn&rsquo;t work properly by default; I&rsquo;d to do <a href="http://github.com/spf13/hugo/issues/1666#issuecomment-225316394">stuff</a> to get it working.  I added a custom parameter in the post&rsquo;s front matter, which is later used in a partial HTML template to include the <a href="http://gohugo.io/tutorials/mathjax/">necessary script tag</a> for the post&rsquo;s generated HTML.  MathJax may work-up the <code>&lt;code&gt;</code> tags, and the workaround for this is shown in the documentation.  The <code>TeX-AMS-MML_HTMLorMML</code> configuration is used, but this should be tested out in all browsers since I remember this getting rendered appallingly in Firefox for the <a href="http://legends2k.github.io/2d-transforms-101/"><em>2D Transforms 101</em></a> presentation; I&rsquo;d to resort to <code>TeX-AMS-MML_SVG</code> in its case.</p>
 <h2 id="5-fractions-and-footnote-return-text">5. Fractions and Footnote return text</h2>
 <p>Things like footnote return link text can be configured directly in the site&rsquo;s <code>config.toml</code>.  More such options are explained in the configuration page of Hugo&rsquo;s excellent documentation.  When a fraction is typed out ordinarily like <code>355/113</code>, it still shows up like 355/113, which is nice; it does it just with <code>&lt;sup&gt;</code> and <code>&lt;sub&gt;</code> tags, no CSS or MathJax.  This is due to <em>Blackfriday</em>, the underlying Go markdown rendering engine used by Hugo.</p>
 <h2 id="6-test-and-deploy">6. Test and Deploy</h2>
@@ -191,36 +192,33 @@ $$</p>
     <div class="share">
         
             <a class="icon-twitter" href="https://twitter.com/share?text=Blog%20%e2%80%93%20fit%20and%20finish&url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f"
-                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                <i class="fa fa-twitter"></i>
-                <span class="hidden">Twitter</span>
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
             </a>
         
 
         
             <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f"
-                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                <i class="fa fa-facebook"></i>
-                <span class="hidden">Facebook</span>
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
             </a>
         
 
         
             <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f"
-              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-              <i class="fa fa-google-plus"></i>
-                <span class="hidden">Google+</span>
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" aria-label="Share on Google+">
+              <i class="fa fa-google-plus" aria-hidden="true"></i>
             </a>
         
         
             <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Blog%20%e2%80%93%20fit%20and%20finish&url=https%3a%2f%2flegends2k.github.io%2fnote%2fsite_customizations%2f&summary=quirks%20and%20hacks%20in%20making%20this"
-               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
-               <i class="fa fa-linkedin"></i>
-               <span class="hidden">LinkedIn</span>
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;" aria-label="Share on LinkedIn">
+               <i class="fa fa-linkedin" aria-hidden="true"></i>
             </a>
         
     </div>
 </footer>
+
 
         
     <div class="comments">

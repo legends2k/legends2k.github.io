@@ -79,20 +79,21 @@
                     <ul class="site-nav">
                         
     <li class="site-nav-item">
-        <a title="Posts" href="/post/">Posts</a>
+        <a href="/post/">Posts</a>
     </li>
 
     <li class="site-nav-item">
-        <a title="Notes" href="/note/">Notes</a>
+        <a href="/note/">Notes</a>
     </li>
 
     <li class="site-nav-item">
-        <a title="Projects" href="/projects/">Projects</a>
+        <a href="/projects/">Projects</a>
     </li>
 
     <li class="site-nav-item">
-        <a title="About" href="/about/">About</a>
+        <a href="/about/">About</a>
     </li>
+
 
                     </ul>
                 </div>
@@ -118,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-01-20" itemprop="datePublished">Jan 23, 2019</time>
+        Updated <time datetime="2019-01-20" itemprop="datePublished">Oct 1, 2020</time>
     </span>
     
 </p>
@@ -162,7 +163,7 @@
 </tr>
 </tbody>
 </table>
-<p>Thanks to <a href="https://wiki.debian.org/GrubEFIReinstall">Debian’s GrubEFIReinstall guide</a>; it made me recall that the <em>Boot Mode</em> should be UEFI; it also gave the way verify it.  I’d to use a UEFI-bootable<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> USB stick with Arch Linux ISO.  Things were smooth thereon!</p>
+<p>Thanks to <a href="https://wiki.debian.org/GrubEFIReinstall">Debian’s GrubEFIReinstall guide</a>; it made me recall that the <em>Boot Mode</em> should be UEFI; it also gave the way to verify it.  I’d to use a UEFI-bootable<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> USB stick with Arch Linux ISO.  Things were smooth thereon!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # [ <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">d</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sys</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">firmware</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">efi</span> ] <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;EFI boot on HDD&#34;</span> <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Legacy boot on HDD&#34;</span>
 <span style="color:#8be9fd;font-style:italic">EFI</span> <span style="color:#8be9fd;font-style:italic">boot</span> <span style="color:#8be9fd;font-style:italic">on</span> <span style="color:#8be9fd;font-style:italic">HDD</span>
 <span style="color:#8be9fd;font-style:italic">root@archiso</span> <span style="color:#ff79c6">/</span> # <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">lvmg1</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">root</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mnt</span>
@@ -245,36 +246,33 @@
     <div class="share">
         
             <a class="icon-twitter" href="https://twitter.com/share?text=GRUB%20Recovery&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgrub2_recovery%2f"
-                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                <i class="fa fa-twitter"></i>
-                <span class="hidden">Twitter</span>
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
             </a>
         
 
         
             <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fgrub2_recovery%2f"
-                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                <i class="fa fa-facebook"></i>
-                <span class="hidden">Facebook</span>
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
             </a>
         
 
         
             <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fgrub2_recovery%2f"
-              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-              <i class="fa fa-google-plus"></i>
-                <span class="hidden">Google+</span>
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" aria-label="Share on Google+">
+              <i class="fa fa-google-plus" aria-hidden="true"></i>
             </a>
         
         
             <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=GRUB%20Recovery&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgrub2_recovery%2f&summary=after%20a%20Windows%20boot%20loader%20overwrite"
-               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;">
-               <i class="fa fa-linkedin"></i>
-               <span class="hidden">LinkedIn</span>
+               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;" aria-label="Share on LinkedIn">
+               <i class="fa fa-linkedin" aria-hidden="true"></i>
             </a>
         
     </div>
 </footer>
+
 
         
     <div class="comments">

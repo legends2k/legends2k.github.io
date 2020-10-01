@@ -14,7 +14,7 @@
       <pubDate>Mon, 22 Jun 2020 07:36:47 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/lvm_resize/</guid>
-      <description>My root partition had unused space while /home was starving. I need to resize both without data loss. I’d foreseen this and created my Linux partitions using LVM while installing Arch 😇 .
+      <description>My root partition had unused space while /home was starving. I needed to resize both without data loss. I’d foreseen this and created my Linux partitions using LVM while installing Arch 😇 .
 Since operations here involve resizing /, boot from Live USB and then perform them. Also make sure the USB is UEFI bootable; otherwise it’d mean changing BIOS settings to enable Legacy Boot. This may lead to GRUB’s disappearance from boot menu.</description>
     </item>
     
