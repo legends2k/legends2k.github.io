@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Sun, 17 Jun 2018 07:00:43 -0700</lastBuildDate>
-    
-	<atom:link href="https://legends2k.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 17 Jun 2018 07:00:43 -0700</lastBuildDate><atom:link href="https://legends2k.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Emacs Go Setup</title>
       <link>https://legends2k.github.io/note/go_setup/</link>

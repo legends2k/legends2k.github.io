@@ -9,7 +9,7 @@
         <meta name="description" content="Make Emacs your Go IDE">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.74.1" />
+        <meta name="generator" content="Hugo 0.75.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -186,7 +186,7 @@
 <span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">golang</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">x</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">tools</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">cmd</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">goimports</span>
 <span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">golang</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">x</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">tools</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">cmd</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">godoc</span></code></pre></div></li>
 <li>Install aforementioned Emacs packages</li>
-<li>If <code>$GOPATH/bin</code> isn’t part of <code>$PATH</code> at least make it part of Emacs&rsquo; <code>exec-path</code>
+<li>If <code>$GOPATH/bin</code> isn’t part of <code>$PATH</code> at least make it part of Emacs' <code>exec-path</code>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;exec-path</span> (<span style="color:#8be9fd;font-style:italic">concat</span> (<span style="color:#8be9fd;font-style:italic">file-name-as-directory</span> (<span style="color:#8be9fd;font-style:italic">getenv</span> <span style="color:#f1fa8c">&#34;GOPATH&#34;</span>)) <span style="color:#f1fa8c">&#34;bin&#34;</span>) t)</code></pre></div></li>
 <li>Append to <code>.emacs</code>:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;load-path</span> (<span style="color:#8be9fd;font-style:italic">concat</span> (<span style="color:#8be9fd;font-style:italic">file-name-as-directory</span> (<span style="color:#8be9fd;font-style:italic">getenv</span> <span style="color:#f1fa8c">&#34;GOPATH&#34;</span>)) <span style="color:#f1fa8c">&#34;src/github.com/dougm/goflymake&#34;</span>))
@@ -256,7 +256,7 @@
 <p>Play with <a href="https://godoc.org/golang.org/x/tools/cmd/guru"><code>guru</code></a> &ndash; looks like a sophisticated tool.</p>
 <h1 id="references">References</h1>
 <ol>
-<li><code>go-mode</code>'s help in Emacs</li>
+<li><code>go-mode</code>&rsquo;s help in Emacs</li>
 <li><code>$GOPATH/src/github.com/mdempsky/gocode/emacs-company/README.md</code></li>
 <li><a href="https://tleyden.github.io/blog/2014/05/27/configure-emacs-as-a-go-editor-from-scratch-part-2/">Configure Emacs as a Go Editor From Scratch</a></li>
 <li><a href="https://github.com/dougm/goflymake">goflymake</a></li>

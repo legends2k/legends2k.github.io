@@ -9,7 +9,7 @@
         <meta name="description" content="coexisting with Windows on a dual GPU laptop">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.74.1" />
+        <meta name="generator" content="Hugo 0.75.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -283,7 +283,7 @@
 <p>Regenerate <code>initramfs</code> image</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">mkinitcpio</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">p</span> <span style="color:#8be9fd;font-style:italic">linux</span></code></pre></div>
 <h1 id="root-password">Root Password</h1>
-<p>Use <code>passwd</code> to set <code>root</code>'s password.</p>
+<p>Use <code>passwd</code> to set <code>root</code>&rsquo;s password.</p>
 <h1 id="boot">Boot</h1>
 <p>Since Windows 8, Microsoft forces the UEFI + GPT combo, make sure this is followed by Arch for a successful coexistence with Windows.  Pre-installed Windows machines have a EFI partition already made from which Windows boots; verify this using <code>fdisk</code>.  <a href="https://wiki.archlinux.org/index.php/EFI_System_Partition#Mount_the_partition">This means</a> we don&rsquo;t have to create an EFI partition but simply mount it for GRUB to use.  We&rsquo;re using GRUB as the bootloader.  The mounting part should&rsquo;ve already been done as part of <em>§3.5 Mount</em>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">pacman</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">S</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">needed</span> <span style="color:#8be9fd;font-style:italic">grub</span> <span style="color:#8be9fd;font-style:italic">efibootmgr</span>

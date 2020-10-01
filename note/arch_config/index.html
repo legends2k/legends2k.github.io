@@ -9,7 +9,7 @@
         <meta name="description" content="Display, Audio, Bluetooth and tools">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.74.1" />
+        <meta name="generator" content="Hugo 0.75.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -118,7 +118,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-04-26" itemprop="datePublished">Aug 2, 2020</time>
+        Updated <time datetime="2019-04-26" itemprop="datePublished">Oct 1, 2020</time>
     </span>
     
 </p>
@@ -172,6 +172,9 @@
 <span style="color:#50fa7b">IP</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">dhcp</span>
 <span style="color:#50fa7b">DNS</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">(&#39;1.1.1.1&#39; &#39;1.0.0.1&#39;)</span></code></pre></div>
 <p>Start/switch to this profile as you normally would: <code>netctl switch-to wired</code>.</p>
+<blockquote>
+<p>If you’re connecting a USB Type-C to 3.0 adapter with an ethernet port, its interface would not be <code>eth0</code>!  Make sure you’ve a similar profile for its interface too.</p>
+</blockquote>
 <h2 id="auto-switching">Auto-Switching</h2>
 <p>To automatically configure your ethernet device on cable un/plug, install <code>ifplugd</code> and enable the service.  Likewise to automatically start/stop profiles as you move from a wireless network’s range into another, you need to enable another service.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">netctl disable infoprobe  <span style="color:#6272a4"># disable any earlier enabled profile</span>
