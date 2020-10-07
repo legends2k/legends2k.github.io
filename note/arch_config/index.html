@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2019-04-26" itemprop="datePublished">Oct 1, 2020</time>
+        Updated <time datetime="2019-04-26" itemprop="datePublished">Oct 7, 2020</time>
     </span>
     
 </p>
@@ -376,6 +376,23 @@ systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-aut
 <li>List installed packages with <a href="https://github.com/junegunn/fzf">fzf</a>; a panel shows highlighted package’s details
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">yay</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">Qq</span> <span style="color:#ff79c6">|</span> <span style="color:#8be9fd;font-style:italic">fzf</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">preview</span> <span style="color:#6272a4">&#39;yay -Qil {}&#39; --layout=reverse --bind &#39;enter:execute(yay -Qil {} | less)&#39;</span></code></pre></div></li>
 </ul>
+<p>Irrespective of the wrapper used, pacman maintains <code>/var/log/pacman.log</code> since day 1 of its usage; very useful to know package management history.</p>
+<h2 id="pac-cache-management">Pac Cache Management</h2>
+<p>Periodically <code>/var</code> gets full due to cached downloaded packages.  Clear it manually using the <code>paccache</code> script</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">sudo</span> <span style="color:#8be9fd;font-style:italic">paccache</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">rk</span> <span style="color:#bd93f9">2</span>    # <span style="color:#8be9fd;font-style:italic">keep</span> <span style="color:#8be9fd;font-style:italic">last</span> <span style="color:#bd93f9">2</span> <span style="color:#8be9fd;font-style:italic">versions</span> <span style="color:#8be9fd;font-style:italic">of</span> <span style="color:#8be9fd;font-style:italic">each</span> <span style="color:#8be9fd;font-style:italic">package</span></code></pre></div>
+<p><a href="https://ostechnix.com/recommended-way-clean-package-cache-arch-linux/">Automate cache clearance</a> with a pacman hook (refer <code>man alpm-hooks</code>) run post install:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">sudo cat &gt; /etc/pacman.d/hooks/clean_pac_cache.hook</span>
+<span style="color:#ff79c6">[Trigger]</span>
+<span style="color:#50fa7b">Operation</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">Upgrade</span>
+<span style="color:#50fa7b">Operation</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">Install</span>
+<span style="color:#50fa7b">Operation</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">Remove</span>
+<span style="color:#50fa7b">Type</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">Package</span>
+<span style="color:#50fa7b">Target</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">*</span>
+
+<span style="color:#ff79c6">[Action]</span>
+<span style="color:#50fa7b">Description</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">Cleaning pacman cache...</span>
+<span style="color:#50fa7b">When</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">PostTransaction</span>
+<span style="color:#50fa7b">Exec</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">/usr/bin/paccache -rk 1</span></code></pre></div>
 <h1 id="fonts">Fonts</h1>
 <p>I’m a <a href="https://en.wikipedia.org/wiki/Tamils">Tamilian</a> and a programmer.  Since most of my consumption is textual data, I’ve strong tastes in fonts.  First for greater unicode coverage I followed Emacs’ <a href="https://github.com/rolandwalker/unicode-fonts">unicode-fonts</a> recommendation of at least installing</p>
 <ul>
