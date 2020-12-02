@@ -79,8 +79,7 @@ figcaption h4 {
 
 p {
     /* like it really spaced out and tidy */
-    line-height: 2.0;
-    margin: 0 0 30px;
+    line-height: 1.8;
     text-align: justify;
 }
 
