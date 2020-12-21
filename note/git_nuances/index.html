@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">Aug 2, 2020</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">Dec 21, 2020</time>
     </span>
     
 </p>
@@ -205,6 +205,24 @@ git tag 1.0.0
 <span style="color:#6272a4"># Annotated tag</span>
 git tag -m <span style="color:#f1fa8c">&#34;Tag for release after sign off from CI team&#34;</span> 1.0.0</code></pre></div>
 <p>However, the differences go deeper.  Annotated tags themselves are separate objects while lightweight objects are just pointers i.e. they point to a commit object.  Like commit objects, apart from the message, annotated tags also carry their own <em>tagger</em> and <em>date</em> fields.  When you <code>git push --follow-tags</code>, only annotated tags are pushed; <code>git push --tags</code> pushes both.  Since they’re separate objects, like all <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git objects</a>, they’ve a distinct hash; consequently they can also be tagged!  This can bite you when you <a href="https://stackoverflow.com/a/49286861/183120">rename an annotated tag</a> by <a href="https://stackoverflow.com/a/5719854/183120">creating the new tag with the old one</a>.</p>
+<h1 id="frugal-fetches">Frugal Fetches</h1>
+<p>When getting a remote branch, ignore the popular advise to fetch everything (<code>git fetch</code>); a better option is to get just what you want; saves a lot of bandwidth:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># fetch just the interesting branch</span>
+git fetch origin my_topic_branch
+
+<span style="color:#6272a4"># checkout locally and also set remote-tracking branch</span>
+git checkout --track origin/my_topic_branch</code></pre></div>
+<h1 id="fetch-fiascos--shallow-repos">Fetch Fiascos?  Shallow Repos!</h1>
+<p>Irrespective of the number of times you yell <code>git fetch</code>, Git swears that there’s only one branch in a remote!  You look at <code>git branch -r</code> in dismay 😰</p>
+<p>Well, you forgot that it’s a shallow repro i.e. cloned with <code>--single-branch</code>.  The caveat lurks in <code>man git-clone</code></p>
+<blockquote>
+<p><code>--[no-]single-branch</code></p>
+<p>[&hellip;]</p>
+<p>Further fetches into the resulting repository will only update the
+remote-tracking branch for the branch this option was used for the initial
+cloning.</p>
+</blockquote>
+<p>Deepen the shallow repo with <code>git fetch --unshallow</code>.  Further details at <a href="https://stackoverflow.com/q/1778088/183120">an SO post</a>.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
