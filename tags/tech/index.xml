@@ -42,7 +42,7 @@ git show REF It shows details about the commit along with the changes it brings 
     </item>
     
     <item>
-      <title>First game jam experience!</title>
+      <title>My First Game Jam!</title>
       <link>https://legends2k.github.io/note/sneak_out/</link>
       <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
       
@@ -124,10 +124,10 @@ Network In the newly installed Arch you might notice that there&amp;rsquo;s no n
     
     <item>
       <title>Git: Pushing to a Fork</title>
-      <link>https://legends2k.github.io/note/push_fork/</link>
+      <link>https://legends2k.github.io/note/git_push_fork/</link>
       <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
       
-      <guid>https://legends2k.github.io/note/push_fork/</guid>
+      <guid>https://legends2k.github.io/note/git_push_fork/</guid>
       <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
     </item>
     
