@@ -749,6 +749,7 @@ blockquote ::-moz-selection {
     body {
         font-size: 16px;
     }
+
     h1, h2 {
         margin-bottom: 20px;
     }
@@ -892,6 +893,15 @@ blockquote ::-moz-selection {
     .footer .button-jump-top {
         clear: both;
         display: inline-block;
+        float: none;
+    }
+
+    /* make it non-floating; used primarily for TOC  */
+    aside {
+        width: unset;
+        padding-left: unset;
+        margin-left: unset;
+        margin-top: unset;
         float: none;
     }
 }
