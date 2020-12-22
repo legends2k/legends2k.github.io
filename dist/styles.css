@@ -67,9 +67,12 @@ aside {
     text-align: left;
     font-size: smaller;
     width: 40%;
-    padding-left: 1.0rem;
-    margin-left: 1.0rem;
-    margin-top: 1.0rem;
+    margin-left: 2.0rem;
+    margin-bottom: 2.0rem;
+    margin-top: 40px; /* match post-header's bottom margin */
+    padding-right: 1.0rem;
+    padding-top: 0.5rem; /* padding-{top,bottom} matters for small screens */
+    padding-bottom: 0.5rem;
     float: right;
     background: #fffded;
 }
@@ -116,7 +119,8 @@ ul, ol {
     /* margin: 0 0 20px; */
 }
 
-/* remove margin altogether for lists inside lists: ul ul, ul ol, ol ul, ol ol as they're too spacey */
+/* remove margin altogether for lists inside
+   lists: ul ul, ul ol, ol ul, ol ol as they're too spacey */
 
 ul li, ol li {
     margin: 0 0 2px;
@@ -131,6 +135,9 @@ blockquote {
     margin: 40px 0;
     padding: 5px 30px;
     background-color: #fffacd;
+    /* keep background colour from not overflow into a floating div:
+       https://stackoverflow.com/q/20180081/183120 */
+    overflow: hidden;
 }
 blockquote p {
     display: block;
@@ -230,15 +237,15 @@ table tr {
 
 /* blockquote’s background and default selection background are almost the same
    colours; set a different selection background for blockquote elements */
-blockquote ::selection {
+blockquote ::selection, aside ::selection {
     background: #AFEEEE;
-    coloe: #000;
+    color: #000;
     display: block;
 }
 
-blockquote ::-moz-selection {
+blockquote ::-moz-selection, aside ::-moz-selection {
     background: #AFEEEE;
-    coloe: #000;
+    color: #000;
     display: block;
 }
 
