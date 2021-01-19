@@ -244,12 +244,16 @@ cloning.</p>
 </blockquote>
 <p>Deepen the shallow repo with <code>git fetch --unshallow</code>.  Further details at <a href="https://stackoverflow.com/q/1778088/183120">an SO post</a>.</p>
 <h1 id="are-you-my-mother">Are You My Mother?</h1>
-<p>Check if a <code>Commit-A</code> is reachable from <code>Commit-B</code> i.e. if <code>Commit-B</code> is an ancestor of <code>Commit-A</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git merge-base --is-ancestor possible_grandparent person</code></pre></div>
-<p>This returns <code>0</code> if the lineage check succeeded.  Check with <code>echo $?</code> on *nix machines; on Windows <code>echo %errorlevel%</code> works.</p>
-<p>In case you’re looking for all the branches containing a commit you could do</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git branch --contains my_commit</code></pre></div>
-<p>This lists branch names whose tip is a descendant of <code>my_commit</code>; of course, this won’t be useful if the ancestor commit isn’t a branch tip.</p>
+<p>There’re times when you want to check a commit’s ancestory.  To know if <code>Possible-Parent</code> is truly an ancestor of <code>Child</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># check</span>
+git merge-base --is-ancestor possible_ancestor person
+<span style="color:#6272a4"># show result</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$0</span></code></pre></div>
+<p>Prints <code>0</code> if the lineage checks out.  On Windows <code>echo %ErrorLevel%</code> tells the return value of the last command.</p>
+<p>Conversely, if you’re looking for all the branches containing a commit</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git branch --contains some_parent</code></pre></div>
+<p>lists all branches descending from <code>some_parent</code>; of course, this isn’t useful if the descendant commit your looking for isn’t a branch tip.</p>
+<p>The general idea is <em>reachability</em>: an ancestor is reachable from a descendant, if you keep following the parental links.  When an ancestor is <em>reachable</em>, changes it introduced are <em>visible</em>.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
