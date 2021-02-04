@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">Jan 19, 2021</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">Feb 4, 2021</time>
     </span>
     
 </p>
@@ -141,6 +141,7 @@
     <li><a href="#frugal-fetches">Frugal Fetches</a></li>
     <li><a href="#fetch-fiascos--shallow-repos">Fetch Fiascos?  Shallow Repos!</a></li>
     <li><a href="#are-you-my-mother">Are You My Mother?</a></li>
+    <li><a href="#misc">Misc</a></li>
   </ol>
 </nav>
     </aside>
@@ -242,7 +243,13 @@ git checkout --track origin/my_topic_branch</code></pre></div>
 remote-tracking branch for the branch this option was used for the initial
 cloning.</p>
 </blockquote>
-<p>Deepen the shallow repo with <code>git fetch --unshallow</code>.  Further details at <a href="https://stackoverflow.com/q/1778088/183120">an SO post</a>.</p>
+<p>Deepen the shallow repo with <code>git fetch --unshallow</code>.  Further details at <a href="https://stackoverflow.com/q/1778088/183120">an SO post</a>.  I’ve also seen a manual method of editing <code>.git/config</code>: replacing branch name with <code>*</code> and <code>fetch</code>-ing</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#ff79c6">[remote &#34;origin&#34;]</span>
+	<span style="color:#50fa7b">url</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">https://github.com/legends2k/blog</span>
+<span style="color:#6272a4"># fetch = +refs/heads/master:refs/remotes/origin/master</span>
+<span style="color:#6272a4"># fetch = +refs/tags/master:refs/tags/master</span>
+	<span style="color:#50fa7b">fetch</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">+refs/heads/*:refs/remotes/origin/*
+</span><span style="color:#f1fa8c">	fetch = +refs/tags/*:refs/tags/*</span></code></pre></div>
 <h1 id="are-you-my-mother">Are You My Mother?</h1>
 <p>There’re times when you want to check a commit’s ancestory.  To know if <code>Possible-Parent</code> is truly an ancestor of <code>Child</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># check</span>
@@ -253,7 +260,22 @@ git merge-base --is-ancestor possible_ancestor person
 <p>Conversely, if you’re looking for all the branches containing a commit</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">git branch --contains some_parent</code></pre></div>
 <p>lists all branches descending from <code>some_parent</code>; of course, this isn’t useful if the descendant commit your looking for isn’t a branch tip.</p>
-<p>The general idea is <em>reachability</em>: an ancestor is reachable from a descendant, if you keep following the parental links.  When an ancestor is <em>reachable</em>, changes it introduced are <em>visible</em>.</p>
+<p>The general idea is <em>reachability</em>: an ancestor is reachable from a descendant, if you keep following the parental links.  When an ancestor is <em>reachable</em>, changes it introduced are <em>visible</em> to the descendant.</p>
+<h1 id="misc">Misc</h1>
+<ul>
+<li>Delete branch from remote directly: <code>git push origin --delete my_topic</code></li>
+<li>Remove local branches with no remote counterparts: <code>git remote prune origin</code>
+<ul>
+<li>Doing the same while fetching newer branches: <code>git fetch --prune</code></li>
+</ul>
+</li>
+<li>Remove untracked files from working tree: <code>git clean</code></li>
+<li>Clean up unnecessary house-keeping files and optimize repo: <code>git gc</code>
+<ul>
+<li>Remove objects older than some duration: <code>git prune --expire 2.weeks.ago</code>; more manual</li>
+</ul>
+</li>
+</ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>

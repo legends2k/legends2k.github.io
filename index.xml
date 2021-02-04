@@ -239,5 +239,14 @@ Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; c
       <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&amp;rsquo;t like anything? Ditch them all and whip up something new.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://legends2k.github.io/note/rpi4_setup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://legends2k.github.io/note/rpi4_setup/</guid>
+      <description>In SSD, touch ssh in boot partition for SSH Connect ethernet cable (RJ-45) and boot   Check IP address assigned to RPi from your router’s portal  ssh -l pi IP   Change default password (raspberry) with passwd sudo apt update sudo apt upgrade  Use raspi-config and setup   Locale Wi-Fi country code Wi-Fi set SSID and password Enable SSH (for good measure) Check with systemctl is-enabled sshd  Unplug ethernet and use wireless   Use ifconfig to know your Mac address (eth0/wlan0 interfaces that’re up and running have inet (IP address) populated)  Use raspi-config and enable VNC   Setup VNC password: sudo vncpasswd -service Boot into Desktop instead of Console in System Options -&amp;gt; Boot / Auto Login  See this if you want to boot to CLI and startx later [3]   Make sure to select a resolution under Display Options -&amp;gt; Resolution For macOS Screen Sharing to work, make /etc/vnc/config.</description>
+    </item>
+    
   </channel>
 </rss>
