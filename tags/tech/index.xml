@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Mon, 22 Jun 2020 07:36:47 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Feb 2021 11:27:59 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Raspberry Pi 4 Setup</title>
+      <link>https://legends2k.github.io/note/rpi4_setup/</link>
+      <pubDate>Tue, 09 Feb 2021 11:27:59 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/rpi4_setup/</guid>
+      <description>I neither have a micro HDMI adapter nor a dedicated display for the Pi. I just want to use it as a server. Thanks to Raspbian for providing a simple way to auto-enable SSH on boot!
+I prefer the leaner, manual approach over NOOBS, the more popular option.
+ dd Raspbian’s image on to a new SD card To auto-start SSH service on boot touch ssh in /boot partition Insert SD card, connect ethernet cable (RJ-45) and boot  Check IP address assigned to RPi from your router’s portal   ssh -l pi IP  Change default password (raspberry) with passwd sudo apt update sudo apt upgrade   Use raspi-config and setup  Locale Wi-Fi country code  Needed to abide by your country’s wireless laws Radio device may not work properly if not done   Wi-Fi (SSID and password) Enable SSH (for good measure) Check systemctl is-enabled sshd Make sure wireless isn’t soft-blocked: rfkill list and rfkill unblock wifi   Unplug ethernet and wireless should work now  Use ifconfig to know your Mac address eth0/wlan0 interfaces that’re up have inet (IP address) populated   Use raspi-config and enable VNC  Setup VNC password: sudo vncpasswd -service Boot into Desktop instead of Console in System Options -&amp;gt; Boot / Auto Login  See this if you want to boot to CLI and startx later [3]   Make sure to select a resolution under Display Options -&amp;gt; Resolution For macOS Screen Sharing to work, make /etc/vnc/config.</description>
+    </item>
+    
     <item>
       <title>Resize root under LVM</title>
       <link>https://legends2k.github.io/note/lvm_resize/</link>
