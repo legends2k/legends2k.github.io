@@ -1,23 +1,21 @@
-
-
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Git: Pushing to a Fork &middot; Sundaram Ramaswamy</title>
-        <meta name="description" content="the original origin">
+        <title>On Being Slow &middot; Sundaram Ramaswamy</title>
+        <meta name="description" content="Introspection on behavioural patterns">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.79.0" />
+        <meta name="generator" content="Hugo 0.80.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
-        <meta property="og:title" content="Git: Pushing to a Fork">
-<meta property="og:description" content="the original origin">
+        <meta property="og:title" content="On Being Slow">
+<meta property="og:description" content="Introspection on behavioural patterns">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://legends2k.github.io/note/push_fork/">
+<meta property="og:url" content="https://legends2k.github.io/post/on_being_slow/">
         <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -105,12 +103,12 @@
 <div class="container">
     <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
         <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Git: Pushing to a Fork</h1>
+    <h1 class="post-title" itemprop="name headline">On Being Slow</h1>
     
-        <p class="post-description" itemprop="description">the original origin</p>
+        <p class="post-description" itemprop="description">Introspection on behavioural patterns</p>
     
     <p class="post-date">
-    Published <time datetime="2018-04-19" itemprop="datePublished">Apr 19, 2018</time>
+    Published <time datetime="2021-02-11" itemprop="datePublished">Feb 11, 2021</time>
     <span>by</span>
     <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
         <span itemprop="name">
@@ -119,11 +117,12 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2018-04-19" itemprop="datePublished">Feb 22, 2019</time>
+        Updated <time datetime="2021-02-11" itemprop="datePublished">Feb 11, 2021</time>
     </span>
     
 </p>
 
+    
     
 </header>
 
@@ -131,135 +130,49 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    <h1 id="fork-food">Fork? Food!?</h1>
-<p>When you fork<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> a repository in GitHub, from your repository&rsquo;s viewpoint, the one you forked from is called the &ldquo;<a href="https://en.wikipedia.org/wiki/Upstream_(software_development)">upstream</a>&quot;; a term used commonly in the <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> world for a long time, to denote the original authors (or their repository) of a software.  <em>Fork</em> is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&rsquo;t have a concept of fork; from its viewpoint, it&rsquo;s just another remote repository.  So both the <em>upstream</em> (original repo at GitHub from where you forked your repo) and <em>origin</em> (your fork at GitHub) are two remotes to your local repo.</p>
-<p>Between your <code>commit</code>, <code>push</code> to origin and the pull request approval, more commits could&rsquo;ve gotten pushed to the upstream.  To resolve, you sync</p>
+    <p>A colleague told me about two types of processors</p>
 <ol>
-<li>local to upstream
-<ul>
-<li>bringing your local up to date (the heavy-lifting a.k.a <em>merge</em>)</li>
-</ul>
-</li>
-<li>origin to local
-<ul>
-<li>bringing your own remote (origin) up to date</li>
-</ul>
-</li>
-<li>upstream to local
-<ul>
-<li>finally making your changes</li>
-</ul>
-</li>
+<li><em>Internal Processor</em>: A person who gives one clear statement &ndash; externally; formulates what to say, makes corrections to it, etc. &ndash; internally</li>
+<li><em>External Processor</em>: A person who does all the above <em>externally</em></li>
 </ol>
-<h1 id="steps">Steps</h1>
-<ol>
-<li>
-<p>Make sure you&rsquo;ve the upstream as one of your remotes, if not add
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git remote add upstream git@github.com:user/project.git</span></code></pre></div></p>
-</li>
-<li>
-<p>Pull changes from upstream by rebasing instead of a merge
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git pull --rebase upstream &lt;branch_name&gt;</span></code></pre></div></p>
-<ol>
-<li>To verify you&rsquo;ve done this correctly, you can do <code>git log --oneline -10</code></li>
-<li>You should see your commit at <code>HEAD</code> followed by the most recent commit in <code>upstream/&lt;branch_name&gt;</code></li>
-<li>This confirms that your change would be the latest commit atop all previous commits in upstream</li>
-</ol>
-</li>
-<li>
-<p>Force push your commit to origin (your fork&rsquo;s remote)
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push --force origin &lt;branch_name&gt;</span></code></pre></div></p>
-<ol>
-<li>Though you&rsquo;d have earlier pushed to your origin for creating the pull request, you redo it to have these new changes gotten from upstream to be synced into your fork&rsquo;s history</li>
-<li>You can verify with the above log command again; both origin and your local <code>HEAD</code> should point to the commit you got approval for; upstream should be at the next commit</li>
-</ol>
-</li>
-<li>
-<p>Push to upstream
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push upstream &lt;branch_name&gt;</span></code></pre></div></p>
-</li>
-</ol>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>No, not the culinary or chess parlance, silly! The <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">software meaning</a>. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
+<p>I’ve been an external processor mostly.  I think I’ve to slow down; I’m clumsy and fast under-the-hood.  I’m an impulsive person; judgemental too.  I work intuitively; deliberate, thought-through actions are a rarity.</p>
+<p>My observation on meditation and mindfulness practises:</p>
+<blockquote>
+<p>Meditation seems to balance.  If you’re a slow person it makes you fast enough, if you’re a fast person it slows you down enough.</p>
+</blockquote>
+<p>Though both approaches have their merits and demerits, a healthy balance is needed.  Since I’m already erring on the impulsive side, I’d benefit more from balancing the equation by being more deliberate in my actions.  I’ve observed becoming more deliberate after I started meditation practise.</p>
+<h1 id="talking">Talking</h1>
+<p>I’m an introvert; I don’t speak much in a setting with unknown folks.  With close friends it’s quite the opposite!  Even with strangers, after a couple of meetings, I start to feel comfortable and could easily speak for more than half hour with the other just listening.  This is useful at times but it has its downsides.  I used to be completely unaware of whether they’re enjoying it or getting bored; this has improved a bit.</p>
+<p>A huge realization over the years: cutting down on talking makes me a lot more productive, improves my relationships with better conversations.  Furthermore, it leads to many silent realizations.  My mind needs the calm to correctly bring up the point I want to talk about; both in personal and professional front.</p>
+<h1 id="listening">Listening</h1>
+<p>I’m still working on my listening; I could do a lot better.  I frequently interrupt; I disrupt the flow &mdash; sometimes with my <em>Captain Obvious</em> comments, other times with interesting observations.  When I was working in San Francisco, I got direct professional feedback on cutting folks off.  I quickly worked on it and came off as a decent listener.  However, I got back to my old ways when I returned back.  I seem to need a strict rule or authority to be a good listener.  My mind intellectually knows a lot of benefits in listening but to bring it in practise feels harder.  I hope to improve myself as listener.</p>
+<p><a href="https://en.wikipedia.org/wiki/Kaizen">Kaizen</a> should help.  Minimal goal: listen at least on point with <a href="https://en.wikipedia.org/wiki/Evenly-suspended_attention">evenly-hovering attention</a>, without any judgement-passing at the back of my mind.</p>
 
 </div>
 
         <footer class="post-footer clearfix">
-    
         <p class="post-tags">
             <span>Tagged:</span>
-            
-            
-                <a href="/tags/tech/">tech</a>, 
-            
-                <a href="/tags/vcs/">vcs</a>, 
-            
-                <a href="/tags/tools/">tools</a>
-            
+                <a href="/tags/ruminations/">ruminations</a>, 
+                <a href="/tags/introspections/">introspections</a>
         </p>
-    
-
     <div class="share">
-        
-            <a class="icon-twitter" href="https://twitter.com/share?text=Git%3a%20Pushing%20to%20a%20Fork&url=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f"
+            <a class="icon-twitter" href="https://twitter.com/share?text=On%20Being%20Slow&url=https%3a%2f%2flegends2k.github.io%2fpost%2fon_being_slow%2f"
                 onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
                 <i class="fa fa-twitter" aria-hidden="true"></i>
             </a>
-        
-
-        
-            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f"
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fpost%2fon_being_slow%2f"
                 onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
             </a>
-        
-
-        
-            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f"
-              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" aria-label="Share on Google+">
-              <i class="fa fa-google-plus" aria-hidden="true"></i>
-            </a>
-        
-        
-            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Git%3a%20Pushing%20to%20a%20Fork&url=https%3a%2f%2flegends2k.github.io%2fnote%2fpush_fork%2f&summary=the%20original%20origin"
+            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=On%20Being%20Slow&url=https%3a%2f%2flegends2k.github.io%2fpost%2fon_being_slow%2f&summary=Introspection%20on%20behavioural%20patterns"
                onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;" aria-label="Share on LinkedIn">
                <i class="fa fa-linkedin" aria-hidden="true"></i>
             </a>
-        
     </div>
 </footer>
 
-
         
-    <div class="comments">
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "legends2k" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-
     </article>
 </div>
 
