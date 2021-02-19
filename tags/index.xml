@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Thu, 11 Feb 2021 12:52:21 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Feb 2021 18:40:53 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bookmark</title>
+      <link>https://legends2k.github.io/tags/bookmark/</link>
+      <pubDate>Thu, 18 Feb 2021 18:40:53 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/bookmark/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tech</title>
+      <link>https://legends2k.github.io/tags/tech/</link>
+      <pubDate>Thu, 18 Feb 2021 18:40:53 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/tech/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>introspections</title>
       <link>https://legends2k.github.io/tags/introspections/</link>
@@ -32,15 +50,6 @@
       <pubDate>Tue, 09 Feb 2021 11:27:59 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/hardware/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tech</title>
-      <link>https://legends2k.github.io/tags/tech/</link>
-      <pubDate>Tue, 09 Feb 2021 11:27:59 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/tech/</guid>
       <description></description>
     </item>
     
@@ -203,15 +212,6 @@
       <pubDate>Sat, 09 Dec 2017 10:35:43 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/life/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bookmark</title>
-      <link>https://legends2k.github.io/tags/bookmark/</link>
-      <pubDate>Thu, 02 Mar 2017 22:41:05 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/bookmark/</guid>
       <description></description>
     </item>
     

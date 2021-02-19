@@ -9,6 +9,17 @@
     <copyright>Sundaram Ramaswamy</copyright>
     <lastBuildDate>Fri, 24 Feb 2017 12:14:41 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Hacker Culture</title>
+      <link>https://legends2k.github.io/note/hacker_culture/</link>
+      <pubDate>Thu, 18 Feb 2021 18:40:53 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/hacker_culture/</guid>
+      <description>You can’t learn everything from scratch practically; you need to stand on the shoulder of giants. These articles were very insightful; either it’s a clear writing that shares my already-held belief or something that reshaped my thinking. I’ve collected them over the years.
+It’s a bookmark page I update now and then.
+By Authors Eric S Raymond Renowned hacker1. He’s written a lot about UNIX philosophy including The Art of Unix Programming and The Unix Koans of Master Foo.</description>
+    </item>
+    
+    <item>
       <title>On Being Slow</title>
       <link>https://legends2k.github.io/post/on_being_slow/</link>
       <pubDate>Thu, 11 Feb 2021 12:52:21 +0530</pubDate>
