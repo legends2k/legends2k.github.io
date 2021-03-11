@@ -14,8 +14,8 @@
       <pubDate>Mon, 08 Mar 2021 16:08:36 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/cg_resources/</guid>
-      <description>Here’s a list of curated learning resources for self-studying Computer Graphics I usually recommend.
-Learning Computer Graphics concepts is not the same as learing a rendering library; the latter is usually not very beneficial since a new library eventually replaces/takes over. Strive to learn the theory behind the domain, not the tools or their idiosyncrasies. Starting with OpenGL, instead of Vulkan, is better to learn graphics programming. Another article also admonitions not to start with Vulkan or D3D 12 and instead go with OpenGL or D3D 11.</description>
+      <description>Here’s a list of curated learning resources I usually recommend for self-studying the domain of Computer Graphics.
+Learning graphics concepts isn’t the same as learing a rendering library; the latter is usually not very beneficial since a new library eventually replaces/takes over. Strive to learn the theory behind the domain, not the tools or their idiosyncrasies. Once you internalize the basic ideas, try doing some CG projects with increasing hardness.</description>
     </item>
     
     <item>
