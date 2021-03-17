@@ -169,7 +169,6 @@
     <li><a href="#issues">Issues</a></li>
     <li><a href="#epilogue">Epilogue</a></li>
     <li><a href="#references">References</a></li>
-    <li><a href="#see-also">See Also</a></li>
   </ol>
 </nav>
     </aside>
@@ -382,7 +381,7 @@ systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-aut
 </span><span style="color:#f1fa8c">    return permission[action.id];
 </span><span style="color:#f1fa8c">  }</span>
 <span style="color:#50fa7b">});</span></code></pre></div>
-<p>From now on, you should see NTFS and USB disk partitions in Thunar’s sidebar.  On click mount and unmount will work.</p>
+<p>From now on, you should see NTFS and USB disk partitions in Thunar’s sidebar.  One click mount and unmount will work.</p>
 <h2 id="mountunmount-from-command-line">Mount/unmount from command-line</h2>
 <p>Un/mounting from the comfort of your command-line is even better.  Since you’d know your NTFS drives’ <code>/dev</code>, so you could</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">udisksctl</span> <span style="color:#8be9fd;font-style:italic">mount</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">block</span><span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">device</span> <span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dev</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">sda3</span>                         # <span style="color:#8be9fd;font-style:italic">NTFS</span> <span style="color:#8be9fd;font-style:italic">disks</span>
@@ -412,8 +411,8 @@ systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-aut
 <p>Now install Yay from AUR</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">clone</span> <span style="color:#8be9fd;font-style:italic">https:</span><span style="color:#ff79c6">//</span><span style="color:#8be9fd;font-style:italic">aur</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">archlinux</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">yay</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">git</span>
 <span style="color:#8be9fd;font-style:italic">cd</span> <span style="color:#8be9fd;font-style:italic">yay</span><span style="color:#ff79c6">/</span>
-<span style="color:#8be9fd;font-style:italic">makepkg</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">si</span>    # <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">needs</span> <span style="color:#8be9fd;font-style:italic">sudo</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">install</span> <span style="color:#8be9fd;font-style:italic">built</span> <span style="color:#8be9fd;font-style:italic">pacakge</span></code></pre></div>
-<p>I <a href="https://bbs.archlinux.org/viewtopic.phpid=90635">found</a> a few useful tricks as (my machine’s) admin:</p>
+<span style="color:#8be9fd;font-style:italic">makepkg</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">si</span>    # <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">needs</span> <span style="color:#8be9fd;font-style:italic">sudo</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">install</span> <span style="color:#8be9fd;font-style:italic">built</span> <span style="color:#8be9fd;font-style:italic">package</span></code></pre></div>
+<p>Yay respects <code>/etc/pacman.conf</code> settings; enable <code>Color</code>.  I <a href="https://bbs.archlinux.org/viewtopic.php?id=90635">found</a> a few useful tricks as (my machine’s) admin:</p>
 <ul>
 <li>Map an existing file back to its (installed) package: <code>pacman -Qo FILE-PATH</code>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">pacman</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">Qo</span> <span style="color:#8be9fd;font-style:italic">mandelbrot</span>
@@ -588,10 +587,6 @@ systemctl <span style="color:#8be9fd;font-style:italic">enable</span> netctl-aut
 <li><a href="https://wiki.archlinux.org/index.php/GRUB#Check_for_an_EFI_System_Partition">GRUB</a> on Arch Linux Wiki</li>
 <li><a href="https://wiki.archlinux.org/index.php/Dual_boot_with_Windows#UEFI_systems">Dual-boot with Windows</a></li>
 <li><a href="https://www.2daygeek.com/install-xfce-mate-kde-gnome-cinnamon-lxqt-lxde-budgie-deepin-enlightenment-desktop-environment-on-arch-linux/">Pick A Suitable Desktop Environment For Arch Linux</a></li>
-</ol>
-<h1 id="see-also">See Also</h1>
-<ol>
-<li><a href="https://hookrace.net/blog/linux-desktop-setup/">Linux Desktop Setup</a></li>
 </ol>
 
 </div>
