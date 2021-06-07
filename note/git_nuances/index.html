@@ -9,7 +9,7 @@
         <meta name="description" content="Obscure but useful Git incantations">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.81.0" />
+        <meta name="generator" content="Hugo 0.83.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">Mar 18, 2021</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">Jun 7, 2021</time>
     </span>
     
 </p>
@@ -156,7 +156,10 @@
 <p>A decent understanding of <a href="/note/git_concepts/">basic Git concepts</a> is a prerequisite.</p>
 <h1 id="show-time"><code>show</code> time!</h1>
 <p>The easiest way to see the diff introduced by a <a href="/note/git_concepts/#references">reference</a> (fancy name for commit) is not <code>git diff</code>!</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF</span>
+
+# <span style="color:#8be9fd;font-style:italic">changes</span> <span style="color:#8be9fd;font-style:italic">introduced</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">a</span> <span style="color:#8be9fd;font-style:italic">particular</span> <span style="color:#8be9fd;font-style:italic">file</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#8be9fd;font-style:italic">a</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF</span> <span style="color:#ff79c6">--</span> <span style="color:#8be9fd;font-style:italic">path</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">to</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">a</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">file</span></code></pre></div>
 <p>It shows details about the commit along with the changes it brings about.  Of course, you can control the amount of information thrown at you with the usual options <code>show</code> shares with <code>log</code>: <code>--name-status</code>, <code>--shortstat</code>, <code>--stat</code>, <code>--summary</code>, etc.</p>
 <p><code>show</code> can also give you a file’s clean copy from a commit &mdash; very handy:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">show</span> <span style="color:#8be9fd;font-style:italic">REF:</span><span style="color:#8be9fd;font-style:italic">path</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">to</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">a</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">file</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">file_copy</span></code></pre></div>
@@ -227,13 +230,13 @@ git tag 1.0.0
 git tag -m <span style="color:#f1fa8c">&#34;Tag for release after sign off from CI team&#34;</span> 1.0.0</code></pre></div>
 <p>However, the differences go deeper.  Annotated tags themselves are separate objects while lightweight objects are just pointers i.e. they point to a commit object.  Like commit objects, apart from the message, annotated tags also carry their own <em>tagger</em> and <em>date</em> fields.  When you <code>git push --follow-tags</code>, only annotated tags are pushed; <code>git push --tags</code> pushes both.  Since they’re separate objects, like all <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git objects</a>, they’ve a distinct hash; consequently they can also be tagged!  This can bite you when you <a href="https://stackoverflow.com/a/49286861/183120">rename an annotated tag</a> by <a href="https://stackoverflow.com/a/5719854/183120">creating the new tag with the old one</a>.</p>
 <h1 id="frugal-fetches">Frugal Fetches</h1>
-<p>When getting a remote branch, ignore the popular advise to fetch everything<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> (<code>git fetch</code>); a better option is to get just what you want; saves a lot of time:</p>
+<p>When getting a remote branch, ignore the popular advise to <code>git fetch</code> as it fetches everything<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>; a better option is to get just what you want; saves a lot of time:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># fetch just the interesting branch</span>
 git fetch origin my_topic_branch
 
 <span style="color:#6272a4"># checkout locally and also set remote-tracking branch</span>
 git checkout --track origin/my_topic_branch</code></pre></div>
-<p><strong>Note</strong>: This applies to <code>git pull</code> as well as <code>fetch</code> is its first step.</p>
+<p><strong>Note</strong>: This applies to <code>git pull</code> as well since <code>fetch</code> is its first step.</p>
 <h1 id="fetch-fiascos--shallow-repos">Fetch Fiascos?  Shallow Repos!</h1>
 <p>Irrespective of the number of times you yell <code>git fetch</code>, Git swears that there’s only one branch in a remote!  You look at <code>git branch -r</code> in dismay 😰</p>
 <p>Well, you forgot that it’s a shallow repro i.e. cloned with <code>--single-branch</code>.  The caveat lurks in <code>man git-clone</code></p>
@@ -282,10 +285,10 @@ git merge-base --is-ancestor possible_ancestor person
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><code>switch</code> and <code>restore</code> are still experimental. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><code>switch</code> and <code>restore</code> are still experimental.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://stackoverflow.com/a/6861747/183120"><code>git fetch</code> without arguments</a> usually fetches all branches as <code>remote.&lt;origin&gt;.fetch</code> defaults to <code>+refs/heads/*:refs/remotes/&lt;origin&gt;/*</code>! <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://stackoverflow.com/a/6861747/183120"><code>git fetch</code> without arguments</a> usually fetches all branches as <code>remote.&lt;origin&gt;.fetch</code> defaults to <code>+refs/heads/*:refs/remotes/&lt;origin&gt;/*</code>!&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

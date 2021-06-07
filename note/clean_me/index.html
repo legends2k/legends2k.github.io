@@ -9,7 +9,7 @@
         <meta name="description" content="a.k.a Intel ME with a programmer and some guts ;)">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.81.0" />
+        <meta name="generator" content="Hugo 0.83.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -181,9 +181,8 @@
 <p>Let’s get on with it!</p>
 <h1 id="connect">Connect</h1>
 <p>You should just be able to physically access your motherboard; no soldering involved.</p>
-<figure>
-    <img src="images/hardware.jpg"
-         alt="USB Programmer CH341A (left), SOP8 clip (bottom), SOP16/8-DIP8 board (top)"/> <figcaption>
+<figure><img src="images/hardware.jpg"
+         alt="USB Programmer CH341A (left), SOP8 clip (bottom), SOP16/8-DIP8 board (top)"/><figcaption>
             <h4>Tools</h4><p>USB Programmer CH341A (left), SOP8 clip (bottom), SOP16/8-DIP8 board (top)</p>
         </figcaption>
 </figure>
@@ -200,8 +199,7 @@
 <li>Look at the CH341A programmer board for a drawing about the 25 SPI BIOS chip layout. This should also have the circle marking.</li>
 <li>Connect the board-end of the clip such that its first and the SPI&rsquo;s first bits match.</li>
 </ol>
-<figure>
-    <img src="images/setup.jpg"/> <figcaption>
+<figure><img src="images/setup.jpg"/><figcaption>
             <h4>My Setup</h4>
         </figcaption>
 </figure>
@@ -220,9 +218,8 @@
 <span style="color:#50fa7b">Reading flash... done.</span></code></pre></div>
 <p>It should be able to auto-detect the chip and give you a full dump of the chip contents.  If it says no devices were found, re-connect the clip; loose-contacts are common with these clips.  Get two dumps and binary-compare them to make sure the connection was fine and the images are valid.</p>
 <p>If there&rsquo;re multiple SPI chips on your motherboard, make sure you get the right one i.e. the BIOS image you get from your OEM should have around the same size as the dump you just made.</p>
-<figure>
-    <img src="images/bios_chip.jpg"
-         alt="1 MiB Winbond EEPROM chip (left-bottom) was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one."/> <figcaption>
+<figure><img src="images/bios_chip.jpg"
+         alt="1 MiB Winbond EEPROM chip (left-bottom) was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one."/><figcaption>
             <h4>Eeny, meeny, miny, moe</h4><p>1 MiB Winbond EEPROM chip (left-bottom) was a red herring.  8 MiB GigaDevice GD25Q64(B) BIOS chip (centre) was the one.</p>
         </figcaption>
 </figure>
@@ -309,34 +306,34 @@
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>the ones with micro-processor(s) <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>the ones with micro-processor(s)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>Negative ring levels are below the kernel which is at 0.  Lesser is deeper. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Negative ring levels are below the kernel which is at 0.  Lesser is deeper.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/MINIX">MINIX</a> OS, written by <a href="https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum">the same guy</a> who <a href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">flamed Linus Torvalds</a> for writing a monolithic kernel.  In some sense the microkernel design <em>won</em> since it’s now <a href="https://www.networkworld.com/article/3236064/servers/minix-the-most-popular-os-in-the-world-thanks-to-intel.html">the most used OS</a> 😉 <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/MINIX">MINIX</a> OS, written by <a href="https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum">the same guy</a> who <a href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">flamed Linus Torvalds</a> for writing a monolithic kernel.  In some sense the microkernel design <em>won</em> since it’s now <a href="https://www.networkworld.com/article/3236064/servers/minix-the-most-popular-os-in-the-world-thanks-to-intel.html">the most used OS</a> 😉&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p><em>Security by obscurity</em> &ndash; the worst form of security, as opined by security experts. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><em>Security by obscurity</em> &ndash; the worst form of security, as opined by security experts.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5" role="doc-endnote">
-<p>Sorry AMD owners; a consoling factor, however, is apparently PSP is much less capable than ME. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Sorry AMD owners; a consoling factor, however, is apparently PSP is much less capable than ME.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:6" role="doc-endnote">
-<p>Heck! I wouldn’t be blogging about it if that’s the case, would I now? <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Heck! I wouldn’t be blogging about it if that’s the case, would I now?&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:7" role="doc-endnote">
-<p>Another reason is, of course, its <a href="https://en.wikipedia.org/wiki/Unix_philosophy">superior engineering</a>, better science and execution that stands the test of time, <em>despite</em> contributors not being paid engineers. Beat that corporates! <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Another reason is, of course, its <a href="https://en.wikipedia.org/wiki/Unix_philosophy">superior engineering</a>, better science and execution that stands the test of time, <em>despite</em> contributors not being paid engineers. Beat that corporates!&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:8" role="doc-endnote">
-<p>Just that it’ll be a non-OEM update this time. <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Just that it’ll be a non-OEM update this time.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:9" role="doc-endnote">
-<p>Decent quality ones costed around $15 together <a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Decent quality ones costed around $15 together&#160;<a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:10" role="doc-endnote">
-<p>There are reports of ME software resetting the bit and resurructing the parasite <a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>There are reports of ME software resetting the bit and resurructing the parasite&#160;<a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
