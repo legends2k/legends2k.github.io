@@ -17,7 +17,7 @@
       <description>Git has its oddities with unusual commands and flags. I keep learning something new every now and then.
 A decent understanding of basic Git concepts is a prerequisite.
 show time! The easiest way to see the diff introduced by a reference (fancy name for commit) is not git diff!
-git show REF # changes introduced to a particular file by a commit git show REF -- path/to/a/file It shows details about the commit along with the changes it brings about.</description>
+git show REF # changes introduced in a particular file by a commit git show REF -- path/to/a/file It shows details about the commit along with the changes it brings about.</description>
     </item>
     
     <item>

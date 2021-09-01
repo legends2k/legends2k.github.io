@@ -9,7 +9,7 @@
         <meta name="description" content="solving “you don’t know what you don’t know”">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.83.1" />
+        <meta name="generator" content="Hugo 0.87.0" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2018-09-06" itemprop="datePublished">Mar 18, 2021</time>
+        Updated <time datetime="2018-09-06" itemprop="datePublished">Sep 1, 2021</time>
     </span>
     
 </p>
@@ -290,7 +290,7 @@ of a language; corner cases build a weak model.</p>
 </ul>
 <p>None have guaranteed sizes except size-named ones.</p>
 <h1 id="sample-1">Sample 1</h1>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6"></span>
 <span style="color:#6272a4">// function definition
 </span><span style="color:#6272a4">// pass by value
@@ -338,10 +338,10 @@ of a language; corner cases build a weak model.</p>
 </ul>
 <h2 id="compilation">Compilation</h2>
 <p>Compile with GCC/Clang’s C++ frontend</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">g++ -Wall -std<span style="color:#ff79c6">=</span>c++14 -pedantic test.cpp -o test</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">g++ -Wall -std<span style="color:#ff79c6">=</span>c++14 -pedantic test.cpp -o test</code></pre></div>
 <p>Add <code>-g -O0</code> for debug symbols.</p>
 <p>Compile with VC++ (use <code>/D_DEBUG</code> for debug symbols)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-text" data-lang="text">cl /EHsc test.cpp</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-text" data-lang="text">cl /EHsc test.cpp</code></pre></div>
 <h1 id="conditionals-and-loops">Conditionals and Loops</h1>
 <ul>
 <li>If… else</li>
@@ -360,7 +360,7 @@ of a language; corner cases build a weak model.</p>
 </ul>
 <p>Loops additionally support <code>break</code> and <code>continue</code>.</p>
 <h2 id="sample-2">Sample 2</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6"></span>
 <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
@@ -483,7 +483,7 @@ of a language; corner cases build a weak model.</p>
 <li>Use containers or the many higher-level constructs available in <code>std</code></li>
 </ul>
 <h2 id="sample-3">Sample 3</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6"></span>
 <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
@@ -503,7 +503,7 @@ of a language; corner cases build a weak model.</p>
 }</code></pre></div>
 <h2 id="sample-4">Sample 4</h2>
 <p>Shows the difference between traditional and modern C++ dialects.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;vector&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;algorithm&gt;</span><span style="color:#ff79c6">
@@ -619,7 +619,7 @@ variables of a class, function, etc.</li>
 </li>
 </ul>
 <h2 id="sample-5">Sample 5</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
 </span><span style="color:#ff79c6"></span>
 <span style="color:#6272a4">// HEADER: shape.hpp
@@ -746,7 +746,7 @@ Circle<span style="color:#ff79c6">&amp;</span> Circle<span style="color:#ff79c6"
 </li>
 </ul>
 <h2 id="sample-6">Sample 6</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Shape</span>  <span style="color:#6272a4">// abstract
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Shape</span>  <span style="color:#6272a4">// abstract
 </span><span style="color:#6272a4"></span>{
 
 <span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
@@ -873,7 +873,7 @@ topics like alignment, ADL, metaprogramming, etc.</li>
 <p><a href="http://lafstern.org/matt/col1.pdf">Use sorted vector instead of set</a>, if <code>find</code> calls outnumber <code>insert</code>; it’d be lot faster — Matt Austern.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://cs.uwaterloo.ca/research/tr/1986/CS-86-14.pdf">Robin Hood hashing</a> is faster than what usually comes with <code>std::unordered_map</code>.  People suggest that <a href="https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/">it should be your default hashing implementation</a>.  <a href="https://github.com/martinus/robin-hood-hashing"><code>robin_hood::unordered_map</code></a> is a handy drop-in replacement.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://abseil.io/blog/20180927-swisstables">Swiss Table</a> (part of Abseil C++ library) is much better than <code>std::unordered_map</code> and <a href="https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/">Robin Hood hashing</a> too.  Swiss Table is also Rust’s <code>HashMap</code> implementation.  <a href="https://probablydance.com/2018/05/28/a-new-fast-hash-table-in-response-to-googles-new-fast-hash-table/">Other (probably better) options by Malte Skarupe</a>: <a href="https://github.com/skarupke/flat_hash_map"><code>flat_hash_map</code> and <code>bytell_hash_map</code></a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

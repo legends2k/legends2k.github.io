@@ -91,7 +91,7 @@ Since operations here involve resizing /, boot from Live USB and then perform th
       <description>Git has its oddities with unusual commands and flags. I keep learning something new every now and then.
 A decent understanding of basic Git concepts is a prerequisite.
 show time! The easiest way to see the diff introduced by a reference (fancy name for commit) is not git diff!
-git show REF # changes introduced to a particular file by a commit git show REF -- path/to/a/file It shows details about the commit along with the changes it brings about.</description>
+git show REF # changes introduced in a particular file by a commit git show REF -- path/to/a/file It shows details about the commit along with the changes it brings about.</description>
     </item>
     
     <item>
@@ -279,16 +279,6 @@ Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; c
       
       <guid>https://legends2k.github.io/note/hello_hugo/</guid>
       <description>Many static site generators are coming up these days; 175 and still counting. Apart from the prime selling point of content creation from the comfort of your favourite text editor in Markdown, most have a wide gamut of themes to choose from. You are free to remix the theme to your taste however you see fit. Want to change the line spacing and paragraph alignment? Sure thing! Don&amp;rsquo;t like anything? Ditch them all and whip up something new.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://legends2k.github.io/note/rpi_jf/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://legends2k.github.io/note/rpi_jf/</guid>
-      <description>Install Jellyfin  Approve recommended setting of GPU memory (320 MB on 4GB RAM)   Add Jellyfin to video group (sudo usermod -aG video jellyfin) Reboot Verify split (vcgencmd get_mem arm &amp;amp;&amp;amp; vcgencmd get_mem gpu) Visit http://IP:8096/ and add media Enable hardware acceleration choosing OMX  Following steps might still be needed [3] and [4]
- If /opt/vc/lib/libbcm_host.so is missing, verify it’s presence with dpkg -L libraspberrypi0 and symlink it mkdir -p /opt/vc/lib/ &amp;amp;&amp;amp; ln -s /usr/lib/aarch64-linux-gnu/libbcm_host.</description>
     </item>
     
   </channel>
