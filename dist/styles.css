@@ -251,7 +251,8 @@ blockquote ::-moz-selection, aside ::-moz-selection {
 
 /* prevent footnote numbers from getting selected and, there by, copied */
 /* https://stackoverflow.com/a/10777263/183120 */
-.footnote-ref {
+/* footnote-reference is emitted by go-org */
+.footnote-ref, .footnote-reference {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -470,6 +471,30 @@ blockquote ::-moz-selection, aside ::-moz-selection {
 .post-content .gist tr {
     border-bottom: 0;
 }
+
+/* Convert go-org emitted footnote content into an ordered list */
+/* See also: https://github.com/niklasfasching/go-org/issues/11 */
+/* Avoid line break b/w footnote number and content */
+.footnote-body, .footnote-body > p {
+    display: inline;
+}
+/* Introduce spacing between footnotes as we've inline display */
+.footnote-definition {
+    margin-bottom: 1em;
+}
+/* Make footnote number a regular text for it to be like a list */
+.footnote-definition > sup {
+    vertical-align: baseline;
+}
+/* Make it look like a list */
+.footnote-definition > sup:after {
+    content: ".";
+}
+/* Avoid excessive space surrounding <hr> */
+.footnotes-separatator {
+    margin: 20px 0;
+}
+/* End of go-org footnote content */
 
 .post-footer {
     /* have a post footer line to demark end of article contents */

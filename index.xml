@@ -9,6 +9,18 @@
     <copyright>Sundaram Ramaswamy</copyright>
     <lastBuildDate>Fri, 24 Feb 2017 12:14:41 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Assertions vs if checks</title>
+      <link>https://legends2k.github.io/note/assert_vs_if/</link>
+      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://legends2k.github.io/note/assert_vs_if/</guid>
+      <description>TL;DR   Any program can have two classes of issues:
+  Bugs
+  Runtime issues: invalid inputs, no access to resource, unreachable network, etc.
+  (1) is unknown to the programmer; (2) is known and handled in code. There are different tools to deal with each; don’t conflate one with the other. For (1) use development-time checks to catch failing assumptions, changing invariants, pre-/post-conditions. For (2) use one of your language-provided feature including if, try-catch-throw, etc.</description>
+    </item>
+    
+    <item>
       <title>Computer Graphics Resouces</title>
       <link>https://legends2k.github.io/note/cg_resources/</link>
       <pubDate>Mon, 08 Mar 2021 16:08:36 +0530</pubDate>
@@ -141,7 +153,7 @@ My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB 
       <pubDate>Sun, 17 Jun 2018 23:23:10 -0700</pubDate>
       
       <guid>https://legends2k.github.io/post/ideating_acting/</guid>
-      <description>Ideas Young people are constantly bombareded with free advice by the elderly: people tell them how to talk, how to socialize, how to deal with money matters, etc. It’s done to the point where it’s felt as preachy and rightly so. Why? More than what you say, kids pick up what you do. Words don’t mean much to them; actions speak much louder indeed.
+      <description>Ideas Young people are constantly bombarded with free advice by the elderly: people tell them how to talk, how to socialize, how to deal with money matters, etc. It’s done to the point where it’s felt as preachy and rightly so. Why? More than what you say, kids pick up what you do. Words don’t mean much to them; actions speak much louder indeed.
 Even as adults we read motivational text, watch TED talks, discuss problems with friends and get ideas/free advice all the time.</description>
     </item>
     
