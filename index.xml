@@ -15,9 +15,9 @@
       
       <guid>https://legends2k.github.io/note/assert_vs_if/</guid>
       <description>TL;DR   Any program can have two classes of issues:
-  Bugs
-  Runtime issues: invalid inputs, no access to resource, unreachable network, etc.
-  (1) is unknown to the programmer; (2) is known and handled in code. There are different tools to deal with each; don’t conflate one with the other. For (1) use development-time checks to catch failing assumptions, changing invariants, pre-/post-conditions. For (2) use one of your language-provided feature including if, try-catch-throw, etc.</description>
+  Bugs: unexpected, programmer mistakes. E.g. buffer overflow, access violation, …
+  Runtime issues: issues programmer expected and handled in code. E.g. invalid inputs, no access to resource, unreachable network, …
+  (1) is unknown to the programmer; (2) is known and handled in code. There are different tools to deal with each; don’t conflate one with the other.</description>
     </item>
     
     <item>

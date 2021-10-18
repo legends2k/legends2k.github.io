@@ -142,10 +142,10 @@ TL;DR
   Any program can have two classes of issues:</p>
 <ol>
 <li>
-<p>Bugs</p>
+<p><strong>Bugs</strong>: unexpected, programmer <em>mistakes</em>.  E.g. <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a>, access violation, …</p>
 </li>
 <li>
-<p>Runtime issues: invalid inputs, no access to resource, unreachable network, etc.</p>
+<p><strong>Runtime issues</strong>: issues programmer expected and <em>handled</em> in code.  E.g. invalid inputs, no access to resource, unreachable network, …</p>
 </li>
 </ol>
 <p>(1) is unknown to the programmer; (2) is known and handled in code.  There are different tools to deal with each; don’t conflate one with the other.  For (1) use <em>development-time</em> checks to catch failing assumptions, changing invariants, pre-/post-conditions.  For (2) use one of your language-provided feature including <code>if</code>, <code>try-catch-throw</code>, etc. that work at <em>runtime</em>.</p>
@@ -182,7 +182,7 @@ Aren’t assertions <code>if</code> s anyway?
 </h2>
 <div id="outline-text-headline-3" class="outline-text-2">
 <p>
-  Though asserts are made of <code>if</code> statements, that’s true only for Debug builds; they don’t <em>fire</em> on non-debug builds, like the ones which the end-user gets.  C and C++ have a preprocessor stage, so most codebases define some assertion macro which compile to no-op on a <em>Release</em> build and on a <em>Debug</em> build – that would be run by the developer or tester – define it to a valid <code>if</code> to say, log a message or invoke a <code>DebugBreak</code>, etc.</p>
+  Though asserts are made of <code>if</code> statements, that’s true only for Debug builds; they don’t <em>fire</em> on non-debug builds<sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup>.  C and C++ have a preprocessor stage, so most codebases define some assertion macro which compile to a <a href="https://en.wikipedia.org/wiki/NOP_(code)">no-op</a> on non-debug builds and on a <em>Debug</em> build – run by the developer or tester – define it as valid <code>if</code>; when firing an assertion might say, log a message, invoke a <code>DebugBreak</code>, etc.</p>
 <div class="src src-c">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-c" data-lang="c">  <span style="color:#ff79c6">#ifdef NDEBUG   </span><span style="color:#6272a4">//  usually set for non-debug builds
 </span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">#  define REQUIRE(expr, msg) ((void) expr)
@@ -191,7 +191,7 @@ Aren’t assertions <code>if</code> s anyway?
 </span><span style="color:#ff79c6"></span>  <span style="color:#ff79c6">#fi</span></code></pre></div>
 </div>
 <p>
-  You can have a variety of assertion macros like <code>REQUIRE</code>, <code>DCHECK</code> to denote it’s a check that works only in Debug, <code>ASSERT</code>, <code>ENSURE</code>, etc. to suit your needs and cases.  <a href="https://github.com/clibs/check">check</a> seems to be a minimal, header-only C library with basic assertions macros.</p>
+  You can have a variety of assertion macros like <code>REQUIRE</code>, <code>DCHECK</code><sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup>, <code>ASSERT</code>, <code>ENSURE</code>, etc. to suit your needs and cases.  <a href="https://github.com/clibs/check">check</a> seems to be a minimal, header-only C library with basic assertions macros.</p>
 </div>
 </div>
 <div id="outline-container-headline-4" class="outline-2">
@@ -202,7 +202,7 @@ Comparison
 <table>
 <thead>
 <tr>
-<th>Concept</th>
+<th>Issue</th>
 <th>Source</th>
 <th>When</th>
 <th>Check</th>
@@ -238,7 +238,9 @@ Example with VLC
 <p>
 Let’s say we’re developers of the popular media player <a href="https://videolan.org/">VLC</a>.  Checking for a bad/corrupt input (avi/mkv file) should be done with a good ‘ol <code>if</code> that works at runtime.</p>
 <p>
-However, whether VLC’s own source filter<sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup> is always feeding normalized float data (within <code>[0, 1]</code>) to its decoding filter<sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup> is something to be checked by an assert; checking this with a runtime <code>if</code> in Release builds would be a waste of end-user CPU’s time and energy.</p>
+However, whether VLC’s own source filter<sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup> is always feeding normalized float data (within <code>[0, 1]</code>) to its decoding filter<sup class="footnote-reference"><a id="footnote-reference-4" href="#footnote-4">4</a></sup> is something to be checked by an assert; checking this with a runtime <code>if</code> in Release builds would be a waste of end-user CPU’s time and energy.</p>
+<p>
+Though a runtime <code>if</code> also works in place of an assertion, a good programmer would use the right tool for the right job.</p>
 </div>
 </div>
 <div id="outline-container-headline-6" class="outline-2">
@@ -252,11 +254,23 @@ Footnotes
 <div class="footnote-definition">
 <sup id="footnote-1"><a href="#footnote-reference-1">1</a></sup>
 <div class="footnote-body">
-<p>Component feeding data to the decoder.</p>
+<p><a href="https://stackoverflow.com/q/367884/183120">Non-debug builds</a> generally have optimizations turned on and debug information stripped.  <em>Release</em> builds, published to end-user, is a common example.</p>
 </div>
 </div>
 <div class="footnote-definition">
 <sup id="footnote-2"><a href="#footnote-reference-2">2</a></sup>
+<div class="footnote-body">
+<p>To denote a check that works only in the <em>Debug</em> build configuration.</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-3"><a href="#footnote-reference-3">3</a></sup>
+<div class="footnote-body">
+<p>Component feeding data to the decoder.</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-4"><a href="#footnote-reference-4">4</a></sup>
 <div class="footnote-body">
 <p>Component processing data before sending to sink (display/speakers).</p>
 </div>
