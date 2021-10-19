@@ -15,9 +15,10 @@
       
       <guid>https://legends2k.github.io/note/assert_vs_if/</guid>
       <description>TL;DR   Any program can have two classes of issues:
-  Bugs: unexpected, programmer mistakes. E.g. buffer overflow, access violation, …
-  Runtime issues: issues programmer expected and handled in code. E.g. invalid inputs, no access to resource, unreachable network, …
-  (1) is unknown to the programmer; (2) is known and handled in code. There are different tools to deal with each; don’t conflate one with the other.</description>
+  Runtime problems: situations programmer foresaw and handled; expected. E.g. invalid inputs, no access to resource, unreachable network, …
+  Bugs: programmer mistakes; unexpected. E.g. buffer overflow, access violation, …
+  There are different tools to deal with each; don’t conflate one with the other.
+ An assertion is just a validation of a programmer expectation; it “fires” when the expectation is betrayed.</description>
     </item>
     
     <item>

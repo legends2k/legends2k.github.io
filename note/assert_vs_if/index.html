@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2021-10-13" itemprop="datePublished">Oct 18, 2021</time>
+        Updated <time datetime="2021-10-13" itemprop="datePublished">Oct 19, 2021</time>
     </span>
     
 </p>
@@ -142,13 +142,18 @@ TL;DR
   Any program can have two classes of issues:</p>
 <ol>
 <li>
-<p><strong>Bugs</strong>: unexpected, programmer <em>mistakes</em>.  E.g. <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a>, access violation, …</p>
+<p><strong>Runtime problems</strong>: situations programmer foresaw and handled; <em>expected</em>.  E.g. invalid inputs, no access to resource, unreachable network, …</p>
 </li>
 <li>
-<p><strong>Runtime issues</strong>: issues programmer expected and <em>handled</em> in code.  E.g. invalid inputs, no access to resource, unreachable network, …</p>
+<p><strong>Bugs</strong>: programmer mistakes; <em>unexpected</em>.  E.g. <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a>, access violation, …</p>
 </li>
 </ol>
-<p>(1) is unknown to the programmer; (2) is known and handled in code.  There are different tools to deal with each; don’t conflate one with the other.  For (1) use <em>development-time</em> checks to catch failing assumptions, changing invariants, pre-/post-conditions.  For (2) use one of your language-provided feature including <code>if</code>, <code>try-catch-throw</code>, etc. that work at <em>runtime</em>.</p>
+<p>There are different tools to deal with each; don’t conflate one with the other.</p>
+<blockquote>
+<p>An assertion is just a validation of a programmer expectation; it “fires” when the expectation is betrayed.</p>
+</blockquote>
+<p>
+(1) is familiar to most; use one of your language-provided feature including <code>if</code>, <code>try-catch-throw</code>, etc. that work at <em>runtime</em>.  (2) needs early spotting of failing assumptions, changing invariants, unmet pre-/post-conditions at <em>development-time</em><sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup>.</p>
 </div>
 </div>
 <div id="outline-container-headline-2" class="outline-2">
@@ -159,11 +164,11 @@ Assertions
 <figure>
 <div class="src src-c++">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-c++" data-lang="c++"><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">read_image</span>(string path) {
-  <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">!</span>os.exists(path) {                       <span style="color:#6272a4">// (2) runtime issue
-</span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// show file doesn’t exist dialog
-</span><span style="color:#6272a4"></span>  }
+  <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">!</span>os.exists(path) {                <span style="color:#6272a4">// (1) runtime issue
+</span><span style="color:#6272a4"></span>    file_missing_dialog.show(path);
+  }
   Image i <span style="color:#ff79c6">=</span> open_image(path);
-  REQUIRE(i.resource_id <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nullptr</span>,           <span style="color:#6272a4">// (1) possible bug in open_image
+  REQUIRE(i.resource_id <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nullptr</span>,    <span style="color:#6272a4">// (2) possible bug in open_image
 </span><span style="color:#6272a4"></span>          <span style="color:#f1fa8c">&#34;Resource ID unassigned for opened image&#34;</span>);
   cache(r.resource_id);
 }</code></pre></div>
@@ -173,7 +178,7 @@ Assertions
 </figcaption>
 </figure>
 <p>
-  With asserts you’re checking your own code for possible bugs.  In the above code we try to cache the most recently opened image with its resource ID; before doing so we make sure such an internal ID was properly assigned to the opened image with a <code>REQUIRE</code> <em>macro</em>.  This check will be stripped from the final, released binary.  It’d only exist in <em>Debug</em> builds which developers and testers would use.</p>
+  With asserts you’re checking your own code for possible bugs.  In the above code we try to cache the most recently opened image with its resource ID; before doing so we make sure such an internal ID was properly assigned to the opened image with a <code>REQUIRE</code> <em>macro</em>.  This check will be stripped from the final, released binary.  It’d only exist in debug builds which developers and testers would use.</p>
 </div>
 </div>
 <div id="outline-container-headline-3" class="outline-2">
@@ -182,7 +187,7 @@ Aren’t assertions <code>if</code> s anyway?
 </h2>
 <div id="outline-text-headline-3" class="outline-text-2">
 <p>
-  Though asserts are made of <code>if</code> statements, that’s true only for Debug builds; they don’t <em>fire</em> on non-debug builds<sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup>.  C and C++ have a preprocessor stage, so most codebases define some assertion macro which compile to a <a href="https://en.wikipedia.org/wiki/NOP_(code)">no-op</a> on non-debug builds and on a <em>Debug</em> build – run by the developer or tester – define it as valid <code>if</code>; when firing an assertion might say, log a message, invoke a <code>DebugBreak</code>, etc.</p>
+  Though asserts are made of <code>if</code> statements, that’s true only for debug builds; they don’t <em>fire</em> on non-debug builds<sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup>.  C and C++ have a preprocessor stage, so most codebases define some assertion macro which compile to a <a href="https://en.wikipedia.org/wiki/NOP_(code)">no-op</a> on non-debug builds and on a debug build – run by the developer or tester – define it as valid <code>if</code>; upon firing, an assertion helps the developer better understand the issue e.g. log a message, invoke the debugger<sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup>, etc.</p>
 <div class="src src-c">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-c" data-lang="c">  <span style="color:#ff79c6">#ifdef NDEBUG   </span><span style="color:#6272a4">//  usually set for non-debug builds
 </span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">#  define REQUIRE(expr, msg) ((void) expr)
@@ -191,14 +196,26 @@ Aren’t assertions <code>if</code> s anyway?
 </span><span style="color:#ff79c6"></span>  <span style="color:#ff79c6">#fi</span></code></pre></div>
 </div>
 <p>
-  You can have a variety of assertion macros like <code>REQUIRE</code>, <code>DCHECK</code><sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup>, <code>ASSERT</code>, <code>ENSURE</code>, etc. to suit your needs and cases.  <a href="https://github.com/clibs/check">check</a> seems to be a minimal, header-only C library with basic assertions macros.</p>
+  You can have a variety of assertion macros like <code>REQUIRE</code>, <code>DCHECK</code><sup class="footnote-reference"><a id="footnote-reference-4" href="#footnote-4">4</a></sup>, <code>ASSERT</code>, <code>ENSURE</code>, etc. to suit your needs and cases.  <a href="https://github.com/clibs/check">check</a> seems to be a minimal, header-only C library with basic assertions macros.</p>
 </div>
 </div>
 <div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
-Comparison
+Why strip assertions in non-debug builds?
 </h2>
 <div id="outline-text-headline-4" class="outline-text-2">
+<blockquote>
+<p>It’s a pointless wastage of CPU cycles, power, etc. to retain assertions in non-debug builds.</p>
+</blockquote>
+<p>
+  A software’s end-user seldom care/know about its technicalities<sup class="footnote-reference"><a id="footnote-reference-5" href="#footnote-5">5</a></sup>.  Oblivious to its design and code, they can’t make sense of a failed assertion’s output — logs, running under debugger, etc.  Contrastingly, programmers (and testers) specifically run debug builds just to catch a failing assumption early on.  Stripping of assertions is one of the reasons<sup class="footnote-reference"><a id="footnote-reference-6" href="#footnote-6">6</a></sup> why debug builds are slow and non-debug builds are fast — lesser <code>if</code> checks/branches.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Comparison
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <table>
 <thead>
 <tr>
@@ -218,33 +235,34 @@ Comparison
 <td><code>if (bad_handle) { … }</code></td>
 </tr>
 <tr>
-<td>Assertion</td>
+<td>Bug</td>
 <td>Internal</td>
 <td>Development Time</td>
-<td>Macros</td>
+<td>Assertion macros</td>
 <td><code>DCHECK(valid_count)</code></td>
 </tr>
 </tbody>
 </table>
 <p>
-Key difference is <em>source</em>: errors are due to the environment, user, etc.  You simply have to check for them at runtime.  However, assertions are to check your subsystems (module, function, component, etc.) for buggy code.  This is when some expected state isn’t reached or some condition or invariant isn’t met.  This is internal, within developer’s control.  Since assertions are development-time errors, they cab be avoided before the program hits the end-user.</p>
-</div>
-</div>
-<div id="outline-container-headline-5" class="outline-2">
-<h2 id="headline-5">
-Example with VLC
-</h2>
-<div id="outline-text-headline-5" class="outline-text-2">
-<p>
-Let’s say we’re developers of the popular media player <a href="https://videolan.org/">VLC</a>.  Checking for a bad/corrupt input (avi/mkv file) should be done with a good ‘ol <code>if</code> that works at runtime.</p>
-<p>
-However, whether VLC’s own source filter<sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup> is always feeding normalized float data (within <code>[0, 1]</code>) to its decoding filter<sup class="footnote-reference"><a id="footnote-reference-4" href="#footnote-4">4</a></sup> is something to be checked by an assert; checking this with a runtime <code>if</code> in Release builds would be a waste of end-user CPU’s time and energy.</p>
-<p>
-Though a runtime <code>if</code> also works in place of an assertion, a good programmer would use the right tool for the right job.</p>
+Key difference is <em>source</em>: errors are due to the environment, user, etc.  You simply have to check for them at runtime.  However, assertions are to check your subsystems (module, function, component, etc.) for buggy code.  This is when some expected state isn’t reached or some condition or invariant isn’t met.  This is internal, within developer’s control.  They can be avoided before the program hits the end-user by the programmer checking what broke the assumption.</p>
 </div>
 </div>
 <div id="outline-container-headline-6" class="outline-2">
 <h2 id="headline-6">
+Example with VLC
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+Let’s say we’re developers of the popular media player <a href="https://videolan.org/">VLC</a>.  Checking for a bad/corrupt input (avi/mkv file) should be done with a good ‘ol <code>if</code> that works at runtime.</p>
+<p>
+However, whether VLC’s own source filter<sup class="footnote-reference"><a id="footnote-reference-7" href="#footnote-7">7</a></sup> is always feeding normalized float data (within <code>[0, 1]</code>) to its decoding filter<sup class="footnote-reference"><a id="footnote-reference-8" href="#footnote-8">8</a></sup> is something to be checked by an assert; checking this with a runtime <code>if</code> in Release builds would be a waste of end-user CPU’s time and energy.</p>
+<blockquote>
+<p>Though a plain <code>if</code> also works as an assertion, a good programmer would use the right tool for the right job.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
 Footnotes
 </h2>
 </div>
@@ -254,23 +272,47 @@ Footnotes
 <div class="footnote-definition">
 <sup id="footnote-1"><a href="#footnote-reference-1">1</a></sup>
 <div class="footnote-body">
-<p><a href="https://stackoverflow.com/q/367884/183120">Non-debug builds</a> generally have optimizations turned on and debug information stripped.  <em>Release</em> builds, published to end-user, is a common example.</p>
+<p>The unspotted failed assumptions eventually become bugs; hopefully reported by an annoyed (but sincere) end-user.</p>
 </div>
 </div>
 <div class="footnote-definition">
 <sup id="footnote-2"><a href="#footnote-reference-2">2</a></sup>
 <div class="footnote-body">
-<p>To denote a check that works only in the <em>Debug</em> build configuration.</p>
+<p><a href="https://stackoverflow.com/q/367884/183120">Non-debug builds</a> generally have optimizations turned on and debug information stripped.  <em>Release</em> builds, published to end-user, is a common example.</p>
 </div>
 </div>
 <div class="footnote-definition">
 <sup id="footnote-3"><a href="#footnote-reference-3">3</a></sup>
 <div class="footnote-body">
-<p>Component feeding data to the decoder.</p>
+<p>Different compilers have different ways of invoking the debugger; MSVC has <code>DebugBreak</code>, GCC on POSIX systems have <code>raise(SIGTRAP)</code>; <a href="https://github.com/nemequ/portable-snippets/tree/master/debug-trap">platform-independant abstractions</a> are available too.</p>
 </div>
 </div>
 <div class="footnote-definition">
 <sup id="footnote-4"><a href="#footnote-reference-4">4</a></sup>
+<div class="footnote-body">
+<p>To denote a check that works only in the <em>Debug</em> build configuration.</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-5"><a href="#footnote-reference-5">5</a></sup>
+<div class="footnote-body">
+<p>A technical end-user can always build the debug version of an open-source software.  With closed source software, you’re at the mercy of a corporation  to offer debug builds.</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-6"><a href="#footnote-reference-6">6</a></sup>
+<div class="footnote-body">
+<p>Others include higher optimization levels, linking to non-debug builds of dependencies, etc.</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-7"><a href="#footnote-reference-7">7</a></sup>
+<div class="footnote-body">
+<p>Component feeding data to the decoder.</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-8"><a href="#footnote-reference-8">8</a></sup>
 <div class="footnote-body">
 <p>Component processing data before sending to sink (display/speakers).</p>
 </div>
