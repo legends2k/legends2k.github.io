@@ -189,11 +189,15 @@ Aren’t assertions <code>if</code> s anyway?
 <p>
   Though asserts are made of <code>if</code> statements, that’s true only for debug builds; they don’t <em>fire</em> on non-debug builds<sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup>.  C and C++ have a preprocessor stage, so most codebases define some assertion macro which compile to a <a href="https://en.wikipedia.org/wiki/NOP_(code)">no-op</a> on non-debug builds and on a debug build – run by the developer or tester – define it as valid <code>if</code>; upon firing, an assertion helps the developer better understand the issue e.g. log a message, invoke the debugger<sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup>, etc.</p>
 <div class="src src-c">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-c" data-lang="c">  <span style="color:#ff79c6">#ifdef NDEBUG   </span><span style="color:#6272a4">//  usually set for non-debug builds
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">#  define REQUIRE(expr, msg) ((void) expr)
-</span><span style="color:#ff79c6"></span>  <span style="color:#ff79c6">#else
-</span><span style="color:#ff79c6"></span>  <span style="color:#ff79c6">#  define REQUIRE(expr, msg) if (expr) { std::cerr &lt;&lt; msg; }
-</span><span style="color:#ff79c6"></span>  <span style="color:#ff79c6">#fi</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-c" data-lang="c"><span style="color:#ff79c6">#ifdef NDEBUG          </span><span style="color:#6272a4">// usually defined for non-debug builds
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">#  define REQUIRE(expr, msg) ((void) expr)            </span><span style="color:#6272a4">// no-op
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">#else
+</span><span style="color:#ff79c6">#  define REQUIRE(expr, msg) if (expr) {                     \
+</span><span style="color:#ff79c6">                               std::cerr &lt;&lt; __FILE__ &lt;&lt; &#39;:&#39;  \
+</span><span style="color:#ff79c6">                                         &lt;&lt; __LINE__ &lt;&lt; &#34;: &#34; \
+</span><span style="color:#ff79c6">                                         &lt;&lt; msg;             \
+</span><span style="color:#ff79c6">                             }
+</span><span style="color:#ff79c6">#fi</span></code></pre></div>
 </div>
 <p>
   You can have a variety of assertion macros like <code>REQUIRE</code>, <code>DCHECK</code><sup class="footnote-reference"><a id="footnote-reference-4" href="#footnote-4">4</a></sup>, <code>ASSERT</code>, <code>ENSURE</code>, etc. to suit your needs and cases.  <a href="https://github.com/clibs/check">check</a> seems to be a minimal, header-only C library with basic assertions macros.</p>
@@ -239,7 +243,7 @@ Comparison
 <td>Internal</td>
 <td>Development Time</td>
 <td>Assertion macros</td>
-<td><code>DCHECK(valid_count)</code></td>
+<td><code>ENSURE(valid_count)</code></td>
 </tr>
 </tbody>
 </table>
