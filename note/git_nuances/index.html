@@ -9,7 +9,7 @@
         <meta name="description" content="Obscure but useful Git incantations">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.88.1" />
+        <meta name="generator" content="Hugo 0.89.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2020-05-13" itemprop="datePublished">Sep 1, 2021</time>
+        Updated <time datetime="2020-05-13" itemprop="datePublished">Nov 8, 2021</time>
     </span>
     
 </p>
@@ -269,7 +269,7 @@ git merge-base --is-ancestor possible_ancestor person
 <p>The general idea is <em>reachability</em>: an ancestor is reachable from a descendant, if you keep following the parental links.  When an ancestor is <em>reachable</em>, changes it introduced are <em>visible</em> to the descendant.</p>
 <h1 id="misc">Misc</h1>
 <ul>
-<li>Delete branch from remote directly: <code>git push origin --delete my_topic</code></li>
+<li>Delete branch from remote: <code>git push origin --delete my_topic</code></li>
 <li>Remove local branches with no remote counterparts: <code>git remote prune origin</code>
 <ul>
 <li>Doing the same while fetching newer branches: <code>git fetch --prune</code></li>
@@ -282,6 +282,17 @@ git merge-base --is-ancestor possible_ancestor person
 <li>Git 2.31 introduced <code>git maintenance start</code> to GC periodically in the background :)</li>
 </ul>
 </li>
+<li><a href="https://stackoverflow.com/a/4438292/183120">Clone with submodules</a>: <code>git clone --recurse-submodules -j4 URI</code>
+<ul>
+<li>Missed it? <code>git submodule update --init --recursive</code></li>
+</ul>
+</li>
+<li><code>git log</code> shows commits in <strong>ancestral, not chronological, order</strong>!
+<ul>
+<li><code>push</code> younger commit first, <code>pull --rebase</code> makes elder become younger’s child</li>
+</ul>
+</li>
+<li>See remote tracking branch: <code>git branch -vv</code></li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>

@@ -9,7 +9,7 @@
         <meta name="description" content="Make Emacs your Go IDE">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.88.1" />
+        <meta name="generator" content="Hugo 0.89.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2018-06-17" itemprop="datePublished">Nov 25, 2019</time>
+        Updated <time datetime="2018-06-17" itemprop="datePublished">Nov 8, 2021</time>
     </span>
     
 </p>
@@ -132,77 +132,66 @@
         <div class="post-content clearfix" itemprop="articleBody">
     
 
-    <p>An IDE at least should do</p>
+    <p>An IDE should at least aid with</p>
 <ul>
-<li>Auto-completion (a.k.a Intellisense)</li>
+<li>Auto-completion (a.k.a <em>Intellisense</em>)</li>
 <li>Jump to definition</li>
 <li>On-the-fly error checks</li>
+</ul>
+<p>Additionally it’d be good to have</p>
+<ul>
 <li>Context-sensitive document lookup
 <ul>
 <li>Show variable and function type</li>
 <li>Show function description</li>
 </ul>
 </li>
-<li>Autorun <code>gofmt</code> on save</li>
-<li><strong>Bonus</strong>: Auto-add/remove used/unused packages on file save</li>
+<li>Auto-run <code>gofmt</code> on save</li>
+<li>Auto-add/remove used/unused packages on file save</li>
 </ul>
-<p>We’ll try to get these going on Emacs.</p>
-<h2 id="external-tools">External Tools</h2>
-<p>Though not part of the canonical tool set, these are written by seasoned Go devs</p>
-<ul>
-<li>gocode</li>
-<li>godef</li>
-<li>goflymake</li>
-<li>goimports</li>
-<li>godoc</li>
-</ul>
-<h2 id="emacs-packages">Emacs Packages</h2>
-<p>We’d be needing these too to interface with above tools</p>
-<ul>
-<li>go-mode</li>
-<li>eldoc</li>
-<li>company-go</li>
-</ul>
-<p>It&rsquo;s assumed that you already have <code>company</code> installed.</p>
-<h2 id="steps">Steps</h2>
-<ol>
-<li>Install Go binary
-<ul>
-<li>Linux: use your distro’s package manager</li>
-<li>Windows: download and install 64-bit MSI package</li>
-</ul>
-</li>
-<li>Set <code>$GOPATH</code>
-<ul>
-<li>It can have multiple entries like <code>$PATH</code></li>
-<li>First one’s where packages are downloaded by <code>go get</code></li>
-<li>Source code is searched in all entries</li>
-<li>Add entries with a trailing slash</li>
-<li>Read <code>go help gopath</code></li>
-</ul>
-</li>
-<li>Go get these tools.  On Windows add <code>-ldflags -H=windowsgui</code> for <code>gocode</code>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">u</span> <span style="color:#8be9fd;font-style:italic">github</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">mdempsky</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">gocode</span>
-<span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">github</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">rogpeppe</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">godef</span>
-<span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">u</span> <span style="color:#8be9fd;font-style:italic">github</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">com</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">dougm</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">goflymake</span>
-<span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">golang</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">x</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">tools</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">cmd</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">goimports</span>
-<span style="color:#8be9fd;font-style:italic">go</span> <span style="color:#8be9fd;font-style:italic">get</span> <span style="color:#8be9fd;font-style:italic">golang</span><span style="color:#ff79c6">.</span><span style="color:#8be9fd;font-style:italic">org</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">x</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">tools</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">cmd</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">godoc</span></code></pre></div></li>
-<li>Install aforementioned Emacs packages</li>
-<li>If <code>$GOPATH/bin</code> isn’t part of <code>$PATH</code> at least make it part of Emacs' <code>exec-path</code>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;exec-path</span> (<span style="color:#8be9fd;font-style:italic">concat</span> (<span style="color:#8be9fd;font-style:italic">file-name-as-directory</span> (<span style="color:#8be9fd;font-style:italic">getenv</span> <span style="color:#f1fa8c">&#34;GOPATH&#34;</span>)) <span style="color:#f1fa8c">&#34;bin&#34;</span>) t)</code></pre></div></li>
-<li>Append to <code>.emacs</code>:
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;load-path</span> (<span style="color:#8be9fd;font-style:italic">concat</span> (<span style="color:#8be9fd;font-style:italic">file-name-as-directory</span> (<span style="color:#8be9fd;font-style:italic">getenv</span> <span style="color:#f1fa8c">&#34;GOPATH&#34;</span>)) <span style="color:#f1fa8c">&#34;src/github.com/dougm/goflymake&#34;</span>))
-(<span style="color:#50fa7b">require</span> <span style="color:#f1fa8c">&#39;go-flymake</span>)
-<span style="color:#6272a4">; Use goimports instead of go-fmt for formatting with intelligent package addition/removal</span>
-(<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">gofmt-command</span> <span style="color:#f1fa8c">&#34;goimports&#34;</span>)
-(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;go-mode-hook</span> (<span style="color:#8be9fd;font-style:italic">lambda</span> ()
-                          (<span style="color:#50fa7b">set</span> (<span style="color:#8be9fd;font-style:italic">make-local-variable</span> <span style="color:#f1fa8c">&#39;company-backends</span>) <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">company-go</span>))
-                          (<span style="color:#8be9fd;font-style:italic">local-set-key</span> (<span style="color:#8be9fd;font-style:italic">kbd</span> <span style="color:#f1fa8c">&#34;M-.&#34;</span>) <span style="color:#f1fa8c">&#39;godef-jump</span>)
-                          (<span style="color:#8be9fd;font-style:italic">go-eldoc-setup</span>)
-                          <span style="color:#6272a4">; call Gofmt before saving</span>
-                          (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;before-save-hook</span> <span style="color:#f1fa8c">&#39;gofmt-before-save</span>)))</code></pre></div></li>
-<li>Periodically <code>go get -u all</code> to keep the downloaded tools updated.</li>
-</ol>
+<p>We’ll get these working for Go on Emacs using LSP.  It’s no secret that <a href="https://emacs-lsp.github.io">Emacs’
+LSP support</a> is top notch.</p>
+<blockquote>
+<p>We assume Go 1.17+ i.e. with full modules support and <code>GO111MODULE</code>
+unset<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+</blockquote>
+<h2 id="go-please">Go, please!</h2>
+<p>Yeah, that’s the name of <code>gopls</code>, <a href="https://github.com/golang/tools/tree/master/gopls#installation">Go’s LSP server</a> 😉.  If your package
+manager doesn’t have it, <code>go install</code> it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">go install golang.org/x/tools/gopls@latest</code></pre></div>
+<h2 id="emacs-setup">Emacs Setup</h2>
+<p>Install <code>go-mode</code> package from Melpa and hook it to <code>lsp-mode</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#50fa7b">use-package</span> <span style="color:#8be9fd;font-style:italic">go-mode</span>
+  <span style="color:#f1fa8c">:mode</span> <span style="color:#f1fa8c">&#34;\\.go\\&#39;&#34;</span>
+  <span style="color:#f1fa8c">:config</span>
+  (<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my/go-mode-setup</span> ()
+    <span style="color:#f1fa8c">&#34;Basic Go mode setup.&#34;</span>
+  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;before-save-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">lsp-format-buffer</span> t t)
+  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;before-save-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">lsp-organize-imports</span> t t))
+  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;go-mode-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">my/go-mode-setup</span>))
+
+(<span style="color:#50fa7b">use-package</span> <span style="color:#8be9fd;font-style:italic">lsp-mode</span>
+  <span style="color:#f1fa8c">:ensure</span> t
+  <span style="color:#f1fa8c">:commands</span> (<span style="color:#8be9fd;font-style:italic">lsp</span> <span style="color:#8be9fd;font-style:italic">lsp-mode</span> <span style="color:#8be9fd;font-style:italic">lsp-deferred</span>)
+  <span style="color:#f1fa8c">:hook</span> ((<span style="color:#8be9fd;font-style:italic">rust-mode</span> <span style="color:#8be9fd;font-style:italic">python-mode</span> <span style="color:#8be9fd;font-style:italic">go-mode</span>) <span style="color:#ff79c6">.</span> <span style="color:#8be9fd;font-style:italic">lsp-deferred</span>)
+  <span style="color:#f1fa8c">:config</span>
+  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">lsp-prefer-flymake</span> nil
+        <span style="color:#8be9fd;font-style:italic">lsp-enable-indentation</span> nil
+        <span style="color:#8be9fd;font-style:italic">lsp-enable-on-type-formatting</span> nil
+        <span style="color:#8be9fd;font-style:italic">lsp-rust-server</span> <span style="color:#f1fa8c">&#39;rust-analyzer</span>)
+  <span style="color:#6272a4">;; for filling args placeholders upon function completion candidate selection</span>
+  <span style="color:#6272a4">;; lsp-enable-snippet and company-lsp-enable-snippet should be nil with</span>
+  <span style="color:#6272a4">;; yas-minor-mode is enabled: https://emacs.stackexchange.com/q/53104</span>
+  (<span style="color:#8be9fd;font-style:italic">lsp-modeline-code-actions-mode</span>)
+  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;lsp-mode-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">lsp-enable-which-key-integration</span>)
+  (<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;lsp-file-watch-ignored</span> <span style="color:#f1fa8c">&#34;\\.vscode\\&#39;&#34;</span>))</code></pre></div>
+<h2 id="verify">Verify</h2>
+<p>Make sure <code>gopls</code> is in <code>$PATH</code>.  If you’ve <code>go install</code>-ed, make sure to add
+<code>$GOPATH/bin</code> to <code>$PATH</code>.  Since projects use modules now, I use <code>$GOPATH</code> only
+to house Go tools which aren’t part of the official toolchain.  Similar to
+<code>${HOME}/.cargo</code> for Rust, I set <code>${HOME}/.go</code> as my <code>$GOPATH</code> and fix <code>$PATH</code>.</p>
+<p>Read <code>go help gopath</code> and <code>go help install</code> for details.</p>
+<p>Add entries with a trailing slash; missing it may lead to issues.</p>
 <h1 id="usage">Usage</h1>
 <ul>
 <li>If you’re not open an existing source file, be sure to save your fresh buffer.
@@ -225,17 +214,15 @@
 <li>To return back to original place press <code>M-,</code></li>
 </ul>
 </li>
-<li>Flymake should work without any intervention
+<li>Flycheck, with no setup, does a good job of flagging warnings/errors
 <ul>
-<li>It’s too subtle; just highlights erroneous line with <code>!!</code> and underscores the problematic token</li>
-<li><code>flymake-show-diagnostics-buffer</code> should show you a constantly updated buffer with the actual errors/warnings</li>
+<li><code>flycheck-verify-setup</code> is useful at times</li>
 </ul>
 </li>
 <li>Context-sensitive document lookup
 <ul>
 <li>Positioning point on a variable/function should show its type in the minibuffer</li>
-<li>To describe variable/expression at point do <code>C-c C-d</code></li>
-<li>To get a detailed description of a function do <code>godoc-at-point</code></li>
+<li>To get a detailed description of a function do <code>godoc-at-point</code> (needs <code>godoc</code>)</li>
 <li>You could bind it to a key combo; it’s fairly handy</li>
 </ul>
 </li>
@@ -246,25 +233,28 @@
 </li>
 <li>Auto-include/exclude
 <ul>
-<li><a href="https://golang.org/doc/effective_go.html?#blank_unused">Go is strict</a> on what you import</li>
 <li>At the top-level, include packages you wouldn’t reference</li>
 <li>In functions from packages you didn’t import</li>
-<li>Save the buffer!  Redundant packages are wiped out and needed ones are imported 😉</li>
+<li>Save the buffer!  Redundant imports are deleted, needed ones are added 😉</li>
+<li><a href="https://golang.org/doc/effective_go.html?#blank_unused">Go is strict about unused imports</a> and this helps</li>
 </ul>
 </li>
 </ul>
-<p>This setup is light and good enough for now.</p>
-<h1 id="to-do">To Do</h1>
-<p>Play with <a href="https://godoc.org/golang.org/x/tools/cmd/guru"><code>guru</code></a> &ndash; looks like a sophisticated tool.</p>
+<p>This is a stable and light setup.  I’m happy with it for now.</p>
 <h1 id="references">References</h1>
 <ol>
-<li><code>go-mode</code>&rsquo;s help in Emacs</li>
-<li><code>$GOPATH/src/github.com/mdempsky/gocode/emacs-company/README.md</code></li>
-<li><a href="https://tleyden.github.io/blog/2014/05/27/configure-emacs-as-a-go-editor-from-scratch-part-2/">Configure Emacs as a Go Editor From Scratch</a></li>
-<li><a href="https://github.com/dougm/goflymake">goflymake</a></li>
-<li><a href="https://github.com/mdempsky/gocode">gocode</a></li>
-<li><a href="https://wiki.archlinux.org/index.php/Go">ArchWiki’s Go page</a></li>
+<li><code>go help install</code></li>
+<li><code>go help gopath</code></li>
+<li><a href="https://github.com/golang/tools/tree/master/gopls#installation">gopls Documentation</a></li>
 </ol>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Go 1.17+ ignores <code>GO111MODULE</code> and assumes modules mostly.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 </div>
 
