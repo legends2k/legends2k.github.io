@@ -37,7 +37,7 @@ git show REF # changes introduced in a particular file by a commit git show REF 
       
       <guid>https://legends2k.github.io/note/git_concepts/</guid>
       <description>Basics like initializing (a repository), staging and commiting files aren’t explained here; they simply make sense; no ‘Aha!’s there. Moving references, branching and merging &amp;mdash; coupled with Git’s arcane command names1 &amp;mdash; are the confusing parts.
-Basics  Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)2  Git diagrams often have arrows backwards (←) for this reason   Git stores snapshots not differences i.</description>
+Basics Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)2 Git diagrams often have arrows backwards (←) for this reason Git stores snapshots not differences i.</description>
     </item>
     
     <item>
@@ -47,8 +47,9 @@ Basics  Git is a distributed VCS; each repo can be both a server/client Honestly
       
       <guid>https://legends2k.github.io/note/go_setup/</guid>
       <description>An IDE should at least aid with
- Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks  Additionally it’d be good to have
- Context-sensitive document lookup  Show variable and function type Show function description   Auto-run gofmt on save Auto-add/remove used/unused packages on file save  We’ll get these working for Go on Emacs using LSP. It’s no secret that Emacs’ LSP support is top notch.</description>
+Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Additionally it’d be good to have
+Context-sensitive document lookup Show variable and function type Show function description Auto-run gofmt on save Auto-add/remove used/unused packages on file save We’ll get these working for Go on Emacs using LSP. It’s no secret that Emacs’ LSP support is top notch.
+We assume Go 1.17+ i.e. with full modules support and GO111MODULE unset1.</description>
     </item>
     
     <item>
@@ -76,7 +77,7 @@ Network In the newly installed Arch you might notice that there&amp;rsquo;s no n
       <pubDate>Tue, 24 Apr 2018 10:53:43 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/tablet_setup/</guid>
-      <description>Steps  Disable Windows defaults  Windows 10  Run → services.msc → Touch Keyboard and Handwriting Panel Service; stop and disable Disable Tablet mode under Tablet mode settings   Windows 7  Disable Tablet PC services from the Windows Features list Disable Flicks in Pen and Tablet settings     Install latest manufacturer drivers before first plugging in to the system Plug in device and test Enable Force Proportions to avoid disproportionate lines  Tablet Area: Full Screen Area: Monitor Force Proportions mightn&amp;rsquo;t be available on non-Wacom driver software like Huion&amp;rsquo;s.</description>
+      <description>Steps Disable Windows defaults Windows 10 Run → services.msc → Touch Keyboard and Handwriting Panel Service; stop and disable Disable Tablet mode under Tablet mode settings Windows 7 Disable Tablet PC services from the Windows Features list Disable Flicks in Pen and Tablet settings Install latest manufacturer drivers before first plugging in to the system Plug in device and test Enable Force Proportions to avoid disproportionate lines Tablet Area: Full Screen Area: Monitor Force Proportions mightn&amp;rsquo;t be available on non-Wacom driver software like Huion&amp;rsquo;s.</description>
     </item>
     
     <item>
@@ -85,7 +86,7 @@ Network In the newly installed Arch you might notice that there&amp;rsquo;s no n
       <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/git_push_fork/</guid>
-      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
+      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;rdquo;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
     </item>
     
     <item>
@@ -96,8 +97,9 @@ Network In the newly installed Arch you might notice that there&amp;rsquo;s no n
       <guid>https://legends2k.github.io/note/useful_gcc_opts/</guid>
       <description>Here are some of the useful, but not widely known, options of GCC that I want to document.
 GCC Build Specs gcc -dumpspecs Gives the specifications with which GCC was built.
-Stack Usage gcc -fstack-usage Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage. See the manual for details on deciphering its output.
-Macros and Include Directories # get macros defined when the language is C++ cpp -xc++ -dM /dev/null # get macros defined when the language is C cpp -dM /dev/null Prints the macros defined when the preprocessor was called.</description>
+List supported targets gcc --target-help gcc --help=target clang has clang -print-supported-cpus and clang -print-targets similarly. Though clang operates on target triples/quadruples.
+On older GCC alternate command is gcc -E -march=help -xc /dev/null.
+Stack Usage gcc -fstack-usage Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage.</description>
     </item>
     
     <item>
@@ -116,7 +118,7 @@ The general installation instructions provided in Irony&amp;rsquo;s README works
       <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/lua_rocks/</guid>
-      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)   Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
+      <description>Ingredients CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio Steps Involved Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink) Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
     </item>
     
     <item>
@@ -126,7 +128,8 @@ The general installation instructions provided in Irony&amp;rsquo;s README works
       
       <guid>https://legends2k.github.io/note/site_customizations/</guid>
       <description>I did quite a few things to get this blog up and running the way you see it now.
-Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.</description>
+Steps I Still Remember Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory. Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.
+1. Syntax Highlighting This theme uses highlight.</description>
     </item>
     
     <item>

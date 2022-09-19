@@ -15,7 +15,8 @@
       
       <guid>https://legends2k.github.io/note/site_customizations/</guid>
       <description>I did quite a few things to get this blog up and running the way you see it now.
-Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.</description>
+Steps I Still Remember Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory. Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.
+1. Syntax Highlighting This theme uses highlight.</description>
     </item>
     
     <item>

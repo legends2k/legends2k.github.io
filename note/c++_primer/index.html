@@ -9,7 +9,7 @@
         <meta name="description" content="solving “you don’t know what you don’t know”">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.89.1" />
+        <meta name="generator" content="Hugo 0.102.3" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -290,42 +290,42 @@ of a language; corner cases build a weak model.</p>
 </ul>
 <p>None have guaranteed sizes except size-named ones.</p>
 <h1 id="sample-1">Sample 1</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6"></span>
-<span style="color:#6272a4">// function definition
-</span><span style="color:#6272a4">// pass by value
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span> y) {
-  <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y;
-}
-
-<span style="color:#6272a4">// pass by reference; can also be achieved with pointers
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">myswap</span>(<span style="color:#8be9fd">int</span> <span style="color:#ff79c6">&amp;</span>x, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">&amp;</span>y) {
-  <span style="color:#8be9fd">int</span> t <span style="color:#ff79c6">=</span> x;
-  x <span style="color:#ff79c6">=</span> y;
-  y <span style="color:#ff79c6">=</span> t;
-}
-
-<span style="color:#6272a4">// function declaration
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span>, <span style="color:#8be9fd">int</span> <span style="color:#6272a4">/*z*/</span>);
-
-<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
-  <span style="color:#8be9fd">int</span> a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>, b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>;
-  myswap(a, b);
-  <span style="color:#8be9fd">float</span> f <span style="color:#ff79c6">=</span> add(a, b);    <span style="color:#6272a4">// widening assignment, cast unneeded
-</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// really a call to std::ostream&amp; std::ios::operator&lt;&lt;(std::ostream&amp;, float)
-</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// with std::cout and f as parameters; notice the return type that enables expression chaining
-</span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> f <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
-  <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">double</span> PI <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14</span>;
-  <span style="color:#6272a4">// clang++ 9.1.0
-</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// warning: implicit conversion from &#39;double&#39; to &#39;int&#39; changes value from 3.14 to 3
-</span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> add(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, PI);
-  <span style="color:#6272a4">// static_cast&lt;int&gt;(3.14) states programmer intention explicitly; no warning
-</span><span style="color:#6272a4"></span>}
-
-<span style="color:#6272a4">// pass by value
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span> y, <span style="color:#8be9fd">int</span> z) {
-  <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y <span style="color:#ff79c6">+</span> z;
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// function definition
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// pass by value
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span> y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// pass by reference; can also be achieved with pointers
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">myswap</span>(<span style="color:#8be9fd">int</span> <span style="color:#ff79c6">&amp;</span>x, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">&amp;</span>y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">int</span> t <span style="color:#ff79c6">=</span> x;
+</span></span><span style="display:flex;"><span>  x <span style="color:#ff79c6">=</span> y;
+</span></span><span style="display:flex;"><span>  y <span style="color:#ff79c6">=</span> t;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// function declaration
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span>, <span style="color:#8be9fd">int</span> <span style="color:#6272a4">/*z*/</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">int</span> a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>, b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>  myswap(a, b);
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">float</span> f <span style="color:#ff79c6">=</span> add(a, b);    <span style="color:#6272a4">// widening assignment, cast unneeded
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// really a call to std::ostream&amp; std::ios::operator&lt;&lt;(std::ostream&amp;, float)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// with std::cout and f as parameters; notice the return type that enables expression chaining
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> f <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">double</span> PI <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// clang++ 9.1.0
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// warning: implicit conversion from &#39;double&#39; to &#39;int&#39; changes value from 3.14 to 3
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> add(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, PI);
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// static_cast&lt;int&gt;(3.14) states programmer intention explicitly; no warning
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// pass by value
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">add</span>(<span style="color:#8be9fd">int</span> x, <span style="color:#8be9fd">int</span> y, <span style="color:#8be9fd">int</span> z) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y <span style="color:#ff79c6">+</span> z;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <h2 id="notice">Notice</h2>
 <ul>
 <li>Inclusion</li>
@@ -338,10 +338,10 @@ of a language; corner cases build a weak model.</p>
 </ul>
 <h2 id="compilation">Compilation</h2>
 <p>Compile with GCC/Clang’s C++ frontend</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-bash" data-lang="bash">g++ -Wall -std<span style="color:#ff79c6">=</span>c++14 -pedantic test.cpp -o test</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ -Wall -std<span style="color:#ff79c6">=</span>c++14 -pedantic test.cpp -o test</span></span></code></pre></div>
 <p>Add <code>-g -O0</code> for debug symbols.</p>
 <p>Compile with VC++ (use <code>/D_DEBUG</code> for debug symbols)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-text" data-lang="text">cl /EHsc test.cpp</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>cl /EHsc test.cpp</span></span></code></pre></div>
 <h1 id="conditionals-and-loops">Conditionals and Loops</h1>
 <ul>
 <li>If… else</li>
@@ -360,59 +360,59 @@ of a language; corner cases build a weak model.</p>
 </ul>
 <p>Loops additionally support <code>break</code> and <code>continue</code>.</p>
 <h2 id="sample-2">Sample 2</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6"></span>
-<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
-  <span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
-  <span style="color:#8be9fd">int</span> arr[<span style="color:#bd93f9">10</span>] <span style="color:#ff79c6">=</span> { };
-  <span style="color:#ff79c6">do</span> {
-    arr[i] <span style="color:#ff79c6">=</span> i;
-    <span style="color:#ff79c6">++</span>i;
-  } <span style="color:#ff79c6">while</span> (i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>);
-  <span style="color:#6272a4">// idomatic way of doing this: std::iota
-</span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> i <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
-
-  <span style="color:#6272a4">// boolean context
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>i)  <span style="color:#6272a4">// checks if i is 0
-</span><span style="color:#6272a4"></span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;What!</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-  <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">10</span>)
-    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Cool</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-  <span style="color:#ff79c6">else</span>
-    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Whatever</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-
-  <span style="color:#ff79c6">goto</span> vowels;
-
-  <span style="color:#ff79c6">for</span> (; i <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>; <span style="color:#ff79c6">--</span>i) {
-    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> i <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\t&#39;</span>;
-  }
-
-<span style="color:#8be9fd;font-style:italic">vowels</span>:
-  std<span style="color:#ff79c6">::</span>string s <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">Hello&#34;</span>;
-  <span style="color:#6272a4">// range for
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">char</span> <span style="color:#8be9fd;font-style:italic">c</span> : s) {
-    <span style="color:#6272a4">// switch only operates on integral types
-</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">switch</span> (c) {
-      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;a&#39;</span><span style="color:#ff79c6">:</span>
-        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-        <span style="color:#ff79c6">break</span>;
-      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;e&#39;</span><span style="color:#ff79c6">:</span>
-        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-        <span style="color:#ff79c6">break</span>;
-      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;i&#39;</span><span style="color:#ff79c6">:</span>
-        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-        <span style="color:#ff79c6">break</span>;
-      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;o&#39;</span><span style="color:#ff79c6">:</span>
-        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-        <span style="color:#ff79c6">break</span>;
-      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;u&#39;</span><span style="color:#ff79c6">:</span>
-        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-        <span style="color:#ff79c6">break</span>;
-      <span style="color:#ff79c6">default</span><span style="color:#ff79c6">:</span>
-        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;x</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-    }
-  }
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">int</span> arr[<span style="color:#bd93f9">10</span>] <span style="color:#ff79c6">=</span> { };
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">do</span> {
+</span></span><span style="display:flex;"><span>    arr[i] <span style="color:#ff79c6">=</span> i;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">++</span>i;
+</span></span><span style="display:flex;"><span>  } <span style="color:#ff79c6">while</span> (i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// idomatic way of doing this: std::iota
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> i <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// boolean context
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>i)  <span style="color:#6272a4">// checks if i is 0
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;What!</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">10</span>)
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Cool</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Whatever</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">goto</span> vowels;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">for</span> (; i <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>; <span style="color:#ff79c6">--</span>i) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> i <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\t&#39;</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">vowels</span>:
+</span></span><span style="display:flex;"><span>  std<span style="color:#ff79c6">::</span>string s <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">Hello&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// range for
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">char</span> <span style="color:#8be9fd;font-style:italic">c</span> : s) {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// switch only operates on integral types
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">switch</span> (c) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;a&#39;</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;e&#39;</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;i&#39;</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;o&#39;</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#39;u&#39;</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;o</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">default</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;x</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <h1 id="scope-storage-duration-and-linkage">Scope, Storage Duration and Linkage</h1>
 <ul>
 <li><strong>Scope</strong>: Region in which a name is visible to compiler
@@ -483,105 +483,105 @@ of a language; corner cases build a weak model.</p>
 <li>Use containers or the many higher-level constructs available in <code>std</code></li>
 </ul>
 <h2 id="sample-3">Sample 3</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6"></span>
-<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
-  <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>intPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd">int</span>{<span style="color:#bd93f9">0</span>};  <span style="color:#6272a4">// initialize value to 0
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">delete</span> intPtr;             <span style="color:#6272a4">// call dtor and release memory
-</span><span style="color:#6272a4"></span>  intPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;          <span style="color:#6272a4">// initialize pointer to 0
-</span><span style="color:#6272a4"></span>
-  <span style="color:#6272a4">// array has its own operators
-</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>arrPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd">int</span>[<span style="color:#bd93f9">4</span>]{<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>};  <span style="color:#6272a4">// &lt;- initializer list
-</span><span style="color:#6272a4"></span>  arrPtr[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
-  <span style="color:#ff79c6">delete</span> [] arrPtr;
-  arrPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
-
-  std<span style="color:#ff79c6">::</span>unique_ptr<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;</span> ip <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">3</span>);
-  std<span style="color:#ff79c6">::</span>unique_ptr<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span>[]<span style="color:#ff79c6">&gt;</span> ap <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span>[]<span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">3</span>);
-  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#ff79c6">*</span>ip <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span> <span style="color:#ff79c6">&lt;&lt;</span> ap[<span style="color:#bd93f9">2</span>];
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>intPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd">int</span>{<span style="color:#bd93f9">0</span>};  <span style="color:#6272a4">// initialize value to 0
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">delete</span> intPtr;             <span style="color:#6272a4">// call dtor and release memory
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  intPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;          <span style="color:#6272a4">// initialize pointer to 0
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// array has its own operators
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>arrPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd">int</span>[<span style="color:#bd93f9">4</span>]{<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>};  <span style="color:#6272a4">// &lt;- initializer list
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  arrPtr[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">delete</span> [] arrPtr;
+</span></span><span style="display:flex;"><span>  arrPtr <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  std<span style="color:#ff79c6">::</span>unique_ptr<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;</span> ip <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">3</span>);
+</span></span><span style="display:flex;"><span>  std<span style="color:#ff79c6">::</span>unique_ptr<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span>[]<span style="color:#ff79c6">&gt;</span> ap <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span>[]<span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">3</span>);
+</span></span><span style="display:flex;"><span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#ff79c6">*</span>ip <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span> <span style="color:#ff79c6">&lt;&lt;</span> ap[<span style="color:#bd93f9">2</span>];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <h2 id="sample-4">Sample 4</h2>
 <p>Shows the difference between traditional and modern C++ dialects.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;vector&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;algorithm&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iterator&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdexcept&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;limits&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6"></span>
-<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">mySafeInt</span>
-{
-<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
-    mySafeInt(<span style="color:#8be9fd">int</span> x) <span style="color:#ff79c6">:</span> i{x} { }
-
-    <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">get</span>() <span style="color:#ff79c6">const</span> { <span style="color:#ff79c6">return</span> i; }
-
-<span style="color:#ff79c6">private</span><span style="color:#ff79c6">:</span>
-    <span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
-};
-
-mySafeInt<span style="color:#ff79c6">**</span> <span style="color:#50fa7b">conv_old</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv, <span style="color:#8be9fd">int</span><span style="color:#ff79c6">*</span> count) {
-    mySafeInt <span style="color:#ff79c6">**</span>p <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
-    <span style="color:#8be9fd">int</span> processed <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
-    <span style="color:#ff79c6">if</span> (argc <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">2</span>) {
-        p <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> mySafeInt<span style="color:#ff79c6">*</span>[argc];
-        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; i <span style="color:#ff79c6">&lt;</span> argc; <span style="color:#ff79c6">++</span>i) {
-            <span style="color:#8be9fd">int</span> x <span style="color:#ff79c6">=</span> strtoul(argv[i], <span style="color:#ff79c6">nullptr</span>, <span style="color:#bd93f9">10</span>);
-            <span style="color:#ff79c6">if</span> (x <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>)
-                p[processed<span style="color:#ff79c6">++</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> mySafeInt{x};
-        }
-    }
-    <span style="color:#ff79c6">*</span>count <span style="color:#ff79c6">=</span> processed;
-    <span style="color:#ff79c6">return</span> p;
-}
-
-std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span> conv_new(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv) {
-    std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>std<span style="color:#ff79c6">::</span>string<span style="color:#ff79c6">&gt;</span> vs(argv <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>, argv <span style="color:#ff79c6">+</span> argc);
-    std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span> v;
-    std<span style="color:#ff79c6">::</span>for_each(vs.cbegin(), vs.cend(), [<span style="color:#ff79c6">&amp;</span>](<span style="color:#ff79c6">const</span> std<span style="color:#ff79c6">::</span>string<span style="color:#ff79c6">&amp;</span> s){
-                                              <span style="color:#ff79c6">try</span> {
-                                                  v.emplace_back(mySafeInt{std<span style="color:#ff79c6">::</span>stoi(s, <span style="color:#ff79c6">nullptr</span>, <span style="color:#bd93f9">10</span>)});
-                                              }
-                                              <span style="color:#ff79c6">catch</span> (std<span style="color:#ff79c6">::</span>invalid_argument<span style="color:#ff79c6">&amp;</span>) {
-                                                  std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Invalid argument &#39;&#34;</span> <span style="color:#ff79c6">&lt;&lt;</span> s <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;&#39; ignored.</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-                                              }
-                                              <span style="color:#ff79c6">catch</span> (std<span style="color:#ff79c6">::</span>out_of_range<span style="color:#ff79c6">&amp;</span>) {
-                                                  std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> s <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34; beyond MAX_INT(&#34;</span> <span style="color:#ff79c6">&lt;&lt;</span> std<span style="color:#ff79c6">::</span>numeric_limits<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;::</span>max() <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;); ignored.</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-                                              }
-                                          });
-    <span style="color:#ff79c6">return</span> v;
-}
-
-std<span style="color:#ff79c6">::</span>ostream<span style="color:#ff79c6">&amp;</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">&lt;&lt;</span> (std<span style="color:#ff79c6">::</span>ostream<span style="color:#ff79c6">&amp;</span> os, <span style="color:#ff79c6">const</span> mySafeInt <span style="color:#ff79c6">&amp;</span>i) {
-    <span style="color:#ff79c6">return</span> os <span style="color:#ff79c6">&lt;&lt;</span> i.get();
-}
-
-<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv) {
-    <span style="color:#8be9fd">int</span> outLen <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
-    mySafeInt<span style="color:#ff79c6">**</span> ip <span style="color:#ff79c6">=</span> conv_old(argc, argv, <span style="color:#ff79c6">&amp;</span>outLen);
-    <span style="color:#ff79c6">if</span> ((ip <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">nullptr</span>) <span style="color:#ff79c6">||</span> (outLen <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>))
-         std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Insufficient data</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-    <span style="color:#ff79c6">else</span> {
-        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> outLen; <span style="color:#ff79c6">++</span>i)
-            std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> ip[i]<span style="color:#ff79c6">-&gt;</span>get() <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;, &#34;</span>;
-
-        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> outLen; <span style="color:#ff79c6">++</span>i) {
-            <span style="color:#ff79c6">delete</span> ip[i];
-        }
-        <span style="color:#ff79c6">delete</span> [] ip;
-    }
-    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
-
-    <span style="color:#ff79c6">auto</span> v <span style="color:#ff79c6">=</span> conv_new(argc, argv);
-    <span style="color:#ff79c6">if</span> (v.empty())
-        std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Insufficient data</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
-    <span style="color:#ff79c6">else</span> {
-        std<span style="color:#ff79c6">::</span>copy(v.cbegin(), v.cend(), std<span style="color:#ff79c6">::</span>ostream_iterator<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span>{std<span style="color:#ff79c6">::</span>cout, <span style="color:#f1fa8c">&#34;, &#34;</span>});
-    }
-    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;vector&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;algorithm&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iterator&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdexcept&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;limits&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">mySafeInt</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>    mySafeInt(<span style="color:#8be9fd">int</span> x) <span style="color:#ff79c6">:</span> i{x} { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">get</span>() <span style="color:#ff79c6">const</span> { <span style="color:#ff79c6">return</span> i; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">private</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mySafeInt<span style="color:#ff79c6">**</span> <span style="color:#50fa7b">conv_old</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv, <span style="color:#8be9fd">int</span><span style="color:#ff79c6">*</span> count) {
+</span></span><span style="display:flex;"><span>    mySafeInt <span style="color:#ff79c6">**</span>p <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> processed <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (argc <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">2</span>) {
+</span></span><span style="display:flex;"><span>        p <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> mySafeInt<span style="color:#ff79c6">*</span>[argc];
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; i <span style="color:#ff79c6">&lt;</span> argc; <span style="color:#ff79c6">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">int</span> x <span style="color:#ff79c6">=</span> strtoul(argv[i], <span style="color:#ff79c6">nullptr</span>, <span style="color:#bd93f9">10</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> (x <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>                p[processed<span style="color:#ff79c6">++</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> mySafeInt{x};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">*</span>count <span style="color:#ff79c6">=</span> processed;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> p;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span> conv_new(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>std<span style="color:#ff79c6">::</span>string<span style="color:#ff79c6">&gt;</span> vs(argv <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>, argv <span style="color:#ff79c6">+</span> argc);
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>vector<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span> v;
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>for_each(vs.cbegin(), vs.cend(), [<span style="color:#ff79c6">&amp;</span>](<span style="color:#ff79c6">const</span> std<span style="color:#ff79c6">::</span>string<span style="color:#ff79c6">&amp;</span> s){
+</span></span><span style="display:flex;"><span>                                              <span style="color:#ff79c6">try</span> {
+</span></span><span style="display:flex;"><span>                                                  v.emplace_back(mySafeInt{std<span style="color:#ff79c6">::</span>stoi(s, <span style="color:#ff79c6">nullptr</span>, <span style="color:#bd93f9">10</span>)});
+</span></span><span style="display:flex;"><span>                                              }
+</span></span><span style="display:flex;"><span>                                              <span style="color:#ff79c6">catch</span> (std<span style="color:#ff79c6">::</span>invalid_argument<span style="color:#ff79c6">&amp;</span>) {
+</span></span><span style="display:flex;"><span>                                                  std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Invalid argument &#39;&#34;</span> <span style="color:#ff79c6">&lt;&lt;</span> s <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;&#39; ignored.</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>                                              }
+</span></span><span style="display:flex;"><span>                                              <span style="color:#ff79c6">catch</span> (std<span style="color:#ff79c6">::</span>out_of_range<span style="color:#ff79c6">&amp;</span>) {
+</span></span><span style="display:flex;"><span>                                                  std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> s <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34; beyond MAX_INT(&#34;</span> <span style="color:#ff79c6">&lt;&lt;</span> std<span style="color:#ff79c6">::</span>numeric_limits<span style="color:#ff79c6">&lt;</span><span style="color:#8be9fd">int</span><span style="color:#ff79c6">&gt;::</span>max() <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;); ignored.</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>                                              }
+</span></span><span style="display:flex;"><span>                                          });
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> v;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#ff79c6">::</span>ostream<span style="color:#ff79c6">&amp;</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">&lt;&lt;</span> (std<span style="color:#ff79c6">::</span>ostream<span style="color:#ff79c6">&amp;</span> os, <span style="color:#ff79c6">const</span> mySafeInt <span style="color:#ff79c6">&amp;</span>i) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> os <span style="color:#ff79c6">&lt;&lt;</span> i.get();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv) {
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> outLen <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    mySafeInt<span style="color:#ff79c6">**</span> ip <span style="color:#ff79c6">=</span> conv_old(argc, argv, <span style="color:#ff79c6">&amp;</span>outLen);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> ((ip <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">nullptr</span>) <span style="color:#ff79c6">||</span> (outLen <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>))
+</span></span><span style="display:flex;"><span>         std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Insufficient data</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> outLen; <span style="color:#ff79c6">++</span>i)
+</span></span><span style="display:flex;"><span>            std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> ip[i]<span style="color:#ff79c6">-&gt;</span>get() <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;, &#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> outLen; <span style="color:#ff79c6">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">delete</span> ip[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">delete</span> [] ip;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">auto</span> v <span style="color:#ff79c6">=</span> conv_new(argc, argv);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (v.empty())
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>cerr <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#34;Insufficient data</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>        std<span style="color:#ff79c6">::</span>copy(v.cbegin(), v.cend(), std<span style="color:#ff79c6">::</span>ostream_iterator<span style="color:#ff79c6">&lt;</span>mySafeInt<span style="color:#ff79c6">&gt;</span>{std<span style="color:#ff79c6">::</span>cout, <span style="color:#f1fa8c">&#34;, &#34;</span>});
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <h1 id="structs-and-classes">Structs and Classes</h1>
 <ul>
 <li>User-defined types built atop primitives</li>
@@ -619,112 +619,112 @@ variables of a class, function, etc.</li>
 </li>
 </ul>
 <h2 id="sample-5">Sample 5</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
-</span><span style="color:#ff79c6"></span>
-<span style="color:#6272a4">// HEADER: shape.hpp
-</span><span style="color:#6272a4"></span>
-<span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">Point</span>
-{
-  <span style="color:#8be9fd">float</span> x <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, y <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
-};
-
-<span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">Shape2D</span>
-{
-  <span style="color:#6272a4">// data members
-</span><span style="color:#6272a4"></span>  Point pos;
-
-  <span style="color:#6272a4">// member functions
-</span><span style="color:#6272a4"></span>
-  <span style="color:#6272a4">// constructors
-</span><span style="color:#6272a4"></span>  Shape2D() <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">default</span>;
-  Shape2D(<span style="color:#8be9fd">float</span> posX, <span style="color:#8be9fd">float</span> posY);
-
-  <span style="color:#6272a4">// accessors and modifiers; former is usually const
-</span><span style="color:#6272a4"></span>  Point <span style="color:#50fa7b">GetPos</span>() <span style="color:#ff79c6">const</span>;
-  <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">SetPos</span>(<span style="color:#8be9fd">int</span> posX, <span style="color:#8be9fd">int</span> posY);
-
-  <span style="color:#6272a4">// class data and functions
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">static</span> <span style="color:#ff79c6">constexpr</span> <span style="color:#8be9fd">float</span> PI <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14f</span>;
-  <span style="color:#ff79c6">static</span> <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">GetResID</span>();
-};
-
-<span style="color:#6272a4">// IMPLEMENTATION: shape.cpp
-</span><span style="color:#6272a4"></span>
-Shape2D<span style="color:#ff79c6">::</span>Shape2D(<span style="color:#8be9fd">float</span> posX, <span style="color:#8be9fd">float</span> posY) <span style="color:#ff79c6">:</span> pos{posX, posY} {
-}
-
-<span style="color:#8be9fd">void</span> Shape2D<span style="color:#ff79c6">::</span>SetPos(<span style="color:#8be9fd">int</span> posX, <span style="color:#8be9fd">int</span> posY) {
-  pos.x <span style="color:#ff79c6">=</span> posX;
-  pos.y <span style="color:#ff79c6">=</span> posY;
-}
-
-Point Shape2D<span style="color:#ff79c6">::</span>GetPos() <span style="color:#ff79c6">const</span> {
-  <span style="color:#ff79c6">return</span> pos;
-}
-
-<span style="color:#6272a4">// can’t access members from a static function
-</span><span style="color:#6272a4">// call as Shape2D::GetResID() or obj.GetResID()
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> Shape2D<span style="color:#ff79c6">::</span>GetResID() {
-  <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0x12</span>;
-}
-
-<span style="color:#6272a4">// HEADER: circle.hpp
-</span><span style="color:#6272a4"></span>
-<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Circle</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">public</span> Shape2D
-{
-<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
-
-  Circle();
-  Circle(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y, <span style="color:#8be9fd">float</span> rad);
-  Circle(Point pt, <span style="color:#8be9fd">float</span> rad);
-  Circle(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that);
-
-  Circle<span style="color:#ff79c6">&amp;</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that);
-  <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">+</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">const</span>;
-
-  <span style="color:#ff79c6">~</span>Circle() <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">default</span>;
-
-<span style="color:#ff79c6">private</span><span style="color:#ff79c6">:</span>
-  <span style="color:#8be9fd">float</span> r <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1.0f</span>;            <span style="color:#6272a4">// in-place initilizers
-</span><span style="color:#6272a4"></span>};
-
-<span style="color:#6272a4">// IMPLEMNTATION: circle.cpp
-</span><span style="color:#6272a4"></span>
-Circle<span style="color:#ff79c6">::</span>Circle() <span style="color:#ff79c6">:</span> r{<span style="color:#bd93f9">1.0f</span>} {
-}
-
-<span style="color:#6272a4">// initialization lists
-</span><span style="color:#6272a4"></span>Circle<span style="color:#ff79c6">::</span>Circle(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y, <span style="color:#8be9fd">float</span> rad) <span style="color:#ff79c6">:</span> Shape2D(x, y), r{rad} {
-}
-
-Circle<span style="color:#ff79c6">::</span>Circle(Point pt, <span style="color:#8be9fd">float</span> rad) <span style="color:#ff79c6">:</span> Shape2D(pt.x, pt.y) {
-  r <span style="color:#ff79c6">=</span> rad;        <span style="color:#6272a4">// perhaps slower way
-</span><span style="color:#6272a4"></span>}
-
-<span style="color:#6272a4">// copy constructor; take by reference
-</span><span style="color:#6272a4"></span>Circle<span style="color:#ff79c6">::</span>Circle(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">:</span> Shape2D{that.pos.x, that.pos.y}, r{that.r} {
-}
-
-<span style="color:#8be9fd">float</span> Circle<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">+</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">const</span> {
-  <span style="color:#ff79c6">return</span> r <span style="color:#ff79c6">+</span> that.r;
-}
-
-Circle<span style="color:#ff79c6">&amp;</span> Circle<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) {
-  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span> <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">&amp;</span>that) {
-    <span style="color:#ff79c6">this</span><span style="color:#ff79c6">-&gt;</span>r <span style="color:#ff79c6">=</span> that.r;
-    <span style="color:#6272a4">// base class method call syntax is the same as static function call interface
-</span><span style="color:#6272a4"></span>    Shape2D<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(that);
-  }
-  <span style="color:#6272a4">// return this for expression chaining
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">*</span><span style="color:#ff79c6">this</span>;
-}
-
-<span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
-  Circle c1;
-  <span style="color:#ff79c6">auto</span> c2 <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span>Circle<span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">6</span>);
-  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> c1 <span style="color:#ff79c6">+</span> <span style="color:#ff79c6">*</span>c2 <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;memory&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;iostream&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// HEADER: shape.hpp
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">Point</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">float</span> x <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, y <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">struct</span> <span style="color:#50fa7b">Shape2D</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// data members
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  Point pos;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// member functions
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// constructors
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  Shape2D() <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">default</span>;
+</span></span><span style="display:flex;"><span>  Shape2D(<span style="color:#8be9fd">float</span> posX, <span style="color:#8be9fd">float</span> posY);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// accessors and modifiers; former is usually const
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  Point <span style="color:#50fa7b">GetPos</span>() <span style="color:#ff79c6">const</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">SetPos</span>(<span style="color:#8be9fd">int</span> posX, <span style="color:#8be9fd">int</span> posY);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// class data and functions
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">static</span> <span style="color:#ff79c6">constexpr</span> <span style="color:#8be9fd">float</span> PI <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14f</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">static</span> <span style="color:#8be9fd">int</span> <span style="color:#50fa7b">GetResID</span>();
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// IMPLEMENTATION: shape.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>Shape2D<span style="color:#ff79c6">::</span>Shape2D(<span style="color:#8be9fd">float</span> posX, <span style="color:#8be9fd">float</span> posY) <span style="color:#ff79c6">:</span> pos{posX, posY} {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> Shape2D<span style="color:#ff79c6">::</span>SetPos(<span style="color:#8be9fd">int</span> posX, <span style="color:#8be9fd">int</span> posY) {
+</span></span><span style="display:flex;"><span>  pos.x <span style="color:#ff79c6">=</span> posX;
+</span></span><span style="display:flex;"><span>  pos.y <span style="color:#ff79c6">=</span> posY;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Point Shape2D<span style="color:#ff79c6">::</span>GetPos() <span style="color:#ff79c6">const</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> pos;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// can’t access members from a static function
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// call as Shape2D::GetResID() or obj.GetResID()
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> Shape2D<span style="color:#ff79c6">::</span>GetResID() {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0x12</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// HEADER: circle.hpp
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Circle</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">public</span> Shape2D
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Circle();
+</span></span><span style="display:flex;"><span>  Circle(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y, <span style="color:#8be9fd">float</span> rad);
+</span></span><span style="display:flex;"><span>  Circle(Point pt, <span style="color:#8be9fd">float</span> rad);
+</span></span><span style="display:flex;"><span>  Circle(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Circle<span style="color:#ff79c6">&amp;</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that);
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">float</span> <span style="color:#ff79c6">operator</span><span style="color:#ff79c6">+</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">const</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">~</span>Circle() <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">default</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">private</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">float</span> r <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1.0f</span>;            <span style="color:#6272a4">// in-place initilizers
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// IMPLEMNTATION: circle.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>Circle<span style="color:#ff79c6">::</span>Circle() <span style="color:#ff79c6">:</span> r{<span style="color:#bd93f9">1.0f</span>} {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// initialization lists
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>Circle<span style="color:#ff79c6">::</span>Circle(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y, <span style="color:#8be9fd">float</span> rad) <span style="color:#ff79c6">:</span> Shape2D(x, y), r{rad} {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Circle<span style="color:#ff79c6">::</span>Circle(Point pt, <span style="color:#8be9fd">float</span> rad) <span style="color:#ff79c6">:</span> Shape2D(pt.x, pt.y) {
+</span></span><span style="display:flex;"><span>  r <span style="color:#ff79c6">=</span> rad;        <span style="color:#6272a4">// perhaps slower way
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// copy constructor; take by reference
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>Circle<span style="color:#ff79c6">::</span>Circle(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">:</span> Shape2D{that.pos.x, that.pos.y}, r{that.r} {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">float</span> Circle<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">+</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) <span style="color:#ff79c6">const</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> r <span style="color:#ff79c6">+</span> that.r;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Circle<span style="color:#ff79c6">&amp;</span> Circle<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(<span style="color:#ff79c6">const</span> Circle<span style="color:#ff79c6">&amp;</span> that) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span> <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">&amp;</span>that) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">this</span><span style="color:#ff79c6">-&gt;</span>r <span style="color:#ff79c6">=</span> that.r;
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// base class method call syntax is the same as static function call interface
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    Shape2D<span style="color:#ff79c6">::</span><span style="color:#ff79c6">operator</span><span style="color:#ff79c6">=</span>(that);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">// return this for expression chaining
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">*</span><span style="color:#ff79c6">this</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>  Circle c1;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">auto</span> c2 <span style="color:#ff79c6">=</span> std<span style="color:#ff79c6">::</span>make_unique<span style="color:#ff79c6">&lt;</span>Circle<span style="color:#ff79c6">&gt;</span>(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">6</span>);
+</span></span><span style="display:flex;"><span>  std<span style="color:#ff79c6">::</span>cout <span style="color:#ff79c6">&lt;&lt;</span> c1 <span style="color:#ff79c6">+</span> <span style="color:#ff79c6">*</span>c2 <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#f1fa8c">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <h1 id="interfaces-or-abcs">Interfaces or ABCs</h1>
 <ul>
 <li>Abstract base classes are interfaces in C++</li>
@@ -746,22 +746,22 @@ Circle<span style="color:#ff79c6">&amp;</span> Circle<span style="color:#ff79c6"
 </li>
 </ul>
 <h2 id="sample-6">Sample 6</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cpp" data-lang="cpp"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Shape</span>  <span style="color:#6272a4">// abstract
-</span><span style="color:#6272a4"></span>{
-
-<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
-  <span style="color:#ff79c6">virtual</span> <span style="color:#ff79c6">~</span>Shape() { }   <span style="color:#6272a4">// &lt;- without this it’s not an interface!!
-</span><span style="color:#6272a4"></span>
-  <span style="color:#ff79c6">virtual</span> Point <span style="color:#50fa7b">GetPosition</span>() <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;  <span style="color:#6272a4">// pure virtual
-</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">virtual</span> <span style="color:#8be9fd">void</span>  <span style="color:#50fa7b">SetPosition</span>(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y) <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
-};
-
-<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Square</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">public</span> Shape
-{
-<span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
-  Point GetPosition() <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">override</span> {
-  }
-};</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Shape</span>  <span style="color:#6272a4">// abstract
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>{
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">virtual</span> <span style="color:#ff79c6">~</span>Shape() { }   <span style="color:#6272a4">// &lt;- without this it’s not an interface!!
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">virtual</span> Point <span style="color:#50fa7b">GetPosition</span>() <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;  <span style="color:#6272a4">// pure virtual
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">virtual</span> <span style="color:#8be9fd">void</span>  <span style="color:#50fa7b">SetPosition</span>(<span style="color:#8be9fd">float</span> x, <span style="color:#8be9fd">float</span> y) <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Square</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">public</span> Shape
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">public</span><span style="color:#ff79c6">:</span>
+</span></span><span style="display:flex;"><span>  Point GetPosition() <span style="color:#ff79c6">const</span> <span style="color:#ff79c6">override</span> {
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></div>
 <h1 id="asserts-errors-and-exceptions">Asserts, Errors and Exceptions</h1>
 <ul>
 <li>Asserts are validation for programmer whether internal systems work
@@ -866,17 +866,17 @@ topics like alignment, ADL, metaprogramming, etc.</li>
 <li><a href="https://en.wikibooks.org/wiki/More_C%252B%252B_Idioms">C++ Idioms</a></li>
 <li><a href="https://caiorss.github.io/C-Cpp-Notes/">C++ Papyrus</a>: extensive notes on various C and C++-related topics including tool chains, shared libraries, Unix, Linux and WinAPI programming, OpenGL, etc.</li>
 </ol>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="http://lafstern.org/matt/col1.pdf">Use sorted vector instead of set</a>, if <code>find</code> calls outnumber <code>insert</code>; it’d be lot faster — Matt Austern.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p><a href="https://abseil.io/blog/20180927-swisstables">Swiss Table</a> (part of Abseil C++ library) is much better than <code>std::unordered_map</code> and <a href="https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/">Robin Hood hashing</a> too.  Swiss Table is also Rust’s <code>HashMap</code> implementation.  <a href="https://probablydance.com/2018/05/28/a-new-fast-hash-table-in-response-to-googles-new-fast-hash-table/">Other (probably better) options by Malte Skarupe</a>: <a href="https://github.com/skarupke/flat_hash_map"><code>flat_hash_map</code> and <code>bytell_hash_map</code></a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 </div>
 

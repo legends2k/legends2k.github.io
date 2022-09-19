@@ -9,7 +9,7 @@
         <meta name="description" content="Summary of my ‘Aha!’ moments with Git">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.89.1" />
+        <meta name="generator" content="Hugo 0.102.3" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -193,11 +193,11 @@
 </li>
 </ul>
 <h1 id="reachablity">Reachablity</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg">      <span style="color:#50fa7b">A---B---C</span>
-     <span style="color:#50fa7b">/</span>
-<span style="color:#50fa7b">D---E---F---G</span>
-     <span style="color:#50fa7b">\</span>
-      <span style="color:#50fa7b">H---I</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cfg" data-lang="cfg"><span style="display:flex;"><span>      <span style="color:#50fa7b">A---B---C</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#50fa7b">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">D---E---F---G</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#50fa7b">\</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">H---I</span></span></span></code></pre></div>
 <p>An important (linked-list) concept that applies to Git (too)</p>
 <blockquote>
 <p>If the first node is lost, the list, too, is lost.</p>
@@ -267,9 +267,9 @@
 <p><code>HEAD</code> will be the parent of the next commit that is created.</p>
 </blockquote>
 <h2 id="checkout">Checkout</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">--</span> <span style="color:#8be9fd;font-style:italic">file</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">--</span> <span style="color:#8be9fd;font-style:italic">file</span></span></span></code></pre></div>
 <p>When you <code>checkout</code> a <code>file</code> from <code>HEAD</code>, what you do is get a clean copy of <code>file</code> from the commit <code>HEAD</code> is pointing to; this <em>replaces</em> your working tree copy.  Of course, one could use other refs too, <code>HEAD</code> is just a convenient default, you can replace it with any ref; if <code>HEAD</code> is omitted, it’ll be from index &mdash; the stage.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">topic</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">topic</span></span></span></code></pre></div>
 <p>When you checkout a branch (reference to a commit/node) e.g. <code>topic</code>, <code>HEAD</code> will be set to its tip commit and hence the entire working tree, not just a file, will be from the commit that branch is pointing to.</p>
 <h2 id="reset">Reset</h2>
 <p>Plainly, <code>reset</code> moves <code>HEAD</code> around.  It’s used to move <code>HEAD</code> to a given commit.  There’re different flavours of doing this &mdash; depending on what happens to the index<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> and working tree (<code>--hard</code>, <code>--soft</code>, <code>--mix</code> …) &mdash; but the crux is to move <code>HEAD</code>.</p>
@@ -283,52 +283,52 @@
 <blockquote>
 <p>When <code>HEAD</code> is moved by <code>reset</code>, if it’s attached to a branch, that reference too will move with <code>HEAD</code>.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">C1</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C2</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C3</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C4</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C5</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">master</span>
-                             <span style="color:#ff79c6">^</span>
-                             <span style="color:#ff79c6">|</span>
-                            <span style="color:#8be9fd;font-style:italic">HEAD</span>
-
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">C1</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C2</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C3</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C4</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">C5</span> <span style="color:#ff79c6">&lt;--</span> <span style="color:#8be9fd;font-style:italic">master</span>
+</span></span><span style="display:flex;"><span>                             <span style="color:#ff79c6">^</span>
+</span></span><span style="display:flex;"><span>                             <span style="color:#ff79c6">|</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#8be9fd;font-style:italic">HEAD</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">hard</span> <span style="color:#8be9fd;font-style:italic">C3</span></span></span></code></pre></div>
 <p>This would move <em>both</em> <code>HEAD</code> and <code>master</code> to <code>C3</code><sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>.  <code>HEAD</code> would continue to be attached.  Now if it weren’t attached, it’ll only move <code>HEAD</code> leaving <code>master</code> behind, hence the <em>detached</em> <code>HEAD</code> state<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup>.</p>
 <p>In its detached state, <code>HEAD</code> refers to a specific commit as opposed to referring to a named branch.  Like Git’s diagnostic message says, it’s useful to poke around and inspect the code base at a particular commit.  Making a new commit now would mean a commit only pointed to by <code>HEAD</code>.</p>
 <p>There’re a couple of ways to identify if <code>HEAD</code> is detached.  <code>git status</code>’s very first line will tell you:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
-<span style="color:#8be9fd;font-style:italic">On</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">master</span>
-…
-<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
-# <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#bd93f9">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">On</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">master</span>
+</span></span><span style="display:flex;"><span>…
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">status</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">detached</span> <span style="color:#8be9fd;font-style:italic">at</span> <span style="color:#bd93f9">847</span><span style="color:#8be9fd;font-style:italic">fe59</span></span></span></code></pre></div>
 <p>Another way is to use <code>git log</code>; I learnt from this actually.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#bd93f9">-5</span>
-<span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
-…
-<span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#bd93f9">-5</span>
-<span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span>, <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#bd93f9">-5</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+</span></span><span style="display:flex;"><span>…
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">log</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">oneline</span> <span style="color:#bd93f9">-5</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">847</span><span style="color:#8be9fd;font-style:italic">fe59</span> (<span style="color:#8be9fd;font-style:italic">HEAD</span>, <span style="color:#8be9fd;font-style:italic">master</span>) <span style="color:#8be9fd;font-style:italic">Initial</span> <span style="color:#8be9fd;font-style:italic">commit</span></span></span></code></pre></div>
 <p>Notice that when <code>HEAD</code> is attached, you see an arrow (→) pointing to the branch it’s attached to.  However, in the detached state they’re listed as independent items.</p>
 <h3 id="attachdetaching-head">Attach/Detaching <code>HEAD</code></h3>
 <p>How do we attach or detach <code>HEAD</code> to a reference?  Both are done with <code>checkout</code>, but with a subtle difference.  To attach <code>HEAD</code>, you’d <code>checkout</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span></span></span></code></pre></div>
 <p><em>When you checkout a commit using anything other than a branch name, you’d detach <code>HEAD</code></em> e.g. commit ID, <code>HEAD~1, branch~3, HEAD{5}, HEAD^^</code>, etc.  Since it wouldn’t know what to associate <code>HEAD</code> with, Git detaches <code>HEAD</code>.  When you want to inspect the code base at a particular unnamed &ndash; except for its commit ID &ndash; commit, this is what you normally do.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">lk3nw7ef</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">lk3nw7ef</span></span></span></code></pre></div>
 <p>Here, it doesn’t matter if this commit has other branch references to it.  Since you referred to it using the raw commit ID, Git takes it as a cue to detach <code>HEAD</code>.</p>
 <h2 id="practise">Practise</h2>
 <p>I highly recommend playing around in <a href="https://git-school.github.io/visualizing-git/">Visualizing Git</a> with <code>checkout</code>, <code>reset</code>; also get your hands dirty with the whole attach/detach business.  Here’s a small snippet to get you started; see what happens as each command gets executed:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
-# <span style="color:#8be9fd;font-style:italic">create</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">checkout</span>; <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">now</span> <span style="color:#8be9fd;font-style:italic">attached</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">topic</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">b</span> <span style="color:#8be9fd;font-style:italic">topic</span>
-# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">one</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">behind</span> <span style="color:#8be9fd;font-style:italic">topic</span>; <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">will</span> <span style="color:#8be9fd;font-style:italic">also</span> <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">HEAD</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">topic</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">1</span>
-# <span style="color:#8be9fd;font-style:italic">detach</span> <span style="color:#8be9fd;font-style:italic">HEAD!</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">2</span>
-# <span style="color:#8be9fd;font-style:italic">attach</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">master</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span>
-# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">back</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#bd93f9">3</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">3</span>
-# <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">forward</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">backward</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">ID</span>
-<span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">f08ad6</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">commit</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">create</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">branch</span> <span style="color:#8be9fd;font-style:italic">and</span> <span style="color:#8be9fd;font-style:italic">checkout</span>; <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">now</span> <span style="color:#8be9fd;font-style:italic">attached</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">topic</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">b</span> <span style="color:#8be9fd;font-style:italic">topic</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">HEAD</span> <span style="color:#8be9fd;font-style:italic">one</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">behind</span> <span style="color:#8be9fd;font-style:italic">topic</span>; <span style="color:#8be9fd;font-style:italic">this</span> <span style="color:#8be9fd;font-style:italic">will</span> <span style="color:#8be9fd;font-style:italic">also</span> <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">topic</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">HEAD</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">topic</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">detach</span> <span style="color:#8be9fd;font-style:italic">HEAD!</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">HEAD</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">attach</span> <span style="color:#8be9fd;font-style:italic">to</span> <span style="color:#8be9fd;font-style:italic">master</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">checkout</span> <span style="color:#8be9fd;font-style:italic">master</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">back</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">by</span> <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">master</span><span style="color:#ff79c6">~</span><span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span># <span style="color:#8be9fd;font-style:italic">move</span> <span style="color:#8be9fd;font-style:italic">master</span> <span style="color:#8be9fd;font-style:italic">forward</span><span style="color:#ff79c6">/</span><span style="color:#8be9fd;font-style:italic">backward</span> <span style="color:#8be9fd;font-style:italic">with</span> <span style="color:#8be9fd;font-style:italic">commit</span> <span style="color:#8be9fd;font-style:italic">ID</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">reset</span> <span style="color:#8be9fd;font-style:italic">f08ad6</span></span></span></code></pre></div>
 <h1 id="rebase">Rebase</h1>
 <p><code>rebase</code>  seems to have a scary reputation on the web, with good reason of course.  It’s infamous for rewriting history; something your teammates mightn’t take kindly.  However, when you’re doing this only locally, within your repo, before pushing, it’s a great tool.</p>
 <blockquote>
@@ -338,7 +338,7 @@
 <p>Interactive rebase (<code>rebase -i</code>) is quite useful.  I frequently use it to amend (not just the recent commit), fix, reword, edit, drop or squash commits.  During an interactive rebase, one can even create multiple commits as usual and continue with the rebase; things will be taken care of!  This is normal when <a href="https://stackoverflow.com/q/6217156/183120">dividing</a> a commit into smaller parts.</p>
 <h2 id="pull--fetch--merge-rebase-">pull = fetch + <del>merge</del> rebase? 🤔</h2>
 <p>When pulling from a remote branch, you might know that your changes are unrelated to the ones coming down.  In this case, to avoid a merge commit and have a linear commit history, you’d pass <code>--rebase</code> do override the default merge strategy of <code>pull</code>: merge.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-basic" data-lang="basic"><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">git</span> <span style="color:#8be9fd;font-style:italic">pull</span> <span style="color:#ff79c6">--</span><span style="color:#8be9fd;font-style:italic">rebase</span> <span style="color:#8be9fd;font-style:italic">origin</span> <span style="color:#8be9fd;font-style:italic">master</span></span></span></code></pre></div>
 <p><code>git pull</code> is just <code>git fetch</code> followed by <code>git merge</code> which creates a new merge commit.  <code>git pull --rebase</code>, however, is <code>git fetch</code> and <code>git rebase</code>; it pulls commits from remote to your current branch and then replay your commits atop your current branch’s tip &ndash; this works if there’re no merge conflicts; otherwise you’ve to resolve conflicts as you’d normally.  The resolution (changes) become a part of one of your commits where rebase halted; you’d end up <a href="https://stackoverflow.com/a/35025978/183120">re-writing your commit</a>.  However, you don’t have to force push your changes to the remote since the resolution just happened in your local commits.  Rewriting (commit) history, as long as it is not public, is OK 😉</p>
 <p>A counter point to pull-with-rebase: if you want logical separation of a set of commits, say for a completely new feature, then rebase &mdash; which makes them inline, muddled with unrelated history &mdash; isn’t the right tool; use <code>merge</code> instead.</p>
 <blockquote>
@@ -365,41 +365,41 @@
 <ul>
 <li><a href="https://www.philipdaniels.com/gitcheatsheet/">Git Cheatsheet</a></li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://magit.vc/">Magit</a> &ndash; Git porcelain for Emacs &ndash; shields me mostly but knowing them helps.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p>Merge commits have more than one parent.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
+<li id="fn:3">
 <p>Not to be confused with <code>git clean</code> which removes untracked files from the working tree.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:4" role="doc-endnote">
+<li id="fn:4">
 <p><code>git reflog</code> shows these otherwise unreachable commits.  You’ve time until <code>git gc</code> is run to make a commit reachable by adding a reference to it.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:5" role="doc-endnote">
+<li id="fn:5">
 <p>Remote-tracking branches (<code>origin/master</code>) are <a href="https://stackoverflow.com/q/7642273/183120">different</a> from remote branches (<code>origin master</code>); former is local, updated by <code>fetch</code>ing from the latter.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:6" role="doc-endnote">
+<li id="fn:6">
 <p>Case-sensitive!  <code>HEAD</code> will be the parent of a new commit in working tree, while a branch’s <em>head</em> means its tip; see <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch">glossary</a>.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:7" role="doc-endnote">
+<li id="fn:7">
 <p>I thought index is empty until something’s staged.  However, <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified#_the_index">Pro Git</a> clarifies that index actually has &ldquo;<em>all</em> the file contents that were last checked out into your working directory!&rdquo;  Don’t believe me?  Try <code>git ls-files -s</code>.  You’ve to grok this to get why <code>git reset --mixed</code> works the way it does.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:8" role="doc-endnote">
+<li id="fn:8">
 <p><em>Pro Git</em> is explaining <code>reset</code>’s internals here, so it may sound like it won’t move <code>HEAD</code> but only the branch, but rest assured that it moves both.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:9" role="doc-endnote">
+<li id="fn:9">
 <p>Using <code>C3</code> for readability; substitute with proper commit ID.&#160;<a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:10" role="doc-endnote">
+<li id="fn:10">
 <p>Refer <code>man git-checkout</code>; <em>§DETACHED HEAD</em> details it with nice ASCII art ✨.&#160;<a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 </div>
 

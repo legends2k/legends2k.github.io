@@ -9,7 +9,7 @@
         <meta name="description" content="syncing with the original origin">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.89.1" />
+        <meta name="generator" content="Hugo 0.102.3" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -133,7 +133,7 @@
     
 
     <h1 id="fork-food">Fork? Food!?</h1>
-<p>When you fork<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> a repository in GitHub, from your repository&rsquo;s viewpoint, the one you forked from is called the &ldquo;<a href="https://en.wikipedia.org/wiki/Upstream_(software_development)">upstream</a>&quot;; a term used commonly in the <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> world for a long time, to denote the original authors (or their repository) of a software.  <em>Fork</em> is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&rsquo;t have a concept of fork; from its viewpoint, it&rsquo;s just another remote repository.  So both the <em>upstream</em> (original repo at GitHub from where you forked your repo) and <em>origin</em> (your fork at GitHub) are two remotes to your local repo.</p>
+<p>When you fork<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> a repository in GitHub, from your repository&rsquo;s viewpoint, the one you forked from is called the &ldquo;<a href="https://en.wikipedia.org/wiki/Upstream_(software_development)">upstream</a>&rdquo;; a term used commonly in the <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a> world for a long time, to denote the original authors (or their repository) of a software.  <em>Fork</em> is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&rsquo;t have a concept of fork; from its viewpoint, it&rsquo;s just another remote repository.  So both the <em>upstream</em> (original repo at GitHub from where you forked your repo) and <em>origin</em> (your fork at GitHub) are two remotes to your local repo.</p>
 <p>Between your <code>commit</code>, <code>push</code> to origin and the pull request approval, more commits could&rsquo;ve gotten pushed to the upstream.  To resolve, you sync</p>
 <ol>
 <li>local to upstream
@@ -156,11 +156,11 @@
 <ol>
 <li>
 <p>Make sure you&rsquo;ve the upstream as one of your remotes, if not add
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git remote add upstream git@github.com:user/project.git</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cfg" data-lang="cfg"><span style="display:flex;"><span><span style="color:#50fa7b">git remote add upstream git@github.com:user/project.git</span></span></span></code></pre></div></p>
 </li>
 <li>
 <p>Pull changes from upstream by rebasing instead of a merge
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git pull --rebase upstream &lt;branch_name&gt;</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cfg" data-lang="cfg"><span style="display:flex;"><span><span style="color:#50fa7b">git pull --rebase upstream &lt;branch_name&gt;</span></span></span></code></pre></div></p>
 <ol>
 <li>To verify you&rsquo;ve done this correctly, you can do <code>git log --oneline -10</code></li>
 <li>You should see your commit at <code>HEAD</code> followed by the most recent commit in <code>upstream/&lt;branch_name&gt;</code></li>
@@ -169,7 +169,7 @@
 </li>
 <li>
 <p>Force push your commit to origin (your fork&rsquo;s remote)
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push --force origin &lt;branch_name&gt;</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cfg" data-lang="cfg"><span style="display:flex;"><span><span style="color:#50fa7b">git push --force origin &lt;branch_name&gt;</span></span></span></code></pre></div></p>
 <ol>
 <li>Though you&rsquo;d have earlier pushed to your origin for creating the pull request, you redo it to have these new changes gotten from upstream to be synced into your fork&rsquo;s history</li>
 <li>You can verify with the above log command again; both origin and your local <code>HEAD</code> should point to the commit you got approval for; upstream should be at the next commit</li>
@@ -177,17 +177,17 @@
 </li>
 <li>
 <p>Push to upstream
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">git push upstream &lt;branch_name&gt;</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cfg" data-lang="cfg"><span style="display:flex;"><span><span style="color:#50fa7b">git push upstream &lt;branch_name&gt;</span></span></span></code></pre></div></p>
 </li>
 </ol>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>No, not the culinary or chess parlance, silly! The <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">software meaning</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 </div>
 

@@ -14,11 +14,10 @@
       <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://legends2k.github.io/note/assert_vs_if/</guid>
-      <description>TL;DR   Any program can have two classes of issues:
-  Runtime problems: situations programmer foresaw and handled; expected. E.g. invalid inputs, no access to resource, unreachable network, …
-  Bugs: programmer mistakes; unexpected. E.g. buffer overflow, access violation, …
-  There are different tools to deal with each; don’t conflate one with the other.
- An assertion is just a validation of a programmer expectation; it “fires” when the expectation is betrayed.</description>
+      <description>TL;DR Any program can have two classes of issues:
+Runtime problems: situations programmer foresaw and handled; expected. E.g. invalid inputs, no access to resource, unreachable network, … Bugs: programmer mistakes; unexpected. E.g. buffer overflow, access violation, … There are different tools to deal with each; don’t conflate one with the other.
+An assertion is just a validation of a programmer expectation; it “fires” when the expectation is betrayed.
+(1) is familiar to most; use one of your language-provided feature including if, try-catch-throw, etc.</description>
     </item>
     
     <item>
@@ -28,7 +27,7 @@
       
       <guid>https://legends2k.github.io/note/c&#43;&#43;_primer/</guid>
       <description>Within C++, there is a much smaller and cleaner language struggling to get out. — Bjarne Stroustrup
- C++ is vast. If you’re beginning to learn it, the internet has enough discouraging words. Just start learning instead of reading about it i.e. don’t learn about C++, learn C++. The innumerable topics might be daunting, but don’t worry. Knowing a few concepts will get you productive. More than the actual content, this article aims to give you keywords of that set, so that you can pursue them further.</description>
+C++ is vast. If you’re beginning to learn it, the internet has enough discouraging words. Just start learning instead of reading about it i.e. don’t learn about C++, learn C++. The innumerable topics might be daunting, but don’t worry. Knowing a few concepts will get you productive. More than the actual content, this article aims to give you keywords of that set, so that you can pursue them further.</description>
     </item>
     
     <item>

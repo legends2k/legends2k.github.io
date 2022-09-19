@@ -15,8 +15,9 @@
       
       <guid>https://legends2k.github.io/note/go_setup/</guid>
       <description>An IDE should at least aid with
- Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks  Additionally it’d be good to have
- Context-sensitive document lookup  Show variable and function type Show function description   Auto-run gofmt on save Auto-add/remove used/unused packages on file save  We’ll get these working for Go on Emacs using LSP. It’s no secret that Emacs’ LSP support is top notch.</description>
+Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Additionally it’d be good to have
+Context-sensitive document lookup Show variable and function type Show function description Auto-run gofmt on save Auto-add/remove used/unused packages on file save We’ll get these working for Go on Emacs using LSP. It’s no secret that Emacs’ LSP support is top notch.
+We assume Go 1.17+ i.e. with full modules support and GO111MODULE unset1.</description>
     </item>
     
     <item>

@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
     <copyright>Sundaram Ramaswamy</copyright>
-    <lastBuildDate>Wed, 13 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://legends2k.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 19:55:57 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>introspection</title>
+      <link>https://legends2k.github.io/tags/introspection/</link>
+      <pubDate>Sun, 18 Sep 2022 19:55:57 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/introspection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tech</title>
+      <link>https://legends2k.github.io/tags/tech/</link>
+      <pubDate>Sun, 18 Sep 2022 19:55:57 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/tags/tech/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>c&#43;&#43;</title>
       <link>https://legends2k.github.io/tags/c&#43;&#43;/</link>
@@ -23,15 +41,6 @@
       <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://legends2k.github.io/tags/language/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tech</title>
-      <link>https://legends2k.github.io/tags/tech/</link>
-      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/tech/</guid>
       <description></description>
     </item>
     
@@ -131,15 +140,6 @@
       <pubDate>Wed, 13 May 2020 19:56:56 +0530</pubDate>
       
       <guid>https://legends2k.github.io/tags/vcs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>self</title>
-      <link>https://legends2k.github.io/tags/self/</link>
-      <pubDate>Tue, 26 Feb 2019 20:54:34 +0530</pubDate>
-      
-      <guid>https://legends2k.github.io/tags/self/</guid>
       <description></description>
     </item>
     

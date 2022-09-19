@@ -9,7 +9,7 @@
         <meta name="description" content="Using Irony, Clang &amp; Co">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.89.1" />
+        <meta name="generator" content="Hugo 0.102.3" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -144,29 +144,29 @@
 <p>I think mine are from <a href="http://melpa.org/">Melpa</a>.  Irony&rsquo;s homepage is a straight-forward installation guide.</p>
 <h1 id="company">Company</h1>
 <p><em>Company</em> (<strong>Comp</strong>lete <strong>any</strong>thing) is a text completion &ldquo;UI&rdquo; for Emacs.  It has support for a variety of backends; Company only shows the choices, while the choices itself come from a backend.  <code>company-irony</code> is one of the supported backends that in turn depends on <code>irony</code>.  Make <code>company-irony</code> the first in the list of backends for it to be picked up.  Enable <code>irony</code> and <code>company</code> modes in the <code>c-mode-common-hook</code> function (that is called for both <code>c-mode</code> and <code>c++-mode</code>).  Effectively, my <code>.emacs</code> looks thus:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">eval-after-load</span> <span style="color:#f1fa8c">&#39;company</span>
-  <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;company-backends</span> <span style="color:#f1fa8c">&#39;company-irony</span>))
-
-(<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my-c-common-setup</span> ()    <span style="color:#6272a4">;; function called by c-mode-common-hook</span>
-  (<span style="color:#8be9fd;font-style:italic">irony-mode</span> <span style="color:#bd93f9">1</span>)
-  (<span style="color:#8be9fd;font-style:italic">company-mode</span>))</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">eval-after-load</span> <span style="color:#f1fa8c">&#39;company</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;company-backends</span> <span style="color:#f1fa8c">&#39;company-irony</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my-c-common-setup</span> ()    <span style="color:#6272a4">;; function called by c-mode-common-hook</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">irony-mode</span> <span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">company-mode</span>))</span></span></code></pre></div>
 <p>Also fix key bindings to use Irony:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp"><span style="color:#6272a4">;; replace the `completion-at-point&#39; and `complete-symbol&#39; bindings in</span>
-<span style="color:#6272a4">;; irony-mode&#39;s buffers by irony-mode&#39;s function</span>
-(<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my-irony-mode-hook</span> ()
-  (<span style="color:#8be9fd;font-style:italic">define-key</span> <span style="color:#8be9fd;font-style:italic">irony-mode-map</span> <span style="color:#8be9fd;font-style:italic">[remap</span> <span style="color:#8be9fd;font-style:italic">completion-at-point]</span>
-    <span style="color:#f1fa8c">&#39;irony-completion-at-point-async</span>)
-  (<span style="color:#8be9fd;font-style:italic">define-key</span> <span style="color:#8be9fd;font-style:italic">irony-mode-map</span> <span style="color:#8be9fd;font-style:italic">[remap</span> <span style="color:#8be9fd;font-style:italic">complete-symbol]</span>
-    <span style="color:#f1fa8c">&#39;irony-completion-at-point-async</span>))
-
-(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;irony-mode-hook</span> <span style="color:#f1fa8c">&#39;my-irony-mode-hook</span>)
-(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;irony-mode-hook</span> <span style="color:#f1fa8c">&#39;irony-cdb-autosetup-compile-options</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span><span style="color:#6272a4">;; replace the `completion-at-point&#39; and `complete-symbol&#39; bindings in</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">;; irony-mode&#39;s buffers by irony-mode&#39;s function</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my-irony-mode-hook</span> ()
+</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">define-key</span> <span style="color:#8be9fd;font-style:italic">irony-mode-map</span> <span style="color:#8be9fd;font-style:italic">[remap</span> <span style="color:#8be9fd;font-style:italic">completion-at-point]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;irony-completion-at-point-async</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">define-key</span> <span style="color:#8be9fd;font-style:italic">irony-mode-map</span> <span style="color:#8be9fd;font-style:italic">[remap</span> <span style="color:#8be9fd;font-style:italic">complete-symbol]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#39;irony-completion-at-point-async</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;irony-mode-hook</span> <span style="color:#f1fa8c">&#39;my-irony-mode-hook</span>)
+</span></span><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;irony-mode-hook</span> <span style="color:#f1fa8c">&#39;irony-cdb-autosetup-compile-options</span>)</span></span></code></pre></div>
 <p>This snippet was lifted from the project&rsquo;s homepage.  Make sure you do the Windows performance tweaks; there are <a href="https://github.com/Sarcasm/irony-mode/wiki/Setting-up-irony-mode-on-Windows">good reasons</a> to do this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-lisp" data-lang="lisp">(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#50fa7b">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-read-delay</span>)
-  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">w32-pipe-read-delay</span> <span style="color:#bd93f9">0</span>))
-<span style="color:#6272a4">;; Set the buffer size to 64K on Windows (from the original 4K)</span>
-(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#50fa7b">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-buffer-size</span>)
-  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">irony-server-w32-pipe-buffer-size</span> (<span style="color:#50fa7b">*</span> <span style="color:#bd93f9">64</span> <span style="color:#bd93f9">1024</span>)))</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#50fa7b">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-read-delay</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">w32-pipe-read-delay</span> <span style="color:#bd93f9">0</span>))
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">;; Set the buffer size to 64K on Windows (from the original 4K)</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">when</span> (<span style="color:#50fa7b">boundp</span> <span style="color:#f1fa8c">&#39;w32-pipe-buffer-size</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">irony-server-w32-pipe-buffer-size</span> (<span style="color:#50fa7b">*</span> <span style="color:#bd93f9">64</span> <span style="color:#bd93f9">1024</span>)))</span></span></code></pre></div>
 <h1 id="clang">Clang</h1>
 <ol>
 <li>Make sure CMake and MinGW are installed
@@ -240,30 +240,30 @@
 </li>
 </ol>
 <p><strong>Sample <code>.clang_complete</code></strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-cfg" data-lang="cfg"><span style="color:#50fa7b">-std</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">c++14</span>
-<span style="color:#50fa7b">-target</span>
-<span style="color:#50fa7b">i686-w64-windows-gnu</span>
-<span style="color:#50fa7b">-Wall</span>
-<span style="color:#50fa7b">-pedantic</span>
-<span style="color:#50fa7b">-DDEBUG</span>
-<span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++</span>
-<span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++/i686-w64-mingw32</span>
-<span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++/backward</span>
-<span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include</span>
-<span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include-fixed</span>
-<span style="color:#50fa7b">-IF:/Apps/mingw32/i686-w64-mingw32/include</span>
-<span style="color:#50fa7b">-IF:/Libs/boost_1_57_0</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-cfg" data-lang="cfg"><span style="display:flex;"><span><span style="color:#50fa7b">-std</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">c++14</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-target</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">i686-w64-windows-gnu</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-Wall</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-pedantic</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-DDEBUG</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++/i686-w64-mingw32</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include/c++/backward</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Apps/mingw32/lib/gcc/i686-w64-mingw32/6.3.0/include-fixed</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Apps/mingw32/i686-w64-mingw32/include</span>
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">-IF:/Libs/boost_1_57_0</span></span></span></code></pre></div>
 <p><strong>Note</strong>: each argument gets its own line</p>
 <p>Giving <code>-std=c++14</code> ate hours of my time investigating why C++14 syntax and tokens aren&rsquo;t suggested by Clang.  I then realized that I had installed Clang 3.4 and <a href="http://clang.llvm.org/cxx_status.html#cxx14">the documentation</a> clearly states that <code>-std=c++1y</code> is to be used for versions 3.4 or earlier.</p>
 <p>As a verification of things working fine, check if a process of <code>irony-server.exe</code> is running smoothly.</p>
 <h1 id="irony-flycheck">Irony Flycheck</h1>
 <p>As a bonus of using Irony, we can do on-the-fly syntax checking using Clang and know of errors as the code is typed out without actually compiling the file separately.  This quickens the development cycle by avoiding slow compilations; when you have an error-free buffer, you&rsquo;ll only be left with linker errors, if at all, when you do a proper compilation.  Install <code>flycheck</code>, <code>flycheck-irony</code> and <code>flycheck-pos-tip</code>.  Enable it with</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-Lisp" data-lang="Lisp">(<span style="color:#8be9fd;font-style:italic">eval-after-load</span> <span style="color:#f1fa8c">&#39;flycheck</span>
-  <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;flycheck-mode-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">flycheck-irony-setup</span>))</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-Lisp" data-lang="Lisp"><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">eval-after-load</span> <span style="color:#f1fa8c">&#39;flycheck</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#39;</span>(<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;flycheck-mode-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">flycheck-irony-setup</span>))</span></span></code></pre></div>
 <p>where <code>flycheck-irony-setup</code> is a function you get with the <code>flycheck-irony</code> package.  Make sure you enable Flycheck when needed</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-Lisp" data-lang="Lisp">(<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my-c-common-setup</span> ()
-  (<span style="color:#8be9fd;font-style:italic">flycheck-mode</span>)
-  (<span style="color:#8be9fd;font-style:italic">flycheck-pos-tip-mode</span>))</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-Lisp" data-lang="Lisp"><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my-c-common-setup</span> ()
+</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">flycheck-mode</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">flycheck-pos-tip-mode</span>))</span></span></code></pre></div>
 <p>Flycheck shows the errors in a separate buffer which keeps getting update as you type.  But you can see the error in a particular statement without having to open this buffer with <code>flycheck-pos-tip-mode</code>.  It will show error tooltips as the cursor is moved to an erroneous token.</p>
 <h1 id="advantages">Advantages</h1>
 <p>Without having a bloated IDE, you get to have both auto-complete (a.k.a. intellisense) and on-the-fly syntax checking.  They are valuable tools when writing code in a project with large code bases, taking lot of time to build.  Also, most IDEs require you to create a project for some single-file, toy, sample code you want to scribble; in our setup you just need to create a new buffer backed by a file on disk i.e. the usual drill for any new file.  Make sure you have the right <code>.clang_complete</code> saved in your <em>Home</em> directory (where you have your code lab of dirty files) with the required <code>include</code> paths and compiler flags.</p>

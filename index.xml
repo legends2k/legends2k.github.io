@@ -9,16 +9,25 @@
     <copyright>Sundaram Ramaswamy</copyright>
     <lastBuildDate>Fri, 24 Feb 2017 12:14:41 +0530</lastBuildDate><atom:link href="https://legends2k.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Advent of Code Experience</title>
+      <link>https://legends2k.github.io/note/aoc_2018/</link>
+      <pubDate>Sun, 18 Sep 2022 19:55:57 +0530</pubDate>
+      
+      <guid>https://legends2k.github.io/note/aoc_2018/</guid>
+      <description>I completed Advent of Code (AoC) 2018 today. It’s a puzzle jam: yearly from Dec 1 to 25 a couple of puzzles are published everyday. It’s popular in geek circles; folks solve them in winter when business is dull. Leaderboards are filled with people who solve them well within the day of their release. There aren’t any restrictions on really when or how you solve these puzzles.
+This piece shares my experience for the general computer programmer.</description>
+    </item>
+    
+    <item>
       <title>Assertions vs if checks</title>
       <link>https://legends2k.github.io/note/assert_vs_if/</link>
       <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://legends2k.github.io/note/assert_vs_if/</guid>
-      <description>TL;DR   Any program can have two classes of issues:
-  Runtime problems: situations programmer foresaw and handled; expected. E.g. invalid inputs, no access to resource, unreachable network, …
-  Bugs: programmer mistakes; unexpected. E.g. buffer overflow, access violation, …
-  There are different tools to deal with each; don’t conflate one with the other.
- An assertion is just a validation of a programmer expectation; it “fires” when the expectation is betrayed.</description>
+      <description>TL;DR Any program can have two classes of issues:
+Runtime problems: situations programmer foresaw and handled; expected. E.g. invalid inputs, no access to resource, unreachable network, … Bugs: programmer mistakes; unexpected. E.g. buffer overflow, access violation, … There are different tools to deal with each; don’t conflate one with the other.
+An assertion is just a validation of a programmer expectation; it “fires” when the expectation is betrayed.
+(1) is familiar to most; use one of your language-provided feature including if, try-catch-throw, etc.</description>
     </item>
     
     <item>
@@ -48,8 +57,8 @@ By Authors Eric S Raymond Renowned hacker1. He’s written a lot about Unix phil
       <pubDate>Thu, 11 Feb 2021 12:52:21 +0530</pubDate>
       
       <guid>https://legends2k.github.io/post/on_being_slow/</guid>
-      <description>A colleague asked an intriguing question: &amp;ldquo;what kinda processor are you?&amp;quot;. He explained me the classification:
- Internal Processor: A person who gives one clear statement after having formulated what to say (including corrections, refinements, etc.) internally External Processor: A person who says something and then goes on making a string of corrections until satisfied &amp;ndash; externally  My reply? &amp;ldquo;I’m an internal processor&amp;hellip; Oh! Wait! I think&amp;hellip; Oh well!&amp;quot;. Colleague walks away with a knowing grin 😀</description>
+      <description>A colleague asked an intriguing question: &amp;ldquo;what kinda processor are you?&amp;rdquo;. He explained me the classification:
+Internal Processor: A person who gives one clear statement after having formulated what to say (including corrections, refinements, etc.) internally External Processor: A person who says something and then goes on making a string of corrections until satisfied &amp;ndash; externally My reply? &amp;ldquo;I’m an internal processor&amp;hellip; Oh! Wait! I think&amp;hellip; Oh well!&amp;rdquo;. Colleague walks away with a knowing grin 😀</description>
     </item>
     
     <item>
@@ -60,7 +69,7 @@ By Authors Eric S Raymond Renowned hacker1. He’s written a lot about Unix phil
       <guid>https://legends2k.github.io/note/rpi4_setup/</guid>
       <description>I neither have a micro HDMI adapter nor a dedicated display for the Pi. I just want to use it as a server. Thanks to Raspbian for providing a simple way to auto-enable SSH on boot!
 I prefer the leaner, manual approach over NOOBS, the more popular option.
- dd Raspbian’s image on to a new SD card To auto-start SSH service on boot touch ssh in /boot partition Insert SD card, connect ethernet cable (RJ-45) and boot  Check IP address assigned to RPi from your router’s portal   ssh -l pi IP  Change default password (raspberry) with passwd sudo apt update sudo apt upgrade   Use raspi-config and setup  Locale Wi-Fi country code  Needed to abide by your country’s wireless laws Radio device may not work properly if not done   Wi-Fi (SSID and password) Enable SSH (for good measure) Check systemctl is-enabled sshd Make sure wireless isn’t soft-blocked: rfkill list and rfkill unblock wifi   Unplug ethernet and wireless should work now  Use ifconfig to know your Mac address eth0/wlan0 interfaces that’re up have inet (IP address) populated   Use raspi-config and enable VNC  Setup VNC password: sudo vncpasswd -service Boot into Desktop instead of Console in System Options -&amp;gt; Boot / Auto Login  See this if you want to boot to CLI and startx later [3]   Make sure to select a resolution under Display Options -&amp;gt; Resolution For macOS Screen Sharing to work, make /etc/vnc/config.</description>
+dd Raspbian’s image on to a new SD card To auto-start SSH service on boot touch ssh in /boot partition Insert SD card, connect ethernet cable (RJ-45) and boot Check IP address assigned to RPi from your router’s portal ssh -l pi IP Change default password (raspberry) with passwd sudo apt update sudo apt upgrade Use raspi-config and setup Locale Wi-Fi country code Needed to abide by your country’s wireless laws Radio device may not work properly if not done Wi-Fi (SSID and password) Enable SSH (for good measure) Check systemctl is-enabled sshd Make sure wireless isn’t soft-blocked: rfkill list and rfkill unblock wifi Unplug ethernet and wireless should work now Use ifconfig to know your Mac address eth0/wlan0 interfaces that’re up have inet (IP address) populated Use raspi-config and enable VNC Setup VNC password: sudo vncpasswd -service Boot into Desktop instead of Console in System Options -&amp;gt; Boot / Auto Login See this if you want to boot to CLI and startx later [3] Make sure to select a resolution under Display Options -&amp;gt; Resolution For macOS Screen Sharing to work, make /etc/vnc/config.</description>
     </item>
     
     <item>
@@ -70,7 +79,7 @@ I prefer the leaner, manual approach over NOOBS, the more popular option.
       
       <guid>https://legends2k.github.io/post/galls_law/</guid>
       <description>People often start a new endeavour to realise a vivid dream. This is good by itself; the dream coupled with strong self-motivation would take them far when the going gets tough (which it usually does).
-However, there’s another side to dreams that’s quite dreadful, particularly for someone starting something new1 and with little experience.
+However, there’s another side to dreams that’s dreadful, particularly for someone starting something new1 and with little experience.
 Unrealistic Expectations It’s no secret; when learning your work won’t be original, beautiful or fulfilling. Experience shows us that anyone’s first picture is not far from a scribble.</description>
     </item>
     
@@ -91,8 +100,8 @@ Since operations here involve resizing /, boot from Live USB and then perform th
       
       <guid>https://legends2k.github.io/note/programmer_kata/</guid>
       <description>Becoming a good programmer doesn’t happen in a day.
- Like most skills, often you need grit than intelligence/smartness.
- Guidelines  Write small toy programs to prove yourself right / wrong  It’s easy to get lost in the details of a large project; it’s just noise A toy program is a simple way of filtering signal from noise   Document what you learn  Sprinkle enough comments; they&amp;rsquo;ll help you later Write markdown articles with references for involved topics   Always RTFM  Mark of a good engineer: ability to digest design, API documentation or books Grok documentation and articles written by better programmers   Keep a repository handy  This should have all your workouts, big or small Usable any where without installing big tool chains Preferably plain text; searchable readily with omnipresent tools grep and find   Write something substantial &amp;ndash; a mini-project  Professionally most programmers are just cogs in a large wheel Authoring a small project end-to-end leads to much deeper insights Great tools like ripgrep are hobby projects   Scope your project  Start with something small and tangible Have something working in a week If not, you&amp;rsquo;re biting more than you could chew; scope down   Be consistent  Work on your pet project at least an hour a day An hour isn&amp;rsquo;t much &amp;ndash; usually total wasted minutes/day is more Trick: small, incremental changes every day; don’t lose steam   Write cross-platform and cross toolchain code  Makes you a better programmer Standards-adhering code has longevity and better portability Widens user base   Have a reliable toolchain setup  Use the same set of tools everywhere (across platforms) Improves muscle memory; kata Sticking to a same set of tools lets them not get in your way; productivity Examples: coreutils, findutils, binutils, Emacs, Vim, etc.</description>
+Like most skills, often you need grit than intelligence/smartness.
+Guidelines Write small toy programs to prove yourself right / wrong It’s easy to get lost in the details of a large project; it’s just noise A toy program is a simple way of filtering signal from noise Document what you learn Sprinkle enough comments; they&amp;rsquo;ll help you later Write markdown articles with references for involved topics Always RTFM Mark of a good engineer: ability to digest design, API documentation or books Grok documentation and articles written by better programmers Keep a repository handy This should have all your workouts, big or small Usable any where without installing big tool chains Preferably plain text; searchable readily with omnipresent tools grep and find Write something substantial &amp;ndash; a mini-project Professionally most programmers are just cogs in a large wheel Authoring a small project end-to-end leads to much deeper insights Great tools like ripgrep are hobby projects Scope your project Start with something small and tangible Have something working in a week If not, you&amp;rsquo;re biting more than you could chew; scope down Be consistent Work on your pet project at least an hour a day An hour isn&amp;rsquo;t much &amp;ndash; usually total wasted minutes/day is more Trick: small, incremental changes every day; don’t lose steam Write cross-platform and cross toolchain code Makes you a better programmer Standards-adhering code has longevity and better portability Widens user base Have a reliable toolchain setup Use the same set of tools everywhere (across platforms) Improves muscle memory; kata Sticking to a same set of tools lets them not get in your way; productivity Examples: coreutils, findutils, binutils, Emacs, Vim, etc.</description>
     </item>
     
     <item>
@@ -114,8 +123,8 @@ git show REF # changes introduced in a particular file by a commit git show REF 
       
       <guid>https://legends2k.github.io/note/sneak_out/</guid>
       <description>I had a great first experience participating in a game jam &amp;ndash; 5th Alakajam. A three-day game jam where we1 wrote a primitive, real-time tactical strategy game: Sneak Out. The game is playable within a browser, thanks to raylib and WebAssembly.
- Sneak Out! from within the browser
-  I’m a person with a decent degree of analysis paralysis. A code jam was the perfect antidote to kick me out of my rut!</description>
+Sneak Out! from within the browser
+I’m a person with a decent degree of analysis paralysis. A code jam was the perfect antidote to kick me out of my rut!</description>
     </item>
     
     <item>
@@ -125,7 +134,7 @@ git show REF # changes introduced in a particular file by a commit git show REF 
       
       <guid>https://legends2k.github.io/note/git_concepts/</guid>
       <description>Basics like initializing (a repository), staging and commiting files aren’t explained here; they simply make sense; no ‘Aha!’s there. Moving references, branching and merging &amp;mdash; coupled with Git’s arcane command names1 &amp;mdash; are the confusing parts.
-Basics  Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)2  Git diagrams often have arrows backwards (←) for this reason   Git stores snapshots not differences i.</description>
+Basics Git is a distributed VCS; each repo can be both a server/client Honestly, git (sub)commands are just graph manipulating commands Every codebase is made of a graph; each commit is a node with edges to parent(s)2 Git diagrams often have arrows backwards (←) for this reason Git stores snapshots not differences i.</description>
     </item>
     
     <item>
@@ -145,7 +154,7 @@ My laptop doesn’t have a CD-ROM drive, also I prefer burning the ISO to a USB 
       
       <guid>https://legends2k.github.io/note/c&#43;&#43;_primer/</guid>
       <description>Within C++, there is a much smaller and cleaner language struggling to get out. — Bjarne Stroustrup
- C++ is vast. If you’re beginning to learn it, the internet has enough discouraging words. Just start learning instead of reading about it i.e. don’t learn about C++, learn C++. The innumerable topics might be daunting, but don’t worry. Knowing a few concepts will get you productive. More than the actual content, this article aims to give you keywords of that set, so that you can pursue them further.</description>
+C++ is vast. If you’re beginning to learn it, the internet has enough discouraging words. Just start learning instead of reading about it i.e. don’t learn about C++, learn C++. The innumerable topics might be daunting, but don’t worry. Knowing a few concepts will get you productive. More than the actual content, this article aims to give you keywords of that set, so that you can pursue them further.</description>
     </item>
     
     <item>
@@ -165,8 +174,9 @@ Even as adults we read motivational text, watch TED talks, discuss problems with
       
       <guid>https://legends2k.github.io/note/go_setup/</guid>
       <description>An IDE should at least aid with
- Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks  Additionally it’d be good to have
- Context-sensitive document lookup  Show variable and function type Show function description   Auto-run gofmt on save Auto-add/remove used/unused packages on file save  We’ll get these working for Go on Emacs using LSP. It’s no secret that Emacs’ LSP support is top notch.</description>
+Auto-completion (a.k.a Intellisense) Jump to definition On-the-fly error checks Additionally it’d be good to have
+Context-sensitive document lookup Show variable and function type Show function description Auto-run gofmt on save Auto-add/remove used/unused packages on file save We’ll get these working for Go on Emacs using LSP. It’s no secret that Emacs’ LSP support is top notch.
+We assume Go 1.17+ i.e. with full modules support and GO111MODULE unset1.</description>
     </item>
     
     <item>
@@ -203,7 +213,7 @@ Network In the newly installed Arch you might notice that there&amp;rsquo;s no n
       <pubDate>Tue, 24 Apr 2018 10:53:43 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/tablet_setup/</guid>
-      <description>Steps  Disable Windows defaults  Windows 10  Run → services.msc → Touch Keyboard and Handwriting Panel Service; stop and disable Disable Tablet mode under Tablet mode settings   Windows 7  Disable Tablet PC services from the Windows Features list Disable Flicks in Pen and Tablet settings     Install latest manufacturer drivers before first plugging in to the system Plug in device and test Enable Force Proportions to avoid disproportionate lines  Tablet Area: Full Screen Area: Monitor Force Proportions mightn&amp;rsquo;t be available on non-Wacom driver software like Huion&amp;rsquo;s.</description>
+      <description>Steps Disable Windows defaults Windows 10 Run → services.msc → Touch Keyboard and Handwriting Panel Service; stop and disable Disable Tablet mode under Tablet mode settings Windows 7 Disable Tablet PC services from the Windows Features list Disable Flicks in Pen and Tablet settings Install latest manufacturer drivers before first plugging in to the system Plug in device and test Enable Force Proportions to avoid disproportionate lines Tablet Area: Full Screen Area: Monitor Force Proportions mightn&amp;rsquo;t be available on non-Wacom driver software like Huion&amp;rsquo;s.</description>
     </item>
     
     <item>
@@ -212,7 +222,7 @@ Network In the newly installed Arch you might notice that there&amp;rsquo;s no n
       <pubDate>Thu, 19 Apr 2018 13:57:03 -0700</pubDate>
       
       <guid>https://legends2k.github.io/note/git_push_fork/</guid>
-      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;quot;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
+      <description>Fork? Food!? When you fork1 a repository in GitHub, from your repository&amp;rsquo;s viewpoint, the one you forked from is called the &amp;ldquo;upstream&amp;rdquo;; a term used commonly in the FOSS world for a long time, to denote the original authors (or their repository) of a software. Fork is a concept introduced by GitHub (the code hosting platform) for separation of concerns; Git (the version control system) itself doesn&amp;rsquo;t have a concept of fork; from its viewpoint, it&amp;rsquo;s just another remote repository.</description>
     </item>
     
     <item>
@@ -251,8 +261,9 @@ Kalki R. Krishnamurthy A great writer, and freedom fighter, who effortlessly bal
       <guid>https://legends2k.github.io/note/useful_gcc_opts/</guid>
       <description>Here are some of the useful, but not widely known, options of GCC that I want to document.
 GCC Build Specs gcc -dumpspecs Gives the specifications with which GCC was built.
-Stack Usage gcc -fstack-usage Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage. See the manual for details on deciphering its output.
-Macros and Include Directories # get macros defined when the language is C++ cpp -xc++ -dM /dev/null # get macros defined when the language is C cpp -dM /dev/null Prints the macros defined when the preprocessor was called.</description>
+List supported targets gcc --target-help gcc --help=target clang has clang -print-supported-cpus and clang -print-targets similarly. Though clang operates on target triples/quadruples.
+On older GCC alternate command is gcc -E -march=help -xc /dev/null.
+Stack Usage gcc -fstack-usage Gives the stack usage function-wise for the compiled translation unit; this is helpful in measuring runtime memory usage.</description>
     </item>
     
     <item>
@@ -271,7 +282,7 @@ The general installation instructions provided in Irony&amp;rsquo;s README works
       <pubDate>Fri, 23 Sep 2016 17:00:46 +0530</pubDate>
       
       <guid>https://legends2k.github.io/note/lua_rocks/</guid>
-      <description>Ingredients  CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio  Steps Involved Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt  Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink)   Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project  Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
+      <description>Ingredients CMake MinGW compiler (one of MinGW, TDM, MinGW-W64, …) Lua binaries LuaRocks setup binaries ZeroBrane Studio Steps Involved Make sure the commands cmake and mingw32-gcc are accessible from a general Command Prompt Install CMake; straight-forward Install MinGW64; choose i686-6.2.0-posix-dwarf-rt_v5-rev0. Both archive and installer works. mingw-w64 project&amp;rsquo;s MinGW only has gcc.exe while luarocks expects mingw32-gcc.exe; create a symbolic link (mklink) Download lua-5.3.3_Win32_bin.zip from LuaForge Lua Binaries project Make sure Lua and MinGW are of the same arch This contains the binaries (.</description>
     </item>
     
     <item>
@@ -281,7 +292,8 @@ The general installation instructions provided in Irony&amp;rsquo;s README works
       
       <guid>https://legends2k.github.io/note/site_customizations/</guid>
       <description>I did quite a few things to get this blog up and running the way you see it now.
-Steps I Still Remember  Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory.  Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.</description>
+Steps I Still Remember Install Hugo; just extract and put in PATH &amp;mdash; can&amp;rsquo;t be simpler. Create a dummy site using the Quickstart guide; straight forward. Install Ghostwriter inside the themes directory. Hugo recommends that customizations be done outside the theme&amp;rsquo;s directory tree to clearly differentiate customizations. I followed it.
+1. Syntax Highlighting This theme uses highlight.</description>
     </item>
     
     <item>
