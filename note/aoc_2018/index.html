@@ -119,7 +119,7 @@
     </span>
     
     <span class="post-update-date">
-        Updated <time datetime="2022-09-18" itemprop="datePublished">Sep 20, 2022</time>
+        Updated <time datetime="2022-09-18" itemprop="datePublished">Sep 21, 2022</time>
     </span>
     
 </p>
@@ -212,27 +212,27 @@
 <p>This is the last section for a couple of reasons: (a) maybe uninteresting to non-participants (b) contains spoilers.</p>
 <p>Some puzzles were very dry; questions weren’t very good at explaining the problem<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.  This was frustrating since the rules weren’t properly laid out.</p>
 <p>Here’re some notable puzzles and my learnings:</p>
-<h2 id="day-7">Day 7</h2>
-<p><a href="https://en.wikipedia.org/wiki/Scheduling_(computing)">Task scheduler</a> puzzle involving a <a href="https://en.wikipedia.org/wiki/Dependency_graph">dependency graph</a> and <a href="https://en.wikipedia.org/wiki/Topological_sorting">topological sort</a>.  I solved this using <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> (<code>Vec</code>) instead of graph.  I did this by storing the dependants of a task, instead of its dependencies, and followed a push, instead of pull, model on task completions.</p>
-<p>Learned about authoring custom iterators in Rust.</p>
 <h2 id="day-6">Day 6</h2>
 <p><a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagram</a> calculation problem.  Involved coding up <a href="https://en.wikipedia.org/wiki/Flood_fill">flood fill</a>-like algorithm.</p>
+<h2 id="day-7">Day 7</h2>
+<p><a href="https://en.wikipedia.org/wiki/Scheduling_(computing)">Task scheduler</a> puzzle involving a <a href="https://en.wikipedia.org/wiki/Dependency_graph">dependency graph</a> and <a href="https://en.wikipedia.org/wiki/Topological_sorting">topological sort</a>.  I solved this using a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> (<code>Vec</code>) instead of a graph.  I did this by storing the dependants of a task, instead of its dependencies, and followed a push, instead of pull, model on task completions.</p>
+<p>Learned about authoring custom iterators in Rust.</p>
 <h2 id="day-9">Day 9</h2>
-<p>Computing hi-scores in a game between elves.  Wrote a <code>CircularList</code> using <code>Vec</code>.  Many solved this using <code>HashMap</code> but simple <code>Vec</code> is fairly versatile and under-used :)</p>
+<p>Computing hi-scores in a game between elves.  Wrote a <code>CircularList</code> using <code>Vec</code>.  Many solved this using <code>HashMap</code> but simple <code>Vec</code> is fairly versatile and under-used. <code>:)</code></p>
 <h2 id="day-10">Day 10</h2>
-<p>Points move around on an infinitely large canvas frame-by-frame; at a point in time they form a bunch of characters just for a frame.  I wrote a 2D visualization to solve this but others had done this just on terminal.  Though a command-line junkie, I totally missed this!  Given my interests in graphics and game programming this is perhaps expected?</p>
-<p>Also I missed to realize the bounding box of the entire data keeps shrinking and reaches its minimum when the characters are formed!  A good learning exercise.</p>
+<p>Points move around on an infinitely large canvas frame-by-frame; at a point in time they form a bunch of characters just for a frame.  I wrote a 2D visualization to solve this but it doesn’t stop at the right frame; I’d to watch and manually pause the simulation at the right frame.  I didn’t realize the bounding box of the entire data keeps shrinking and reaches its minimum when the characters are formed!</p>
+<p>My interests in graphics and game programming biased me to take this (non-optimal) my approach.  A good learning exercise.</p>
 <p><em>This was my longest hiatus</em>: resumed AoC after a 10 month break.</p>
 <h2 id="day-11">Day 11</h2>
 <p><a href="https://en.wikipedia.org/wiki/Summed-area_table">Summed area table</a> problem which I realized only after solving it using a semi-brute force approach.</p>
 <h2 id="day-12">Day 12</h2>
 <p><a href="https://en.wikipedia.org/wiki/Genetic_algorithm">Genetic algorithm</a> puzzle on plant growth.  Using bit flags was fun!  <a href="https://en.wikipedia.org/wiki/Bit_manipulation">Bit fiddling</a> is becoming a lost art these days; it isn’t esoteric once you understand the basics and it’s fast.</p>
-<p>This is the start of puzzles where solutions can get stuck in infinite loops without a deterministic answer.  I’d bail out of a loop if solutions didn’t change across iterations.</p>
+<p>This is the start of puzzles where solutions can get stuck in infinite loops without a deterministic answer.  I’d to bail out of a loop if solutions didn’t change across iterations.</p>
 <h2 id="day-13">Day 13</h2>
 <p>Fun problem with <a href="https://en.wikipedia.org/wiki/ASCII_art">ASCII art</a> input of carts spread across a map.  It’s a simulation of carts moving around to check an eventual collision.  A very satisfying problem!</p>
 <h2 id="day-15">Day 15</h2>
-<p>Mini <a href="https://en.wikipedia.org/wiki/Turns,_rounds_and_time-keeping_systems_in_games#Turn-based">turn-based</a> battle.  I gathered from the forums that many folks stopped AoC 2018 at this one.  It needs one to implement <a href="https://en.wikipedia.org/wiki/Shortest_path_problem">shortest distance</a> path finding and meticulously follow a set of rules to find out the eventual victor.</p>
-<p>I implemented BFS-based pathing.  The puzzle itself wasn’t hard (skill-wise) but involved a lot of busy work following complicated rules meticulously. Though I struggled quite a bit, I’m proud I solved it without help.</p>
+<p>Mini <a href="https://en.wikipedia.org/wiki/Turns,_rounds_and_time-keeping_systems_in_games#Turn-based">turn-based</a> battle.  I gathered from the forums that many folks stopped AoC 2018 at this one.  It needs implementing <a href="https://en.wikipedia.org/wiki/Shortest_path_problem">shortest distance</a> path finding and meticulously follow a set of rules to find the victor.</p>
+<p>I implemented BFS-based pathing.  The puzzle itself wasn’t hard (skill-wise) but involved a lot of busy work. Though I struggled quite a bit, I’m proud I solved it without help.</p>
 <p>Day 14 was the start of poor puzzle descriptions.  Day 15 was longer, more complicated and unclear.</p>
 <h2 id="day-16">Day 16</h2>
 <p><a href="https://en.wikipedia.org/wiki/Virtual_machine">Virtual machine</a> implementation running ElfCode, a made-up <a href="https://en.wikipedia.org/wiki/Instruction_set_architecture">instruction set</a>.  This was fun!  VM created here is used in later puzzles with more complications.  It roused the assembly programmer in me; it all came back!</p>
@@ -241,12 +241,12 @@
 <p>Unlike most mine was an iterative solution but super slow (810 ms).  Numerous small memory allocations was the culprit; pre-allocating memory lead to a 9x speed up (89 ms).  <a href="https://gamesfromwithin.com/start-pre-allocating-and-stop-worrying">Start pre-allocating and stop worrying</a>!</p>
 <h2 id="day-18">Day 18</h2>
 <p><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway’s Game of Life</a> puzzle.  Fun!</p>
-<p>Part 2 of the puzzle required running the simulation for 1 billion times.  This had to be short-circuited to get a result (in reasonable time).  Printing the values showed a repeating series; I vaguely remember cheating for this.</p>
+<p>Part 2 of the puzzle required running the simulation for 1 billion times.  This had to be short-circuited to get a result (in reasonable time).  Printing the values revealed a repeating series; I vaguely remember cheating for this.</p>
 <h2 id="day-19">Day 19</h2>
 <p>Another ElfCode assembly puzzle.  It involved understanding why assembly code was stuck in a loop.  Basically it’s trying to <a href="https://en.wikipedia.org/wiki/Integer_factorization">factorize a large integer</a> inefficiently.  I’d to replace this ElfCode segment with my own (Rust) function.</p>
 <p>Learned about Rust modules and wrote a generic <a href="https://en.wikipedia.org/wiki/Cartesian_product">Cartesian product</a> function.</p>
 <h2 id="day-20">Day 20</h2>
-<p>Shortest distance path finding problem whose input is a very long <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression</a>.  I’m glad I didn’t resort to any regex libraries as it’s fairly easy to parse <em>by hand</em>.  I implemented BFS for the shortest path reusing code from day 15.  Realized many solutions were a lot simpler than mine; no path finding at all! 😲</p>
+<p>Shortest distance path finding problem whose input is a very long <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression</a>.  I didn’t use a regex library as it’s fairly easy to parse <em>by hand</em>.  I implemented BFS for the shortest path reusing code from day 15.  Realized many solutions were a lot simpler than mine; no path finding at all! 😲</p>
 <h2 id="day-22">Day 22</h2>
 <p>Another Path finding problem with constraints and edge costs that’s harder; lots of rules and corner cases.  I cheated for this; got inspirations from other solutions.</p>
 <h2 id="day-23">Day 23</h2>
