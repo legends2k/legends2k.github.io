@@ -725,7 +725,7 @@ blockquote ::-moz-selection, aside ::-moz-selection {
 .footer {
     background: #303030;
     color: #D3D3D3;
-    height: 265px;
+    height: fit-content;
     margin-top: 95px;
     overflow: auto;
 }
@@ -955,7 +955,7 @@ blockquote ::-moz-selection, aside ::-moz-selection {
     .post-date,
     .blog-description,
     .author-meta {
-        line-height: 1.6;
+        line-height: 2;
     }
 
     .post-date,
