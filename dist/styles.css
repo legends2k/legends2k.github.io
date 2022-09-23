@@ -955,7 +955,7 @@ blockquote ::-moz-selection, aside ::-moz-selection {
     .post-date,
     .blog-description,
     .author-meta {
-        line-height: 2;
+        line-height: 1.6;
     }
 
     .post-date,
