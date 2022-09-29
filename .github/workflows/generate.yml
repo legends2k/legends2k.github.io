@@ -1,4 +1,4 @@
-name: publish
+name: Generate pages
 
 on:
   workflow_dispatch:
