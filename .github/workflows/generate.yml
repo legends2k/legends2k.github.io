@@ -4,8 +4,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  say_hello:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - run: |
-          echo Hello, world!
+      - uses: actions/checkout@v3
+        with:
+          repository: 'legends2k/blog'
+          submodules: true
+          fetch-depth: 0
+
+      - uses: actions/checkout@v3
+        with:
+          repository: 'legends2k/legends2k.github.io'
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.104.2'
+
+      - name: Check checkouts
+        run: |
+          find
+          cp --version
+
+      - name: Check Hugo
+        run: hugo version
