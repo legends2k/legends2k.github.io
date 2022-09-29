@@ -28,10 +28,13 @@ jobs:
         with:
           hugo-version: '0.104.2'
 
-      - name: Check checkouts
-        run: |
-          find
-          cp --version
+      - name: Generate
+        run: hugo --minify
 
-      - name: Check Hugo
-        run: hugo version
+      - name: Add changes and commit
+        run: |
+          cd public
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          echo "${COMMIT_MSG=$}"
+          git add -vA
+          # git commit --author="GitHub Actions Bot <>" -m "${MESG}"
