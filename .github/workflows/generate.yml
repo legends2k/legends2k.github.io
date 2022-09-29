@@ -11,15 +11,17 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout blog
+        uses: actions/checkout@v3
         with:
           repository: 'legends2k/blog'
           submodules: true
           fetch-depth: 0
 
-      - uses: actions/checkout@v3
+      - name: Checkout legends2k.github.io
+        uses: actions/checkout@v3
         with:
-          repository: 'legends2k/legends2k.github.io'
+          path: public
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
