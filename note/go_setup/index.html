@@ -1,315 +1,48 @@
-
-
-<!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Emacs Go Setup &middot; Sundaram Ramaswamy</title>
-        <meta name="description" content="Make Emacs your Go IDE">
-        <meta name="HandheldFriendly" content="True">
-        <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.103.1" />
-        <meta name="robots" content="index,follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="icon" href="/images/pencil-square-o.svg" sizes="any" type="image/svg+xml">
-        <meta property="og:title" content="Emacs Go Setup">
-<meta property="og:description" content="Make Emacs your Go IDE">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://legends2k.github.io/note/go_setup/">
-        <link rel="stylesheet" href="https://legends2k.github.io/dist/styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        
-        
-        
-        
-        </head>
-    <body>
-        
-
-        <div id="wrapper">
-            <header class="site-header">
-                <div class="container">
-                    <div class="site-title-wrapper">
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Home" title="Home" href="https://legends2k.github.io/" rel="me">
-                                <i class="fa fa-home"></i>
-                            </a>
-                        
-                        <a class="button-square hint--top hint--rounded hint--bounce"
-                           aria-label="RSS Feed" title="RSS Feed" href="https://legends2k.github.io/index.xml"><i class="fa fa-rss"></i></a>
-                        
-                        
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Github" title="Github" href="https://github.com/legends2k" rel="me">
-                                <i class="fa fa-github-alt"></i>
-                            </a>
-                        
-                        
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Bitbucket" title="Bitbucket" href="https://bitbucket.org/rmsundaram" rel="me">
-                                <i class="fa fa-bitbucket"></i>
-                            </a>
-                        
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/183120/legends2k" rel="me">
-                                <i class="fa fa-stack-overflow"></i>
-                            </a>
-                        
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="LinkedIn" title="LinkedIn" href="https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0" rel="me">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        
-                        
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Flickr" title="Flickr" href="https://flickr.com/photos/legends2k" rel="me">
-                                <i class="fa fa-flickr"></i>
-                            </a>
-                        
-                        
-                            <a class="button-square hint--top hint--rounded hint--bounce" aria-label="Email" title="Email" href="mailto:legends2k@yahoo.com">
-                                <i class="fa fa-envelope"></i>
-                            </a>
-                        
-                    </div>
-
-                    <ul class="site-nav">
-                        
-    <li class="site-nav-item">
-        <a href="/post/">Posts</a>
-    </li>
-
-    <li class="site-nav-item">
-        <a href="/note/">Notes</a>
-    </li>
-
-    <li class="site-nav-item">
-        <a href="/projects/">Projects</a>
-    </li>
-
-    <li class="site-nav-item">
-        <a href="/about/">About</a>
-    </li>
-
-
-                    </ul>
-                </div>
-            </header>
-
-            <div id="container">
-
-
-<div class="container">
-    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
-        <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Emacs Go Setup</h1>
-    
-        <p class="post-description" itemprop="description">Make Emacs your Go IDE</p>
-    
-    <p class="post-date">
-    Published <time datetime="2018-06-17" itemprop="datePublished">Jun 17, 2018</time>
-    <span>by</span>
-    <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
-        <span itemprop="name">
-            <a href="https://legends2k.github.io/about/" itemprop="url" rel="author">Sundaram Ramaswamy</a>
-        </span>
-    </span>
-    
-    <span class="post-update-date">
-        Updated <time datetime="2018-06-17" itemprop="datePublished">Nov 8, 2021</time>
-    </span>
-    
-</p>
-
-    
-    
-</header>
-
-
-        <div class="post-content clearfix" itemprop="articleBody">
-    
-
-    <p>An IDE should at least aid with</p>
-<ul>
-<li>Auto-completion (a.k.a <em>Intellisense</em>)</li>
-<li>Jump to definition</li>
-<li>On-the-fly error checks</li>
-</ul>
-<p>Additionally it’d be good to have</p>
-<ul>
-<li>Context-sensitive document lookup
-<ul>
-<li>Show variable and function type</li>
-<li>Show function description</li>
-</ul>
-</li>
-<li>Auto-run <code>gofmt</code> on save</li>
-<li>Auto-add/remove used/unused packages on file save</li>
-</ul>
-<p>We’ll get these working for Go on Emacs using LSP.  It’s no secret that <a href="https://emacs-lsp.github.io">Emacs’
-LSP support</a> is top notch.</p>
-<blockquote>
-<p>We assume Go 1.17+ i.e. with full modules support and <code>GO111MODULE</code>
-unset<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
-</blockquote>
-<h2 id="go-please">Go, please!</h2>
-<p>Yeah, that’s the name of <code>gopls</code>, <a href="https://github.com/golang/tools/tree/master/gopls#installation">Go’s LSP server</a> 😉.  If your package
-manager doesn’t have it, <code>go install</code> it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go install golang.org/x/tools/gopls@latest</span></span></code></pre></div>
-<h2 id="emacs-setup">Emacs Setup</h2>
-<p>Install <code>go-mode</code> package from Melpa and hook it to <code>lsp-mode</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-lisp" data-lang="lisp"><span style="display:flex;"><span>(<span style="color:#50fa7b">use-package</span> <span style="color:#8be9fd;font-style:italic">go-mode</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">:mode</span> <span style="color:#f1fa8c">&#34;\\.go\\&#39;&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">:config</span>
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">defun</span> <span style="color:#8be9fd;font-style:italic">my/go-mode-setup</span> ()
-</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;Basic Go mode setup.&#34;</span>
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;before-save-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">lsp-format-buffer</span> t t)
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;before-save-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">lsp-organize-imports</span> t t))
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;go-mode-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">my/go-mode-setup</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>(<span style="color:#50fa7b">use-package</span> <span style="color:#8be9fd;font-style:italic">lsp-mode</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">:ensure</span> t
-</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">:commands</span> (<span style="color:#8be9fd;font-style:italic">lsp</span> <span style="color:#8be9fd;font-style:italic">lsp-mode</span> <span style="color:#8be9fd;font-style:italic">lsp-deferred</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">:hook</span> ((<span style="color:#8be9fd;font-style:italic">rust-mode</span> <span style="color:#8be9fd;font-style:italic">python-mode</span> <span style="color:#8be9fd;font-style:italic">go-mode</span>) <span style="color:#ff79c6">.</span> <span style="color:#8be9fd;font-style:italic">lsp-deferred</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">:config</span>
-</span></span><span style="display:flex;"><span>  (<span style="color:#ff79c6">setq</span> <span style="color:#8be9fd;font-style:italic">lsp-prefer-flymake</span> nil
-</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">lsp-enable-indentation</span> nil
-</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">lsp-enable-on-type-formatting</span> nil
-</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">lsp-rust-server</span> <span style="color:#f1fa8c">&#39;rust-analyzer</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">;; for filling args placeholders upon function completion candidate selection</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">;; lsp-enable-snippet and company-lsp-enable-snippet should be nil with</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">;; yas-minor-mode is enabled: https://emacs.stackexchange.com/q/53104</span>
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">lsp-modeline-code-actions-mode</span>)
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">add-hook</span> <span style="color:#f1fa8c">&#39;lsp-mode-hook</span> <span style="color:#50fa7b">#&#39;</span><span style="color:#8be9fd;font-style:italic">lsp-enable-which-key-integration</span>)
-</span></span><span style="display:flex;"><span>  (<span style="color:#8be9fd;font-style:italic">add-to-list</span> <span style="color:#f1fa8c">&#39;lsp-file-watch-ignored</span> <span style="color:#f1fa8c">&#34;\\.vscode\\&#39;&#34;</span>))</span></span></code></pre></div>
-<h2 id="verify">Verify</h2>
-<p>Make sure <code>gopls</code> is in <code>$PATH</code>.  If you’ve <code>go install</code>-ed, make sure to add
-<code>$GOPATH/bin</code> to <code>$PATH</code>.  Since projects use modules now, I use <code>$GOPATH</code> only
-to house Go tools which aren’t part of the official toolchain.  Similar to
-<code>${HOME}/.cargo</code> for Rust, I set <code>${HOME}/.go</code> as my <code>$GOPATH</code> and fix <code>$PATH</code>.</p>
-<p>Read <code>go help gopath</code> and <code>go help install</code> for details.</p>
-<p>Add entries with a trailing slash; missing it may lead to issues.</p>
-<h1 id="usage">Usage</h1>
-<ul>
-<li>If you’re not open an existing source file, be sure to save your fresh buffer.
-<ul>
-<li>Without saving you’d get warnings from tools</li>
-</ul>
-</li>
-<li>Auto-completion
-<ul>
-<li>Test it by importing <code>fmt</code> and type <code>fmt.</code></li>
-<li>It should list the package’s public members</li>
-<li>Cycle through the options with <code>M-n</code> and <code>M-p</code></li>
-<li>Additionally it’d also show the function prototype in the mini-buffer</li>
-</ul>
-</li>
-<li>Jump to definition
-<ul>
-<li>When point is atop a function name, press <code>M-.</code></li>
-<li>This should open the file where it’s defined and seek to the definition</li>
-<li>To return back to original place press <code>M-,</code></li>
-</ul>
-</li>
-<li>Flycheck, with no setup, does a good job of flagging warnings/errors
-<ul>
-<li><code>flycheck-verify-setup</code> is useful at times</li>
-</ul>
-</li>
-<li>Context-sensitive document lookup
-<ul>
-<li>Positioning point on a variable/function should show its type in the minibuffer</li>
-<li>To get a detailed description of a function do <code>godoc-at-point</code> (needs <code>godoc</code>)</li>
-<li>You could bind it to a key combo; it’s fairly handy</li>
-</ul>
-</li>
-<li>Auto-formatting
-<ul>
-<li>When you save the buffer it auto-formats with <code>gofmt</code></li>
-</ul>
-</li>
-<li>Auto-include/exclude
-<ul>
-<li>At the top-level, include packages you wouldn’t reference</li>
-<li>In functions from packages you didn’t import</li>
-<li>Save the buffer!  Redundant imports are deleted, needed ones are added 😉</li>
-<li><a href="https://golang.org/doc/effective_go.html?#blank_unused">Go is strict about unused imports</a> and this helps</li>
-</ul>
-</li>
-</ul>
-<p>This is a stable and light setup.  I’m happy with it for now.</p>
-<h1 id="references">References</h1>
-<ol>
-<li><code>go help install</code></li>
-<li><code>go help gopath</code></li>
-<li><a href="https://github.com/golang/tools/tree/master/gopls#installation">gopls Documentation</a></li>
-</ol>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>Go 1.17+ ignores <code>GO111MODULE</code> and assumes modules mostly.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
-</div>
-
-        <footer class="post-footer clearfix">
-        <p class="post-tags">
-            <span>Tagged:</span>
-                <a href="/tags/tech/">tech</a>, 
-                <a href="/tags/language/">language</a>, 
-                <a href="/tags/tools/">tools</a>, 
-                <a href="/tags/emacs/">emacs</a>
-        </p>
-    <div class="share">
-            <a class="icon-twitter" href="https://twitter.com/share?text=Emacs%20Go%20Setup&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f"
-                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f"
-                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-            </a>
-            <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Emacs%20Go%20Setup&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f&summary=Make%20Emacs%20your%20Go%20IDE"
-               onclick="window.open(this.href, 'linkedin-share', 'width=554,height=481');return false;" aria-label="Share on LinkedIn">
-               <i class="fa fa-linkedin" aria-hidden="true"></i>
-            </a>
-    </div>
-</footer>
-
-        
-    </article>
-</div>
-
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="site-title-wrapper">
-                    <h1 class="site-title">
-                        <a title="Bits of Insight" href="https://legends2k.github.io/"><i class="fa fa-home"></i></a>
-                    </h1>
-                    <a class="button-square button-jump-top js-jump-top" href="#">
-                        <i class="fa fa-angle-double-up"></i>
-                    </a>
-                </div>
-
-                <p class="footer-copyright"><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p>
-                <p class="footer-copyright"><span>Rendered by <a href="https://gohugo.io/">Hugo</a></span></p>
-                <p class="footer-copyright"><span>Composed with <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a></span></p>
-                <p class="footer-copyright">Occured to <a href="https://legends2k.github.io/about/">Sundaram Ramaswamy</a></span></p>
-            </div>
-        </footer>
-
-        <script src="https://legends2k.github.io/js/jquery-1.11.3.min.js"></script>
-        <script src="https://legends2k.github.io/js/jquery.fitvids.js"></script>
-        <script src="https://legends2k.github.io/js/scripts.js"></script>
-    </body>
-</html>
-
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Emacs Go Setup &#183; Sundaram Ramaswamy</title><meta name=description content="Make Emacs your Go IDE"><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.104.2"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/images/pencil-square-o.svg sizes=any type=image/svg+xml><meta property="og:title" content="Emacs Go Setup"><meta property="og:description" content="Make Emacs your Go IDE"><meta property="og:type" content="article"><meta property="og:url" content="https://legends2k.github.io/note/go_setup/"><link rel=stylesheet href=https://legends2k.github.io/dist/styles.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css></head><body><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Home title=Home href=https://legends2k.github.io/ rel=me><i class="fa fa-home"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label="RSS Feed" title="RSS Feed" href=https://legends2k.github.io/index.xml><i class="fa fa-rss"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Github title=Github href=https://github.com/legends2k rel=me><i class="fa fa-github-alt"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Bitbucket title=Bitbucket href=https://bitbucket.org/rmsundaram rel=me><i class="fa fa-bitbucket"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href=https://stackoverflow.com/users/183120/legends2k rel=me><i class="fa fa-stack-overflow"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=LinkedIn title=LinkedIn href=https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0 rel=me><i class="fa fa-linkedin"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Flickr title=Flickr href=https://flickr.com/photos/legends2k rel=me><i class="fa fa-flickr"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Email title=Email href=mailto:legends2k@yahoo.com><i class="fa fa-envelope"></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/post/>Posts</a></li><li class=site-nav-item><a href=/note/>Notes</a></li><li class=site-nav-item><a href=/projects/>Projects</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Emacs Go Setup</h1><p class=post-description itemprop=description>Make Emacs your Go IDE</p><p class=post-date>Published <time datetime=2018-06-17 itemprop=datePublished>Jun 17, 2018</time>
+<span>by</span>
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://legends2k.github.io/about/ itemprop=url rel=author>Sundaram Ramaswamy</a></span></span>
+<span class=post-update-date>Updated <time datetime=2018-06-17 itemprop=datePublished>Nov 8, 2021</time></span></p></header><div class="post-content clearfix" itemprop=articleBody><p>An IDE should at least aid with</p><ul><li>Auto-completion (a.k.a <em>Intellisense</em>)</li><li>Jump to definition</li><li>On-the-fly error checks</li></ul><p>Additionally it’d be good to have</p><ul><li>Context-sensitive document lookup<ul><li>Show variable and function type</li><li>Show function description</li></ul></li><li>Auto-run <code>gofmt</code> on save</li><li>Auto-add/remove used/unused packages on file save</li></ul><p>We’ll get these working for Go on Emacs using LSP. It’s no secret that <a href=https://emacs-lsp.github.io>Emacs’
+LSP support</a> is top notch.</p><blockquote><p>We assume Go 1.17+ i.e. with full modules support and <code>GO111MODULE</code>
+unset<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>.</p></blockquote><h2 id=go-please>Go, please!</h2><p>Yeah, that’s the name of <code>gopls</code>, <a href=https://github.com/golang/tools/tree/master/gopls#installation>Go’s LSP server</a> 😉. If your package
+manager doesn’t have it, <code>go install</code> it:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-bash data-lang=bash><span style=display:flex><span>go install golang.org/x/tools/gopls@latest</span></span></code></pre></div><h2 id=emacs-setup>Emacs Setup</h2><p>Install <code>go-mode</code> package from Melpa and hook it to <code>lsp-mode</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-lisp data-lang=lisp><span style=display:flex><span>(<span style=color:#50fa7b>use-package</span> <span style=color:#8be9fd;font-style:italic>go-mode</span>
+</span></span><span style=display:flex><span>  <span style=color:#f1fa8c>:mode</span> <span style=color:#f1fa8c>&#34;\\.go\\&#39;&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f1fa8c>:config</span>
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>defun</span> <span style=color:#8be9fd;font-style:italic>my/go-mode-setup</span> ()
+</span></span><span style=display:flex><span>    <span style=color:#f1fa8c>&#34;Basic Go mode setup.&#34;</span>
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>add-hook</span> <span style=color:#f1fa8c>&#39;before-save-hook</span> <span style=color:#50fa7b>#&#39;</span><span style=color:#8be9fd;font-style:italic>lsp-format-buffer</span> t t)
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>add-hook</span> <span style=color:#f1fa8c>&#39;before-save-hook</span> <span style=color:#50fa7b>#&#39;</span><span style=color:#8be9fd;font-style:italic>lsp-organize-imports</span> t t))
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>add-hook</span> <span style=color:#f1fa8c>&#39;go-mode-hook</span> <span style=color:#50fa7b>#&#39;</span><span style=color:#8be9fd;font-style:italic>my/go-mode-setup</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>(<span style=color:#50fa7b>use-package</span> <span style=color:#8be9fd;font-style:italic>lsp-mode</span>
+</span></span><span style=display:flex><span>  <span style=color:#f1fa8c>:ensure</span> t
+</span></span><span style=display:flex><span>  <span style=color:#f1fa8c>:commands</span> (<span style=color:#8be9fd;font-style:italic>lsp</span> <span style=color:#8be9fd;font-style:italic>lsp-mode</span> <span style=color:#8be9fd;font-style:italic>lsp-deferred</span>)
+</span></span><span style=display:flex><span>  <span style=color:#f1fa8c>:hook</span> ((<span style=color:#8be9fd;font-style:italic>rust-mode</span> <span style=color:#8be9fd;font-style:italic>python-mode</span> <span style=color:#8be9fd;font-style:italic>go-mode</span>) <span style=color:#ff79c6>.</span> <span style=color:#8be9fd;font-style:italic>lsp-deferred</span>)
+</span></span><span style=display:flex><span>  <span style=color:#f1fa8c>:config</span>
+</span></span><span style=display:flex><span>  (<span style=color:#ff79c6>setq</span> <span style=color:#8be9fd;font-style:italic>lsp-prefer-flymake</span> nil
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd;font-style:italic>lsp-enable-indentation</span> nil
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd;font-style:italic>lsp-enable-on-type-formatting</span> nil
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd;font-style:italic>lsp-rust-server</span> <span style=color:#f1fa8c>&#39;rust-analyzer</span>)
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>;; for filling args placeholders upon function completion candidate selection</span>
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>;; lsp-enable-snippet and company-lsp-enable-snippet should be nil with</span>
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>;; yas-minor-mode is enabled: https://emacs.stackexchange.com/q/53104</span>
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>lsp-modeline-code-actions-mode</span>)
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>add-hook</span> <span style=color:#f1fa8c>&#39;lsp-mode-hook</span> <span style=color:#50fa7b>#&#39;</span><span style=color:#8be9fd;font-style:italic>lsp-enable-which-key-integration</span>)
+</span></span><span style=display:flex><span>  (<span style=color:#8be9fd;font-style:italic>add-to-list</span> <span style=color:#f1fa8c>&#39;lsp-file-watch-ignored</span> <span style=color:#f1fa8c>&#34;\\.vscode\\&#39;&#34;</span>))</span></span></code></pre></div><h2 id=verify>Verify</h2><p>Make sure <code>gopls</code> is in <code>$PATH</code>. If you’ve <code>go install</code>-ed, make sure to add
+<code>$GOPATH/bin</code> to <code>$PATH</code>. Since projects use modules now, I use <code>$GOPATH</code> only
+to house Go tools which aren’t part of the official toolchain. Similar to
+<code>${HOME}/.cargo</code> for Rust, I set <code>${HOME}/.go</code> as my <code>$GOPATH</code> and fix <code>$PATH</code>.</p><p>Read <code>go help gopath</code> and <code>go help install</code> for details.</p><p>Add entries with a trailing slash; missing it may lead to issues.</p><h1 id=usage>Usage</h1><ul><li>If you’re not open an existing source file, be sure to save your fresh buffer.<ul><li>Without saving you’d get warnings from tools</li></ul></li><li>Auto-completion<ul><li>Test it by importing <code>fmt</code> and type <code>fmt.</code></li><li>It should list the package’s public members</li><li>Cycle through the options with <code>M-n</code> and <code>M-p</code></li><li>Additionally it’d also show the function prototype in the mini-buffer</li></ul></li><li>Jump to definition<ul><li>When point is atop a function name, press <code>M-.</code></li><li>This should open the file where it’s defined and seek to the definition</li><li>To return back to original place press <code>M-,</code></li></ul></li><li>Flycheck, with no setup, does a good job of flagging warnings/errors<ul><li><code>flycheck-verify-setup</code> is useful at times</li></ul></li><li>Context-sensitive document lookup<ul><li>Positioning point on a variable/function should show its type in the minibuffer</li><li>To get a detailed description of a function do <code>godoc-at-point</code> (needs <code>godoc</code>)</li><li>You could bind it to a key combo; it’s fairly handy</li></ul></li><li>Auto-formatting<ul><li>When you save the buffer it auto-formats with <code>gofmt</code></li></ul></li><li>Auto-include/exclude<ul><li>At the top-level, include packages you wouldn’t reference</li><li>In functions from packages you didn’t import</li><li>Save the buffer! Redundant imports are deleted, needed ones are added 😉</li><li><a href=https://golang.org/doc/effective_go.html?#blank_unused>Go is strict about unused imports</a> and this helps</li></ul></li></ul><p>This is a stable and light setup. I’m happy with it for now.</p><h1 id=references>References</h1><ol><li><code>go help install</code></li><li><code>go help gopath</code></li><li><a href=https://github.com/golang/tools/tree/master/gopls#installation>gopls Documentation</a></li></ol><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Go 1.17+ ignores <code>GO111MODULE</code> and assumes modules mostly.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+<a href=/tags/tech/>tech</a>,
+<a href=/tags/language/>language</a>,
+<a href=/tags/tools/>tools</a>,
+<a href=/tags/emacs/>emacs</a></p><div class=share><a class=icon-twitter href="https://twitter.com/share?text=Emacs%20Go%20Setup&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f" onclick='return window.open(this.href,"twitter-share","width=550,height=235"),!1' aria-label="Share on Twitter"><i class="fa fa-twitter" aria-hidden=true></i></a>
+<a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f" onclick='return window.open(this.href,"facebook-share","width=580,height=296"),!1' aria-label="Share on Facebook"><i class="fa fa-facebook" aria-hidden=true></i></a>
+<a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Emacs%20Go%20Setup&url=https%3a%2f%2flegends2k.github.io%2fnote%2fgo_setup%2f&summary=Make%20Emacs%20your%20Go%20IDE" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a title="Bits of Insight" href=https://legends2k.github.io/><i class="fa fa-home"></i></a></h1><a class="button-square button-jump-top js-jump-top" href=#><i class="fa fa-angle-double-up"></i></a></div><p class=footer-copyright><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png></a></p><p class=footer-copyright><span>Rendered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>Composed with <a href=https://www.gnu.org/software/emacs/>GNU Emacs</a></span></p><p class=footer-copyright>Occured to <a href=https://legends2k.github.io/about/>Sundaram Ramaswamy</a></span></p></div></footer><script src=https://legends2k.github.io/js/jquery-1.11.3.min.js></script>
+<script src=https://legends2k.github.io/js/jquery.fitvids.js></script>
+<script src=https://legends2k.github.io/js/scripts.js></script></body></html>
