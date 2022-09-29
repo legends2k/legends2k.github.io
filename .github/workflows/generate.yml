@@ -35,9 +35,8 @@ jobs:
         run: |
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
           cd public
-          echo "${COMMIT_MSG=$}"
           git add -vA
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
-          git commit -m "${MESG}"
-          git push -u origin master
+          git commit -m "${COMMIT_MSG}"
+          git push -u origin @
