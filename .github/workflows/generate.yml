@@ -33,8 +33,11 @@ jobs:
 
       - name: Add changes and commit
         run: |
-          cd public
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          cd public
           echo "${COMMIT_MSG=$}"
           git add -vA
-          # git commit --author="GitHub Actions Bot <>" -m "${MESG}"
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          git commit -m "${MESG}"
+          git push -u origin master
