@@ -1,5 +1,8 @@
 name: Generate pages
 
+# Based on
+# https://blog.benhpoh.com/2022/01/21/trigger-another-github-repos-workflow/
+# https://lannonbr.com/blog/2019-12-09-git-commit-in-actions/
 on:
   workflow_dispatch:
 
