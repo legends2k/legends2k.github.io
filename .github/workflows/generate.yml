@@ -5,6 +5,11 @@ name: Generate pages
 # https://lannonbr.com/blog/2019-12-09-git-commit-in-actions/
 on:
   workflow_dispatch:
+    inputs:
+      hugoVersion:
+        description: 'Hugo version to use to generate site.'
+        required: false
+        default: '0.104.2'
 
 jobs:
   deploy:
@@ -29,7 +34,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.104.2'
+          hugo-version: "${{ github.event.inputs.logLevel }}"
 
       - name: Generate
         run: hugo --minify
