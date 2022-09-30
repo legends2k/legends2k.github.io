@@ -518,8 +518,17 @@ blockquote ::-moz-selection, aside ::-moz-selection {
     float: left;
     /* remove top margin for post-tags as it's already set above with .share */
 }
+.post-tags a {
+    font-style: italic;
+}
+.post-tags a::before {
+    content: "# ";
+}
 .post-tags a:hover {
     color: #303030;
+}
+.post-tags span {
+    display: none;
 }
 
 .share {
@@ -575,10 +584,7 @@ blockquote ::-moz-selection, aside ::-moz-selection {
 .post-stub-date {
     display: inline-block;
     font-size: 80%;
-    color: darkgray;
-}
-.post-stub a:hover .post-stub-date {
-    display: none;
+    color: #7f7f7f;
 }
 .post-stub {
     border-bottom: 1px dotted #303030;
@@ -617,13 +623,12 @@ blockquote ::-moz-selection, aside ::-moz-selection {
 }
 
 .post-stub-tag-list {
-    display: none;
-}
-.post-stub a:hover .post-stub-tag-list {
-    display: inline;
+    display: block;
+    align-self: flex-end;
+    flex-basis: 100%;
 }
 .post-stub-tag-item {
-    color: #FF9994;
+    color: #cd5c5c;
     letter-spacing: 0.2mm;
     font-size: 0.8em;
     font-style: italic;
@@ -642,7 +647,7 @@ blockquote ::-moz-selection, aside ::-moz-selection {
     text-transform: none;
 }
 
-.post-stub-date:before {
+.post-stub-date::before {
     content: "/ ";
 }
 
