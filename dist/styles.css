@@ -523,6 +523,7 @@ blockquote ::-moz-selection, aside ::-moz-selection {
 }
 .post-tags a::before {
     content: "# ";
+    color: #AE8484;
 }
 .post-tags a:hover {
     color: #303030;
