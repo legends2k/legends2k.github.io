@@ -46,5 +46,4 @@ jobs:
           git add -vA
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
-          git commit -m "${COMMIT_MSG}"
-          git push -u origin @
+          git commit -m "${COMMIT_MSG}" && git push -u origin master || echo
