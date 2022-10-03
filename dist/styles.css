@@ -889,10 +889,6 @@ blockquote ::-moz-selection, aside ::-moz-selection {
         display: inline-block;
     }
 
-    .post-stub a:hover .post-stub-tag-list {
-        display: none;
-    }
-
     .post-list {
         margin-top: 20px;
     }
