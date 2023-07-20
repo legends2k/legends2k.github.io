@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Marching Squares • Metaballs</title>
+
+        <link rel="stylesheet" type="text/css" href="styles.css">
+
+        <script type="module" src="metaballs.mjs"></script>
+    </head>
+
+    <body>
+        <div id="helpText">Grab one and play :)</div>
+        <div id="stage">
+            <canvas id="canvasGrid" width="640" height="480"></canvas>
+            <canvas id="canvasContent" width="640" height="480"></canvas>
+            <div id="labelFps"><span id="lblFps"></span> fps</div>
+        </div>
+        <div id="controls">
+            <div>
+                <label for="gridResolution">Sampling Resolution</label>
+                <label for="gridResolution" id="resText"></label>
+                <input type="range"
+                       class="slider" id="gridResolution"
+                       min="0" max="100"
+                       value="83">
+            </div>
+            <div>
+                <input type="checkbox"
+                       id="chkAnimate"
+                <label for="chkAnimate">Animate</label>
+            </div>
+            <div>
+                <input type="checkbox"
+                       id="chkSamples"
+                <label for="chkSamples">Samples</label>
+            </div>
+            <div>
+                <input type="checkbox"
+                       id="chkLerp"
+                <label for="chkLerp">Lerp</label>
+            </div>
+            <div>
+                <input type="checkbox"
+                       id="chkGrid"
+                <label for="chkGrid">Grid</label>
+            </div>
+            <!-- Checkboxes for animate and grid visibility -->
+        </div>
+    </body>
+</html>

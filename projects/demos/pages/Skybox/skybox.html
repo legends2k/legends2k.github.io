@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Skybox</title>
+
+        <style>
+         html,
+         body {
+             height: 100%;
+             margin:0;
+         }
+
+         #canvas-div {
+             left: 0;
+             top: 0;
+             width: 100vw;
+             height: 100vh;
+         }
+         canvas {
+             display: block;
+             width: 100%;
+             height: 100%;
+         }
+        </style>
+    </head>
+
+    <body>
+        <div id="canvas-div">
+            <canvas id="canvas" />
+        </div>
+    </body>
+</html>
+
+<!--
+     Two ways to do skyboxes.  This demo does the first, but the viewer is
+     stationary.
+     1. Having a cube (skybox) or sphere (skydome) geometry, wrapping it with a
+        cube map texture and moving, but not rotating, it in sync with viewer.
+     2. Keeping a plane geometry perpendicular to the viewer at all times --
+        moving and rotating as necessary -- and sampling the relevant portion
+        of the cube map as per the current viewing direction.  When sampling the
+        cube map from the fragment shader, the trick is to make sure that the
+        position passed-in from the vertex shader, now in NDC space, is
+        transformed with (PVM)⁻¹, so that it's back in model space to rightly
+        sample.  Another trick is to directly having the plane geometry in the
+        NDC space i.e. x: [-1, 1], y: [-1, 1], z = 1 so that however oriented
+        the viewer is, the plane will always be the farthest rendered.  The way
+        to understand this is to imagine there's a cube in the scene and we're
+        trying to sample it; just that instead of having an actual cube, we've a
+        simple quad, as though it were a portion of the cube, to render on to.
+
+     In both methods, when we've a scene with some objects and a skybox, we've
+     to make sure that[1]:
+
+             1. The skybox is rendered the first
+             2. The depth mask should be OFF when rendering the skybox
+
+     Say the cube map's draw call follows another object farther than the cube
+     map.  Now the cube map's fragments will “win” the depth test and its
+     fragments will overwrite the object's.  (1) avoids this by first drawing
+     the cube map fragments, but wait.  Wouldn't the object's fragments lose the
+     depth test?  Yes, they would, but here's where (2) comes in.  Switching off
+     the depth mask makes the depth buffer read-only; so no depth value is
+     written for the cube map fragments.  Later on, when the farther object's
+     fragments come up, they wins the depth test since there's nothing in the
+     depth buffer to compare them against.
+
+     Static cube maps are when the textures of the cube map are static; dynamic
+     is when the textures are updated real-time by offscreen renders.
+     E.g. rendering environment offscreen to a cube map and applying it as a
+     texture to a teapot having a reflective surface.
+
+     REFERENCES
+     Method 1:
+     1. http://antongerdelan.net/opengl/cubemaps.html
+     2. http://learnopengl.com/#!Advanced-OpenGL/Cubemaps
+     3. http://ogldev.atspace.co.uk/www/tutorial25/tutorial25.html
+     Method 2:
+     4. http://twgljs.org/examples/no-box-skybox.html
+     5. http://humus.name/cubemapviewer.js
+     Books:
+     1. OpenGL 4.0 Shading Language Cookbook, 1st Edition, David Wolff
+     2. OpenGL Development Cookbook, Muhammad Mobeen Movania
+   -->
+<script id="shader-vs" type="x-shader/x-vertex">
+ precision highp float;
+
+ uniform mat4 uMat;
+
+ attribute vec3 position;
+ varying vec3 texCoord;
+
+ void main() {
+     texCoord = position;
+     gl_Position = uMat * vec4(position, 1.0);
+     // gl_Position = gl_Position.xyww;
+     // This is done to make sure the cubemap fragments are the last in the
+     // depth buffer, with Z = 1.0, assuming a depth range of [0, 1]. However,
+     // Anton discourages this and recommends doing this only with glDepthMask.
+ }
+</script>
+
+<!--
+     Though this shader does the horizontal flip correctly as verified with both
+     Intel and nVidia cards, it might not be the proper way to do it, since
+     OpenGL clearly specifies that the CLAMP_TO_EDGE addressing should indeed be
+     clamping values going beyond [0, tex_size].  However, we seem to get the
+     behaviour of the REPEAT addressing mode, which flips based on the sign for
+     2D textures, while CLAMP_TO_EDGE does what the books in 2D texture's case.
+     For cube maps, changing between CLAMP_TO_EDGE, REPEAT or MIRRORED_REPEAT
+     doesn't affect the output; it always exhibits the behaviour detailed in
+     the fragment shader below.
+-->
+<script id="shader-fs" type="x-shader/x-fragment">
+ precision highp float;
+
+ uniform samplerCube uSkyBox;
+
+ varying vec3 texCoord;
+
+ void main() {
+     // negate s or p for horizontal flip; negating both cancels each other out
+     // negate t for vertical flip; negate s (or p) and t to flip both ways
+     vec3 flipTexCoord = vec3(texCoord.s, texCoord.t, -texCoord.p);
+     // To the original images, manually, do
+     // 1. Flip ALL images horizontally
+     // 2. Swap(left, right) OR Swap(front, back)
+     // https://stackoverflow.com/q/46395133
+     gl_FragColor = textureCube(uSkyBox, flipTexCoord);
+ }
+</script>
+
+<script type="module">
+ "use strict";
+
+ import {vec3, mat4} from "../gl-matrix.mjs";
+ import * as twgl from "../twgl-full.mjs";
+ import * as utils from "../utils.mjs";
+ // Both glMatrix and TWGL follow column-major storage and indexing.
+ // multiply(P, V) = P * V i.e. premultiplies P to V
+
+ let viewMatrix, projMatrix;
+ let fovY = Math.PI / 4;
+ let godMode = false;
+ let angleX = 0, angleY = 0;
+
+ function resizeContext(gl) {
+     let width = gl.canvas.clientWidth;
+     let height = gl.canvas.clientHeight;
+     if ((gl.canvas.width !== width) || (gl.canvas.height !== height)) {
+         gl.canvas.width = width;
+         gl.canvas.height = height;
+         return true;
+     }
+     return false;
+ }
+
+ function calcProjection(gl) {
+     let ar = gl.drawingBufferWidth / gl.drawingBufferHeight;
+     mat4.perspective(projMatrix, fovY, ar, 0.1, 100);
+ }
+
+ function render(gl, models, modelOrient, cubemap, prgm) {
+     if (twgl.resizeCanvasToDisplaySize(gl.canvas)) {
+         resizeContext(gl);
+         calcProjection(gl);
+     }
+     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+     if (!godMode)
+         gl.depthMask(gl.FALSE);
+     gl.useProgram(prgm.program);
+     let mat = mat4.create();
+     mat4.mul(mat, viewMatrix, modelOrient);
+     mat4.mul(mat, projMatrix, mat);
+     twgl.setUniforms(prgm, { uMat: mat,
+                              uSkyBox: cubemap});
+     twgl.setBuffersAndAttributes(gl, prgm, models);
+     twgl.drawBufferInfo(gl, models);
+     if (!godMode)
+         gl.depthMask(gl.TRUE);
+     gl.useProgram(null);
+ }
+
+ function makeModels(gl) {
+     return twgl.primitives.createCubeBufferInfo(gl, 10);
+ }
+
+ function loadTextures(gl) {
+     // REQUIREMENTS
+     // 1. A set of six square textures; NPOT is fine too.
+     // 2. CLAMP_TO_EDGE wrap mode is needed by cube maps to avoid seam
+     //    artefacts.
+     // 3. Set minification filters to anything other than ones with _MIPMAP to
+     //    avoid generating mipmaps; typically not needed for a skyboxe since
+     //    it’s always at a constant distance from the viewer i.e. it moves
+     //    along with the viewer at its centre, but not rotate.
+     let tex = twgl.createTexture(gl, {
+         target: gl.TEXTURE_CUBE_MAP,
+         wrap: gl.CLAMP_TO_EDGE,
+         minMag: gl.LINEAR,
+         src: [ './images/colosseum/right.jpg',     // +X
+                './images/colosseum/left.jpg',      // −X
+                './images/colosseum/top.jpg',       // +Y
+                './images/colosseum/bottom.jpg',    // −Y
+                './images/colosseum/front.jpg',     // +Z
+                './images/colosseum/back.jpg'] });  // −Z
+     gl.bindTexture(gl.TEXTURE_CUBE_MAP, tex);
+     return tex;
+ }
+
+ function makeProgram(gl) {
+     return twgl.createProgramInfo(gl, ["shader-vs", "shader-fs"]);
+ }
+
+ function setCamera(gl) {
+     let eye, target;
+     if (godMode) {
+         eye = vec3.fromValues(0, 0, 20);
+         target = vec3.fromValues(0, 0, 0);
+     }
+     else {
+         eye = vec3.fromValues(0, 0, 0);
+         target = vec3.fromValues(0, 0, -1);
+     }
+     let up = vec3.fromValues(0, 1, 0);
+     // TWGL quirk; lookAt doesn't give view matrix but rather its inverse
+     // i.e. it gives Mview->world; invert to get Mworld->view
+     viewMatrix = mat4.create();
+     projMatrix = mat4.create();
+     mat4.lookAt(viewMatrix, eye, target, up);
+     twgl.resizeCanvasToDisplaySize(gl.canvas);
+     calcProjection(gl);
+ }
+
+ // Scene rotation is implemented by fixed angles i.e. by storing the amount
+ // of rotation along each world axis, updating them and generating a fresh
+ // rotation matrix for every turn.
+ function updateOrientation(orient, deltaX, deltaY) {
+     angleX -= utils.degToRad(deltaY / 10);
+     angleY -= utils.degToRad(deltaX / 10);
+     // the displacment in X would be rotation around Y axis; hence flipped
+     // let's no let them rollover upside down; clamp pitch to (∓90°)
+     angleX = utils.clamp(angleX, -Math.PI * 0.5, Math.PI * 0.5);
+     angleY = angleY % (Math.PI * 2.0);
+
+     mat4.identity(orient);
+     mat4.rotateX(orient, orient, angleX);
+     mat4.rotateY(orient, orient, angleY);
+
+     // This method keeps concatenating to the existing orientation matrix and
+     // doesn't have angles stored separately; further rotations are w.r.t the
+     // earlier rotated frame (Euler angles) which isn't a good way to explore a
+     // skybox. Matrix creep should also be tackled for this.
+     /* let rotor = mat4.create();
+      * mat4.rotateX(rotor, rotor, utils.degToRad(deltaY / 10));
+      * mat4.rotateY(rotor, rotor, utils.degToRad(deltaX / 10));
+      * mat4.multiply(orient, rotor, orient);*/
+ }
+
+ function start() {
+     let glCanvas = document.getElementById("canvas");
+     let gl = twgl.getWebGLContext(glCanvas);
+     gl.clearColor(0, 0, 0, 1);
+     // gl.enable(gl.TEXTURE_CUBE_MAP_SEAMLESS);
+     // if seamless cube map filtering is enabled, wrap modes are implicitly
+     // hardcoded to CLAMP_TO_EDGE. Refer §3.8.10, OpenGL 3.3
+     gl.enable(gl.DEPTH_TEST);
+     gl.depthFunc(gl.LEQUAL);
+
+     if (!godMode) {
+         // NOTE: usually only back face is culled, but since we're inside the
+         // box the front face is culled.  In real code, this should be BACK and
+         // the cube vertices should be defined in clockwise order instead.
+         gl.cullFace(gl.FRONT);
+         gl.frontFace(gl.CCW);
+         gl.enable(gl.CULL_FACE);
+     }
+
+     let models = makeModels(gl);
+     let cubemap = loadTextures(gl);
+     setCamera(gl);
+     let prgm = makeProgram(gl);
+     let modelOrient = mat4.create();
+     let loop = function(/*time*/) {
+         render(gl, models, modelOrient, cubemap, prgm);
+         requestAnimationFrame(loop);
+     }
+
+     let lastDragX = 0;
+     let lastDragY = 0;
+     let mouseDragging = false;
+     glCanvas.addEventListener('mousedown', function(e) {
+         lastDragX = e.clientX;
+         lastDragY = e.clientY;
+         mouseDragging = true;
+     }, false);
+     document.addEventListener('mousemove', function(e) {
+         if (mouseDragging) {
+             let deltaX = e.clientX - lastDragX;
+             let deltaY = e.clientY - lastDragY;
+             updateOrientation(modelOrient, deltaX, deltaY);
+             lastDragX = e.clientX;
+             lastDragY = e.clientY;
+         }
+     }, false);
+     document.addEventListener('mouseup', function(e) {
+         mouseDragging = false;
+     }, false);
+
+     requestAnimationFrame(loop);
+ }
+
+ window.onload = start;
+
+</script>

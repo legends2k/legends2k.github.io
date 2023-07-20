@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <div>
+            <canvas id="glCanvas" width="800" height="600" />
+        </div>
+        <div style="margin-top: 5mm">
+            <button id="btnReset" type="button">Reset</button>
+        </div>
+    </body>
+</html>
+
+<!-- similar to -->
+<!-- math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html -->
+<!-- learningwebgl.com/blog/?p=1253 -->
+<script id="shader-vs" type="x-shader/x-vertex">
+ attribute vec3 aPosition;
+ attribute vec3 aColour;
+
+ varying vec3 vColour;
+
+ uniform mat4 uMMatrix;
+ uniform mat4 uPVMatrix;
+
+ void main() {
+     vColour = aColour;
+     gl_Position = uPVMatrix * uMMatrix * vec4(aPosition, 1.0);
+ }
+</script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+ precision mediump float;
+ varying vec3 vColour;
+
+ void main() {
+     gl_FragColor = vec4(vColour, 1.0);
+ }
+</script>
+
+<script type="module">
+ "use strict";
+
+ import * as utils from "../utils.mjs";
+ import {vec2, vec3, mat4, quat} from "../gl-matrix.mjs";
+
+ var gl;
+ var fovY = Math.PI / 4;
+ var V = mat4.create();
+ var PV = mat4.create();
+ var cubeOrient = quat.create();
+ var mouseDown = false;
+ var lastX = 0;
+ var lastY = 0;
+
+ function initWebGL(canvas) {
+     try {
+         // try to grab the standard context,
+         // if it fails fallback to experimental
+         gl = canvas.getContext("webgl") ||
+              canvas.getContext("experimental-webgl");
+         gl.width = canvas.width;
+         gl.height = canvas.height;
+         gl.aspect = gl.width / gl.height;
+         gl.viewportCentre = vec2.fromValues(gl.width / 2,
+                                             gl.height / 2);
+     }
+     // If we don't have a GL context, give up now
+     catch(e) {
+         alert("Unable to initialize WebGL." +
+               "Your browser may not support it.");
+     }
+ }
+
+ function uploadData() {
+     // RGB colour cube
+     var vertices = new Float32Array([
+         1,-1, 1,    1, 0, 1,
+         1,-1,-1,    1, 0, 0,
+         -1,-1,-1,    0, 0, 0,
+         -1,-1, 1,    0, 0, 1,
+         1, 1, 1,    1, 1, 1,
+         1, 1,-1,    1, 1, 0,
+         -1, 1,-1,    0, 1, 0,
+         -1, 1, 1,    0, 1, 1
+     ]);
+     var vbo = gl.createBuffer();
+     gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+     gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+     var nSize = vertices.BYTES_PER_ELEMENT;
+     var elementsPerVert = 6;
+
+     vbo.attrib = [{}, {}];
+     vbo.attrib[0].perItemCount = 3;
+     vbo.attrib[0].type = gl.FLOAT;
+     vbo.attrib[0].stride = nSize * elementsPerVert;
+     vbo.attrib[0].offset = 0;
+     vbo.attrib[1].perItemCount = 3;
+     vbo.attrib[1].type = gl.FLOAT;
+     vbo.attrib[1].stride = nSize * elementsPerVert;
+     vbo.attrib[1].offset = 3 * nSize;
+
+     var indices = [
+         1, 0, 3, // floor
+         3, 2, 1,
+         5, 1, 2, // front
+         6, 5, 2,
+         0, 1, 5, // right
+         0, 5, 4,
+         2, 3, 6, // left
+         7, 6, 3,
+         0, 4, 3, // back
+         3, 4, 7,
+         4, 5, 7, // ceil
+         7, 5, 6
+     ];
+     var ibo = gl.createBuffer();
+     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
+     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
+                   new Uint8Array(indices),
+                   gl.STATIC_DRAW);
+     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+
+     ibo.perItemCount = 3;
+     ibo.itemCount = 12;
+
+     gl.buf.push(vbo);
+     gl.buf.push(ibo);
+ }
+
+ function compileShaders() {
+     var shader_names = ["shader-vs", "shader-fs"];
+     var shader_types = [gl.VERTEX_SHADER, gl.FRAGMENT_SHADER];
+     var shaders = [];
+     for (var i = 0; i < shader_names.length; ++i) {
+         var element = document.getElementById(shader_names[i]);
+         var code = "";
+         var k = element.firstChild;
+         while (k) {
+             if (k.nodeType == Node.TEXT_NODE) {
+                 code += k.textContent;
+             }
+             k = k.nextSibling;
+         }
+         var shader = gl.createShader(shader_types[i]);
+         gl.shaderSource(shader, code);
+         gl.compileShader(shader);
+         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+             alert(gl.getShaderInfoLog(shader));
+             return null;
+         }
+         shaders.push(shader);
+     }
+     return shaders;
+ }
+
+ function linkProgram(shaders) {
+     var program = gl.createProgram();
+     gl.attachShader(program, shaders[0]);
+     gl.attachShader(program, shaders[1]);
+     gl.linkProgram(program);
+     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+         alert(gl.getProgramInfoLog(program));
+         return null;
+     }
+     gl.validateProgram(program);
+     if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
+         alert(gl.getProgramInfoLog(program));
+         return null;
+     }
+     gl.detachShader(program, shaders[1]);
+     gl.detachShader(program, shaders[0]);
+     gl.deleteShader(shaders[1]);
+     gl.deleteShader(shaders[0]);
+
+     program.attribPos = gl.getAttribLocation(program, "aPosition");
+     program.attribCol = gl.getAttribLocation(program, "aColour");
+     program.uniMMat = gl.getUniformLocation(program, "uMMatrix");
+     program.uniPVMat = gl.getUniformLocation(program, "uPVMatrix");
+
+     gl.prog.push(program);
+ }
+
+ function setupCamera() {
+     // the crystal ball will have a radius of 3√3 world units;
+     // the camera will keep circling around the crystal ball surface
+     // looking at its centre at all times
+     var eye = vec3.fromValues(3, 3, 3);
+     // the idea of the crystal ball interface is that something
+     // interesting is put up at the origin, so look at it
+     var centre = vec3.fromValues(0, 0, 0);
+     var up = vec3.fromValues(0, 1, 0);
+     mat4.lookAt(V, eye, centre, up);
+     var P = mat4.create();
+     mat4.perspective(P, fovY, gl.aspect, 1, 100);
+     mat4.mul(PV, P, V);
+ }
+
+ function render() {
+     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+     gl.useProgram(gl.prog[0]);
+
+     var M = mat4.create();
+     mat4.fromQuat(M, cubeOrient);
+     gl.uniformMatrix4fv(gl.prog[0].uniPVMat, false, PV);
+     gl.uniformMatrix4fv(gl.prog[0].uniMMat, false, M);
+
+     gl.bindBuffer(gl.ARRAY_BUFFER, gl.buf[0]);
+     gl.enableVertexAttribArray(gl.prog[0].attribPos);
+     gl.vertexAttribPointer(gl.prog[0].attribPos,
+                            gl.buf[0].attrib[0].perItemCount,
+                            gl.buf[0].attrib[0].type,
+                            false,
+                            gl.buf[0].attrib[0].stride,
+                            gl.buf[0].attrib[0].offset);
+     gl.enableVertexAttribArray(gl.prog[0].attribCol);
+     gl.vertexAttribPointer(gl.prog[0].attribCol,
+                            gl.buf[0].attrib[1].perItemCount,
+                            gl.buf[0].attrib[1].type,
+                            false,
+                            gl.buf[0].attrib[1].stride,
+                            gl.buf[0].attrib[1].offset);
+     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.buf[1]);
+
+     gl.drawElements(gl.TRIANGLES,
+                     gl.buf[1].perItemCount * gl.buf[1].itemCount,
+                     gl.UNSIGNED_BYTE,
+                     0);
+
+     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+     gl.bindBuffer(gl.ARRAY_BUFFER, null);
+     gl.useProgram(null);
+
+     window.requestAnimationFrame(render);
+ }
+
+ function rotateBall(e) {
+     if (!mouseDown)
+         return;
+
+     var x = e.clientX;
+     var y = e.clientY;
+     var p2 = vec2.fromValues(x, y);
+     var p1 = vec2.fromValues(lastX, lastY);
+     lastX = x, lastY = y;
+
+     // This workout does with mouse and quaternion what Ravi
+     // Ramamoorthi's CS184.1x's HW1 does with keyboard and matrix.
+     // The getVersor function is the crux of this workout; it
+     // implements the crystal ball interface. Refer to it for comments
+     // and illustrations.
+
+     let viewportDims = vec2.fromValues(gl.drawingBufferWidth,
+                                        gl.drawingBufferHeight);
+     var versor = utils.getVersor(p1, p2, viewportDims, fovY, V);
+     quat.mul(cubeOrient, versor, cubeOrient);
+     quat.normalize(cubeOrient, cubeOrient);
+ }
+
+ function reset() {
+     quat.identity(cubeOrient);
+ }
+
+ function start() {
+     var canvas = document.getElementById("glCanvas");
+     initWebGL(canvas);      // Initialize the GL context
+     // Only continue if WebGL is available and working
+     if (gl)
+     {
+         window.addEventListener('mouseup', () => mouseDown = false);
+         canvas.addEventListener('mousedown', e => {
+             lastX = e.clientX;
+             lastY = e.clientY;
+             mouseDown = true;
+         });
+         window.addEventListener('mousemove', rotateBall);
+         document.getElementById("btnReset").addEventListener('click', reset);
+
+         gl.clearColor(0.0, 0.0, 0.0, 1.0);
+         gl.enable(gl.DEPTH_TEST);
+
+         // initialize custom members
+         gl.buf = [];
+         gl.prog = [];
+
+         uploadData();
+         linkProgram(compileShaders());
+         setupCamera();
+         render();
+     }
+ }
+
+ start();
+
+</script>

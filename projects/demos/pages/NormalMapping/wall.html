@@ -1,0 +1,759 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bump Mapping with Normal Map</title>
+        <!--
+            Refer Mathematics for 3D Game Programming and Computer Graphics, 3/e
+            by Eric Lengyel, §7.8 Bump Mapping
+
+            PER-FRAGMENT LIGHTING
+            When performing per-fragment lighting, the light and viewing
+            direction vectors need to be calcuated w.r.t to the fragment's
+            position. This doesn't necessarily mean that those direction vectors
+            have to be calculated in the fragment shader using the fragment's
+            position.  They can be calculated in the vertex shader and
+            interpolated like the normal vector being interpolated across the
+            triangle's face based on the normals at the vertices.  The results
+            should be the same.
+
+            Imagine a triangle in 2D, with vertex positions P₀, P₁, P₂.  Say L
+            is a point outside the triangle.  Taking some arbitrary point inside
+            the triangle, P, the vector from P to L would be given by
+
+            V = L − P
+            V = L − (αP₀ + βP₁ + γP₂)
+            where α, β, γ are P's barycentric coordinates
+
+            Calculating similar vectors to L from P₀, P₁, P₂ repsectively
+            and interpolating them to get V'
+
+            V' = α(L − P₀) + β(L − P₁) + γ(L − P₂)
+            V' = αL − αP₀ + βL − βP₁ + γL − γP₂
+            V' = (α + β + γ) L − (αP₀ + βP₁ + γP₂)
+            V' = L − (αP₀ + βP₁ + γP₂)    ∵ α + β + γ = 1
+            V' = V
+            They are the same. This holds for a triangle in 3D too since
+            barycentric coordinates are valid in higher dimensions too.
+
+            SEE ALSO
+            1. http://www.mikktspace.com/ - Common standard for
+               tangent space used by normal maps generators
+           -->
+        <script id="normal-shader-vs" type="x-shader/x-vertex">
+         // declare to avoid having two different versions
+         // of Light, a uniform shared between both vs and fs
+         precision mediump float;
+
+         struct Light
+         {
+             vec3 posW;
+             vec3 La;
+             vec3 Ld;
+             vec3 Ls;
+         };
+
+         attribute vec3 aPositionM;
+         attribute vec3 aNormalM;
+         attribute vec4 aTangentM;
+         // usual texel space coordinates
+         attribute vec2 aTexCoordsT;
+
+         // tangent space values to perform lighting in that space
+         varying vec2 vTexCoordsT;
+         varying vec3 vLightDirT;
+         varying vec3 vEyeDirT;
+
+         uniform mat4 uViewModel;
+         uniform mat4 uView;
+         uniform mat4 uProj;
+         uniform Light uL;
+
+         void main() {
+             // transform the normal and tangent from tangent space to view
+             // space ideally they should be transformed by normal matrix
+             // i.e. the inverse transpose of model-view matrix; however we
+             // assume that the model-view matrix continas no non-uniform
+             // scales and hence use it as-is
+             vec3 N = vec3(uViewModel * vec4(aNormalM, 0.0));
+             vec3 T = vec3(uViewModel * vec4(aTangentM.xyz, 0.0));
+             vec3 B = cross(N, T) * aTangentM.w;
+             // map view to tangent i.e. transpose of mat3(T, B, N)
+             mat3 Mv2t = mat3(T[0], B[0], N[0],
+                              T[1], B[1], N[1],
+                              T[2], B[2], N[2]);
+
+             vec3 posV = vec3(uViewModel * vec4(aPositionM, 1.0));
+             // in view space, eye is at the origin
+             vec3 eyeDirV = -posV;
+             vEyeDirT = Mv2t * eyeDirV;
+
+             vec3 lightDirV = vec3(uView * vec4(uL.posW, 1.0)) - posV;
+             vLightDirT = Mv2t * lightDirV;
+
+             vTexCoordsT = aTexCoordsT;
+             gl_Position = uProj * vec4(posV, 1.0);
+         }
+        </script>
+
+        <script id="normal-shader-fs" type="x-shader/x-fragment">
+         precision mediump float;
+
+         struct Light
+         {
+             vec3 posW;
+             vec3 La;
+             vec3 Ld;
+             vec3 Ls;
+         };
+
+         struct Material
+         {
+             vec3 Ka;
+             vec3 Kd;
+             vec3 Ks;
+             float shiniess;
+         };
+
+         varying vec2 vTexCoordsT;
+         varying vec3 vLightDirT;
+         varying vec3 vEyeDirT;
+
+         uniform Light uL;
+         uniform Material uM;
+         uniform sampler2D uColTex;
+         uniform sampler2D uNormTex;
+
+         void main() {
+             vec3 lightDirT = normalize(vLightDirT);
+             vec3 normalT = normalize(
+                 (2.0 * texture2D(uNormTex, vTexCoordsT).rgb) - 1.0);
+
+             vec3 ambient = uL.La * uM.Ka;
+             float lambert = max(dot(normalT, lightDirT), 0.0);
+             vec3 diffuse = lambert * uL.Ld * uM.Kd;
+             vec3 specular = vec3(0.0);
+             if (lambert > 0.0) {
+                 vec3 eyeDirT = normalize(vEyeDirT);
+                 vec3 halfT = normalize(eyeDirT + lightDirT);
+                 specular = pow(max(dot(halfT, normalT), 0.0), uM.shiniess) *
+                            uL.Ls * uM.Ks;
+             }
+             // say if diffuse is completely 0, then specular would be zero too.
+             // Having the texture colour only in case of diffuse would mean the
+             // ambient component would just show colour and no texel. So add
+             // them both like it's done in OpenGL 4 Shading Language Cookbook
+             vec3 ambAndDiff = ambient + diffuse;
+             gl_FragColor = (vec4(ambAndDiff, 1.0) *
+                             texture2D(uColTex, vTexCoordsT)) +
+                            vec4(specular, 1.0);
+         }
+        </script>
+
+        <script id="light-shader-vs" type="x-shader/x-vertex">
+         // declare to avoid having two different versions
+         // of Light, a uniform shared between both vs and fs
+         precision mediump float;
+
+         struct Light
+         {
+             vec3 posW;
+             vec3 La;
+             vec3 Ld;
+             vec3 Ls;
+         };
+
+         attribute vec3 aPositionM;
+         attribute vec3 aNormalM;
+         attribute vec2 aTexCoordsT;
+
+         // lighting performed in view space
+         varying vec2 vTexCoordsT;
+         varying vec3 vLightDirV;
+         varying vec3 vEyeDirV;
+         varying vec3 vNormalV;
+
+         uniform mat4 uViewModel;
+         uniform mat4 uView;
+         uniform mat4 uProj;
+         uniform Light uL;
+
+         void main() {
+             vec3 posV = vec3(uViewModel * vec4(aPositionM, 1.0));
+             vEyeDirV = -posV;
+             vLightDirV = vec3(uView * vec4(uL.posW, 1.0)) - posV;
+
+             vNormalV = vec3(uViewModel * vec4(aNormalM, 0.0));
+             vTexCoordsT = aTexCoordsT;
+             gl_Position = uProj * vec4(posV, 1.0);
+         }
+        </script>
+
+        <script id="light-shader-fs" type="x-shader/x-fragment">
+         precision mediump float;
+
+         struct Light
+         {
+             vec3 posW;
+             vec3 La;
+             vec3 Ld;
+             vec3 Ls;
+         };
+
+         struct Material
+         {
+             vec3 Ka;
+             vec3 Kd;
+             vec3 Ks;
+             float shiniess;
+         };
+
+         varying vec2 vTexCoordsT;
+         varying vec3 vLightDirV;
+         varying vec3 vEyeDirV;
+         varying vec3 vNormalV;
+
+         uniform Light uL;
+         uniform Material uM;
+         uniform sampler2D uColTex;
+
+         void main() {
+             vec3 lightDirV = normalize(vLightDirV);
+             vec3 normalV = normalize(vNormalV);
+
+             vec3 ambient = uL.La * uM.Ka;
+             float lambert = max(dot(normalV, lightDirV), 0.0);
+             vec3 diffuse = lambert * uL.Ld * uM.Kd;
+             vec3 specular = vec3(0.0);
+             if (lambert > 0.0) {
+                 vec3 eyeDirV = normalize(vEyeDirV);
+                 vec3 halfV = normalize(eyeDirV + lightDirV);
+                 specular = pow(max(dot(halfV, normalV), 0.0), uM.shiniess) *
+                            uL.Ls * uM.Ks;
+             }
+             // say if diffuse is completely 0, then specular would be zero too.
+             // Having the texture colour only in case of diffuse would mean the
+             // ambient component would just show colour and no texel. So add
+             // them both like it's done in OpenGL 4 Shading Language Cookbook
+             vec3 ambAndDiff = ambient + diffuse;
+             gl_FragColor = (vec4(ambAndDiff, 1.0) *
+                             texture2D(uColTex, vTexCoordsT)) +
+                            vec4(specular, 1.0);
+         }
+        </script>
+
+        <script type="module">
+         "use strict";
+
+         import {vec2, vec3, mat4, quat} from "../gl-matrix.mjs";
+         import * as utils from "../utils.mjs";
+         import * as Program from "./program.mjs";
+         import {Texture} from "./texture.mjs";
+         // http://stackoverflow.com/a/24378510/183120
+         // http://stackoverflow.com/a/6247331/183120
+         import {cubeData} from "./texCube.mjs";
+
+         var attributeTypes = {
+             Position : 0,
+             Normal: 1,
+             TexCoords: 2,
+             Tangent: 3
+         };
+
+         var gl, obj, Proj, View;
+         var fovY = Math.PI / 4;
+         // the bumps are visible best when head-on with
+         // a good amount of shadows i.e. in low-light
+         var eye = vec3.fromValues(0, 0, 2);
+         var lightPos = vec3.fromValues(0, 0, 0.7);
+         var progs = [];
+         var currentProgram = 0;
+         var scene = [];
+         var mouseDown = false;
+         var cubeOrient = quat.create();
+         var lastX = 0;
+         var lastY = 0;
+
+         function initWebGL(canvas) {
+             try {
+                 // try to grab the standard context,
+                 // if it fails fallback to experimental
+                 gl = canvas.getContext("webgl") ||
+                      canvas.getContext("experimental-webgl");
+                 gl.width = canvas.width;
+                 gl.height = canvas.height;
+                 gl.aspect = gl.width / gl.height;
+                 gl.viewportCentre = vec2.fromValues(gl.width / 2,
+                                                     gl.height / 2);
+             }
+             // If we don't have a GL context, give up now
+             catch(e) {
+                 alert("Unable to initialize WebGL." +
+                       "Your browser may not support it.");
+             }
+         }
+
+         function calculateNormals(model) {
+             model.normals = new Array(model.vertices.length);
+             var normals = new Array(model.vertices.length / 3);
+             for (var i = 0; i < model.indices.length; i += 3) {
+                 var O = [model.indices[i] * 3,
+                          model.indices[i + 1] * 3,
+                          model.indices[i + 2] * 3];
+                 var v0 = vec3.fromValues(model.vertices[O[0]],
+                                          model.vertices[O[0] + 1],
+                                          model.vertices[O[0] + 2]);
+                 var v1 = vec3.fromValues(model.vertices[O[1]],
+                                          model.vertices[O[1] + 1],
+                                          model.vertices[O[1] + 2]);
+                 var v2 = vec3.fromValues(model.vertices[O[2]],
+                                          model.vertices[O[2] + 1],
+                                          model.vertices[O[2] + 2]);
+                 var e0 = vec3.create();
+                 var e1 = vec3.create();
+                 vec3.sub(e0, v1, v0);
+                 vec3.sub(e1, v2, v1);
+                 var tri_norm = vec3.create();
+                 vec3.cross(tri_norm, e0, e1);
+                 for (var j = 0; j < 3; ++j) {
+                     if (normals[model.indices[i + j]])
+                         vec3.add(normals[model.indices[i + j]],
+                                  normals[model.indices[i + j]],
+                                  tri_norm);
+                     else
+                         normals[model.indices[i + j]] = tri_norm;
+                 }
+             }
+             for (var i = 0; i < normals.length; ++i) {
+                 vec3.normalize(normals[i], normals[i]);
+                 model.normals[i * 3] = normals[i][0];
+                 model.normals[i * 3 + 1] = normals[i][1];
+                 model.normals[i * 3 + 2] = normals[i][2];
+             }
+         }
+
+         function calculateTangents(model) {
+             // final array which holds the vec4 tangets expanded as a float array
+             model.tangents = new Array((model.vertices.length / 3) * 4);
+             // array for tangent and bitanget vectors
+             var T = new Array(model.vertices.length / 3);
+             var B = new Array(model.vertices.length / 3);
+             for (var i = 0; i < model.indices.length; i += 3) {
+                 var O = [model.indices[i] * 3,
+                          model.indices[i + 1] * 3,
+                          model.indices[i + 2] * 3];
+                 var p0 = vec3.fromValues(model.vertices[O[0]],
+                                          model.vertices[O[0] + 1],
+                                          model.vertices[O[0] + 2]);
+                 var p1 = vec3.fromValues(model.vertices[O[1]],
+                                          model.vertices[O[1] + 1],
+                                          model.vertices[O[1] + 2]);
+                 var p2 = vec3.fromValues(model.vertices[O[2]],
+                                          model.vertices[O[2] + 1],
+                                          model.vertices[O[2] + 2]);
+                 var q1 = vec3.create();
+                 var q2 = vec3.create();
+                 vec3.sub(q1, p1, p0);
+                 vec3.sub(q2, p2, p0);
+                 var tcO = [model.indices[i] * 2,
+                            model.indices[i + 1] * 2,
+                            model.indices[i + 2] * 2];
+                 var u0 = model.texture_coords[tcO[0]];
+                 var v0 = model.texture_coords[tcO[0] + 1];
+                 var u1 = model.texture_coords[tcO[1]];
+                 var v1 = model.texture_coords[tcO[1] + 1];
+                 var u2 = model.texture_coords[tcO[2]];
+                 var v2 = model.texture_coords[tcO[2] + 1];
+                 var s1 = u1 - u0;
+                 var s2 = u2 - u0;
+                 var t1 = v1 - v0;
+                 var t2 = v2 - v0;
+                 var temp1 = vec3.create();
+                 var temp2 = vec3.create();
+                 vec3.scale(temp1, q1, t2);
+                 vec3.scale(temp2, q2, t1);
+                 var tangent = vec3.create();
+                 vec3.sub(tangent, temp1, temp2);
+                 vec3.scale(temp1, q2, s1);
+                 vec3.scale(temp2, q1, s2);
+                 var bitangent = vec3.create();
+                 vec3.sub(bitangent, temp1, temp2);
+                 for (var j = 0; j < 3; ++j) {
+                     if (T[model.indices[i + j]]) {
+                         vec3.add(T[model.indices[i + j]],
+                                  T[model.indices[i + j]],
+                                  tangent);
+                         vec3.add(B[model.indices[i + j]],
+                                  B[model.indices[i + j]],
+                                  bitangent);
+                     }
+                     else {
+                         T[model.indices[i + j]] = tangent;
+                         B[model.indices[i + j]] = bitangent;
+                     }
+                 }
+             }
+             for (var i = 0; i < T.length; ++i) {
+                 var N = vec3.fromValues(model.normals[i * 3],
+                                         model.normals[i * 3 + 1],
+                                         model.normals[i * 3 + 2]);
+                 var temp = vec3.create();
+                 // Gram-Schmidt orthogonalize
+                 vec3.scale(temp, N, vec3.dot(T[i], N));
+                 vec3.sub(T[i], T[i], temp);
+                 vec3.normalize(T[i], T[i]);
+
+                 // store handedness
+                 vec3.cross(temp, N, T[i]);
+                 var flip = (vec3.dot(temp, B[i]) < 0) ? -1 : 1;
+                 model.tangents[i * 4] = T[i][0];
+                 model.tangents[i * 4 + 1] = T[i][1];
+                 model.tangents[i * 4 + 2] = T[i][2];
+                 model.tangents[i * 4 + 3] = flip;
+             }
+         }
+
+         // since this function loads the model data, it can know about the
+         // attributes supported by the model and set the respective type of the
+         // attribute accordingly
+         function uploadData(model) {
+             var a = [];
+             if (model.vertices) {
+                 var posBuf = gl.createBuffer();
+                 gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+                 gl.bufferData(gl.ARRAY_BUFFER,
+                               new Float32Array(model.vertices),
+                               gl.STATIC_DRAW);
+                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+                 var props = {};
+                 props.buf = posBuf;
+                 props.perItemCount = 3;
+                 props.datatype = gl.FLOAT;
+                 props.stride = 0;
+                 props.offset = 0;
+                 a[attributeTypes.Position] = props;
+             }
+
+             if (model.texture_coords) {
+                 var uvBuf = gl.createBuffer();
+                 gl.bindBuffer(gl.ARRAY_BUFFER, uvBuf);
+                 gl.bufferData(gl.ARRAY_BUFFER,
+                               new Float32Array(model.texture_coords),
+                               gl.STATIC_DRAW);
+                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+                 var props = {};
+                 props.buf = uvBuf;
+                 props.perItemCount = 2;
+                 props.datatype = gl.FLOAT;
+                 props.stride = 0;
+                 props.offset = 0;
+                 a[attributeTypes.TexCoords] = props;
+             }
+
+             if (!model.normals)
+                 calculateNormals(model);
+             if (!model.tangents)
+                 calculateTangents(model);
+
+             if (model.normals) {
+                 var normBuf = gl.createBuffer();
+                 gl.bindBuffer(gl.ARRAY_BUFFER, normBuf);
+                 gl.bufferData(gl.ARRAY_BUFFER,
+                               new Float32Array(model.normals),
+                               gl.STATIC_DRAW);
+                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+                 var props = {};
+                 props.buf = normBuf;
+                 props.perItemCount = 3;
+                 props.datatype = gl.FLOAT;
+                 props.stride = 0;
+                 props.offset = 0;
+                 a[attributeTypes.Normal] = props;
+             }
+
+             if (model.tangents) {
+                 var tgtBuf = gl.createBuffer();
+                 gl.bindBuffer(gl.ARRAY_BUFFER, tgtBuf);
+                 gl.bufferData(gl.ARRAY_BUFFER,
+                               new Float32Array(model.tangents),
+                               gl.STATIC_DRAW);
+                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+                 var props = {};
+                 props.buf = tgtBuf;
+                 props.perItemCount = 4;
+                 props.datatype = gl.FLOAT;
+                 props.stride = 0;
+                 props.offset = 0;
+                 a[attributeTypes.Tangent] = props;
+             }
+
+             var idxBuf = gl.createBuffer();
+             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, idxBuf);
+             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
+                           new Uint8Array(model.indices),
+                           gl.STATIC_DRAW);
+             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+
+             var img = new Texture(gl, model.image);
+             var nm = new Texture(gl, model.normal_map);
+
+             var obj = { attribs: a,
+                         indices: idxBuf,
+                         colourMap: img,
+                         normalMap: nm };
+             return obj;
+         }
+
+         function render() {
+             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+             var M = mat4.create();
+             mat4.fromQuat(M, cubeOrient);
+             var VM = mat4.create();
+             mat4.mul(VM, View, M);
+
+             var prg = progs[currentProgram];
+             gl.useProgram(prg);
+
+             for (var i = 0; i < scene.length; ++i) {
+                 var obj = scene[i];
+                 // associate mesh data with program attributes
+                 for (var a = 0; a < prg.attribs.length; ++a) {
+                     // unsure if some driver assigns attributes
+                     // non-contiguously avoid holes, if any
+                     if (prg.attribs[a] !== undefined) {
+                         var data = obj.attribs[prg.attribs[a]];
+                         if (data) {
+                             gl.bindBuffer(gl.ARRAY_BUFFER, data.buf);
+                             gl.enableVertexAttribArray(a);
+                             gl.vertexAttribPointer(a,
+                                                    data.perItemCount,
+                                                    data.datatype,
+                                                    false,
+                                                    data.stride,
+                                                    data.offset);
+                         }
+                         else
+                             alert ("Mesh data not sufficient to support all " +
+                                    "program attributes");
+                     }
+                 }
+
+                 // feed uniforms
+                 gl.uniformMatrix4fv(prg.uniforms[0], false, VM);
+                 gl.uniformMatrix4fv(prg.uniforms[1], false, View);
+                 gl.uniformMatrix4fv(prg.uniforms[2], false, Proj);
+                 gl.uniform3fv(prg.uniforms[3], lightPos);
+                 gl.uniform3f(prg.uniforms[4], 1, 1, 1);
+                 gl.uniform3f(prg.uniforms[5], 1, 1, 1);
+                 gl.uniform3f(prg.uniforms[6], 1, 1, 1);
+                 gl.uniform3f(prg.uniforms[7], 0.2, 0.2, 0.2);
+                 gl.uniform3f(prg.uniforms[8], 1, 1, 1);
+                 gl.uniform3f(prg.uniforms[9], 0.2, 0.2, 0.2);
+                 gl.uniform1f(prg.uniforms[10], 100.0);
+
+                 gl.activeTexture(gl.TEXTURE0);
+                 gl.bindTexture(gl.TEXTURE_2D, obj.colourMap.tex);
+                 gl.uniform1i(prg.uniforms[11], 0);
+
+                 // this uniform will be undefined for the lighting-only program
+                 if (prg.uniforms[12]) {
+                     gl.activeTexture(gl.TEXTURE1);
+                     gl.bindTexture(gl.TEXTURE_2D, obj.normalMap.tex);
+                     gl.uniform1i(prg.uniforms[12], 1);
+                 }
+
+                 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indices);
+
+                 gl.drawElements(gl.TRIANGLES,
+                                 3 * 12,
+                                 gl.UNSIGNED_BYTE,
+                                 0);
+
+                 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
+             }
+
+             gl.useProgram(null);
+
+             window.requestAnimationFrame(render);
+         }
+
+         // based on rotateBall of CG/WebGL/crystal_ball.html
+         function rotateBall(e) {
+             if (!mouseDown)
+                 return;
+
+             var x = e.clientX;
+             var y = e.clientY;
+             var p2 = vec2.fromValues(x, y);
+             var p1 = vec2.fromValues(lastX, lastY);
+             lastX = x, lastY = y;
+
+             let viewportDims = vec2.fromValues(gl.drawingBufferWidth,
+                                                gl.drawingBufferHeight);
+             var versor = utils.getVersor(p1, p2, viewportDims, fovY, View);
+             quat.mul(cubeOrient, versor, cubeOrient);
+             quat.normalize(cubeOrient, cubeOrient);
+         }
+
+         function setupCamera() {
+             var centre = vec3.fromValues(0, 0, 0);
+             var up = vec3.fromValues(0, 1, 0);
+             View = mat4.create();
+             mat4.lookAt(View, eye, centre, up);
+             Proj = mat4.create();
+             mat4.perspective(Proj, fovY, gl.aspect, 1, 10);
+         }
+
+         function updateLightPos() {
+             var x = parseFloat(document.getElementById('lightPosX').value);
+             var y = parseFloat(document.getElementById('lightPosY').value);
+             var z = parseFloat(document.getElementById('lightPosZ').value);
+             vec3.set(lightPos, x, y, z);
+         }
+
+         function changeProgram() {
+             var mapNormals = document.getElementById("progNormap").checked;
+             currentProgram = mapNormals == true ? 0 : 1;
+         }
+
+         function start() {
+             var canvas = document.getElementById("glCanvas");
+             initWebGL(canvas);      // Initialize the GL context
+             // Only continue if WebGL is available and working
+             if (gl)
+             {
+                 document.onmouseup = function () {
+                     mouseDown = false;
+                 }
+                 canvas.onmousedown = function (e) {
+                     lastX = e.clientX;
+                     lastY = e.clientY;
+                     mouseDown = true;
+                 };
+                 document.onmousemove = rotateBall;
+
+                 gl.clearColor(0, 0, 0, 1);
+                 gl.enable(gl.DEPTH_TEST);
+
+                 // build scene
+                 scene.push(uploadData(cubeData));
+
+                 // lighting and normal mapping shader program
+                 var vs = Program.compileShader(gl, "normal-shader-vs");
+                 var fs = Program.compileShader(gl, "normal-shader-fs");
+                 progs.push(Program.link(gl, [vs, fs]));
+                 gl.deleteShader(vs);
+                 gl.deleteShader(fs);
+                 // since this function compiles and sets up the program, it can
+                 // know about its attribute variable names and their types
+                 Program.loadAttribLocs(gl, progs[0], {
+                     aPositionM : attributeTypes.Position,
+                     aNormalM : attributeTypes.Normal,
+                     aTangentM : attributeTypes.Tangent,
+                     aTexCoordsT : attributeTypes.TexCoords
+                 });
+                 Program.setUniformLocs(gl, progs[0], ["uViewModel",
+                                                       "uView",
+                                                       "uProj",
+                                                       "uL.posW",
+                                                       "uL.La",
+                                                       "uL.Ld",
+                                                       "uL.Ls",
+                                                       "uM.Ka",
+                                                       "uM.Kd",
+                                                       "uM.Ks",
+                                                       "uM.shiniess",
+                                                       "uColTex",
+                                                       "uNormTex"]);
+
+                 // lighting-only shader program
+                 vs = Program.compileShader(gl, "light-shader-vs");
+                 fs = Program.compileShader(gl, "light-shader-fs");
+                 progs.push(Program.link(gl, [vs, fs]));
+                 gl.deleteShader(vs);
+                 gl.deleteShader(fs);
+                 Program.loadAttribLocs(gl, progs[1], {
+                     aPositionM : attributeTypes.Position,
+                     aNormalM : attributeTypes.Normal,
+                     aTexCoordsT : attributeTypes.TexCoords
+                 });
+                 Program.setUniformLocs(gl, progs[1], ["uViewModel",
+                                                       "uView",
+                                                       "uProj",
+                                                       "uL.posW",
+                                                       "uL.La",
+                                                       "uL.Ld",
+                                                       "uL.Ls",
+                                                       "uM.Ka",
+                                                       "uM.Kd",
+                                                       "uM.Ks",
+                                                       "uM.shiniess",
+                                                       "uColTex"]);
+                 setupCamera();
+                 render();
+             }
+         }
+
+         document.getElementById("progNormap")
+                 .addEventListener("change", changeProgram);
+         document.getElementById("progLight")
+                 .addEventListener("change", changeProgram);
+         document.getElementById("lightPosX")
+                 .addEventListener("input", updateLightPos);
+         document.getElementById("lightPosY")
+                 .addEventListener("input", updateLightPos);
+         document.getElementById("lightPosZ")
+                 .addEventListener("input", updateLightPos);
+         start();
+        </script>
+    </head>
+
+    <body>
+        <table style="width: 100%">
+            <tr>
+                <td rowspan="2"><canvas id="glCanvas"
+                                        width="600"
+                                        height="600" /></td>
+                <td>
+                    <form>
+                        <input id="progNormap"
+                               type="radio"
+                               name="program"
+                               value="0"
+                               checked>Mapped Normals
+                        <br />
+                        <input id="progLight"
+                               type="radio"
+                               name="program"
+                               value="1">Interpolated Normals
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="lightPosX">Light X</label>
+                    <input id="lightPosX"
+                           type="number"
+                           step="0.01"
+                           value="0"><br />
+                    <label for="lightPosY">Light Y</label>
+                    <input id="lightPosY"
+                           type="number"
+                           step="0.01"
+                           value="0"><br />
+                    <label for="lightPosZ">Light Z</label>
+                    <input id="lightPosZ"
+                           type="number"
+                           step="0.01"
+                           value="0.7">
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
