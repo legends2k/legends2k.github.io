@@ -1,0 +1,146 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Move Linux b/w Drives &#183; Sundaram Ramaswamy</title>
+<meta name=description content="From HDD to SSD"><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.121.1"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/images/pencil-square-o.svg sizes=any type=image/svg+xml><meta property="og:title" content="Move Linux b/w Drives"><meta property="og:description" content="From HDD to SSD"><meta property="og:type" content="article"><meta property="og:url" content="https://legends2k.github.io/note/arch_hdd_nvme/"><link rel=stylesheet href=https://legends2k.github.io/dist/styles.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css></head><body><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Home title=Home href=https://legends2k.github.io/ rel=me><i class="fa fa-home"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="RSS Feed" title="RSS Feed" href=https://legends2k.github.io/index.xml><i class="fa fa-rss"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Github title=Github href=https://github.com/legends2k rel=me><i class="fa fa-github-alt"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Bitbucket title=Bitbucket href=https://bitbucket.org/rmsundaram rel=me><i class="fa fa-bitbucket"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href=https://stackoverflow.com/users/183120/legends2k rel=me><i class="fa fa-stack-overflow"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=LinkedIn title=LinkedIn href=https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0 rel=me><i class="fa fa-linkedin"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Flickr title=Flickr href=https://flickr.com/photos/legends2k rel=me><i class="fa fa-flickr"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Email title=Email href=mailto:legends2k@yahoo.com><i class="fa fa-envelope"></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/post/>Posts</a></li><li class=site-nav-item><a href=/note/>Notes</a></li><li class=site-nav-item><a href=/archive/>All Posts</a></li><li class=site-nav-item><a href=/projects/>Projects</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">Move Linux b/w Drives</h1><p class=post-description itemprop=description>From HDD to SSD</p><p class=post-date>Published <time datetime=2023-12-18 itemprop=datePublished>Dec 18, 2023</time>
+<span>by</span>
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://legends2k.github.io/about/ itemprop=url rel=author>Sundaram Ramaswamy</a>
+</span></span><span class=post-update-date>Updated <time datetime=2023-12-18 itemprop=datePublished>Dec 18, 2023</time></span></p><aside><h1>Contents</h1><nav id=TableOfContents><ol><li><a href=#setup-nvme-lba>Setup NVMe LBA</a></li><li><a href=#partition-with-fdisk>Partition with <code>fdisk</code></a><ol><li><a href=#format-esp>Format ESP</a></li></ol></li><li><a href=#logical-volumes>Logical Volumes</a></li><li><a href=#copy-data>Copy Data</a></li><li><a href=#fix-etcfstab>Fix <code>/etc/fstab</code></a></li><li><a href=#reinstall-grub>Reinstall GRUB</a></li><li><a href=#appendix-a-remove-stale-devmapper>Appendix A: Remove Stale <code>/dev/mapper/*</code></a></li><li><a href=#references>References</a></li></ol></nav></aside></header><div class="post-content clearfix" itemprop=articleBody><p>Flash memories comes in different forms and use different interfaces to connect. Pen drives use <a href=https://en.wikipedia.org/wiki/Flash_memory>flash memory</a> while
+SSDs use <a href=https://en.wikipedia.org/wiki/Solid-state_storage>solid state storage</a>. SSDs can be interfaced with your <a href=https://en.wikipedia.org/wiki/Motherboard>mobo</a> either through SATA or PCIe; M.2 is
+actually a form factor (standard stating about the size and form of such drives which are small and rectangular; looks
+like RAM modules compared to the 2.5 inch drives) and is orthogonal to the interface. More importantly, there are M.2
+drives connecting over SATA (and are typically slower); you should go for PCIe interfaced M.2 drives if you want speed.
+These drives work using the <a href=https://en.wikipedia.org/wiki/NVM_Express>NVMe protocol</a>; <a href=https://www.pcworld.com/article/558324/nvme-vs-m-2-vs-sata-ssd-whats-the-difference.html>refer</a>.</p><p>I recently bought a 500 GB NVMe drive for my AMD Ryzen 5600 desktop which didn’t realize its full potential, thanks to
+the spinning 3.5 inch HDD which was audibly grinding most of the time. Now I love the software setup on this machine,
+with Arch at the helm and everything setup the way I want.</p><p>This is a write-up on moving the OS setup from the HDD to SSD; it uses Linux Logical Volume Manager (LVM2) to
+flexibility (lossless partition sizes updates).</p><h1 id=setup-nvme-lba>Setup NVMe LBA</h1><p>Install NVMe CLI (<code>nvme</code>) for setting the right <a href=https://en.wikipedia.org/wiki/Logical_block_addressing>LBA</a> size; it can do a bunch of other things:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>yay -S --needed nvme-cli
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>nvme id-ns -H /dev/nvme0n1 | grep <span style=color:#f1fa8c>&#34;Relative Performance&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>LBA Format  <span style=color:#bd93f9>0</span> : Metadata Size: <span style=color:#bd93f9>0</span>   bytes - Data Size: <span style=color:#bd93f9>512</span> bytes - Relative Performance: 0x1 Better <span style=color:#ff79c6>(</span>in use<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>LBA Format  <span style=color:#bd93f9>1</span> : Metadata Size: <span style=color:#bd93f9>0</span>   bytes - Data Size: <span style=color:#bd93f9>4096</span> bytes - Relative Performance: <span style=color:#bd93f9>0</span> Best
+</span></span></code></pre></div><p>Looks like the LBA format isn’t set for best performance:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>nvme format --lbaf<span style=color:#ff79c6>=</span><span style=color:#bd93f9>1</span> /dev/nvme0n1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>You are about to format nvme0n1, namespace 0xffffffff<span style=color:#ff79c6>(</span>ALL namespaces<span style=color:#ff79c6>)</span>.
+</span></span><span style=display:flex><span>WARNING: Format may irrevocably delete this device&#39;s data.
+</span></span><span style=display:flex><span>You have <span style=color:#bd93f9>10</span> seconds to press Ctrl-C to cancel this operation.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Use the force <span style=color:#ff79c6>[</span>--force<span style=color:#ff79c6>]</span> option to suppress this warning.
+</span></span><span style=display:flex><span>Sending format operation ...
+</span></span><span style=display:flex><span>Success formatting namespace:ffffffff
+</span></span></code></pre></div><p>This fixed the LBA for best performance. <code>nvme</code> has a bunch of other useful options; try</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>nvme list
+</span></span><span style=display:flex><span>nvme id-ctrl -H /dev/nvme0
+</span></span><span style=display:flex><span>nvme smart-log /dev/nvme0
+</span></span><span style=display:flex><span>nvme fw-log /dev/nvme0
+</span></span></code></pre></div><h1 id=partition-with-fdisk>Partition with <code>fdisk</code></h1><p>EFI needs its own partition (ESP) for at least 512 MiB [3][#references]. The rest is made into one partition; note the
+types:</p><pre tabindex=0><code>Disk /dev/nvme0n1: 465.76 GiB, 500107862016 bytes, 122096646 sectors
+Disk model: CT500P3SSD8
+Units: sectors of 1 * 4096 = 4096 bytes
+Sector size (logical/physical): 4096 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: C95F77F1-0464-4676-8BE3-97325DEA12A1
+
+Device          Start       End   Sectors   Size Type
+/dev/nvme0n1p1    256    131327    131072   512M EFI System
+/dev/nvme0n1p2 131328 122096639 121965312 465.3G Linux LVM
+</code></pre><h2 id=format-esp>Format ESP</h2><p>Ensure that ESP is FAT32 for wider recognition; logical sector size is 4096 as LBA is too; cluster size couldn’t be any
+larger than 1.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>sudo mkfs.vfat -F <span style=color:#bd93f9>32</span> -S <span style=color:#bd93f9>4096</span> -s <span style=color:#bd93f9>1</span> -v -n EFI /dev/nvme0n1p1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>mkfs.fat 4.2 <span style=color:#ff79c6>(</span>2021-01-31<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>/dev/nvme0n1p1 has <span style=color:#bd93f9>64</span> heads and <span style=color:#bd93f9>32</span> sectors per track,
+</span></span><span style=display:flex><span>hidden sectors 0x0800;
+</span></span><span style=display:flex><span>logical sector size is 4096,
+</span></span><span style=display:flex><span>using 0xf8 media descriptor, with <span style=color:#bd93f9>131072</span> sectors;
+</span></span><span style=display:flex><span>drive number 0x80;
+</span></span><span style=display:flex><span>filesystem has <span style=color:#bd93f9>2</span> 32-bit FATs and <span style=color:#bd93f9>1</span> sector per cluster.
+</span></span><span style=display:flex><span>FAT size is <span style=color:#bd93f9>128</span> sectors, and provides <span style=color:#bd93f9>130784</span> clusters.
+</span></span><span style=display:flex><span>There are <span style=color:#bd93f9>32</span> reserved sectors.
+</span></span><span style=display:flex><span>Volume ID is 387acba5, volume label EFI.
+</span></span></code></pre></div><p>Formatting the <em>Linux LVM</em> partition is redundant as we’ll make logical volumes on it and anyway format them later.</p><h1 id=logical-volumes>Logical Volumes</h1><p>Usual drill: create physcial volume (PV), volume group (VG) and logical volumes (LV) under VG. For this case PV is just
+the NVMe device and there’s just going to be one VG; refer [4][#references] for various other configurations.</p><p>As per [5][#references]</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>pvcreate /dev/nvme0n1p2
+</span></span><span style=display:flex><span>vgcreate nvme /dev/nvme0n1p2
+</span></span><span style=display:flex><span>lvcreate -L 40G -n root nvme
+</span></span><span style=display:flex><span>lvcreate -L 16G -n var nvme
+</span></span><span style=display:flex><span>lvcreate -L 16G -n home nvme
+</span></span><span style=display:flex><span>lvcreate -L 200G -n data nvme
+</span></span><span style=display:flex><span>lvcreate -L 197896M -n media nvme
+</span></span></code></pre></div><p>Use <code>pvs</code>, <code>vgs</code> and <code>lvs</code> for short, and <code>pvdisplay</code>, <code>vgdisplay</code> and <code>lvdisplay</code> for detailed view of the layout.</p><p><code>lsblk -f</code> shows the final partitioning scheme</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>nvme0n1
+</span></span><span style=display:flex><span>├─nvme0n1p1    vfat        FAT32    EFI
+</span></span><span style=display:flex><span>└─nvme0n1p2    LVM2_member LVM2 <span style=color:#bd93f9>001</span>
+</span></span><span style=display:flex><span>  ├─nvme-root
+</span></span><span style=display:flex><span>  ├─nvme-var
+</span></span><span style=display:flex><span>  ├─nvme-home
+</span></span><span style=display:flex><span>  ├─nvme-data
+</span></span><span style=display:flex><span>  └─nvme-media
+</span></span></code></pre></div><p>Format logical volumes individually with required filesystems. Ensure that reserved space isn’t too much:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#6272a4># Set directly while creating (to 1%)</span>
+</span></span><span style=display:flex><span>mkfs.ext4 -m <span style=color:#bd93f9>1</span> /dev/mapper/nvme-media
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Do it after formatting</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Display reserved space</span>
+</span></span><span style=display:flex><span>tune2fs -l /dev/mapper/nvme-data | grep -E <span style=color:#f1fa8c>&#34;Reserved block count|Block size&#34;</span> | paste -sd<span style=color:#f1fa8c>\ </span>| awk <span style=color:#f1fa8c>&#39;{print ($4 * $7 / ( 1024 * 1024 ) ), &#34;MiB&#34;}&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#bd93f9>2048</span> MiB
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Get block size</span>
+</span></span><span style=display:flex><span>tune2fs -l /dev/mapper/nvme-data | grep <span style=color:#f1fa8c>&#39;Block size:&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Tweak it with gigs * 1024^3 / block size (4096 usually)</span>
+</span></span><span style=display:flex><span>tune2fs -r <span style=color:#bd93f9>524288</span> /dev/mapper/nvme-media 
+</span></span></code></pre></div><p>[Enable <code>fast_commit</code>][6]: <code>tune2fs -O fast_commit /dev/mapper/nvme-root</code> and verify.</p><h1 id=copy-data>Copy Data</h1><p>Boot into SystemRescue Live OS from a USB; I simply copied all files in its ISO to a FAT32 USB; UEFI boot simply looks for a <code>EFI</code> directory.
+Label it <code>RESUCE1002</code> as the loader looks for a filesystem by this label to get its data once booted; without this you&rsquo;d still get a shell but
+without much tools.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#6272a4># Mount old and new partitions for /boot/efi, / and /home</span>
+</span></span><span style=display:flex><span>mount -m /dev/sda1 /mnt/old/esp
+</span></span><span style=display:flex><span>mount -m /dev/nvme0n1p1 /mnt/new/esp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Sync: mind the slash and the lack thereof; we want to copy the contents (not the directory)</span>
+</span></span><span style=display:flex><span>rsync -qaHAXS /mnt/old/root/ /mnt/new/root
+</span></span></code></pre></div><p>The parameters come from ArchWiki; refer [7][#references].</p><h1 id=fix-etcfstab>Fix <code>/etc/fstab</code></h1><p>Use <code>blkid</code> and fix the new partition UUIDs. Using <code>genfstab</code> is an option but I fixed it manually.</p><h1 id=reinstall-grub>Reinstall GRUB</h1><p>Unmount everything</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>umount /mnt/old/<span style=color:#ff79c6>{</span>esp,root,home<span style=color:#ff79c6>}</span>
+</span></span><span style=display:flex><span>umount /mnt/new/<span style=color:#ff79c6>{</span>esp,root,home<span style=color:#ff79c6>}</span>
+</span></span><span style=display:flex><span>rmdir /mnt/<span style=color:#ff79c6>{</span>old,new<span style=color:#ff79c6>}</span>
+</span></span></code></pre></div><p>Change root</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>mount -m /dev/mapper/nvme-root /mnt
+</span></span><span style=display:flex><span>mount -m /dev/mapper/nvme-home /mnt/home
+</span></span><span style=display:flex><span>mount -m /dev/nvme0n1p1 /mnt/boot/efi
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>arch-chroot /mnt
+</span></span></code></pre></div><p>Install GRUB; enable <code>lvm</code> and set <code>GRUB_DISABLE_OS_PROBER</code> as don&rsquo;t to probe and list old HDD&rsquo;s OSes.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>grub-install --target<span style=color:#ff79c6>=</span>x86_64-efi --efi-directory<span style=color:#ff79c6>=</span>/boot/efi --bootloader-id<span style=color:#ff79c6>=</span>GRUB
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Add `lvm` to GRUB_PRELOAD_MODULES</span>
+</span></span><span style=display:flex><span>nano /etc/default/grub
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>grub-mkconfig -o /boot/grub/grub.cfg
+</span></span></code></pre></div><p>Regenerate initramfs image after adding <code>lvm2</code> to <code>HOOKS</code> in <code>/etc/mkinitcpio.conf</code> after <code>block</code> but before <code>filesystem</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>nano /etc/mkinitcpio.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>mkinitcpio -p linux
+</span></span></code></pre></div><h1 id=appendix-a-remove-stale-devmapper>Appendix A: Remove Stale <code>/dev/mapper/*</code></h1><p>Fixed partitioning (<code>fdisk</code>) first and logical partitioning (LVM) next; I forgot this basic rule and flipped the order.</p><p>It isn’t advised to go with no fixed partitions. <code>/boot/efi</code> is better off as a plain partition than a logical one
+[2][#references] and also some software might consider the device unpartitioned; risky [1][#references]! This is about
+reverting it.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>lsblk -pf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/dev/nvme0n1
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-root
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-var
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-home
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-media
+</span></span><span style=display:flex><span>└─/dev/mapper/nvme-data
+</span></span></code></pre></div><p>showed this. I quickly partitioned the device (with <code>fdisk</code>) as <a href=https://en.wikipedia.org/wiki/GUID_Partition_Table>GPT</a> with two partitions assuming the LVM-stuff would
+get overwritten. It did but I ended up with this zombie. Yikes!</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>/dev/nvme0n1
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-root
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-var
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-home
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-media
+</span></span><span style=display:flex><span>├─/dev/mapper/nvme-data
+</span></span><span style=display:flex><span>├─/dev/nvme0n1p1
+</span></span><span style=display:flex><span>└─/dev/nvme0n1p2
+</span></span></code></pre></div><p>Removing the partition table didn’t fix anything other than dropping the last two entries. <code>pvs</code>, <code>vgs</code>, nor <code>lvs</code>
+maintained that there’s nothing. The following low-level LVM command fixed the situation.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-shell data-lang=shell><span style=display:flex><span>sudo dd <span style=color:#ff79c6>if</span><span style=color:#ff79c6>=</span>/dev/zero <span style=color:#8be9fd;font-style:italic>of</span><span style=color:#ff79c6>=</span>/dev/nvme0n1 <span style=color:#8be9fd;font-style:italic>bs</span><span style=color:#ff79c6>=</span>8K <span style=color:#8be9fd;font-style:italic>count</span><span style=color:#ff79c6>=</span><span style=color:#bd93f9>1</span> <span style=color:#8be9fd;font-style:italic>oflag</span><span style=color:#ff79c6>=</span>direct
+</span></span><span style=display:flex><span>sudo dmsetup remove /dev/dm-<span style=color:#ff79c6>{</span>0,1,2,3,4<span style=color:#ff79c6>}</span>
+</span></span></code></pre></div><h1 id=references>References</h1><ol><li><a href=https://unix.stackexchange.com/questions/195643/is-fdisk-needed-with-lvm>Create partition table (<code>fdisk</code>) before LVM2</a></li><li><a href=https://www.baeldung.com/linux/lvm-boot-partition-recommendations>LVM Why Is It Not Recommended to Put the Boot Partition on LVM</a></li><li><a href=https://superuser.com/questions/1310927/what-is-the-absolute-minimum-size-a-uefi-system-partition-can-be>Absolute Minimum ESP Size</a></li><li><a href=https://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)>LVM - Wikipedia</a></li><li><a href=https://wiki.archlinux.org/title/Advanced_Format>Advanced Format - ArchWiki</a></li><li><a href=https://wiki.archlinux.org/title/Ext4>Ext4 - ArchWiki</a></li><li><a href=https://code.saghul.net/2022/12/migrating-an-archlinux-install-from-an-ssd-to-an-nvme-drive/>Migrating Arch from SSD to NVMe</a>
+<a href=https://unix.stackexchange.com/questions/701200/move-var-and-home-directory-on-a-separate-nvme-partition>https://unix.stackexchange.com/questions/701200/move-var-and-home-directory-on-a-separate-nvme-partition</a></li></ol></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+<a href=/tags/tech/>tech</a>,
+<a href=/tags/tools/>tools</a>,
+<a href=/tags/linux/>linux</a></p><div class=share><a class=icon-twitter href="https://twitter.com/share?text=Move%20Linux%20b%2fw%20Drives&url=https%3a%2f%2flegends2k.github.io%2fnote%2farch_hdd_nvme%2f" onclick='return window.open(this.href,"twitter-share","width=550,height=235"),!1' aria-label="Share on Twitter"><i class="fa fa-twitter" aria-hidden=true></i>
+</a><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fnote%2farch_hdd_nvme%2f" onclick='return window.open(this.href,"facebook-share","width=580,height=296"),!1' aria-label="Share on Facebook"><i class="fa fa-facebook" aria-hidden=true></i>
+</a><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=Move%20Linux%20b%2fw%20Drives&url=https%3a%2f%2flegends2k.github.io%2fnote%2farch_hdd_nvme%2f&summary=From%20HDD%20to%20SSD" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a title="Bits of Insight" href=https://legends2k.github.io/><i class="fa fa-home"></i></a></h1><a class="button-square button-jump-top js-jump-top" href=#><i class="fa fa-angle-double-up"></i></a></div><p class=footer-copyright><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png></a></p><p class=footer-copyright><span>Rendered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>Composed with <a href=https://www.gnu.org/software/emacs/>GNU Emacs</a></span></p><p class=footer-copyright>Occured to <a href=https://legends2k.github.io/about/>Sundaram Ramaswamy</a></span></p></div></footer><script src=https://legends2k.github.io/js/jquery-1.11.3.min.js></script><script src=https://legends2k.github.io/js/jquery.fitvids.js></script><script src=https://legends2k.github.io/js/scripts.js></script></body></html>
