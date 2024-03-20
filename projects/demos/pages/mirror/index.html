@@ -1,0 +1,322 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>&#183; Sundaram Ramaswamy</title>
+<meta name=description content="<!DOCTYPE HTML> Mirror "><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.124.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/images/pencil-square-o.svg sizes=any type=image/svg+xml><meta property="og:title" content><meta property="og:description" content="<!DOCTYPE HTML> Mirror "><meta property="og:type" content="article"><meta property="og:url" content="https://legends2k.github.io/projects/demos/pages/mirror/"><link rel=stylesheet href=https://legends2k.github.io/dist/styles.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css></head><body><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Home title=Home href=https://legends2k.github.io/ rel=me><i class="fa fa-home"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="RSS Feed" title="RSS Feed" href=https://legends2k.github.io/index.xml><i class="fa fa-rss"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Github title=Github href=https://github.com/legends2k rel=me><i class="fa fa-github-alt"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Bitbucket title=Bitbucket href=https://bitbucket.org/rmsundaram rel=me><i class="fa fa-bitbucket"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href=https://stackoverflow.com/users/183120/legends2k rel=me><i class="fa fa-stack-overflow"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=LinkedIn title=LinkedIn href=https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0 rel=me><i class="fa fa-linkedin"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Flickr title=Flickr href=https://flickr.com/photos/legends2k rel=me><i class="fa fa-flickr"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Email title=Email href=mailto:legends2k@yahoo.com><i class="fa fa-envelope"></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/post/>Posts</a></li><li class=site-nav-item><a href=/note/>Notes</a></li><li class=site-nav-item><a href=/archive/>All Posts</a></li><li class=site-nav-item><a href=/projects/>Projects</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container><header class=post-header><h1 class=post-title></h1></header><div class="post-content clearfix"><!doctype html><html><head><meta charset=UTF-8><title>Mirror</title><style>body{margin:0;background:#add8e6}</style></head><body><canvas id=canvas width=800 height=600></body></html><script id=shader-vs type=notjs>
+ uniform mat4 u_M;
+ uniform mat4 u_V;
+ uniform mat4 u_P;
+
+ attribute vec3 a_position;
+ attribute vec3 a_colour;
+
+ varying vec3 v_colour;
+
+ void main() {
+     gl_Position = u_P * u_V * u_M * vec4(a_position, 1.0);
+     v_colour = a_colour;
+ }
+</script><script id=shader-fs type=notjs>
+ precision mediump float;
+
+ varying vec3 v_colour;
+
+ void main() {
+     gl_FragColor = vec4(v_colour, 1.0);
+ }
+</script><script id=tex-shader-vs type=notjs>
+ uniform mat4 u_M;
+ uniform mat4 u_V;
+ uniform mat4 u_P;
+ uniform mat4 u_mirror;
+
+ attribute vec3 a_position;
+
+ varying vec2 v_texcoord;
+
+ void main() {
+     gl_Position = u_P * u_V * u_M * vec4(a_position, 1.0);
+
+     // We've the scene, as reflected by the mirroring plane, rendered onto a
+     // texture. In this, only a rectangular region is "seen" the mirror object,
+     // the remaining can be clipped. So only this region is to be sampled for
+     // texturing the mirror quad. To get these coordinates, we apply the mirror
+     // transform and project it to find its window space coordinates.
+     vec4 reflectedPos = u_P * u_V * u_mirror * u_M * vec4(a_position, 1.0);
+     v_texcoord = reflectedPos.xy / reflectedPos.w;
+ }
+</script><script id=tex-shader-fs type=notjs>
+ precision mediump float;
+
+ uniform sampler2D u_texSampler;
+ varying vec2 v_texcoord;
+
+ void main() {
+     // gl_FragColor is the window space coordinates of gl_Position but we need
+     // window space coordinates for reflectedPos (see vertex shader). For this
+     // scene, this calculation is close to the correct one below, see it's easy
+     // to get misled.
+     /* gl_FragColor = vec4(gl_FragCoord.x / 800.0,                // debug code
+        gl_FragCoord.y / 600.0,
+        0.0,
+        1.0);*/
+     // divide by texture width and height to map window to texture space coords
+     /* gl_FragColor = texture2D(u_texSampler, vec2(gl_FragCoord.x/800.0,
+        gl_FragCoord.y/600.0));*/
+
+     // Calculate window space coordinates of reflectedPos based on gluProject.
+     // We stop one step before arriving at the actual window coordinates since
+     // we only need texture coordinates.
+     // gl_FragColor = vec4(v_texcoord * 0.5 + 0.5, 0.0, 1.0);
+     gl_FragColor = texture2D(u_texSampler, v_texcoord * 0.5 + 0.5);
+ }
+</script><script type=module>
+ "use strict";
+
+ import { v3, m4 } from "./twgl-full.mjs";
+ import * as twgl from "./twgl-full.mjs";
+
+ const fovY = Math.PI / 4;
+ let eye, at, up = v3.create(0, 1, 0);
+ let viewMatrix, projMatrix;
+
+ // default rendering with only colour and no texturing
+ function render(gl, models, programs) {
+     twgl.resizeCanvasToDisplaySize(gl.canvas);
+     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+     let prgm = programs[0];
+     gl.useProgram(prgm.program);
+     twgl.setUniforms(prgm, { u_V: viewMatrix, u_P: projMatrix });
+     // render everything except the mirror
+     for (let i = 0; i < models.length-1; ++i) {
+         twgl.setUniforms(prgm, { u_M: models[i].xform });
+         twgl.setBuffersAndAttributes(gl, prgm, models[i]);
+         twgl.drawBufferInfo(gl, models[i]);
+     }
+     gl.useProgram(null);
+ }
+
+ function renderMirror(gl, models, programs, offscreen) {
+     // Offscreen Render (render mirror's view to texture)
+     // binding the FBO binds its other attachments (texture, depth buffer, …)
+     gl.bindFramebuffer(gl.FRAMEBUFFER, offscreen.fbo);
+     // render everything except mirror from mirror's viewpoint
+     let mirror = models[models.length-1];
+     let orgViewMatrix = viewMatrix;
+     viewMatrix = m4.multiply(viewMatrix, mirror.reflectXform);
+     render(gl, models, programs);
+     viewMatrix = orgViewMatrix;
+     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+     // render just the mirror with its texture applied
+     let prgm = programs[1];
+     gl.useProgram(prgm.program);
+     gl.activeTexture(gl.TEXTURE0);
+     gl.bindTexture(gl.TEXTURE_2D, offscreen.texture);
+     twgl.setUniforms(prgm, { u_P: projMatrix,
+                              u_V: viewMatrix,
+                              u_M: mirror.xform,
+                              u_mirror: mirror.reflectXform,
+                              u_texsampler: 0 });
+     twgl.setBuffersAndAttributes(gl, prgm, mirror);
+     twgl.drawBufferInfo(gl, mirror);
+     gl.bindTexture(gl.TEXTURE_2D, null);
+     gl.useProgram(null);
+ }
+
+ function makeModels(gl) {
+     let plane = twgl.primitives.createPlaneBufferInfo(gl, 20, 20);
+     Object.assign(plane.attribs,
+                   twgl.attributes.createAttribsFromArrays(gl, {
+                       colour: { numComponents: 3,
+                                 data: new Uint8Array([0, 0, 0,
+                                                       0, 0, 0,
+                                                       255, 255, 255,
+                                                       255, 255, 255]) }}));
+     plane.xform = m4.identity();
+     let cube = twgl.createBufferInfoFromArrays(gl, {
+         position: { numComponents: 3, data: [1,-1, 1,
+                                              1,-1,-1,
+                                             -1,-1,-1,
+                                             -1,-1, 1,
+                                              1, 1, 1,
+                                              1, 1,-1,
+                                             -1, 1,-1,
+                                             -1, 1, 1] },
+         colour: { numComponents: 3, data: new Uint8Array([255, 0, 255,
+                                                           255, 0, 0,
+                                                           0, 0, 0,
+                                                           0, 0, 255,
+                                                           255, 255, 255,
+                                                           255, 255, 0,
+                                                           0, 255, 0,
+                                                           0, 255, 255]) },
+         indices: { numComponents: 3, data: new Uint8Array([1, 0, 3, // floor
+                                                            3, 2, 1,
+                                                            5, 1, 2, // front
+                                                            6, 5, 2,
+                                                            0, 1, 5, // right
+                                                            0, 5, 4,
+                                                            2, 3, 6, // left
+                                                            7, 6, 3,
+                                                            0, 4, 3, // back
+                                                            3, 4, 7,
+                                                            4, 5, 7, // ceil
+                                                            7, 5, 6]) }
+     });
+     cube.xform = m4.translation([0, 1, 0]);
+     let mirror = twgl.createBufferInfoFromArrays(gl, {
+         position: { numComponents: 3, data: [-3, 0, -4,
+                                              3, 0, -4,
+                                              3, 5, -4,
+                                             -3, 5, -4 ] },
+         colour: { numComponents: 3, data: new Uint8Array([ 255, 255, 255,
+                                                            255, 255, 255,
+                                                            255, 255, 255,
+                                                            255, 255, 255 ]) },
+         indices: { numComponents: 3,
+                    data: new Uint8Array([ 0, 1, 2, 0, 2, 3 ]) }
+     });
+     mirror.z = -4;
+     mirror.xform = m4.identity();
+     mirror.normal = v3.create(0, 0, 1);
+     return [plane, cube, mirror];
+ }
+
+ function makeProgram(gl, vertShader, fragShader) {
+     return twgl.createProgramInfo(gl, [vertShader, fragShader]);
+ }
+
+ function updateViewMatrices(deltaX, deltaY, mirror) {
+     let offsetX = deltaX * 0.01;
+     let offsetY = deltaY * 0.01;
+     // we're adding a screen-space value to the world space, but the result is
+     // nice, so letting it to both translate and rotate at the the same time
+     v3.add(eye, [-offsetX, offsetY, 0], eye);
+     viewMatrix = m4.inverse(m4.lookAt(eye, at, up));
+     /* m4.translate(viewMatrix, [offsetX, -offsetY, 0.0], viewMatrix);*/
+ }
+
+ // check mirror.cpp for details
+ function computeMirrorXform(mirror) {
+     let trans = m4.translation([0, 0, mirror.z]);
+     m4.scale(trans, [1, 1, -1], trans)
+     return m4.translate(trans, [0, 0, -mirror.z]);
+ }
+
+ function setCamera(gl) {
+     eye = v3.create(10, 18, 20);
+     at = v3.create(0, 5, 0);
+     // TWGL quirk; lookAt doesn't give view matrix but rather its inverse
+     // i.e. it gives Mview->world; invert to get Mworld->view
+     viewMatrix = m4.inverse(m4.lookAt(eye, at, up));
+     let ar = gl.drawingBufferWidth / gl.drawingBufferHeight;
+     projMatrix = m4.perspective(fovY, ar, 1, 100);
+ }
+
+ function makeOffscreenBuffers(gl) {
+     let vpWidth = gl.drawingBufferWidth, vpHeight = gl.drawingBufferHeight;
+     // Remember, FBO, needed for off-screen rendering, is another feather in
+     // OpenGL’s misnomer cap. It’s just a collection of states and not actually
+     // a buffer.
+     let texOffscreen = gl.createTexture();
+     gl.bindTexture(gl.TEXTURE_2D, texOffscreen);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+     gl.texImage2D(gl.TEXTURE_2D,
+                   0,
+                   gl.RGBA,
+                   vpWidth,
+                   vpHeight,
+                   0,
+                   gl.RGBA,
+                   gl.UNSIGNED_BYTE,
+                   null);
+     let fbo = gl.createFramebuffer();
+     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+     gl.framebufferTexture2D(gl.FRAMEBUFFER,
+                             gl.COLOR_ATTACHMENT0,
+                             gl.TEXTURE_2D,
+                             texOffscreen,
+                             0);
+
+     // optional; add if depth and stencil testing is needed
+     let rbo = gl.createRenderbuffer();
+     gl.bindRenderbuffer(gl.RENDERBUFFER, rbo);
+     gl.renderbufferStorage(gl.RENDERBUFFER,
+                            gl.DEPTH_COMPONENT16,
+                            vpWidth,
+                            vpHeight);
+     gl.framebufferRenderbuffer(gl.FRAMEBUFFER,
+                                gl.DEPTH_ATTACHMENT,
+                                gl.RENDERBUFFER,
+                                rbo);
+
+     if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE)
+         console.log("Error setting uo offscreen buffer");
+
+     // unbind to leave regular on-screen rendering in tact
+     gl.bindTexture(gl.TEXTURE_2D, null);
+     gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+     return {fbo: fbo, rbo: rbo, texture: texOffscreen};
+ }
+
+ function start() {
+     twgl.setDefaults({attribPrefix: 'a_'});
+     let gl = twgl.getWebGLContext(document.getElementById("canvas"));
+     gl.clearColor(0, 0, 0, 1);
+     gl.enable(gl.DEPTH_TEST);
+     let models = makeModels(gl);
+     let mirror = models[models.length-1];
+     setCamera(gl);
+     mirror.reflectXform = computeMirrorXform(mirror);
+     let offscreen = makeOffscreenBuffers(gl);
+     let programs = [
+         makeProgram(gl, "shader-vs", "shader-fs"),
+         makeProgram(gl, "tex-shader-vs", "tex-shader-fs")
+     ];
+     let loop = function(/*time*/) {
+         render(gl, models, programs);
+         renderMirror(gl, models, programs, offscreen);
+         requestAnimationFrame(loop);
+     };
+     handleEvents(gl, mirror);
+     requestAnimationFrame(loop);
+ }
+
+ function handleEvents(gl, mirror) {
+     let lastDragX = 0;
+     let lastDragY = 0;
+     let mouseDragging = false;
+     gl.canvas.addEventListener('mousedown', function(e) {
+         lastDragX = e.clientX;
+         lastDragY = e.clientY;
+         mouseDragging = true;
+     }, false);
+     document.addEventListener('mousemove', function(e) {
+         if (mouseDragging) {
+             let deltaX = e.clientX - lastDragX;
+             let deltaY = e.clientY - lastDragY;
+             updateViewMatrices(deltaX, deltaY, mirror);
+             lastDragX = e.clientX;
+             lastDragY = e.clientY;
+         }
+     }, false);
+     document.addEventListener('mouseup', function(e) {
+         mouseDragging = false;
+     }, false);
+ }
+
+ start();
+</script></div><footer class="post-footer clearfix"><div class=share><a class=icon-twitter href="https://twitter.com/share?text=&url=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fmirror%2f" onclick='return window.open(this.href,"twitter-share","width=550,height=235"),!1' aria-label="Share on Twitter"><i class="fa fa-twitter" aria-hidden=true></i>
+</a><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fmirror%2f" onclick='return window.open(this.href,"facebook-share","width=580,height=296"),!1' aria-label="Share on Facebook"><i class="fa fa-facebook" aria-hidden=true></i>
+</a><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=&url=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fmirror%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a title="Bits of Insight" href=https://legends2k.github.io/><i class="fa fa-home"></i></a></h1><a class="button-square button-jump-top js-jump-top" href=#><i class="fa fa-angle-double-up"></i></a></div><p class=footer-copyright><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png></a></p><p class=footer-copyright><span>Rendered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>Composed with <a href=https://www.gnu.org/software/emacs/>GNU Emacs</a></span></p><p class=footer-copyright>Occured to <a href=https://legends2k.github.io/about/>Sundaram Ramaswamy</a></span></p></div></footer><script src=https://legends2k.github.io/js/jquery-1.11.3.min.js></script><script src=https://legends2k.github.io/js/jquery.fitvids.js></script><script src=https://legends2k.github.io/js/scripts.js></script></body></html>

@@ -1,0 +1,505 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>&#183; Sundaram Ramaswamy</title>
+<meta name=description content="<!DOCTYPE HTML> Coons Patch Edit (Bezier) curves below to manipulate the surface above. "><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.124.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/images/pencil-square-o.svg sizes=any type=image/svg+xml><meta property="og:title" content><meta property="og:description" content="<!DOCTYPE HTML> Coons Patch Edit (Bezier) curves below to manipulate the surface above. "><meta property="og:type" content="article"><meta property="og:url" content="https://legends2k.github.io/projects/demos/pages/coons_patch/"><link rel=stylesheet href=https://legends2k.github.io/dist/styles.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css></head><body><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Home title=Home href=https://legends2k.github.io/ rel=me><i class="fa fa-home"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="RSS Feed" title="RSS Feed" href=https://legends2k.github.io/index.xml><i class="fa fa-rss"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Github title=Github href=https://github.com/legends2k rel=me><i class="fa fa-github-alt"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Bitbucket title=Bitbucket href=https://bitbucket.org/rmsundaram rel=me><i class="fa fa-bitbucket"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href=https://stackoverflow.com/users/183120/legends2k rel=me><i class="fa fa-stack-overflow"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=LinkedIn title=LinkedIn href=https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0 rel=me><i class="fa fa-linkedin"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Flickr title=Flickr href=https://flickr.com/photos/legends2k rel=me><i class="fa fa-flickr"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Email title=Email href=mailto:legends2k@yahoo.com><i class="fa fa-envelope"></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/post/>Posts</a></li><li class=site-nav-item><a href=/note/>Notes</a></li><li class=site-nav-item><a href=/archive/>All Posts</a></li><li class=site-nav-item><a href=/projects/>Projects</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container><header class=post-header><h1 class=post-title></h1></header><div class="post-content clearfix"><!doctype html><html><head><meta charset=UTF-8><title>Coons Patch</title><style>body{background:#ffe4b5}</style></head><body><div id=upperContainer><div><canvas id=canvas width=640 height=480></div>Edit (Bezier) curves below to manipulate the surface above.<div><canvas id=beziers width=640 height=480></div></div></body></html><script id=shader-vs type=x-shader/x-vertex>
+ uniform mat4 uV;
+ uniform mat4 uP;
+
+ // this is tessCount - 1
+ uniform float uMaxIdx;
+
+ uniform vec3 uCtrlPts[12];
+
+ // 0, 1 denote left-bottom and right-bottom
+ // 2, 3 denote left-top and right-top
+ uniform vec3 uColours[4];
+ // the option of passing ivec3 doesn't give any big ROI since floats and ints
+ // are of the same size, and there's no way a byte can be sent normalized
+ // unlike attributes where it's possible: glVertexAttribPointer has normalized
+ // while glUniform* doesn't have this parameter
+
+ attribute vec3 aPosition;
+ // this contains the x, y index of this vertex in the grid
+ attribute vec2 aIdx;
+
+ varying vec3 vColour;
+
+ vec3 cubBez(vec3 c0, vec3 c1, vec3 c2, vec3 c3, float t) {
+     float T = 1.0 - t;
+     float T2 = T * T;
+     float t2 = t * t;
+     return (T2 * T * c0) + (3.0 * T2 * t * c1) +
+         (3.0 * T * t2 * c2) + (t2 * t * c3);
+ }
+
+ void main() {
+     // compute parameters along U and V
+     vec2 t = aIdx / uMaxIdx;
+
+     vec3 a1 = cubBez(uCtrlPts[0], uCtrlPts[1], uCtrlPts[2], uCtrlPts[3], t.x);
+     vec3 a2 = cubBez(uCtrlPts[9], uCtrlPts[8], uCtrlPts[7], uCtrlPts[6], t.x);
+     vec3 A = mix(a1, a2, t.y);
+     vec3 b1 = cubBez(uCtrlPts[0], uCtrlPts[11], uCtrlPts[10], uCtrlPts[9],
+                      t.y);
+     vec3 b2 = cubBez(uCtrlPts[3], uCtrlPts[4], uCtrlPts[5], uCtrlPts[6], t.y);
+     vec3 B = mix(b1, b2, t.x);
+     // TODO: explain why calculating C, as opposed to getting it as attribute,
+     // is correct. Draw only C and manipulate the curve end points; see that
+     // the changes are reflected only when C is calculated
+     /* vec3 C = aPosition;*/
+     vec3 c1 = mix(uCtrlPts[0], uCtrlPts[3], t.x);
+     vec3 c2 = mix(uCtrlPts[9], uCtrlPts[6], t.x);
+     vec3 C = mix(c1, c2, t.y);
+     gl_Position = uP * uV * vec4(A + B - C, 1.0);
+     // TODO: UI to switch between loft surfaces A, B, C and Coons Patch (A+B-C)
+     // so that both bilinear and Coons patch can be demonstrated
+
+     // bilinear interpolation; first lerp in X-axis
+     vec3 colour1 = mix(uColours[0], uColours[1], t.x);
+     vec3 colour2 = mix(uColours[3], uColours[2], t.x);
+     // second lerp in Y-axis
+     vColour = mix(colour1, colour2, t.y);
+     // since WebGL doesn't have glPointSize, do it in shader
+     // https://www.opengl.org/wiki/Primitive#Point_primitives
+     gl_PointSize = 5.0;
+ }
+</script><script id=shader-fs type=x-shader/x-fragment>
+ precision mediump float;
+
+ varying vec3 vColour;
+
+ void main() {
+     gl_FragColor = vec4(vColour, 1.0);
+     // if a round point is needed:
+     // vec2 delta = gl_PointCoord / vec2(0.5, 0.5);
+     // if (dot(delta, delta) > 0.25) discard;
+     // won't work in case the primitive passed to the draw call is not
+     // gl.POINTS, move this separate program, bind before drawing POINTS
+ }
+</script><script type=module>
+ "use strict";
+
+ import { vec2, mat2d } from "./gl-matrix.mjs";
+ import * as twgl from "./twgl-full.mjs";
+
+/*
+ * 1. Tensor-product patches (type 7 shading pattern in PDF 1.7) are nothing but
+ *    bicubic Bézier patches; 16 control points are needed for this patch;
+ *    surfaces made by sewing these patches is the more commonly explained
+ *    topic in books.
+ * 2. Coons patch (type 6 shading pattern in PDF 1.7) is slightly different from
+ *    tensor-product patch.  It lacks the four inner control points that forms
+ *    the attractors of the patch.  It's a special case of the tensor-product
+ *    patches; the generalisation is given in the PDF standard.  A point on this
+ *    surface is found by lerping between the two vertical (A) and then two
+ *    horizontal curves (B); bilinear interpolation is done between the four
+ *    corner points (curve end points) (C). P = A + B − C.  For Coons
+ *    explanation refer:
+ *        + PDF specification 1.7
+ *        + Advanced Methods in Computer Graphics with Examples in OpenGL,
+ *          page 170
+ *        + Graphics Gems IV, §VIII.2, page 438
+ *        + Computer Graphics - Theory and Practice, §8.6.2, page 230; has
+ *          illustrations and explanation similar to Graphics Gems IV
+ *        + Wikipedia has a good explanation too.
+ *
+ * TODO:
+ * 1. Crystal ball interface or ortho projection to view the patch better
+ * 2. Option for choosing b/w wireframe, ruled and solid patch
+ * 3. Applying texture to the surface
+ * 4. UI to change corner colours
+ * 5. Screen-space adaptive UI layout
+ * 6. UI to edit tessCount
+ */
+
+ var redraw = true;
+ // the entire grid would span between [−maxSpan / 2, maxSpan / 2] on the
+ // XY-plane by default, which can be edited by editing the curves
+ var maxSpan = 3;
+ var viewMatrix, projMatrix;
+ // four corners, three channels
+ var cornerColours = new Float32Array(4 * 3);
+ // this is number of stops, not spans
+ var tessCount = 16;
+
+ // four Bezier curves, 16 - 4 (common points)
+ // curve 1: [0, 3]
+ // curve 2: [3, 6]
+ // curve 3: [6, 9]
+ // curve 4: [9, 0] (after wrap)
+ // 12 points in 3D
+ var ctrlPts = { length: 12,
+                 data: new Float32Array(12 * 3) };
+ var xformBezToCanvas = new Array(4);
+ var xformCanvasToBez = new Array(4);
+ var selPtIdx = undefined;
+ var ctrlPtRadius = undefined;
+
+ ctrlPts.getCurvePointsIn2D = function(curveIdx) {
+     // four curves, 12 control points, hence the multiplier 3, not 4
+     var offset = curveIdx * 3;
+     // if even then [X, Z] else [Y, Z]
+     var isOdd = ((curveIdx % 2) !== 0);
+     var pts = new Array(4);
+     for (var i = 0; i < 4; ++i) {
+         // each point has 3 floats, hence multiply by 3
+         var d = ((offset + i) % this.length) * 3;
+         pts[i] = [this.data[d + (isOdd ? 1 : 0)], this.data[d + 2]];
+     }
+     return pts;
+ }
+
+ // all three dimensions are optional; will leave the value unchanged
+ ctrlPts.set = function(ptIdx, x, y, z) {
+     // each point has 3 floats, hence multiply by 3
+     var idx = ptIdx * 3;
+     // http://stackoverflow.com/q/148901
+     this.data[idx] = (x === undefined) ? this.data[idx] : x;
+     this.data[idx + 1] = (y === undefined) ? this.data[idx + 1] : y;
+     this.data[idx + 2] = (z === undefined) ? this.data[idx + 2] : z;
+ }
+
+ ctrlPts.setByLerp = function(destIdx, fromIdx, toIdx, t) {
+     var i = fromIdx * 3;
+     var j = toIdx * 3;
+     var k = destIdx * 3;
+     var a = this.data;
+     var T = 1 - t;
+     a[k] = T * a[i] + t * a[j];
+     a[k + 1] = T * a[i + 1] + t * a[j + 1];
+     a[k + 2] = T * a[i + 2] + t * a[j + 2];
+ }
+
+ function render3D(gl, models, prgm) {
+     twgl.resizeCanvasToDisplaySize(gl.canvas);
+     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+     gl.clear(gl.COLOR_BUFFER_BIT);
+     gl.useProgram(prgm.program);
+     twgl.setUniforms(prgm, { uV: viewMatrix,
+                              uP: projMatrix,
+                              uColours: cornerColours,
+                              uCtrlPts: ctrlPts.data,
+                              uMaxIdx: tessCount - 1 });
+     // using gl.LINES instead of LINE_STRIP since WebGL lacks primitive restart
+     twgl.setBuffersAndAttributes(gl, prgm, models.rowElementData);
+     twgl.drawBufferInfo(gl, models.rowElementData, gl.LINES);
+     twgl.setBuffersAndAttributes(gl, prgm, models.colElementData);
+     twgl.drawBufferInfo(gl, models.colElementData, gl.LINES);
+     twgl.setBuffersAndAttributes(gl, prgm, models.ptElementData);
+     twgl.drawBufferInfo(gl, models.ptElementData, gl.POINTS);
+     gl.useProgram(null);
+ }
+
+ function makeModels(gl) {
+     /*           (n,n)
+        +---+---+---+
+        |   |   |   |
+        +---+---+---+
+        |   |   |   |
+        +---+---+---+
+        |   |   |   |
+        +---+---+---+
+      (0,0)
+      */
+     var gridData = {
+         // aPosition attribute is redundant; it should be computed from the 12
+         // control points; TODO: make this attribute debug
+         aPosition: { numComponents: 3, data: [] },
+         aIdx: { numComponents: 2, data: [] },
+     };
+     // if we let each cell be 1 unit in both x and y directions, though finding
+     // the index in X and Y is easier with this setup initially, the four
+     // bounding Bezier curve's control points can vary not only in the depth
+     // axis (Z) but on the horizontal and vertical axes too.
+     var n = tessCount;
+     var delta = maxSpan / (n - 1);
+     var translate = -0.5 * maxSpan;
+     // three element array buffers are created for showing points, rows and
+     // columns; these are needed since WebGL doesn't have glPolygonMode. Below
+     // page shows another way of doing it by simply change the program in
+     // action but with a single set of vertex data
+     // http://codeflow.org/entries/2012/aug/02/
+     //easy-wireframe-display-with-barycentric-coordinates/
+     var ptElementData = {
+         indices: { numComponents: 1, data: new Array(n * n) } };
+     // For a horizontal line (row), except for the first and last stops, every
+     // stop in between needs two elements. For e.g., when n = 4, we need three
+     // lines: 0-1, 1-2, 2-3, hence [0, 1, 1, 2, 2, 3]; this gives the stride
+     // per-column; same is the case with a veritcal line (col) for the size of
+     // the array; however, the data and the fashion it gets filled are not
+     // simple for a column: e.g. when n = 4, [0, 4, 4, 8, 8, 12].
+     var stride = 2 + (2 * (n - 2));
+     var colElementData = {
+         indices: { numComponents: 2, data: new Array(n * stride) } };
+     var rowElementData = {
+         indices: { numComponents: 2, data: new Array(n * stride) } };
+     var gridPos = gridData.aPosition.data;
+     var ptElemArray = ptElementData.indices.data;
+     var colElemArray = colElementData.indices.data;
+     var rowElemArray = rowElementData.indices.data;
+     var elemIdx = 0, rowElemIdx = 0;
+     for (var i = 0; i < n; ++i) {        // row
+         for (var j = 0; j < n; ++j) {    // column
+             gridPos.push(translate + (j * delta),
+                          translate + (i * delta),
+                          0);
+             gridData.aIdx.data.push(j, i);
+             // horizontal lines are simple since they need to be accessed
+             // in-order; they're knitted as column index progresses
+             if ((j != 0) && (j != (n - 1)))
+                 rowElemArray[rowElemIdx++] = elemIdx;
+             rowElemArray[rowElemIdx++] = elemIdx;
+             // veritcal lines are not so simple; they need out-of-order access;
+             // from i = 2 onwards, we need element-level offsets
+             var colElemIdx = i + (j * stride) + Math.max(i - 1, 0);
+             if ((i != 0) && (i != (n - 1)))
+                 colElemArray[colElemIdx++] = elemIdx;
+             colElemArray[colElemIdx] = elemIdx;
+             ptElemArray[elemIdx] = elemIdx++;
+         }
+     }
+     var modelData = {
+         vertexData: twgl.createBufferInfoFromArrays(gl, gridData),
+         ptElementData: twgl.createBufferInfoFromArrays(gl, ptElementData),
+         rowElementData: twgl.createBufferInfoFromArrays(gl, rowElementData),
+         colElementData: twgl.createBufferInfoFromArrays(gl, colElementData)
+     };
+     // use the same attribs (array) buffer for both element buffers
+     modelData.ptElementData.attribs = modelData.vertexData.attribs;
+     modelData.rowElementData.attribs = modelData.vertexData.attribs;
+     modelData.colElementData.attribs = modelData.vertexData.attribs;
+
+     /*
+        9 8  7 6
+        +------+
+      10|      |5
+      11|      |4
+        +------+
+        0 1  2 3
+      */
+     var jump = 0;
+     ctrlPts.set(0, gridPos[jump], gridPos[jump + 1], 0);
+     jump = (n - 1) * 3;
+     ctrlPts.set(3, gridPos[jump], gridPos[jump + 1], 0);
+     ctrlPts.setByLerp(1, 0, 3, 0.25);
+     ctrlPts.setByLerp(2, 0, 3, 0.75);
+     jump = ((n * n) - 1) * 3;
+     ctrlPts.set(6, gridPos[jump], gridPos[jump + 1], 0);
+     ctrlPts.setByLerp(4, 3, 6, 0.25);
+     ctrlPts.setByLerp(5, 3, 6, 0.75);
+     jump = n * (n - 1) * 3;
+     ctrlPts.set(9, gridPos[jump], gridPos[jump + 1], 0);
+     ctrlPts.setByLerp(7, 6, 9, 0.25);
+     ctrlPts.setByLerp(8, 6, 9, 0.75);
+     ctrlPts.setByLerp(10, 9, 0, 0.25);
+     ctrlPts.setByLerp(11, 9, 0, 0.75);
+
+     // set Bezier corner colour
+     cornerColours[0] = 1, cornerColours[1] = 0, cornerColours[2] = 0;
+     cornerColours[3] = 0, cornerColours[4] = 1, cornerColours[5] = 0;
+     cornerColours[6] = 1, cornerColours[7] = 1, cornerColours[8] = 0;
+     cornerColours[9] = 0, cornerColours[10] = 0, cornerColours[11] = 1;
+
+     return modelData;
+ }
+
+ function makeProgram(gl) {
+     return twgl.createProgramInfo(gl, ["shader-vs", "shader-fs"]);
+ }
+
+ // TODO: adjust near and far values to make sure the patch isn't clipped during
+ // manipulation.
+ function setCamera(gl) {
+     var eye = twgl.v3.create(0, -4, 3);
+     var target = twgl.v3.create(0, 0, 0);
+     var up = twgl.v3.create(0, 1, 0);
+     // twgl quirk; lookAt doesn't give view matrix but rather its inverse
+     // i.e. it gives Mview->world; invert to get Mworld->view
+     viewMatrix = twgl.m4.inverse(twgl.m4.lookAt(eye, target, up));
+     var ar = gl.drawingBufferWidth / gl.drawingBufferHeight;
+     projMatrix = twgl.m4.perspective(Math.PI / 4, ar, 1, 10);
+ }
+
+ function get2DContext(canvas) {
+     var ctx;
+     try {
+         ctx = canvas.getContext("2d");
+     }
+     catch (e) {
+         alert("Unable to initialize Canvas. Your browser may not support it.");
+     }
+     return ctx;
+ }
+
+ function setupCurveTo2DXforms(ctx) {
+     // per-curve parameters
+     var width = ctx.canvas.clientWidth;
+     var height = ctx.canvas.clientHeight / 4;
+     var halfHeight = 0.5 * height;
+     var s = width / (2 * maxSpan);
+     var invS = 1 / s;
+     var tx = width / 2;
+     for (var i = 0; i < 4; ++i) {
+         var ty = (i * height) + halfHeight;
+         // the entire (curve) line should span half the renderable width
+         // map x: [ −¼ width, ¼ width] → [−halfMaxWidth, halfMaxWidth]
+         xformBezToCanvas[i] = mat2d.fromValues(s, 0, 0, -s, tx, ty);
+         xformCanvasToBez[i] = mat2d.create();
+         mat2d.invert(xformCanvasToBez[i], xformBezToCanvas[i]);
+     }
+     ctrlPtRadius = 5 * invS;        /* five pixels */
+ }
+
+ function start() {
+     const gl = twgl.getWebGLContext(document.getElementById("canvas"));
+     gl.clearColor(0, 0, 0, 1);
+     var models = makeModels(gl);
+     var prgm = makeProgram(gl);
+     setCamera(gl);
+
+     var canv2d = document.getElementById("beziers");
+     var ctx = get2DContext(canv2d);
+     setupCurveTo2DXforms(ctx);
+     canv2d.addEventListener("mousedown", function(e) {
+         selPtIdx = hitTest(getCursorPosition(e, canv2d));
+     }, false);
+     canv2d.addEventListener("mousemove", function(e) {
+         handleMouseMove(ctx, getCursorPosition(e, canv2d));
+     }, false);
+     canv2d.addEventListener("mouseup", function(e) {
+         selPtIdx = undefined;
+     }, false);
+
+     var loop = function(/* time*/) {
+         if (redraw) {
+             render2D(ctx);
+             render3D(gl, models, prgm);
+             redraw = false;
+         }
+         window.requestAnimationFrame(loop);
+     };
+     loop(0);
+ }
+
+ function handleMouseMove(ctx, pt) {
+     if (selPtIdx !== undefined) {
+         var i = selPtIdx[0], j = selPtIdx[1];
+         var p = vec2.create();
+         vec2.transformMat2d(p, pt, xformCanvasToBez[i]);
+         var idx = ((i * 3) + j) % ctrlPts.length;
+         // zeroth and second curves operate in XZ-plane
+         // first and third curves operate in YZ-plane
+         var isOdd = ((i % 2) !== 0);
+         var x = isOdd ? undefined : p[0];
+         var y = isOdd ? p[0] : undefined;
+         ctrlPts.set(idx, x, y, p[1]);
+         redraw = true;
+     }
+ }
+
+ function drawPoint(ctx, pos, radius, colour) {
+     ctx.fillStyle = colour;
+     ctx.beginPath();
+     ctx.arc(pos[0], pos[1], radius, 0, 2 * Math.PI);
+     ctx.closePath();
+     ctx.fill();
+ }
+
+ function hitTest(pt) {
+     var found = false;
+     for (var i = 0; (!found && (i < 4)); ++i) {
+         var p = vec2.create();
+         vec2.transformMat2d(p, pt, xformCanvasToBez[i]);
+         var pts = ctrlPts.getCurvePointsIn2D(i);
+         for (var j = 0; (!found && (j < 4)); ++j) {
+             if ((Math.abs(pts[j][0] - p[0]) <= ctrlPtRadius) &&
+                 (Math.abs(pts[j][1] - p[1]) <= ctrlPtRadius)) {
+                 found = true;
+             }
+         }
+     }
+     return found ? [i - 1, j - 1] : undefined;
+ }
+
+ function colourFloatToString(r, g, b) {
+     return "rgb(".concat(Math.round(255 * r),
+                          ",",
+                          Math.round(255 * g),
+                          ",",
+                          Math.round(255 * b),
+                          ")");
+ }
+
+ function drawBezier(ctx, idx, left, top, width, height) {
+     ctx.save();
+     var xf = xformBezToCanvas[idx];
+     ctx.setTransform(xf[0], xf[1], xf[2], xf[3], xf[4], xf[5]);
+
+     // get the scale from the first element
+     var i = idx * 3;
+     var c1 = colourFloatToString(cornerColours[i],
+                                  cornerColours[i + 1],
+                                  cornerColours[i + 2]);
+     i = ((idx + 1) % 4) * 3;
+     var c2 = colourFloatToString(cornerColours[i],
+                                  cornerColours[i + 1],
+                                  cornerColours[i + 2]);
+     var cp = "rgba(128, 128, 128, 0.5)";
+     var pts = ctrlPts.getCurvePointsIn2D(idx);
+     ctx.beginPath();
+     ctx.moveTo(pts[0][0], pts[0][1]);
+     ctx.bezierCurveTo(pts[1][0], pts[1][1],
+                       pts[2][0], pts[2][1],
+                       pts[3][0], pts[3][1]);
+     var s = xf[0];
+     var r = ctrlPtRadius;
+     ctx.lineWidth = 2 / s;
+     var grad = ctx.createLinearGradient(pts[0][0], pts[0][1],
+                                         pts[3][0], pts[3][1]);
+     grad.addColorStop(0, c1);
+     grad.addColorStop(1, c2);
+     ctx.strokeStyle = grad;
+     ctx.stroke();
+     ctx.lineWidth = 1 / s;
+     ctx.strokeStyle = "Gray";
+     ctx.beginPath();
+     ctx.moveTo(pts[3][0], pts[3][1]);
+     ctx.lineTo(pts[2][0], pts[2][1]);
+     ctx.moveTo(pts[0][0], pts[0][1]);
+     ctx.lineTo(pts[1][0], pts[1][1]);
+     ctx.stroke();
+
+     drawPoint(ctx, pts[0], r, c1);
+     drawPoint(ctx, pts[1], r, cp);
+     drawPoint(ctx, pts[2], r, cp);
+     drawPoint(ctx, pts[3], r, c2);
+     ctx.restore();
+ }
+
+ function render2D(ctx) {
+     var vw = ctx.canvas.clientWidth;
+     var vh = ctx.canvas.clientHeight;
+     ctx.clearRect(0, 0, vw, vh);
+     var htPerCurve = vh / 4;
+     for (var i = 0; i < 4; ++i) {
+         drawBezier(ctx, i, 0, i * htPerCurve, vw, htPerCurve);
+     }
+ }
+
+ // http://stackoverflow.com/a/18053642
+ function getCursorPosition(event, element) {
+     var rect = element.getBoundingClientRect();
+     var x = event.clientX - rect.left;
+     var y = event.clientY - rect.top;
+     return vec2.fromValues(x, y);
+ }
+
+ start();
+</script></div><footer class="post-footer clearfix"><div class=share><a class=icon-twitter href="https://twitter.com/share?text=&url=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fcoons_patch%2f" onclick='return window.open(this.href,"twitter-share","width=550,height=235"),!1' aria-label="Share on Twitter"><i class="fa fa-twitter" aria-hidden=true></i>
+</a><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fcoons_patch%2f" onclick='return window.open(this.href,"facebook-share","width=580,height=296"),!1' aria-label="Share on Facebook"><i class="fa fa-facebook" aria-hidden=true></i>
+</a><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=&url=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fcoons_patch%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a title="Bits of Insight" href=https://legends2k.github.io/><i class="fa fa-home"></i></a></h1><a class="button-square button-jump-top js-jump-top" href=#><i class="fa fa-angle-double-up"></i></a></div><p class=footer-copyright><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png></a></p><p class=footer-copyright><span>Rendered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>Composed with <a href=https://www.gnu.org/software/emacs/>GNU Emacs</a></span></p><p class=footer-copyright>Occured to <a href=https://legends2k.github.io/about/>Sundaram Ramaswamy</a></span></p></div></footer><script src=https://legends2k.github.io/js/jquery-1.11.3.min.js></script><script src=https://legends2k.github.io/js/jquery.fitvids.js></script><script src=https://legends2k.github.io/js/scripts.js></script></body></html>

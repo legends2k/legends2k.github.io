@@ -1,0 +1,342 @@
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>&#183; Sundaram Ramaswamy</title>
+<meta name=description content="<!DOCTYPE HTML> Hello Hatman! "><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.124.0"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/images/pencil-square-o.svg sizes=any type=image/svg+xml><meta property="og:title" content><meta property="og:description" content="<!DOCTYPE HTML> Hello Hatman! "><meta property="og:type" content="article"><meta property="og:url" content="https://legends2k.github.io/projects/demos/pages/gltfmodelload/skelanim/"><link rel=stylesheet href=https://legends2k.github.io/dist/styles.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css></head><body><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Home title=Home href=https://legends2k.github.io/ rel=me><i class="fa fa-home"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="RSS Feed" title="RSS Feed" href=https://legends2k.github.io/index.xml><i class="fa fa-rss"></i></a>
+<a class="button-square hint--top hint--rounded hint--bounce" aria-label=Github title=Github href=https://github.com/legends2k rel=me><i class="fa fa-github-alt"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Bitbucket title=Bitbucket href=https://bitbucket.org/rmsundaram rel=me><i class="fa fa-bitbucket"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label="Stack Overflow" title="Stack Overflow" href=https://stackoverflow.com/users/183120/legends2k rel=me><i class="fa fa-stack-overflow"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=LinkedIn title=LinkedIn href=https://in.linkedin.com/pub/sundaram-ramaswamy/24/b20/1a0 rel=me><i class="fa fa-linkedin"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Flickr title=Flickr href=https://flickr.com/photos/legends2k rel=me><i class="fa fa-flickr"></i>
+</a><a class="button-square hint--top hint--rounded hint--bounce" aria-label=Email title=Email href=mailto:legends2k@yahoo.com><i class="fa fa-envelope"></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/post/>Posts</a></li><li class=site-nav-item><a href=/note/>Notes</a></li><li class=site-nav-item><a href=/archive/>All Posts</a></li><li class=site-nav-item><a href=/projects/>Projects</a></li><li class=site-nav-item><a href=/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container><header class=post-header><h1 class=post-title></h1></header><div class="post-content clearfix"><!doctype html><html lang=en><head><meta charset=UTF-8><title>Hello Hatman!</title><style>body{margin:0;background:#add8e6}</style></head><body><canvas id=canvas width=800 height=600></body></html><script type=module>
+ import {vec3, vec4, mat4} from "../gl-matrix.mjs";
+ import * as twgl from "../twgl-full.mjs";
+ import {glTFLoader} from "../minimal-gltf-loader.mjs";
+
+ let draw = true;
+ let projViewMatrix = mat4.create();
+
+ let charModelFile = './hatman.gltf';
+
+ function render(gl, models, prgInfo) {
+     twgl.resizeCanvasToDisplaySize(gl.canvas);
+     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+     // program-centric drawing
+     gl.useProgram(prgInfo.program);
+     // some uniforms are common while others are object-wise; set them both
+     twgl.setUniforms(prgInfo, { uPV: projViewMatrix });
+     for (let i = 0; i < models.length; i++) {
+         twgl.setUniforms(prgInfo, models[i].uniforms);
+         twgl.setBuffersAndAttributes(gl, prgInfo, models[i].bufferInfo);
+         twgl.drawBufferInfo(gl, models[i].bufferInfo);
+     }
+     gl.useProgram(null);
+
+     // alternative (more model-centric) method: set program and uniforms on
+     // model info and call draw object list
+     /* for (let i = 0; i < models.length; i++) {
+      *     models[i].programInfo = prgInfo;
+      *     models[i].uniforms.uPV = projViewMatrix;
+      *     // texture uniform already set
+      * }
+      * twgl.drawObjectList(gl, models); */
+ }
+
+ function makeModelAttribs(gl, mod) {
+     // log the complete GLTF scene tree
+     console.log(mod);
+
+     // Create textures
+     // NOTE: With WebGL 2, samplers may be used to decouple textures from sampling
+     // parameters, but as Gregg Tavares notes, this mightn’t be too useful :)
+     // https://webgl2fundamentals.org/webgl/lessons/webgl2-whats-new.html#samplers
+     // http://webglsamples.org/WebGL2Samples/#sampler_object
+     let tex = [];
+     if (mod.textures) {
+         for (let i = 0, len = mod.textures.length; i < len; i++) {
+             tex.push(twgl.createTexture(gl, {
+                 target: gl.TEXTURE_2D,
+                 wrap: gl.REPEAT,
+                 minMag: gl.LINEAR,
+                 src: mod.textures[i].source }));
+         }
+     }
+
+     // Assumptions
+     // One scene: 0, one model: 0 in its space at the origin
+     // The mesh has only one primitive type: TRIANGLES (primitive.mode = 4)
+     let mesh = mod.meshes[0];
+     let trisoup = mesh.primitives[0];
+     // we only focus on PNT; let's start with P
+     let P = trisoup.attributes.POSITION;
+     if (P.size !== 3)
+         console.error("VEC3 expected for the POSITION attribute");
+     if (P.componentType !== 5126)
+         console.error("FLOAT data expected for POSITION");
+     // We're interested in P.bufferView; its two attributes target and data
+     // 34962 - ARRAY_BUFFER, 34963 - ELEMENT_ARRAY_BUFFER
+     // P.count is the number of vec3s in bufferView.data; the raw binary data
+     // e.g. P.count = 2992 → 2992 * 3 * 4 = 25904 bytes (bufferView.byteLength)
+     // create a typed view (Float32Array) for the bufferView.data
+     let position = { numComponents: 3,
+                      data: new Float32Array(P.bufferView.data) };
+     // trisoup.indicesComponentType = 5123 (UNSIGNED_SHORT)
+     let indices = {
+         numComponents: position.numComponents,
+         data: new Uint16Array(mod.accessors[trisoup.indices].bufferView.data) };
+
+     if (tex.length > 1)
+         console.warn("Multiple textures found! Setting one uniform only");
+     let T = trisoup.attributes.TEXCOORD_0;
+     if (T.size !== 2)
+         console.error("VEC2 expected for TEXCOORD_0 attribute");
+     if (T.componentType !== 5126)
+         console.error("FLOAT data expected for TEXCOORD_0");
+     let texcoord = { numComponents: 2,
+                      data: new Float32Array(T.bufferView.data) };
+
+     let J1 = trisoup.attributes.JOINTS_0;
+     let J2 = trisoup.attributes.JOINTS_1;
+     if ((J1.size !== 4) || (J2.size !== 4))
+         console.error("VEC4 expected for JOINTS_x");
+     if ((J1.componentType !== 5123) || (J2.componentType !== 5123))
+         console.error("UNSIGNED SHORT data expected for JOINTS_x");
+     let joints1 = { numComponents: 4,
+                     data: new Uint16Array(J1.bufferView.data) };
+     let joints2 = { numComponents: 4,
+                     data: new Uint16Array(J2.bufferView.data) };
+
+     let W1 = trisoup.attributes.WEIGHTS_0;
+     let W2 = trisoup.attributes.WEIGHTS_1;
+     if ((W1.size !== 4) || (W2.size !== 4))
+         console.error("VEC4 expected for WEIGHTS_x");
+     if ((W1.componentType !== 5126) || (W2.componentType !== 5126))
+         console.error("FLOAT data expected for WEIGHTS_x");
+     let weights1 = { numComponents: 4,
+                      data: new Float32Array(W1.bufferView.data) };
+     let weights2 = { numComponents: 4,
+                      data: new Float32Array(W2.bufferView.data) };
+
+     // ignoring N in PNT as we’re not worried about lighting in this exercise
+     let glModBuf = twgl.createBufferInfoFromArrays(gl, {position,
+                                                         indices,
+                                                         texcoord,
+                                                         joints1,
+                                                         joints2,
+                                                         weights1,
+                                                         weights2});
+
+     let models = [{
+         bufferInfo: glModBuf,
+         // NOTE: newer versions of TWGL expect texture object, not texture unit ID
+         uniforms: { uTexUnit: tex[0] },
+         gltf: mod
+     }];
+     return models;
+ }
+
+ // MATRICES INVOLVED: left to right, column vector convention: v’ = M₂M₁v
+ // 0. Bind Shape Matrix: transforms vertices, in model space, such that
+ //    they form the T-pose. Basically positions vertices to align with the
+ //    armature frame. Optional; removed in GLTF 2; default: identity.
+ // 1. Inverse Bind Matrix[i]: transforms vertices, from model space, in
+ //    T-pose, to bone-i’s space i.e. inverse of bone-i's global transform
+ // 2. globalJointTransform[i]: trasforms from bone space in T-pose to model
+ //    space for some pose; this is computed for a pose, by multiplying
+ //    bone's transform to parent space all the way till root in that pose.
+ // 3. inv(globalTransform): If the GLTF node that contains the mesh and the
+ //    skin have transforms applied, they're cancelled out by
+ //    pre-multiplying their inverses
+
+ // PROCEDURE: Vertices of the mesh are in model space, in T-pose.
+ // To set them in a given pose:
+ //     1. Transform from model to bone space in T-pose
+ //         + Done by Inverse Bind Matrix of each bone
+ //         + A bone's Bind Matrix is its global transform in T-pose
+ //           i.e. transforms from t-posed bone to model space
+ //     2. Transform from bone space to model space but with bone in given pose
+ //         + It's the bone’s Bind Matrix but for a given pose, so it's not the
+ //           inverse of Inverse Bind Matrix
+ //         + NOTE: Two ways to look at transforms: active and passive. Here the
+ //           vertex stays and the bone moves, hence the different global
+ //           transform, as the bone is no longer in T-pose
+
+ function calcJointMatrices(models) {
+     // Assumptions
+     // Only one skin which is at index 0, which is referenced by node[1]: body
+     let mod = models[0];
+     let gltfMod = mod.gltf;
+     let skin = gltfMod.skins[0];
+     if (skin != gltfMod.nodes[1].skin)
+         console.error("Unexpected skin on body; it isn't skin[0]");
+
+     // In above, #0 is unneeded with GLTF 2.0, #1 is pre-computed in GLTF.
+     // Calculate #2: global transforms of nodes
+     let nodes = gltfMod.nodes;
+     // TODO: since calcJointMatrices is called every frame, make these memory
+     // allocations one time; calc node2Parent only once
+     let nodeMat = new Array(nodes.length);
+     let node2Parent = new Array(nodes.length);
+     node2Parent[0] = -1;                        /* root node; no parent */
+     let i = 0;
+     for (i = 0; i < nodes.length; ++i) {
+         nodes[i].children.forEach(function(childNode) {
+             node2Parent[childNode.nodeID] = i;
+         });
+         nodeMat[i] = mat4.create();
+         let parentID = node2Parent[i];
+         if (parentID >= 0)
+             mat4.mul(nodeMat[i], nodeMat[parentID], nodes[i].matrix);
+         else
+             mat4.copy(nodeMat[i], nodes[i].matrix);
+     }
+
+     // For #3 above, the inverse of the GLTF node having the skin, is needed;
+     // we know, for this skin, node 1 ("Body") has the skin; invert its
+     // global transform
+     let invGlobalXform = mat4.create();
+     mat4.invert(invGlobalXform, nodeMat[1]);
+
+     let joints = skin.joints;
+     let jCount = joints.length;
+     let tmpMat = mat4.create();
+     // minimal-gltf-loader allocates each skin object with a 'unidorm' buffer
+     // entry of Float32Array that can contain 65 matrices
+     for (i = 0; i < jCount; i++) {
+         let joint = joints[i];
+         // transform from model to bone and bone to new model space
+         mat4.mul(tmpMat, nodeMat[joint.nodeID], skin.inverseBindMatrix[i]);
+         // annul any global transform set above skin that would interfere
+         mat4.mul(tmpMat, invGlobalXform, tmpMat);
+         skin.jointMatrixUnidormBufferData.set(tmpMat, i * 16);
+     }
+     // assign for TWGL to pick this uniform up
+     mod.uniforms.uJointMat = skin.jointMatrixUnidormBufferData;
+ }
+
+ function applyAnimation(ticks, models) {
+     let gltf = models[0].gltf;
+     let anim = gltf.animations[0];
+     let n = anim.samplers.length;
+
+     // TODO: do the interpolation yourself, instead of having all the magic
+     // hidden inside getValue, a function provided only by mininal JS loader.
+     // All we need are the typed input and output arrays.
+     for (let i = 0; i < n; ++i) {
+         anim.samplers[i].getValue(ticks);
+     }
+
+     for (let i = 0; i < n; ++i) {
+         let chan = anim.channels[i];
+         let samp = chan.sampler;
+         let node = gltf.nodes[chan.target.nodeID];
+
+         switch (chan.target.path) {
+             case 'rotation':
+                 vec4.copy(node.rotation, samp.curValue);
+                 break;
+             case 'translation':
+                 vec4.copy(node.translation, samp.curValue);
+                 break;
+             case 'scale':
+                 vec4.copy(node.scale, samp.curValue);
+                 break;
+         }
+         node.updateMatrixFromTRS();
+     }
+ }
+
+ function modelLoaded(gl, mod) {
+     console.log("✓ Model memory load");
+     let models = makeModelAttribs(gl, mod);
+     setCamera(gl);
+     let prgInfo = makeProgram(gl);
+     let timeZero = performance.now();
+     let loop = function(time) {
+         let ticks = (time - timeZero) * 0.001;
+         applyAnimation(ticks, models);
+         calcJointMatrices(models);
+         if (draw) {
+             render(gl, models, prgInfo);
+             draw = true;
+         }
+         requestAnimationFrame(loop);
+     };
+     requestAnimationFrame(loop);
+
+ }
+
+ function loadModel(gl) {
+     let loader = new glTFLoader();
+     loader.loadGLTF(charModelFile, function (model) {
+         modelLoaded(gl, model);
+     });
+ }
+
+ function makeProgram(gl) {
+     return twgl.createProgramInfo(gl, ["shader-vs", "shader-fs"]);
+ }
+
+ function setCamera(gl) {
+     let eye = vec3.fromValues(20, 15, 20);
+     let target = vec3.fromValues(0, 7, 0);
+     let up = vec3.fromValues(0, 1, 0);
+     let viewMatrix = mat4.create();
+     mat4.lookAt(viewMatrix, eye, target, up);
+     let ar = gl.drawingBufferWidth / gl.drawingBufferHeight;
+     mat4.perspective(projViewMatrix, Math.PI / 4, ar, 0.5, 100);
+     mat4.mul(projViewMatrix, projViewMatrix, viewMatrix);
+ }
+
+ function start() {
+     let gl = twgl.getContext(document.getElementById("canvas"));
+     gl.clearColor(0, 0, 0, 1);
+     gl.enable(gl.DEPTH_TEST);
+     loadModel(gl);
+ }
+
+ window.onload = start;
+</script><script id=shader-vs type=x-shader/x-vertex>#version 300 es
+
+ uniform mat4 uPV;
+ // NOTE: hard coding since we know the model’s bone count. 65 is the maximum
+ // supported by minimal-gltf-loader.
+ uniform mat4 uJointMat[38];
+
+ layout (location = 0) in vec3 position;
+ layout (location = 1) in vec2 texcoord;
+ layout (location = 3) in vec4 weights1;
+ layout (location = 4) in vec4 weights2;
+ layout (location = 5) in uvec4 joints1;
+ layout (location = 6) in uvec4 joints2;
+
+ out vec2 fragTexcoord;
+
+ void main() {
+     mat4 skinMatrix = weights1.x * uJointMat[joints1.x] +
+                       weights1.y * uJointMat[joints1.y] +
+                       weights1.z * uJointMat[joints1.z] +
+                       weights1.w * uJointMat[joints1.w];
+     skinMatrix += weights2.x * uJointMat[joints2.x] +
+                   weights2.y * uJointMat[joints2.y] +
+                   weights2.z * uJointMat[joints2.z] +
+                   weights2.w * uJointMat[joints2.w];
+
+     gl_Position = uPV * skinMatrix * vec4(position, 1.0);
+     fragTexcoord = texcoord;
+ }
+</script><script id=shader-fs type=x-shader/x-fragment>#version 300 es
+ precision mediump float;
+
+ uniform sampler2D uTexUnit;
+
+ in vec2 fragTexcoord;
+
+ out vec4 fragColor;
+
+ void main() {
+     fragColor = texture(uTexUnit, fragTexcoord);
+ }
+</script></div><footer class="post-footer clearfix"><div class=share><a class=icon-twitter href="https://twitter.com/share?text=&url=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fgltfmodelload%2fskelanim%2f" onclick='return window.open(this.href,"twitter-share","width=550,height=235"),!1' aria-label="Share on Twitter"><i class="fa fa-twitter" aria-hidden=true></i>
+</a><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fgltfmodelload%2fskelanim%2f" onclick='return window.open(this.href,"facebook-share","width=580,height=296"),!1' aria-label="Share on Facebook"><i class="fa fa-facebook" aria-hidden=true></i>
+</a><a class=icon-linkedin href="https://www.linkedin.com/shareArticle?mini=true&title=&url=https%3a%2f%2flegends2k.github.io%2fprojects%2fdemos%2fpages%2fgltfmodelload%2fskelanim%2f&summary=" onclick='return window.open(this.href,"linkedin-share","width=554,height=481"),!1' aria-label="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden=true></i></a></div></footer></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a title="Bits of Insight" href=https://legends2k.github.io/><i class="fa fa-home"></i></a></h1><a class="button-square button-jump-top js-jump-top" href=#><i class="fa fa-angle-double-up"></i></a></div><p class=footer-copyright><a title="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png></a></p><p class=footer-copyright><span>Rendered by <a href=https://gohugo.io/>Hugo</a></span></p><p class=footer-copyright><span>Composed with <a href=https://www.gnu.org/software/emacs/>GNU Emacs</a></span></p><p class=footer-copyright>Occured to <a href=https://legends2k.github.io/about/>Sundaram Ramaswamy</a></span></p></div></footer><script src=https://legends2k.github.io/js/jquery-1.11.3.min.js></script><script src=https://legends2k.github.io/js/jquery.fitvids.js></script><script src=https://legends2k.github.io/js/scripts.js></script></body></html>
