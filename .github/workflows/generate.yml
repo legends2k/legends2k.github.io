@@ -9,7 +9,7 @@ on:
       hugoVersion:
         description: 'Hugo version to use to generate site.'
         required: false
-        default: '0.104.2'
+        default: '0.120.1'
 
 jobs:
   deploy:
@@ -34,7 +34,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "${{ github.event.inputs.logLevel }}"
+          hugo-version: "${{ github.event.inputs.hugoVersion }}"
 
       - name: Generate
         run: hugo --minify
